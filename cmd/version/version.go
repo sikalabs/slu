@@ -3,6 +3,7 @@ package version
 import (
 	"fmt"
 
+	"github.com/sikalabs/slut/cmd/root"
 	"github.com/spf13/cobra"
 )
 
@@ -15,4 +16,8 @@ var VersionCmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		fmt.Printf("%s\n", version)
 	},
+}
+
+func init() {
+	root.RootCmd.AddCommand(VersionCmd)
 }
