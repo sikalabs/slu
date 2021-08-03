@@ -9,9 +9,10 @@ import (
 )
 
 var VersionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Prints version",
-	Args:  cobra.NoArgs,
+	Use:     "version",
+	Short:   "Prints version",
+	Aliases: []string{"v"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		fmt.Printf("%s\n", version.Version)
 	},
