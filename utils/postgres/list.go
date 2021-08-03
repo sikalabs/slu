@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 
 	_ "github.com/lib/pq"
@@ -55,4 +56,21 @@ func ListText(
 	for _, dbName := range dbNames {
 		fmt.Println(dbName)
 	}
+}
+
+func ListJSON(
+	host string,
+	port int,
+	user string,
+	password string,
+) {
+	dbNames, err := List(host, port, user, password)
+	if err != nil {
+		panic(err)
+	}
+	outJson, err := json.Marshal(dbNames)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(outJson))
 }
