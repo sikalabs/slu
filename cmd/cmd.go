@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	_ "github.com/sikalabs/slut/cmd/expand"
+	_ "github.com/sikalabs/slut/cmd/expand/string"
 	_ "github.com/sikalabs/slut/cmd/mysql"
 	_ "github.com/sikalabs/slut/cmd/mysql/create"
 	_ "github.com/sikalabs/slut/cmd/mysql/drop"
