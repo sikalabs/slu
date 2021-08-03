@@ -11,7 +11,7 @@ var MysqlDropCmdFlagName string
 
 var MysqlDropCmd = &cobra.Command{
 	Use:   "drop",
-	Short: "Drop MtSQL database",
+	Short: "Drop MySQL database",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		mysql.Drop(

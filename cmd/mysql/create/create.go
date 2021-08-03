@@ -11,7 +11,7 @@ var MysqlCreateCmdFlagName string
 
 var MysqlCreateCmd = &cobra.Command{
 	Use:   "create",
-	Short: "Create MtSQL database",
+	Short: "Create MySQL database",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		mysql.Create(
