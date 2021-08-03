@@ -3,8 +3,7 @@ package editorconfig
 import "io/ioutil"
 
 func CreateEditorconfig() {
-	content := []byte(`
-root = true
+	content := []byte(`root = true
 [*]
 indent_style = space
 indent_size = 2
