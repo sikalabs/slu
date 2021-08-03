@@ -4,6 +4,7 @@ import (
 	_ "github.com/sikalabs/slut/cmd/mysql"
 	_ "github.com/sikalabs/slut/cmd/mysql/create"
 	_ "github.com/sikalabs/slut/cmd/mysql/drop"
+	_ "github.com/sikalabs/slut/cmd/mysql/list"
 	_ "github.com/sikalabs/slut/cmd/postgres"
 	_ "github.com/sikalabs/slut/cmd/postgres/create"
 	_ "github.com/sikalabs/slut/cmd/postgres/drop"
