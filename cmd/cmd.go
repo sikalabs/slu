@@ -6,6 +6,7 @@ import (
 	_ "github.com/sikalabs/slut/cmd/expand/string"
 	_ "github.com/sikalabs/slut/cmd/file_templates"
 	_ "github.com/sikalabs/slut/cmd/file_templates/editorconfig"
+	_ "github.com/sikalabs/slut/cmd/file_templates/gitignore"
 	_ "github.com/sikalabs/slut/cmd/mysql"
 	_ "github.com/sikalabs/slut/cmd/mysql/create"
 	_ "github.com/sikalabs/slut/cmd/mysql/drop"
