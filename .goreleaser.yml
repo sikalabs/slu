@@ -61,3 +61,44 @@ brews:
     description: "SikaLabs Utils"
     test: |
       system "#{bin}/slut version"
+
+dockers:
+    -
+      goos: linux
+      goarch: amd64
+      image_templates:
+        - "sikalabs/slut:{{ .Tag }}"
+      skip_push: false
+      dockerfile: Dockerfile
+      ids:
+        - slut
+      build_flag_templates:
+        - "--label=org.opencontainers.image.created={{.Date}}"
+        - "--label=org.opencontainers.image.title={{.ProjectName}}"
+        - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+        - "--label=org.opencontainers.image.version={{.Version}}"
+        - "--label=org.label-schema.schema-version=1.0"
+        - "--label=org.label-schema.version={{.Version}}"
+        - "--label=org.label-schema.name={{.ProjectName}}"
+        - "--label=com.github.actions.name={{.ProjectName}}"
+        - "--label=repository=https://github.com/sikalabs/slut"
+        - "--label=maintainer=SikaLabs <opensource@sikalabs.com>"
+    - goos: linux
+      goarch: arm64
+      image_templates:
+        - "sikalabs/slut:{{ .Tag }}-arm64v8"
+      skip_push: false
+      dockerfile: Dockerfile.arm64v8
+      ids:
+        - slut
+      build_flag_templates:
+        - "--label=org.opencontainers.image.created={{.Date}}"
+        - "--label=org.opencontainers.image.title={{.ProjectName}}"
+        - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+        - "--label=org.opencontainers.image.version={{.Version}}"
+        - "--label=org.label-schema.schema-version=1.0"
+        - "--label=org.label-schema.version={{.Version}}"
+        - "--label=org.label-schema.name={{.ProjectName}}"
+        - "--label=com.github.actions.name={{.ProjectName}}"
+        - "--label=repository=https://github.com/sikalabs/slut"
+        - "--label=maintainer=SikaLabs <opensource@sikalabs.com>"

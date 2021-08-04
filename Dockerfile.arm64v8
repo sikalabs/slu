@@ -1,0 +1,5 @@
+FROM arm64v8/debian:10-slim
+
+COPY slut /
+
+ENTRYPOINT [ "/slut" ]
