@@ -59,6 +59,8 @@ brews:
     folder: Formula
     caveats: "How to use this binary: https://github.com/sikalabs/slu"
     description: "SikaLabs Utils"
+    install: |
+      bin.install "slu"
     test: |
       system "#{bin}/slu version"
 
