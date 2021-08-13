@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/sikalabs/slut/cmd"
+	"github.com/sikalabs/slu/cmd"
 )
 
 func main() {

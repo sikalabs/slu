@@ -1,7 +1,7 @@
 package expand
 
 import (
-	"github.com/sikalabs/slut/cmd/root"
+	"github.com/sikalabs/slu/cmd/root"
 	"github.com/spf13/cobra"
 )
 

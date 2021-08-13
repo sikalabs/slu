@@ -3,7 +3,7 @@ package version
 import (
 	"os"
 
-	"github.com/sikalabs/slut/cmd/root"
+	"github.com/sikalabs/slu/cmd/root"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 )

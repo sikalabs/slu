@@ -1,8 +1,8 @@
 package create
 
 import (
-	postgrescmd "github.com/sikalabs/slut/cmd/postgres"
-	"github.com/sikalabs/slut/utils/postgres"
+	postgrescmd "github.com/sikalabs/slu/cmd/postgres"
+	"github.com/sikalabs/slu/utils/postgres"
 
 	"github.com/spf13/cobra"
 )

@@ -1,4 +1,4 @@
-module github.com/sikalabs/slut
+module github.com/sikalabs/slu
 
 go 1.16
 

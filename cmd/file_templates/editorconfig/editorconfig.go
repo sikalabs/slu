@@ -1,8 +1,8 @@
 package editorconfig
 
 import (
-	file_templates_cmd "github.com/sikalabs/slut/cmd/file_templates"
-	"github.com/sikalabs/slut/file_templates/editorconfig"
+	file_templates_cmd "github.com/sikalabs/slu/cmd/file_templates"
+	"github.com/sikalabs/slu/file_templates/editorconfig"
 
 	"github.com/spf13/cobra"
 )

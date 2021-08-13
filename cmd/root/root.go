@@ -7,7 +7,7 @@ import (
 var RootCmdFlagJson bool
 
 var RootCmd = &cobra.Command{
-	Use:   "slut",
+	Use:   "slu",
 	Short: "SikaLabs Utils",
 }
 

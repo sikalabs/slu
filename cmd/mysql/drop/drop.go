@@ -1,8 +1,8 @@
 package drop
 
 import (
-	mysqlcmd "github.com/sikalabs/slut/cmd/mysql"
-	"github.com/sikalabs/slut/utils/mysql"
+	mysqlcmd "github.com/sikalabs/slu/cmd/mysql"
+	"github.com/sikalabs/slu/utils/mysql"
 
 	"github.com/spf13/cobra"
 )

@@ -1,5 +1,5 @@
 FROM debian:10-slim
 
-COPY slut /
+COPY slu /
 
-ENTRYPOINT [ "/slut" ]
+ENTRYPOINT [ "/slu" ]

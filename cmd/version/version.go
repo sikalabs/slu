@@ -3,8 +3,8 @@ package version
 import (
 	"fmt"
 
-	"github.com/sikalabs/slut/cmd/root"
-	"github.com/sikalabs/slut/version"
+	"github.com/sikalabs/slu/cmd/root"
+	"github.com/sikalabs/slu/version"
 	"github.com/spf13/cobra"
 )
 

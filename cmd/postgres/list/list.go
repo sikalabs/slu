@@ -1,9 +1,9 @@
 package drop
 
 import (
-	postgrescmd "github.com/sikalabs/slut/cmd/postgres"
-	rootcmd "github.com/sikalabs/slut/cmd/root"
-	"github.com/sikalabs/slut/utils/postgres"
+	postgrescmd "github.com/sikalabs/slu/cmd/postgres"
+	rootcmd "github.com/sikalabs/slu/cmd/root"
+	"github.com/sikalabs/slu/utils/postgres"
 
 	"github.com/spf13/cobra"
 )

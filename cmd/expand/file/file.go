@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	expandcmd "github.com/sikalabs/slut/cmd/expand"
-	rootcmd "github.com/sikalabs/slut/cmd/root"
+	expandcmd "github.com/sikalabs/slu/cmd/expand"
+	rootcmd "github.com/sikalabs/slu/cmd/root"
 
 	"github.com/spf13/cobra"
 )
