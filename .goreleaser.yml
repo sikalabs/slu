@@ -55,6 +55,7 @@ brews:
     tap:
       owner: sikalabs
       name: homebrew-tap
+    skip_upload: auto
     homepage: https://github.com/sikalabs/slu
     url_template: "https://github.com/sikalabs/slu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     folder: Formula
