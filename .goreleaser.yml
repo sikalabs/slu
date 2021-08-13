@@ -43,6 +43,7 @@ archives:
     name_template: "{{ .ProjectName }}_v{{ .Version }}_{{ .Os }}_{{ .Arch }}"
 
 release:
+  prerelease: auto
 
 checksum:
   name_template: "{{ .ProjectName }}_checksums.txt"
