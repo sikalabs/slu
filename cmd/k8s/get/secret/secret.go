@@ -19,9 +19,10 @@ var CmdFlagNamespace string
 var CmdFlagKey string
 
 var Cmd = &cobra.Command{
-	Use:   "secret",
-	Short: "Get data from Secret",
-	Args:  cobra.NoArgs,
+	Use:     "secret",
+	Short:   "Get data from Secret",
+	Aliases: []string{"sec"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		clientset, defaultNamespace, _ := k8s.KubernetesClient()
 
