@@ -19,7 +19,7 @@ var CmdFlagNamespace string
 
 var Cmd = &cobra.Command{
 	Use:   "token",
-	Short: "Bumb & commit version of (SL) Go application",
+	Short: "Get token for ServiceAccount",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		clientset, defaultNamespace, _ := k8s.KubernetesClient()
