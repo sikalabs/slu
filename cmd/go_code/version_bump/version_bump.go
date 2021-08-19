@@ -10,6 +10,7 @@ import (
 )
 
 var CmdFlagVersion string
+var CmdFlagNoCommit bool
 
 var Cmd = &cobra.Command{
 	Use:   "version-bump",
@@ -24,6 +25,11 @@ var Version string = "` + CmdFlagVersion + `"
 		if err != nil {
 			panic(err)
 		}
+
+		if CmdFlagNoCommit {
+			return
+		}
+
 		r, err := git.PlainOpen(".")
 		if err != nil {
 			panic(err)
@@ -54,4 +60,11 @@ func init() {
 		"New version",
 	)
 	Cmd.MarkFlagRequired("version")
+	Cmd.Flags().BoolVarP(
+		&CmdFlagNoCommit,
+		"no-commit",
+		"n",
+		false,
+		"Don't create commit with version bump",
+	)
 }
