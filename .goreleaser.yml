@@ -13,7 +13,7 @@ builds:
     ldflags:
       - -s
       - -w
-      - -X github.com/sikalabs/slu/cmd/version.version=v{{.Version}}
+      - -X github.com/sikalabs/slu/version.Version=v{{.Version}}
     goos:
       - windows
       - linux
