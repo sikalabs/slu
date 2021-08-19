@@ -2,10 +2,12 @@ package token
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 
 	k8s_cmd "github.com/sikalabs/slu/cmd/k8s"
+	rootcmd "github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/k8s"
 
 	"github.com/spf13/cobra"
@@ -39,7 +41,15 @@ var Cmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		fmt.Println(string(secret.Data["token"]))
+		if rootcmd.RootCmdFlagJson {
+			outJson, err := json.Marshal(string(secret.Data["token"]))
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println(string(outJson))
+		} else {
+			fmt.Println(string(secret.Data["token"]))
+		}
 	},
 }
 
