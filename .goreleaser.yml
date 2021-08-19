@@ -96,6 +96,7 @@ dockers:
       ids:
         - slu
       build_flag_templates:
+        - "--platform=linux/amd64"
         - "--label=org.opencontainers.image.created={{.Date}}"
         - "--label=org.opencontainers.image.title={{.ProjectName}}"
         - "--label=org.opencontainers.image.revision={{.FullCommit}}"
@@ -115,6 +116,7 @@ dockers:
       ids:
         - slu
       build_flag_templates:
+        - "--platform=linux/arm64"
         - "--label=org.opencontainers.image.created={{.Date}}"
         - "--label=org.opencontainers.image.title={{.ProjectName}}"
         - "--label=org.opencontainers.image.revision={{.FullCommit}}"
