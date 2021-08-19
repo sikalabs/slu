@@ -11,6 +11,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/go_code"
 	_ "github.com/sikalabs/slu/cmd/go_code/version_bump"
 	_ "github.com/sikalabs/slu/cmd/k8s"
+	_ "github.com/sikalabs/slu/cmd/k8s/get"
+	_ "github.com/sikalabs/slu/cmd/k8s/get/secret"
 	_ "github.com/sikalabs/slu/cmd/k8s/token"
 	_ "github.com/sikalabs/slu/cmd/mysql"
 	_ "github.com/sikalabs/slu/cmd/mysql/create"
