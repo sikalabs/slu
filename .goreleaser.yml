@@ -91,7 +91,6 @@ dockers:
       goarch: amd64
       image_templates:
         - "sikalabs/slu:{{ .Tag }}"
-      skip_push: auto
       dockerfile: Dockerfile
       ids:
         - slu
@@ -111,7 +110,6 @@ dockers:
       goarch: arm64
       image_templates:
         - "sikalabs/slu:{{ .Tag }}-arm64v8"
-      skip_push: auto
       dockerfile: Dockerfile.arm64v8
       ids:
         - slu
