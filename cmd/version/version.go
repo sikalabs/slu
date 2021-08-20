@@ -1,6 +1,7 @@
 package version
 
 import (
+	"encoding/json"
 	"fmt"
 	"runtime"
 
@@ -17,10 +18,22 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"v"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		if CmdFlagVerbose {
-			fmt.Printf("%s %s %s\n", version.Version, runtime.GOOS, runtime.GOARCH)
+		if root.RootCmdFlagJson {
+			outJson, err := json.Marshal(map[string]string{
+				"version": version.Version,
+				"os":      runtime.GOOS,
+				"arch":    runtime.GOARCH,
+			})
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println(string(outJson))
 		} else {
-			fmt.Printf("%s\n", version.Version)
+			if CmdFlagVerbose {
+				fmt.Printf("%s %s %s\n", version.Version, runtime.GOOS, runtime.GOARCH)
+			} else {
+				fmt.Printf("%s\n", version.Version)
+			}
 		}
 	},
 }
