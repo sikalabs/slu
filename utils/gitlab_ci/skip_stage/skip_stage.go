@@ -120,3 +120,25 @@ func RemoveSkipStage(path string, stage string) {
 		})
 	}
 }
+
+func RemoveVariableSkipStage(path string, stage string) {
+	var config Config
+	err := LoadConfig(&config, path)
+	if err != nil {
+		panic(err)
+	}
+	g, err := gitlab.NewClient(
+		config.Token,
+		gitlab.WithBaseURL(config.ApiUrl),
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	key := "SKIP_STAGE_" + stage
+
+	v, _, _ := g.ProjectVariables.GetVariable(config.ProjectID, key)
+	if v != nil {
+		g.ProjectVariables.RemoveVariable(config.ProjectID, key)
+	}
+}
