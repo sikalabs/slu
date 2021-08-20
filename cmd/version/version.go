@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var VersionCmd = &cobra.Command{
+var Cmd = &cobra.Command{
 	Use:     "version",
 	Short:   "Prints version",
 	Aliases: []string{"v"},
@@ -19,5 +19,5 @@ var VersionCmd = &cobra.Command{
 }
 
 func init() {
-	root.RootCmd.AddCommand(VersionCmd)
+	root.RootCmd.AddCommand(Cmd)
 }
