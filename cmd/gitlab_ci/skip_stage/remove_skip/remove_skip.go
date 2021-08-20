@@ -11,9 +11,10 @@ var CmdFlagStage string
 var CmdFlagDelete bool
 
 var Cmd = &cobra.Command{
-	Use:   "remove-skip",
-	Short: "Remove skip stage in Gitlab CI",
-	Args:  cobra.NoArgs,
+	Use:     "remove-skip",
+	Short:   "Remove skip stage in Gitlab CI",
+	Aliases: []string{"rs"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		if CmdFlagDelete {
 			skip_stage.RemoveVariableSkipStage(

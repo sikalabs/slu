@@ -10,9 +10,10 @@ import (
 var CmdFlagStage string
 
 var Cmd = &cobra.Command{
-	Use:   "skip",
-	Short: "Skip stage in Gitlab CI",
-	Args:  cobra.NoArgs,
+	Use:     "skip",
+	Short:   "Skip stage in Gitlab CI",
+	Aliases: []string{"s"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		skip_stage.SkipStage(
 			skip_stage_cmd.CmdFlagConfig,
