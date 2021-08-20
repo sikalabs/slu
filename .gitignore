@@ -9,3 +9,6 @@ dist/**
 /slu
 /slu.exe
 cobra-docs
+
+# Config
+*.local.json
