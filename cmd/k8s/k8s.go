@@ -6,8 +6,9 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:   "k8s",
-	Short: "Utils for Kubernetes",
+	Use:     "k8s",
+	Short:   "Utils for Kubernetes",
+	Aliases: []string{"k"},
 }
 
 func init() {
