@@ -11,6 +11,7 @@ import (
 
 var CmdFlagVersion string
 var CmdFlagNoCommit bool
+var CmdFlagTag bool
 
 var Cmd = &cobra.Command{
 	Use:   "version-bump",
@@ -47,6 +48,19 @@ var Version string = "` + CmdFlagVersion + `"
 		if err != nil {
 			panic(err)
 		}
+
+		if CmdFlagTag {
+			_, err := r.CreateTag(
+				CmdFlagVersion,
+				commit,
+				&git.CreateTagOptions{
+					Message: "VERSION " + CmdFlagVersion,
+				},
+			)
+			if err != nil {
+				panic(err)
+			}
+		}
 	},
 }
 
@@ -66,5 +80,12 @@ func init() {
 		"n",
 		false,
 		"Don't create commit with version bump",
+	)
+	Cmd.Flags().BoolVarP(
+		&CmdFlagTag,
+		"tag",
+		"t",
+		false,
+		"Create also git tag",
 	)
 }
