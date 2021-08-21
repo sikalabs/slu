@@ -2,6 +2,7 @@ project_name: slu
 
 before:
   hooks:
+    - rm -rf ./dist
     - go mod tidy
 builds:
   -
