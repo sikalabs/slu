@@ -28,6 +28,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/postgres/create"
 	_ "github.com/sikalabs/slu/cmd/postgres/drop"
 	_ "github.com/sikalabs/slu/cmd/postgres/list"
+	_ "github.com/sikalabs/slu/cmd/proxy"
+	_ "github.com/sikalabs/slu/cmd/proxy/tcp"
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/version"
 	"github.com/spf13/cobra"
