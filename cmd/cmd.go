@@ -7,6 +7,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/file_templates"
 	_ "github.com/sikalabs/slu/cmd/file_templates/editorconfig"
 	_ "github.com/sikalabs/slu/cmd/file_templates/gitignore"
+	_ "github.com/sikalabs/slu/cmd/file_templates/go_cli_project"
 	_ "github.com/sikalabs/slu/cmd/generate_docs"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/skip_stage"
