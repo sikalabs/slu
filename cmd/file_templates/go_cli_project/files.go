@@ -111,4 +111,144 @@ func main() {
 	cmd.Execute()
 }
 `,
+	// .goreleaser.yml
+	".goreleaser.yml": `project_name: {{.ProjectName}}
+
+before:
+  hooks:
+    - rm -rf ./dist
+    - go mod tidy
+builds:
+  -
+    env:
+      - CGO_ENABLED=0
+    mod_timestamp: "{{"{{"}} .CommitTimestamp {{"}}"}}"
+    flags:
+      - -trimpath
+    ldflags:
+      - -s
+      - -w
+      - -X {{.Package}}/version/version.Version=v{{"{{"}}.Version{{"}}"}}
+    goos:
+      - windows
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - "386"
+      - arm
+      - arm64
+    goarm:
+      - 6
+      - 7
+    ignore:
+      - goos: darwin
+        goarch: "386"
+      - goos: windows
+        goarch: "arm"
+      - goos: windows
+        goarch: "arm64"
+      - goos: linux
+        goarch: arm
+        goarm: 6
+    binary: {{.ProjectName}}
+
+archives:
+  - format: tar.gz
+    name_template: "{{"{{"}} .ProjectName {{"}}"}}_v{{"{{"}} .Version {{"}}"}}_{{"{{"}} .Os {{"}}"}}_{{"{{"}} .Arch {{"}}"}}"
+
+release:
+  prerelease: auto
+
+checksum:
+  name_template: "{{"{{"}} .ProjectName {{"}}"}}_checksums.txt"
+  algorithm: sha256
+
+brews:
+  -
+    name: {{.ProjectName}}
+    conflicts:
+      - {{.ProjectName}}-edge
+    tap:
+      owner: {{.BrewOrganization}}
+      name: {{.BrewRepo}}
+    skip_upload: auto
+    homepage: https://{{.Package}}
+    url_template: "https://{{.Package}}/releases/download/{{"{{"}} .Tag {{"}}"}}/{{"{{"}} .ArtifactName {{"}}"}}"
+    folder: Formula
+    caveats: "How to use this binary: https://{{.Package}}"
+    description: "{{.ProjectName}}"
+    install: |
+      bin.install "{{.ProjectName}}"
+    test: |
+      system "#{bin}/{{.ProjectName}} version"
+  -
+    name: {{.ProjectName}}-edge
+    conflicts:
+      - {{.ProjectName}}
+    tap:
+      owner: {{.BrewOrganization}}
+      name: {{.BrewRepo}}
+    skip_upload: false
+    homepage: https://{{.Package}}
+    url_template: "https://{{.Package}}/releases/download/{{"{{"}} .Tag {{"}}"}}/{{"{{"}} .ArtifactName {{"}}"}}"
+    folder: Formula
+    caveats: "How to use this binary: https://{{.Package}}"
+    description: "{{.ProjectName}}"
+    install: |
+      bin.install "{{.ProjectName}}"
+    test: |
+      system "#{bin}/{{.ProjectName}} version"
+
+dockers:
+    -
+      goos: linux
+      goarch: amd64
+      image_templates:
+        - "{{.DockerRegistry}}/{{.ProjectName}}:{{"{{"}} .Tag {{"}}"}}"
+      dockerfile: Dockerfile
+      ids:
+        - {{.ProjectName}}
+      build_flag_templates:
+        - "--platform=linux/amd64"
+        - "--label=org.opencontainers.image.created={{"{{"}}.Date{{"}}"}}"
+        - "--label=org.opencontainers.image.title={{"{{"}}.ProjectName{{"}}"}}"
+        - "--label=org.opencontainers.image.revision={{"{{"}}.FullCommit{{"}}"}}"
+        - "--label=org.opencontainers.image.version={{"{{"}}.Version{{"}}"}}"
+        - "--label=org.label-schema.schema-version=1.0"
+        - "--label=org.label-schema.version={{"{{"}}.Version{{"}}"}}"
+        - "--label=org.label-schema.name={{"{{"}}.ProjectName{{"}}"}}"
+        - "--label=com.github.actions.name={{"{{"}}.ProjectName{{"}}"}}"
+        - "--label=repository=https://{{.Package}}"
+        {{ if .Maintainer }}- "--label=maintainer={{.Maintainer}}"{{ end }}
+    - goos: linux
+      goarch: arm64
+      image_templates:
+        - "{{.DockerRegistry}}/{{.ProjectName}}:{{"{{"}} .Tag {{"}}"}}-arm64v8"
+      dockerfile: Dockerfile.arm64v8
+      ids:
+        - {{.ProjectName}}
+      build_flag_templates:
+        - "--platform=linux/arm64"
+        - "--label=org.opencontainers.image.created={{"{{"}}.Date{{"}}"}}"
+        - "--label=org.opencontainers.image.title={{"{{"}}.ProjectName{{"}}"}}"
+        - "--label=org.opencontainers.image.revision={{"{{"}}.FullCommit{{"}}"}}"
+        - "--label=org.opencontainers.image.version={{"{{"}}.Version{{"}}"}}"
+        - "--label=org.label-schema.schema-version=1.0"
+        - "--label=org.label-schema.version={{"{{"}}.Version{{"}}"}}"
+        - "--label=org.label-schema.name={{"{{"}}.ProjectName{{"}}"}}"
+        - "--label=com.github.actions.name={{"{{"}}.ProjectName{{"}}"}}"
+        - "--label=repository=https://{{.Package}}"
+        {{ if .Maintainer }}- "--label=maintainer={{.Maintainer}}"{{ end }}
+`,
+	// Dockerfile
+	"Dockerfile": `FROM debian:10-slim
+COPY {{.ProjectName}} /
+ENTRYPOINT [ "/{{.ProjectName}}" ]
+`,
+	// Dockerfile.arm64v8
+	"Dockerfile.arm64v8": `FROM arm64v8/debian:10-slim
+COPY {{.ProjectName}} /
+ENTRYPOINT [ "/{{.ProjectName}}" ]
+`,
 }
