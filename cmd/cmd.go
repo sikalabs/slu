@@ -35,6 +35,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/tls"
 	_ "github.com/sikalabs/slu/cmd/tls/parse"
 	_ "github.com/sikalabs/slu/cmd/tls/parse_file"
+	_ "github.com/sikalabs/slu/cmd/tls/parse_k8s_secret"
 	_ "github.com/sikalabs/slu/cmd/version"
 	"github.com/spf13/cobra"
 )
