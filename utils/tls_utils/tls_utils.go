@@ -58,3 +58,24 @@ func PrintCertificateFromFile(certFile, keyFile string) {
 		fmt.Println()
 	}
 }
+
+func PrintCertificateFromBytes(cert, key []byte) {
+	tlsCert, err := tls.X509KeyPair(cert, key)
+	if err != nil {
+		fmt.Println(444)
+		log.Fatal(err)
+	}
+	certs, err := x509.ParseCertificates(tlsCert.Certificate[0])
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, cert := range certs {
+		fmt.Printf("Subject Name: %s\n", cert.Subject)
+		fmt.Printf("Subject Common Name: %s\n", cert.Subject.CommonName)
+		fmt.Printf("Issuer Name: %s\n", cert.Issuer)
+		fmt.Printf("Issuer Common Name: %s \n", cert.Issuer.CommonName)
+		fmt.Printf("Created: %s \n", cert.NotBefore.Format(time.RFC3339))
+		fmt.Printf("Expiry: %s \n", cert.NotAfter.Format(time.RFC3339))
+		fmt.Println()
+	}
+}
