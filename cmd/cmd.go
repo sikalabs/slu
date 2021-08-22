@@ -34,6 +34,7 @@ import (
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/tls"
 	_ "github.com/sikalabs/slu/cmd/tls/parse"
+	_ "github.com/sikalabs/slu/cmd/tls/parse_file"
 	_ "github.com/sikalabs/slu/cmd/version"
 	"github.com/spf13/cobra"
 )
