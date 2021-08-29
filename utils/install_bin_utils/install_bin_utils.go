@@ -1,8 +1,10 @@
 package install_bin_utils
 
 import (
-	"fmt"
+	"io"
 	"log"
+	"net/http"
+	"os"
 	"path"
 	"strings"
 
@@ -27,5 +29,29 @@ func InstallBin(url, source, binDir, name string) {
 		)
 		return
 	}
-	log.Fatal(fmt.Errorf("unknown suffix (no .zip, .tar.gz or .tgz)"))
+	webToBin(
+		url,
+		path.Join(binDir, name),
+	)
+}
+
+func webToBin(url, outFileName string) {
+	var err error
+
+	resp, err := http.Get(url)
+	handleError(err)
+	defer resp.Body.Close()
+
+	outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 755)
+	handleError(err)
+	defer outFile.Close()
+
+	_, err = io.Copy(outFile, resp.Body)
+	handleError(err)
+}
+
+func handleError(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
 }
