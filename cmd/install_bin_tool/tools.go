@@ -8,6 +8,12 @@ var Tools = []Tool{
 		UrlTemplate: "https://dl.k8s.io/release/{{.Version}}/bin/{{.Os}}/{{.Arch}}/kubectl",
 	},
 	{
+		Name:        "helm",
+		Version:     "v3.6.3",
+		SourcePath:  "{{.Os}}-amd64/helm",
+		UrlTemplate: "https://get.helm.sh/helm-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
+	},
+	{
 		Name:        "docker",
 		SourcePath:  "docker/docker",
 		Version:     "20.10.8",
