@@ -1,9 +1,13 @@
 package install_bin
 
 import (
+	"fmt"
+	"log"
 	"path"
+	"strings"
 
 	"github.com/sikalabs/slu/cmd/root"
+	"github.com/sikalabs/slu/utils/tar_gz_utils"
 	"github.com/sikalabs/slu/utils/zip_utils"
 	"github.com/spf13/cobra"
 )
@@ -18,11 +22,23 @@ var Cmd = &cobra.Command{
 	Short: "Install Binary",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		zip_utils.WebZipToBin(
-			CmdFlagURL,
-			CmdFlagSource,
-			path.Join(CmdFlagBinDir, CmdFlagName),
-		)
+		if strings.HasSuffix(CmdFlagURL, "zip") {
+			zip_utils.WebZipToBin(
+				CmdFlagURL,
+				CmdFlagSource,
+				path.Join(CmdFlagBinDir, CmdFlagName),
+			)
+			return
+		}
+		if strings.HasSuffix(CmdFlagURL, "tar.gz") || strings.HasSuffix(CmdFlagURL, "tgz") {
+			tar_gz_utils.WebTarGzToBin(
+				CmdFlagURL,
+				CmdFlagSource,
+				path.Join(CmdFlagBinDir, CmdFlagName),
+			)
+			return
+		}
+		log.Fatal(fmt.Errorf("unknown suffix (no .zip, .tar.gz or .tgz)"))
 	},
 }
 
