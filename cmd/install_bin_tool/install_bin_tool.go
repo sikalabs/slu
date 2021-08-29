@@ -25,8 +25,9 @@ var CmdFlagOS string
 var CmdFlagArch string
 
 var Cmd = &cobra.Command{
-	Use:   "install-bin-tool",
-	Short: "Install preconfigured binary tool like Terraform, Vault, ...",
+	Use:     "install-bin-tool",
+	Short:   "Install preconfigured binary tool like Terraform, Vault, ...",
+	Aliases: []string{"ibt"},
 }
 
 func getUrl(urlTemplate, version string) string {

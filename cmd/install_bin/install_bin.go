@@ -12,9 +12,10 @@ var CmdFlagName string
 var CmdFlagBinDir string
 
 var Cmd = &cobra.Command{
-	Use:   "install-bin",
-	Short: "Install Binary",
-	Args:  cobra.NoArgs,
+	Use:     "install-bin",
+	Short:   "Install Binary",
+	Aliases: []string{"ib"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		source := CmdFlagName
 		if CmdFlagSource != "" {
