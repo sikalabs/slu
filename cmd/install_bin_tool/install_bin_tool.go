@@ -17,33 +17,26 @@ var Cmd = &cobra.Command{
 	Short: "Install preconfigured binary tool like Terraform, Vault, ...",
 }
 
-func installHashicorpBin(tool, version string) {
-	url := "https://releases.hashicorp.com/" + tool + "/" +
+func hashicorpUrl(tool, version string) string {
+	return "https://releases.hashicorp.com/" + tool + "/" +
 		version + "/terraform_" + version + "_" + CmdFlagOS + "_" + CmdFlagArch + ".zip"
-	install_bin_utils.InstallBin(
-		url,
-		"terraform",
-		CmdFlagBinDir,
-		"terraform",
-	)
 }
 
-var InstallTerraformCmd = &cobra.Command{
-	Use:   "terraform",
-	Short: "Install terraform binary",
-	Args:  cobra.NoArgs,
-	Run: func(c *cobra.Command, args []string) {
-		installHashicorpBin("terraform", "1.0.5")
-	},
-}
-
-var VaultTerraformCmd = &cobra.Command{
-	Use:   "vault",
-	Short: "Install vault binary",
-	Args:  cobra.NoArgs,
-	Run: func(c *cobra.Command, args []string) {
-		installHashicorpBin("vault", "1.8.2")
-	},
+func buildCmd(name string, urlFunc func() string) *cobra.Command {
+	var cmd = &cobra.Command{
+		Use:   name,
+		Short: "Install " + name + " binary",
+		Args:  cobra.NoArgs,
+		Run: func(c *cobra.Command, args []string) {
+			install_bin_utils.InstallBin(
+				urlFunc(),
+				name,
+				CmdFlagBinDir,
+				name,
+			)
+		},
+	}
+	return cmd
 }
 
 func init() {
@@ -69,6 +62,12 @@ func init() {
 		runtime.GOARCH,
 		"Architecture",
 	)
-	Cmd.AddCommand(InstallTerraformCmd)
-	Cmd.AddCommand(VaultTerraformCmd)
+	Cmd.AddCommand(buildCmd(
+		"terraform",
+		func() string { return hashicorpUrl("terraform", "1.0.5") }),
+	)
+	Cmd.AddCommand(buildCmd(
+		"vault",
+		func() string { return hashicorpUrl("vault", "1.8.2") }),
+	)
 }
