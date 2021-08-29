@@ -16,9 +16,13 @@ var Cmd = &cobra.Command{
 	Short: "Install Binary",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		source := CmdFlagName
+		if CmdFlagSource != "" {
+			source = CmdFlagSource
+		}
 		install_bin_utils.InstallBin(
 			CmdFlagURL,
-			CmdFlagSource,
+			source,
 			CmdFlagBinDir,
 			CmdFlagName,
 		)
@@ -40,7 +44,7 @@ func init() {
 		"source",
 		"s",
 		"",
-		"Source path in archive (zip, tar.gz)",
+		"Source path in archive (default from --name)",
 	)
 	Cmd.Flags().StringVarP(
 		&CmdFlagName,
