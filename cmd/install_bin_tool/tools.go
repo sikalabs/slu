@@ -2,6 +2,16 @@ package install_bin_tool
 
 var Tools = []Tool{
 	{
+		Name:        "tergum",
+		Version:     "v0.12.0",
+		UrlTemplate: "https://github.com/sikalabs/tergum/releases/download/{{.Version}}/tergum_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
+		Name:        "statica",
+		Version:     "v0.4.0",
+		UrlTemplate: "https://github.com/vojtechmares/statica/releases/download/{{.Version}}/statica_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
 		Name: "kubectl",
 		// Get Version: `curl -L -s https://dl.k8s.io/release/stable.txt`
 		Version:     "v1.22.1",
