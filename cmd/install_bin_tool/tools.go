@@ -43,6 +43,11 @@ var Tools = []Tool{
 		Version:     "1.64.0",
 		UrlTemplate: "https://github.com/digitalocean/doctl/releases/download/v{{.Version}}/doctl-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
 	},
+	{
+		Name:        "skaffold",
+		Version:     "latest",
+		UrlTemplate: "https://storage.googleapis.com/skaffold/releases/{{.Version}}/skaffold-{{.Os}}-{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
