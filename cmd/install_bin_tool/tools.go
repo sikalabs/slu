@@ -14,6 +14,11 @@ var Tools = []Tool{
 		UrlTemplate: "https://download.docker.com/{{.OsDocker}}/static/stable/{{.ArchDocker}}/docker-{{.Version}}.tgz",
 	},
 	{
+		Name:        "docker-compose",
+		Version:     "1.29.2",
+		UrlTemplate: "https://github.com/docker/compose/releases/download/{{.Version}}/docker-compose-{{.Os|capitalize}}-{{.ArchDocker}}",
+	},
+	{
 		Name:        "terraform",
 		Version:     "1.0.5",
 		UrlTemplate: hashicorpUrlTemplate("terraform"),
