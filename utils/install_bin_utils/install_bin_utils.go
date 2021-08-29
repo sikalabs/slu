@@ -42,7 +42,7 @@ func webToBin(url, outFileName string) {
 	handleError(err)
 	defer resp.Body.Close()
 
-	outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 755)
+	outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 0755)
 	handleError(err)
 	defer outFile.Close()
 
