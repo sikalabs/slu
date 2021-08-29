@@ -8,6 +8,12 @@ var Tools = []Tool{
 		UrlTemplate: "https://dl.k8s.io/release/{{.Version}}/bin/{{.Os}}/{{.Arch}}/kubectl",
 	},
 	{
+		Name:        "docker",
+		SourcePath:  "docker/docker",
+		Version:     "20.10.8",
+		UrlTemplate: "https://download.docker.com/{{.OsDocker}}/static/stable/{{.ArchDocker}}/docker-{{.Version}}.tgz",
+	},
+	{
 		Name:        "terraform",
 		Version:     "1.0.5",
 		UrlTemplate: hashicorpUrlTemplate("terraform"),
