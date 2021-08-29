@@ -51,22 +51,46 @@ func getUrl(urlTemplate, version string) string {
 	return out.String()
 }
 
+func getSourcePath(SourcePathTemplate, version string) string {
+	funcMap := template.FuncMap{
+		"capitalize": strings.Title,
+	}
+	tmpl, err := template.New("source-path").Funcs(funcMap).Parse(SourcePathTemplate)
+	if err != nil {
+		panic(err)
+	}
+	var out bytes.Buffer
+	err = tmpl.Execute(&out, map[string]string{
+		"Os":         CmdFlagOS,
+		"OsDocker":   dockerOs(CmdFlagOS),
+		"Arch":       CmdFlagArch,
+		"ArchDocker": dockerArch(CmdFlagArch),
+		"Version":    version,
+	})
+	if err != nil {
+		panic(err)
+	}
+	return out.String()
+}
+
 func buildCmd(
 	name string,
-	source string,
+	sourceTemlate string,
 	urlTemplate string,
 	version string,
 	getUrlFunc func(string, string) string,
+	getSourcePathFunc func(string, string) string,
 ) *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:   name,
 		Short: "Install " + name + " binary",
 		Args:  cobra.NoArgs,
 		Run: func(c *cobra.Command, args []string) {
-			if source == "" {
-				source = name
+			if sourceTemlate == "" {
+				sourceTemlate = name
 			}
 			url := getUrlFunc(urlTemplate, version)
+			source := getSourcePathFunc(sourceTemlate, version)
 			install_bin_utils.InstallBin(
 				url,
 				source,
@@ -102,7 +126,7 @@ func init() {
 		"Architecture",
 	)
 	for _, tool := range Tools {
-		Cmd.AddCommand(buildCmd(tool.Name, tool.SourcePath, tool.UrlTemplate, tool.Version, getUrl))
+		Cmd.AddCommand(buildCmd(tool.Name, tool.SourcePath, tool.UrlTemplate, tool.Version, getUrl, getSourcePath))
 	}
 }
 
