@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"runtime"
+	"strings"
 	"text/template"
 
 	"github.com/sikalabs/slu/cmd/root"
@@ -29,7 +30,10 @@ var Cmd = &cobra.Command{
 }
 
 func getUrl(urlTemplate, version string) string {
-	tmpl, err := template.New("main").Parse(urlTemplate)
+	funcMap := template.FuncMap{
+		"capitalize": strings.Title,
+	}
+	tmpl, err := template.New("main").Funcs(funcMap).Parse(urlTemplate)
 	if err != nil {
 		panic(err)
 	}
