@@ -47,7 +47,13 @@ func getUrl(urlTemplate, version string) string {
 	return out.String()
 }
 
-func buildCmd(name, source, url string) *cobra.Command {
+func buildCmd(
+	name string,
+	source string,
+	urlTemplate string,
+	version string,
+	getUrlFunc func(string, string) string,
+) *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:   name,
 		Short: "Install " + name + " binary",
@@ -56,6 +62,7 @@ func buildCmd(name, source, url string) *cobra.Command {
 			if source == "" {
 				source = name
 			}
+			url := getUrlFunc(urlTemplate, version)
 			install_bin_utils.InstallBin(
 				url,
 				source,
@@ -91,7 +98,7 @@ func init() {
 		"Architecture",
 	)
 	for _, tool := range Tools {
-		Cmd.AddCommand(buildCmd(tool.Name, tool.SourcePath, getUrl(tool.UrlTemplate, tool.Version)))
+		Cmd.AddCommand(buildCmd(tool.Name, tool.SourcePath, tool.UrlTemplate, tool.Version, getUrl))
 	}
 }
 
