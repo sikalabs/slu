@@ -19,6 +19,10 @@ var Tools = []Tool{
 		UrlTemplate: "https://github.com/docker/compose/releases/download/{{.Version}}/docker-compose-{{.Os|capitalize}}-{{.ArchDocker}}",
 	},
 	{
+		Name:        "mcli",
+		UrlTemplate: "https://dl.minio.io/client/mc/release/{{.Os}}-{{.Arch}}/mc",
+	},
+	{
 		Name:        "terraform",
 		Version:     "1.0.5",
 		UrlTemplate: hashicorpUrlTemplate("terraform"),
