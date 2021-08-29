@@ -38,6 +38,11 @@ var Tools = []Tool{
 		Version:     "1.8.2",
 		UrlTemplate: hashicorpUrlTemplate("vault"),
 	},
+	{
+		Name:        "doctl",
+		Version:     "1.64.0",
+		UrlTemplate: "https://github.com/digitalocean/doctl/releases/download/v{{.Version}}/doctl-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
