@@ -1,12 +1,20 @@
 package install_bin_tool
 
 import (
+	"bytes"
 	"runtime"
+	"text/template"
 
 	"github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/install_bin_utils"
 	"github.com/spf13/cobra"
 )
+
+type Tool struct {
+	Name        string
+	Version     string
+	UrlTemplate string
+}
 
 var CmdFlagBinDir string
 var CmdFlagOS string
@@ -17,19 +25,31 @@ var Cmd = &cobra.Command{
 	Short: "Install preconfigured binary tool like Terraform, Vault, ...",
 }
 
-func hashicorpUrl(tool, version string) string {
-	return "https://releases.hashicorp.com/" + tool + "/" +
-		version + "/terraform_" + version + "_" + CmdFlagOS + "_" + CmdFlagArch + ".zip"
+func getUrl(urlTemplate, version string) string {
+	tmpl, err := template.New("main").Parse(urlTemplate)
+	if err != nil {
+		panic(err)
+	}
+	var out bytes.Buffer
+	err = tmpl.Execute(&out, map[string]string{
+		"Os":      CmdFlagOS,
+		"Arch":    CmdFlagArch,
+		"Version": version,
+	})
+	if err != nil {
+		panic(err)
+	}
+	return out.String()
 }
 
-func buildCmd(name string, urlFunc func() string) *cobra.Command {
+func buildCmd(name string, url string) *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:   name,
 		Short: "Install " + name + " binary",
 		Args:  cobra.NoArgs,
 		Run: func(c *cobra.Command, args []string) {
 			install_bin_utils.InstallBin(
-				urlFunc(),
+				url,
 				name,
 				CmdFlagBinDir,
 				name,
@@ -62,12 +82,7 @@ func init() {
 		runtime.GOARCH,
 		"Architecture",
 	)
-	Cmd.AddCommand(buildCmd(
-		"terraform",
-		func() string { return hashicorpUrl("terraform", "1.0.5") }),
-	)
-	Cmd.AddCommand(buildCmd(
-		"vault",
-		func() string { return hashicorpUrl("vault", "1.8.2") }),
-	)
+	for _, tool := range Tools {
+		Cmd.AddCommand(buildCmd(tool.Name, getUrl(tool.UrlTemplate, tool.Version)))
+	}
 }
