@@ -16,6 +16,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/skip_stage/skip"
 	_ "github.com/sikalabs/slu/cmd/go_code"
 	_ "github.com/sikalabs/slu/cmd/go_code/version_bump"
+	_ "github.com/sikalabs/slu/cmd/install_bin"
 	_ "github.com/sikalabs/slu/cmd/ip"
 	_ "github.com/sikalabs/slu/cmd/k8s"
 	_ "github.com/sikalabs/slu/cmd/k8s/get"
