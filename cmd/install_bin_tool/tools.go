@@ -58,6 +58,12 @@ var Tools = []Tool{
 		Version:     "latest",
 		UrlTemplate: "https://storage.googleapis.com/skaffold/releases/{{.Version}}/skaffold-{{.Os}}-{{.Arch}}",
 	},
+	{
+		Name:        "glab",
+		Version:     "1.20.0",
+		UrlTemplate: "https://github.com/profclems/glab/releases/download/v{{.Version}}/glab_{{.Version}}_{{.Os|capitalize}}_{{.ArchDocker}}.tar.gz",
+		SourcePath:  "bin/glab",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
