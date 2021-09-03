@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	_ "github.com/sikalabs/slu/cmd/argocd"
+	_ "github.com/sikalabs/slu/cmd/argocd/initial_password"
 	_ "github.com/sikalabs/slu/cmd/expand"
 	_ "github.com/sikalabs/slu/cmd/expand/file"
 	_ "github.com/sikalabs/slu/cmd/expand/string"
