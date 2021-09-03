@@ -49,6 +49,12 @@ var Tools = []Tool{
 		UrlTemplate: hashicorpUrlTemplate("terraform"),
 	},
 	{
+		Name:        "terraform13",
+		Version:     "0.13.7",
+		SourcePath:  "terraform",
+		UrlTemplate: hashicorpUrlTemplate("terraform"),
+	},
+	{
 		Name:        "vault",
 		Version:     "1.8.2",
 		UrlTemplate: hashicorpUrlTemplate("vault"),
