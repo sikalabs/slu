@@ -15,17 +15,39 @@
 brew install sikalabs/tap/slu
 ```
 
-### Linux AMD64
+### Linux AMD64 (using install-slu, recommended)
+
+Install [install-slu](https://github.com/sikalabs/install-slu) tool
+
+```bash
+VERSION=v0.1.0 && \
+OS=linux && \
+ARCH=amd64 && \
+BIN=install-slu && \
+curl -L https://github.com/sikalabs/${BIN}/releases/download/${VERSION}/${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz -o ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
+tar -xvzf ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
+rm ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
+mv ${BIN} /usr/local/bin/
+```
+
+Install latest version of **slu**
+
+```bash
+install-slu install
+```
+
+### Linux AMD64 (directly)
 
 ```bash
 # Check the current version on Github https://github.com/sikalabs/slu/releases
-SLU_VERSION=v0.13.0 && \
-SLU_ARCH=amd64 && \
-curl -L https://github.com/sikalabs/slu/releases/download/${SLU_VERSION}/slu_${SLU_VERSION}_linux_${SLU_ARCH}.tar.gz \
-  -o slu_${SLU_VERSION}_linux_${SLU_ARCH}.tar.gz && \
-tar -xvzf slu_${SLU_VERSION}_linux_${SLU_ARCH}.tar.gz && \
-rm slu_${SLU_VERSION}_linux_${SLU_ARCH}.tar.gz && \
-mv slu /usr/local/bin/
+VERSION=v0.13.0 && \
+OS=linux && \
+ARCH=amd64 && \
+BIN=slu && \
+curl -L https://github.com/sikalabs/${BIN}/releases/download/${VERSION}/${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz -o ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
+tar -xvzf ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
+rm ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
+mv ${BIN} /usr/local/bin/
 ```
 
 ### Autocomplete
