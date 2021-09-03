@@ -2,6 +2,11 @@ package install_bin_tool
 
 var Tools = []Tool{
 	{
+		Name:        "install-slu",
+		Version:     "v0.1.0",
+		UrlTemplate: "https://github.com/sikalabs/install-slu/releases/download/{{.Version}}/install-slu_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
 		Name:        "tergum",
 		Version:     "v0.12.0",
 		UrlTemplate: "https://github.com/sikalabs/tergum/releases/download/{{.Version}}/tergum_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
