@@ -15,6 +15,19 @@
 brew install sikalabs/tap/slu
 ```
 
+### Linux AMD64
+
+```bash
+# Check the current version on Github https://github.com/sikalabs/slu/releases
+SLU_VERSION=v0.13.0 && \
+SLU_ARCH=amd64 && \
+curl -L https://github.com/sikalabs/slu/releases/download/${SLU_VERSION}/slu_${SLU_VERSION}_linux_${SLU_ARCH}.tar.gz \
+  -o slu_${SLU_VERSION}_linux_${SLU_ARCH}.tar.gz && \
+tar -xvzf slu_${SLU_VERSION}_linux_${SLU_ARCH}.tar.gz && \
+rm slu_${SLU_VERSION}_linux_${SLU_ARCH}.tar.gz && \
+mv slu /usr/local/bin/
+```
+
 ### Autocomplete
 
 See: `slu completion`
