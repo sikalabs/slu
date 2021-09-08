@@ -10,30 +10,11 @@ import (
 	"github.com/sikalabs/slu/utils/slug_utils"
 )
 
-var IncidentResponseFileTemplate = `---
-date: {{.Date}}
-author: {{.Author}}
----
-
-# {{.Date}}: {{.Title}}
-
-## Problem
-
-TODO
-
-## Cause
-
-TODO
-
-## Solution
-
-TODO
-`
-
 type TemplateVariables struct {
 	Title  string
 	Date   string
 	Author string
+	Level  string
 }
 
 func CreateIncidentResponseFile(
@@ -55,6 +36,7 @@ func CreateIncidentResponseFile(
 		Title:  title,
 		Date:   date,
 		Author: "---author---",
+		Level:  "---level (high|medium|low)---",
 	}
 
 	fullPath := path.Join(
