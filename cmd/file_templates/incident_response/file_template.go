@@ -1,8 +1,9 @@
 package incident_response
 
 var IncidentResponseFileTemplate = `---
-date: {{.Date}}
+title: {{.Title}}
 level: {{.Level}}
+date: {{.Date}}
 author: {{.Author}}
 ---
 
