@@ -25,3 +25,12 @@ TODO
 
 TODO
 `
+
+var IndexFileTemplate = `# Incident Index
+
+| date | level | title | author |
+| --- | --- | --- | --- |
+{{- range $incident := .Incidents }}
+| {{ $incident.Date }} | {{ $incident.Level }} | {{ $incident.Title }} | {{ $incident.Author }} |
+{{- end}}
+`

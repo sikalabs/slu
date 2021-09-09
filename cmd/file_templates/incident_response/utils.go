@@ -24,7 +24,6 @@ func CreateIncidentResponseFile(
 	title string,
 	author string,
 	level string,
-	appendToIndex bool,
 ) {
 	var err error
 
@@ -43,9 +42,8 @@ func CreateIncidentResponseFile(
 		Level:  level,
 	}
 
-	if appendToIndex {
-		AppendToIndex(FlagPathPrefix, tv)
-	}
+	AppendToIndex(FlagPathPrefix, tv)
+	CreateIndexFile(prefix)
 
 	fullPath := path.Join(
 		prefix,
@@ -94,4 +92,29 @@ func AppendToIndex(prefix string, tv TemplateVariables) {
 	json_utils.ReadJsonFile(fullPath, &index)
 	index.Incidents = append(index.Incidents, tv)
 	json_utils.WriteJsonFile(fullPath, &index)
+}
+
+func CreateIndexFile(prefix string) {
+	var err error
+
+	indexFilename := ".incidentresponseindex.json"
+	var index Index
+	indexfullPath := path.Join(prefix, indexFilename)
+	json_utils.ReadJsonFile(indexfullPath, &index)
+
+	fullPath := path.Join(prefix, "index.md")
+	err = os.MkdirAll(filepath.Dir(fullPath), os.ModePerm)
+	if err != nil {
+		panic(err)
+	}
+	t, err := template.New(fullPath).Parse(IndexFileTemplate)
+	if err != nil {
+		panic(err)
+	}
+	f, err := os.Create(fullPath)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+	t.Execute(f, index)
 }

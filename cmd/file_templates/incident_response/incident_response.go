@@ -29,8 +29,6 @@ var Cmd = &cobra.Command{
 			FlagTitle,
 			FlagAuthor,
 			FlagLevel,
-			// Dont append the .incidentresponseindex.json yet
-			false,
 		)
 	},
 }
