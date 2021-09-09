@@ -11,6 +11,8 @@ import (
 var FlagTitle string
 var FlagDate string
 var FlagPathPrefix string
+var FlagAuthor string
+var FlagLevel string
 
 var Cmd = &cobra.Command{
 	Use:     "incident-response",
@@ -25,6 +27,8 @@ var Cmd = &cobra.Command{
 			FlagPathPrefix,
 			FlagDate,
 			FlagTitle,
+			FlagAuthor,
+			FlagLevel,
 			// Dont append the .incidentresponseindex.json yet
 			false,
 		)
@@ -55,4 +59,20 @@ func init() {
 		".",
 		"Path prefix",
 	)
+	Cmd.Flags().StringVarP(
+		&FlagAuthor,
+		"author",
+		"a",
+		"",
+		"Author's name (example: John Doe)",
+	)
+	Cmd.MarkFlagRequired("author")
+	Cmd.Flags().StringVarP(
+		&FlagLevel,
+		"level",
+		"l",
+		"",
+		"Level of incident (high|medium|low)",
+	)
+	Cmd.MarkFlagRequired("level")
 }

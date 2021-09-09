@@ -22,6 +22,8 @@ func CreateIncidentResponseFile(
 	prefix string,
 	date string,
 	title string,
+	author string,
+	level string,
 	appendToIndex bool,
 ) {
 	var err error
@@ -37,8 +39,8 @@ func CreateIncidentResponseFile(
 	tv := TemplateVariables{
 		Title:  title,
 		Date:   date,
-		Author: "---author---",
-		Level:  "---level (high|medium|low)---",
+		Author: author,
+		Level:  level,
 	}
 
 	if appendToIndex {
