@@ -21,7 +21,13 @@ var Cmd = &cobra.Command{
 		if FlagDate == "today" {
 			FlagDate = time.Now().Format("2006-01-02")
 		}
-		CreateIncidentResponseFile(FlagPathPrefix, FlagDate, FlagTitle)
+		CreateIncidentResponseFile(
+			FlagPathPrefix,
+			FlagDate,
+			FlagTitle,
+			// Dont append the .incidentresponseindex.json yet
+			false,
+		)
 	},
 }
 
