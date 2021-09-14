@@ -39,6 +39,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/postgres/list"
 	_ "github.com/sikalabs/slu/cmd/proxy"
 	_ "github.com/sikalabs/slu/cmd/proxy/tcp"
+	_ "github.com/sikalabs/slu/cmd/random"
+	_ "github.com/sikalabs/slu/cmd/random/string"
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/tls"
 	_ "github.com/sikalabs/slu/cmd/tls/parse"
