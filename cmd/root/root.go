@@ -17,6 +17,6 @@ func init() {
 		&RootCmdFlagJson,
 		"json",
 		false,
-		"Formatu output to JSON",
+		"Format output to JSON",
 	)
 }
