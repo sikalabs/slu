@@ -17,21 +17,41 @@ var Cmd = &cobra.Command{
 	Short: "Get local IP from network device",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		ip, err := ip_utils.GetIPFromInterface(FlagInterfaceName)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		if root.RootCmdFlagJson {
-			outJson, err := json.Marshal(map[string]string{
-				"ip": ip,
-			})
+		if FlagInterfaceName == "" {
+			ips, err := ip_utils.GetIPFromInterfaces()
 			if err != nil {
-				panic(err)
+				log.Fatal(err)
 			}
-			fmt.Println(string(outJson))
+			if root.RootCmdFlagJson {
+				outJson, err := json.Marshal(map[string]map[string]string{
+					"ips": ips,
+				})
+				if err != nil {
+					panic(err)
+				}
+				fmt.Println(string(outJson))
+			} else {
+				for interfaceName, ip := range ips {
+					fmt.Printf("%s=%s\n", interfaceName, ip)
+				}
+			}
 		} else {
-			fmt.Printf("%s\n", ip)
+			ip, err := ip_utils.GetIPFromInterface(FlagInterfaceName)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			if root.RootCmdFlagJson {
+				outJson, err := json.Marshal(map[string]string{
+					"ip": ip,
+				})
+				if err != nil {
+					panic(err)
+				}
+				fmt.Println(string(outJson))
+			} else {
+				fmt.Printf("%s\n", ip)
+			}
 		}
 	},
 }
@@ -45,5 +65,4 @@ func init() {
 		"",
 		"Interface name",
 	)
-	Cmd.MarkFlagRequired("interface")
 }
