@@ -31,3 +31,14 @@ func GetIPFromInterface(interfaceName string) (string, error) {
 		return "", fmt.Errorf("no IP")
 	}
 }
+func GetIPFromInterfaces() (map[string]string, error) {
+	out := make(map[string]string)
+	interfaces, _ := net.Interfaces()
+	for _, i := range interfaces {
+		ip, err := GetIPFromInterface(i.Name)
+		if err == nil {
+			out[i.Name] = ip
+		}
+	}
+	return out, nil
+}
