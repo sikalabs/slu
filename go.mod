@@ -7,6 +7,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.2
+	github.com/rs/zerolog v1.25.0
 	github.com/spf13/cobra v1.2.1
 	github.com/xanzy/go-gitlab v0.50.3
 	k8s.io/apimachinery v0.22.0
