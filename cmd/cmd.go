@@ -25,6 +25,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/install_bin"
 	_ "github.com/sikalabs/slu/cmd/install_bin_tool"
 	_ "github.com/sikalabs/slu/cmd/ip"
+	_ "github.com/sikalabs/slu/cmd/ip_local"
 	_ "github.com/sikalabs/slu/cmd/k8s"
 	_ "github.com/sikalabs/slu/cmd/k8s/get"
 	_ "github.com/sikalabs/slu/cmd/k8s/get/configmap"
