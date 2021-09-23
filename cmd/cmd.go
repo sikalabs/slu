@@ -49,6 +49,7 @@ import (
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/sleep"
 	_ "github.com/sikalabs/slu/cmd/sleep/forever"
+	_ "github.com/sikalabs/slu/cmd/sleep/random"
 	_ "github.com/sikalabs/slu/cmd/tls"
 	_ "github.com/sikalabs/slu/cmd/tls/parse"
 	_ "github.com/sikalabs/slu/cmd/tls/parse_file"
