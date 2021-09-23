@@ -10,6 +10,7 @@ require (
 	github.com/rs/zerolog v1.25.0
 	github.com/spf13/cobra v1.2.1
 	github.com/xanzy/go-gitlab v0.50.3
+	k8s.io/api v0.22.0
 	k8s.io/apimachinery v0.22.0
 	k8s.io/client-go v0.22.0
 )
