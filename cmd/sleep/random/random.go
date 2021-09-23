@@ -12,9 +12,10 @@ var FlagMinTime int
 var FlagMaxTime int
 
 var Cmd = &cobra.Command{
-	Use:   "random",
-	Short: "Sleep random time",
-	Args:  cobra.NoArgs,
+	Use:     "random",
+	Short:   "Sleep random time",
+	Aliases: []string{"r", "ran", "rnd"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		rand.Seed(time.Now().UnixNano())
 		time.Sleep(time.Duration(rand.Intn(FlagMaxTime-FlagMinTime)+FlagMinTime) * time.Millisecond)

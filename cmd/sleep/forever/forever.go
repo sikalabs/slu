@@ -8,9 +8,10 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:   "forever",
-	Short: "Sleep forever",
-	Args:  cobra.NoArgs,
+	Use:     "forever",
+	Short:   "Sleep forever",
+	Aliases: []string{"f", "inf"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		for {
 			time.Sleep(time.Second)
