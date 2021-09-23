@@ -13,9 +13,10 @@ import (
 var FlagInterfaceName string
 
 var Cmd = &cobra.Command{
-	Use:   "ip-local",
-	Short: "Get local IP from network device",
-	Args:  cobra.NoArgs,
+	Use:     "ip-local",
+	Short:   "Get local IP from network device",
+	Aliases: []string{"ipl"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		if FlagInterfaceName == "" {
 			ips, err := ip_utils.GetIPFromInterfaces()
