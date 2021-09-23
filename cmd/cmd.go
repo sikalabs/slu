@@ -30,6 +30,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/k8s/get/configmap"
 	_ "github.com/sikalabs/slu/cmd/k8s/get/secret"
 	_ "github.com/sikalabs/slu/cmd/k8s/token"
+	_ "github.com/sikalabs/slu/cmd/loggen"
 	_ "github.com/sikalabs/slu/cmd/mail"
 	_ "github.com/sikalabs/slu/cmd/mail/send"
 	_ "github.com/sikalabs/slu/cmd/mysql"
