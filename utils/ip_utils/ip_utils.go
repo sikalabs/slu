@@ -19,11 +19,9 @@ func GetIPFromInterface(interfaceName string) (string, error) {
 	for _, addr := range item {
 		switch v := addr.(type) {
 		case *net.IPNet:
-			if !v.IP.IsLoopback() {
-				//Verify if IP is IPV4
-				if v.IP.To4() != nil {
-					ip = v.IP
-				}
+			//Verify if IP is IPV4
+			if v.IP.To4() != nil {
+				ip = v.IP
 			}
 		}
 	}
