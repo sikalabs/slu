@@ -107,7 +107,7 @@ func init() {
 	Cmd.Flags().StringVar(
 		&CmdFlagDockerRegistry,
 		"docker-registry",
-		"homebrew-tap",
+		"sikalabs",
 		"Package {{.DockerRegistry}}",
 	)
 }
