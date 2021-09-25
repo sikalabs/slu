@@ -35,6 +35,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/k8s/lock/status"
 	_ "github.com/sikalabs/slu/cmd/k8s/lock/unlock"
 	_ "github.com/sikalabs/slu/cmd/k8s/token"
+	_ "github.com/sikalabs/slu/cmd/length"
 	_ "github.com/sikalabs/slu/cmd/loggen"
 	_ "github.com/sikalabs/slu/cmd/mail"
 	_ "github.com/sikalabs/slu/cmd/mail/send"
