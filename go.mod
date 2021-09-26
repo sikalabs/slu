@@ -7,12 +7,12 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.2
-	github.com/olekukonko/tablewriter v0.0.5 // indirect
+	github.com/olekukonko/tablewriter v0.0.5
 	github.com/rs/zerolog v1.25.0
 	github.com/spf13/cobra v1.2.1
 	github.com/xanzy/go-gitlab v0.50.3
-	gorm.io/driver/sqlite v1.1.5 // indirect
-	gorm.io/gorm v1.21.15 // indirect
+	gorm.io/driver/sqlite v1.1.5
+	gorm.io/gorm v1.21.15
 	k8s.io/api v0.22.0
 	k8s.io/apimachinery v0.22.0
 	k8s.io/client-go v0.22.0
