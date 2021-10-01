@@ -8,7 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var FlagName string
+var FlagDatabaseName string
+var FlagTableName string
 var FlagBatchSize int
 var FlagBatchCount int
 
@@ -23,7 +24,8 @@ var Cmd = &cobra.Command{
 			mysql_cmd.MysqlCmdFlagPort,
 			mysql_cmd.MysqlCmdFlagUser,
 			mysql_cmd.MysqlCmdFlagPassword,
-			FlagName,
+			FlagDatabaseName,
+			FlagTableName,
 			FlagBatchSize,
 			FlagBatchCount,
 		)
@@ -33,7 +35,7 @@ var Cmd = &cobra.Command{
 func init() {
 	mysql_generate_cmd.Cmd.AddCommand(Cmd)
 	Cmd.Flags().StringVarP(
-		&FlagName,
+		&FlagDatabaseName,
 		"name",
 		"n",
 		"",
@@ -51,5 +53,12 @@ func init() {
 		"batch-count",
 		1000,
 		"Count of inserts",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagTableName,
+		"table",
+		"t",
+		"examples",
+		"Name of table",
 	)
 }

@@ -32,12 +32,17 @@ func GenerateRandomData(
 	port int,
 	user string,
 	password string,
-	name string,
+	databaseName string,
+	tableName string,
 	batchSize int,
 	batchCount int,
 ) {
+	if tableName == "" {
+		tableName = "examples"
+	}
+
 	db, err := gorm.Open(
-		mysql.Open(user+":"+password+"@tcp("+host+":"+strconv.Itoa(port)+")/"+name),
+		mysql.Open(user+":"+password+"@tcp("+host+":"+strconv.Itoa(port)+")/"+databaseName),
 		&gorm.Config{
 			Logger: logger.Default.LogMode(logger.Silent),
 		},
@@ -46,7 +51,7 @@ func GenerateRandomData(
 		panic(err)
 	}
 
-	db.AutoMigrate(&Example{})
+	db.Table(tableName).AutoMigrate(&Example{})
 	var examples = make([]Example, batchSize)
 
 	for i := range examples {
@@ -54,6 +59,6 @@ func GenerateRandomData(
 	}
 
 	for i := 1; i < batchCount; i++ {
-		db.Create(&examples)
+		db.Table(tableName).Create(&examples)
 	}
 }
