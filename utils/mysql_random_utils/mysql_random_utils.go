@@ -10,16 +10,20 @@ import (
 )
 
 type Example struct {
-	Foo string
-	Bar string
-	Baz string
+	Alpha   string
+	Bravo   string
+	Charlie string
+	Delta   string
+	Echo    string
 }
 
 func GenerateExample() Example {
 	return Example{
-		Foo: random_utils.RandomString(32, random_utils.LOWER),
-		Bar: random_utils.RandomString(32, random_utils.LOWER),
-		Baz: random_utils.RandomString(32, random_utils.LOWER),
+		Alpha:   random_utils.RandomString(64, random_utils.LOWER),
+		Bravo:   random_utils.RandomString(64, random_utils.LOWER),
+		Charlie: random_utils.RandomString(64, random_utils.LOWER),
+		Delta:   random_utils.RandomString(64, random_utils.LOWER),
+		Echo:    random_utils.RandomString(64, random_utils.LOWER),
 	}
 }
 
