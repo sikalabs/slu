@@ -42,6 +42,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/mysql"
 	_ "github.com/sikalabs/slu/cmd/mysql/create"
 	_ "github.com/sikalabs/slu/cmd/mysql/drop"
+	_ "github.com/sikalabs/slu/cmd/mysql/generate"
+	_ "github.com/sikalabs/slu/cmd/mysql/generate/random_data"
 	_ "github.com/sikalabs/slu/cmd/mysql/list"
 	_ "github.com/sikalabs/slu/cmd/postgres"
 	_ "github.com/sikalabs/slu/cmd/postgres/create"
