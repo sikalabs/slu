@@ -14,9 +14,10 @@ var CmdFlagNoCommit bool
 var CmdFlagTag bool
 
 var Cmd = &cobra.Command{
-	Use:   "version-bump",
-	Short: "Bumb & commit version of (SL) Go application",
-	Args:  cobra.NoArgs,
+	Use:     "version-bump",
+	Short:   "Bumb & commit version of (SL) Go application",
+	Aliases: []string{"vb"},
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		version_go_file := `package version
 

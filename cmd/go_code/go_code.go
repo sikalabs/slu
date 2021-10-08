@@ -6,8 +6,9 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:   "go-code",
-	Short: "Utils for writing Go code",
+	Use:     "go-code",
+	Short:   "Utils for writing Go code",
+	Aliases: []string{"goc"},
 }
 
 func init() {
