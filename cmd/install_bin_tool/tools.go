@@ -8,7 +8,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:        "tergum",
-		Version:     "v0.12.0",
+		Version:     "v0.18.0",
 		UrlTemplate: "https://github.com/sikalabs/tergum/releases/download/{{.Version}}/tergum_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
