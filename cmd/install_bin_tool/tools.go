@@ -1,5 +1,7 @@
 package install_bin_tool
 
+import "github.com/sikalabs/slu/utils/github_utils"
+
 var Tools = []Tool{
 	{
 		Name:        "install-slu",
@@ -8,7 +10,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:        "tergum",
-		Version:     "v0.18.0",
+		Version:     github_utils.GetLatestRelease("sikalabs", "tergum"),
 		UrlTemplate: "https://github.com/sikalabs/tergum/releases/download/{{.Version}}/tergum_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
