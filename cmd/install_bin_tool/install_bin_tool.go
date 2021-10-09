@@ -23,6 +23,7 @@ type Tool struct {
 var CmdFlagBinDir string
 var CmdFlagOS string
 var CmdFlagArch string
+var FlagVersion string
 
 var Cmd = &cobra.Command{
 	Use:     "install-bin-tool",
@@ -78,7 +79,7 @@ func buildCmd(
 	name string,
 	sourceTemlate string,
 	urlTemplate string,
-	version string,
+	defaultVersion string,
 	getUrlFunc func(string, string) string,
 	getSourcePathFunc func(string, string) string,
 ) *cobra.Command {
@@ -89,6 +90,10 @@ func buildCmd(
 		Run: func(c *cobra.Command, args []string) {
 			if sourceTemlate == "" {
 				sourceTemlate = name
+			}
+			version := defaultVersion
+			if FlagVersion != "latest" {
+				version = FlagVersion
 			}
 			url := getUrlFunc(urlTemplate, version)
 			source := getSourcePathFunc(sourceTemlate, version)
@@ -125,6 +130,13 @@ func init() {
 		"a",
 		runtime.GOARCH,
 		"Architecture",
+	)
+	Cmd.PersistentFlags().StringVarP(
+		&FlagVersion,
+		"version",
+		"v",
+		"latest",
+		"Version",
 	)
 	for _, tool := range Tools {
 		Cmd.AddCommand(buildCmd(tool.Name, tool.SourcePath, tool.UrlTemplate, tool.Version, getUrl, getSourcePath))
