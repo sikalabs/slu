@@ -14,10 +14,10 @@ import (
 )
 
 type Tool struct {
-	Name        string
-	SourcePath  string
-	Version     string
-	UrlTemplate string
+	Name           string
+	SourcePath     string
+	GetVersionFunc func() string
+	UrlTemplate    string
 }
 
 var CmdFlagBinDir string
@@ -79,7 +79,7 @@ func buildCmd(
 	name string,
 	sourceTemlate string,
 	urlTemplate string,
-	defaultVersion string,
+	defaultVersionFunc func() string,
 	getUrlFunc func(string, string) string,
 	getSourcePathFunc func(string, string) string,
 ) *cobra.Command {
@@ -91,7 +91,7 @@ func buildCmd(
 			if sourceTemlate == "" {
 				sourceTemlate = name
 			}
-			version := defaultVersion
+			version := defaultVersionFunc()
 			if FlagVersion != "latest" {
 				version = FlagVersion
 			}
@@ -139,7 +139,7 @@ func init() {
 		"Version",
 	)
 	for _, tool := range Tools {
-		Cmd.AddCommand(buildCmd(tool.Name, tool.SourcePath, tool.UrlTemplate, tool.Version, getUrl, getSourcePath))
+		Cmd.AddCommand(buildCmd(tool.Name, tool.SourcePath, tool.UrlTemplate, tool.GetVersionFunc, getUrl, getSourcePath))
 	}
 }
 
