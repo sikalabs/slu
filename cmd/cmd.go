@@ -57,6 +57,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/proxy"
 	_ "github.com/sikalabs/slu/cmd/proxy/tcp"
 	_ "github.com/sikalabs/slu/cmd/random"
+	_ "github.com/sikalabs/slu/cmd/random/password"
 	_ "github.com/sikalabs/slu/cmd/random/string"
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/sleep"
