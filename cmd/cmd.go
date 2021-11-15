@@ -65,6 +65,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/sleep/random"
 	_ "github.com/sikalabs/slu/cmd/sqlite"
 	_ "github.com/sikalabs/slu/cmd/sqlite/read"
+	_ "github.com/sikalabs/slu/cmd/time"
+	_ "github.com/sikalabs/slu/cmd/time/unix"
 	_ "github.com/sikalabs/slu/cmd/tls"
 	_ "github.com/sikalabs/slu/cmd/tls/parse"
 	_ "github.com/sikalabs/slu/cmd/tls/parse_file"
