@@ -17,6 +17,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/git/commit/terraform_lock"
 	_ "github.com/sikalabs/slu/cmd/git/if"
 	_ "github.com/sikalabs/slu/cmd/git/if/staged"
+	_ "github.com/sikalabs/slu/cmd/gitlab"
+	_ "github.com/sikalabs/slu/cmd/gitlab/prune_environments"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/skip_stage"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/skip_stage/remove_skip"
