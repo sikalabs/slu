@@ -17,9 +17,10 @@ brew install sikalabs/tap/slu
 
 ### Linux AMD64 (using install-slu, recommended)
 
-Install [install-slu](https://github.com/sikalabs/install-slu) tool
+Install latest version of **slu**  using [install-slu](https://github.com/sikalabs/install-slu) tool.
 
 ```bash
+sudo su -
 VERSION=v0.1.0 && \
 OS=linux && \
 ARCH=amd64 && \
@@ -27,10 +28,17 @@ BIN=install-slu && \
 curl -L https://github.com/sikalabs/${BIN}/releases/download/${VERSION}/${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz -o ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
 tar -xvzf ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
 rm ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
-mv ${BIN} /usr/local/bin/
+mv ${BIN} /usr/local/bin/ && \
+install-slu install
 ```
 
-Install latest version of **slu**
+You can do the same with this one-liner
+
+```bash
+curl -fsSL https://ins.oxs.cz/slu-linux-amd64.sh | sudo sh
+```
+
+For upgrade of **slu** just run
 
 ```bash
 install-slu install
@@ -39,6 +47,7 @@ install-slu install
 ### Linux AMD64 (directly)
 
 ```bash
+sudo su -
 # Check the current version on Github https://github.com/sikalabs/slu/releases
 VERSION=v0.20.1 && \
 OS=linux && \
