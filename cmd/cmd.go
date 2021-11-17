@@ -35,6 +35,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/k8s/get"
 	_ "github.com/sikalabs/slu/cmd/k8s/get/configmap"
 	_ "github.com/sikalabs/slu/cmd/k8s/get/secret"
+	_ "github.com/sikalabs/slu/cmd/k8s/kubeconfig"
+	_ "github.com/sikalabs/slu/cmd/k8s/kubeconfig/add"
 	_ "github.com/sikalabs/slu/cmd/k8s/lock"
 	_ "github.com/sikalabs/slu/cmd/k8s/lock/lock"
 	_ "github.com/sikalabs/slu/cmd/k8s/lock/status"
