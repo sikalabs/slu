@@ -63,6 +63,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/random"
 	_ "github.com/sikalabs/slu/cmd/random/password"
 	_ "github.com/sikalabs/slu/cmd/random/string"
+	_ "github.com/sikalabs/slu/cmd/rmline"
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/sleep"
 	_ "github.com/sikalabs/slu/cmd/sleep/forever"
