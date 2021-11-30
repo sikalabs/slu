@@ -6,12 +6,22 @@ import (
 )
 
 func KubernetesClient() (*kubernetes.Clientset, string, error) {
+	var err error
 	kubeConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
 		clientcmd.NewDefaultClientConfigLoadingRules(),
 		&clientcmd.ConfigOverrides{},
 	)
-	namespace, _, _ := kubeConfig.Namespace()
-	restconfig, _ := kubeConfig.ClientConfig()
-	clientset, _ := kubernetes.NewForConfig(restconfig)
+	namespace, _, err := kubeConfig.Namespace()
+	if err != nil {
+		return nil, "", err
+	}
+	restconfig, err := kubeConfig.ClientConfig()
+	if err != nil {
+		return nil, "", err
+	}
+	clientset, err := kubernetes.NewForConfig(restconfig)
+	if err != nil {
+		return nil, "", err
+	}
 	return clientset, namespace, nil
 }
