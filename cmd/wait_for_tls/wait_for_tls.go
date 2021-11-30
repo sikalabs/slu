@@ -2,11 +2,10 @@ package wait_for_tls
 
 import (
 	"crypto/tls"
-	"fmt"
-	"os"
 	"time"
 
 	"github.com/sikalabs/slu/cmd/root"
+	"github.com/sikalabs/slu/utils/wait_for_utils"
 	"github.com/spf13/cobra"
 )
 
@@ -19,20 +18,18 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"wftls"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		started := time.Now()
-		for {
-			_, err := tls.Dial("tcp", CmdFlagAddr, &tls.Config{
-				InsecureSkipVerify: false,
-			})
-			if err == nil {
-				os.Exit(0)
-			}
-			fmt.Println(err)
-			if time.Since(started) > time.Duration(CmdFlagTimeout*int(time.Second)) {
-				os.Exit(1)
-			}
-			time.Sleep(100 * time.Millisecond)
-		}
+		wait_for_utils.WaitFor(
+			CmdFlagTimeout, 100*time.Millisecond,
+			func() (bool, bool, string, error) {
+				_, err := tls.Dial("tcp", CmdFlagAddr, &tls.Config{
+					InsecureSkipVerify: false,
+				})
+				if err == nil {
+					return wait_for_utils.WaitForResponseSucceeded("TLS certificate validated")
+				}
+				return wait_for_utils.WaitForResponseWaiting(err.Error())
+			},
+		)
 	},
 }
 
