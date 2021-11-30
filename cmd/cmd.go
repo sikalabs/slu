@@ -81,6 +81,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/wait_for"
 	_ "github.com/sikalabs/slu/cmd/wait_for/k8s"
 	_ "github.com/sikalabs/slu/cmd/wait_for/k8s/job"
+	_ "github.com/sikalabs/slu/cmd/wait_for/k8s/pod"
 	_ "github.com/sikalabs/slu/cmd/wait_for_it"
 	_ "github.com/sikalabs/slu/cmd/wait_for_tls"
 	"github.com/spf13/cobra"
