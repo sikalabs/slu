@@ -2,12 +2,11 @@ package secret
 
 import (
 	"context"
-	"fmt"
-	"os"
 	"time"
 
 	wait_for_k8s_cmd "github.com/sikalabs/slu/cmd/wait_for/k8s"
 	"github.com/sikalabs/slu/utils/k8s"
+	"github.com/sikalabs/slu/utils/wait_for_utils"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/spf13/cobra"
@@ -31,39 +30,25 @@ var Cmd = &cobra.Command{
 
 		podClient := clientset.CoreV1().Pods(namespace)
 
-		started := time.Now()
+		wait_for_utils.WaitFor(
+			CmdFlagTimeout, 100*time.Millisecond,
+			func() (bool, bool, string, error) {
+				pod, err := podClient.Get(context.TODO(), CmdFlagName, metav1.GetOptions{})
+				if err != nil {
+					return wait_for_utils.WaitForResponseWaiting(err.Error())
+				}
 
-		latestPhase := ""
+				if pod.Status.Phase == "Failed" {
+					return wait_for_utils.WaitForResponseFailed("Failed")
+				}
 
-		for {
-			pod, err := podClient.Get(context.TODO(), CmdFlagName, metav1.GetOptions{})
-			if err != nil {
-				fmt.Println(err)
-				time.Sleep(100 * time.Millisecond)
-				continue
-			}
+				if pod.Status.Phase == "Succeeded" {
+					return wait_for_utils.WaitForResponseSucceeded("Succeeded")
+				}
 
-			phase := string(pod.Status.Phase)
-
-			if latestPhase != phase {
-				fmt.Println("pods \"" + CmdFlagName + "\" phase " + phase)
-			}
-			latestPhase = phase
-
-			if phase == "Failed" {
-				os.Exit(1)
-			}
-
-			if phase == "Succeeded" {
-				os.Exit(0)
-			}
-
-			if time.Since(started) > time.Duration(CmdFlagTimeout*int(time.Second)) {
-				os.Exit(1)
-			}
-
-			time.Sleep(100 * time.Millisecond)
-		}
+				return wait_for_utils.WaitForResponseWaiting("Running")
+			},
+		)
 
 	},
 }

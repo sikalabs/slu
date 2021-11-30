@@ -2,12 +2,11 @@ package secret
 
 import (
 	"context"
-	"fmt"
-	"os"
 	"time"
 
 	wait_for_k8s_cmd "github.com/sikalabs/slu/cmd/wait_for/k8s"
 	"github.com/sikalabs/slu/utils/k8s"
+	"github.com/sikalabs/slu/utils/wait_for_utils"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/spf13/cobra"
@@ -31,30 +30,25 @@ var Cmd = &cobra.Command{
 
 		jobsClient := clientset.BatchV1().Jobs(namespace)
 
-		started := time.Now()
-		for {
-			job, err := jobsClient.Get(context.TODO(), CmdFlagName, metav1.GetOptions{})
-			if err != nil {
-				fmt.Println(err)
-				time.Sleep(100 * time.Millisecond)
-				continue
-			}
+		wait_for_utils.WaitFor(
+			CmdFlagTimeout, 100*time.Millisecond,
+			func() (bool, bool, string, error) {
+				job, err := jobsClient.Get(context.TODO(), CmdFlagName, metav1.GetOptions{})
+				if err != nil {
+					return wait_for_utils.WaitForResponseWaiting(err.Error())
+				}
 
-			if job.Status.Failed == 1 {
-				os.Exit(1)
-			}
+				if job.Status.Failed == 1 {
+					return wait_for_utils.WaitForResponseFailed("Failed")
+				}
 
-			if job.Status.Succeeded == 1 {
-				os.Exit(0)
-			}
+				if job.Status.Succeeded == 1 {
+					return wait_for_utils.WaitForResponseSucceeded("Succeeded")
+				}
 
-			if time.Since(started) > time.Duration(CmdFlagTimeout*int(time.Second)) {
-				os.Exit(1)
-			}
-
-			time.Sleep(100 * time.Millisecond)
-		}
-
+				return wait_for_utils.WaitForResponseWaiting("Running")
+			},
+		)
 	},
 }
 
