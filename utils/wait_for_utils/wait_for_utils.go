@@ -13,13 +13,18 @@ func WaitFor(
 	waitFunc func() (bool, bool, string, error),
 ) {
 	started := time.Now()
+	latestMessage := ""
+
 	for {
 		succeeded, failed, message, err := waitFunc()
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Println(message)
+		if latestMessage != message {
+			fmt.Println(message)
+		}
+		latestMessage = message
 
 		if succeeded {
 			os.Exit(0)
