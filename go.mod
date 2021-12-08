@@ -3,6 +3,7 @@ module github.com/sikalabs/slu
 go 1.16
 
 require (
+	github.com/digitalocean/godo v1.73.0
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/jpillora/go-tcp-proxy v1.0.2
