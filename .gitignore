@@ -12,3 +12,4 @@ cobra-docs
 
 # Config
 *.local.json
+.slu.secrets.json
