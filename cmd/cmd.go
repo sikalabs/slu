@@ -5,6 +5,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/argocd/initial_password"
 	_ "github.com/sikalabs/slu/cmd/digitalocean"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/all"
+	_ "github.com/sikalabs/slu/cmd/digitalocean/all/cleanup"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/all/delete"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/all/list"
 	_ "github.com/sikalabs/slu/cmd/expand"

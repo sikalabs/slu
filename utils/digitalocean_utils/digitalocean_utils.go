@@ -61,7 +61,7 @@ func listVolumes(client *godo.Client) {
 	}
 	fmt.Println("Volumes")
 	for _, volume := range volumes {
-		fmt.Println(volume.Name)
+		fmt.Println(volume.Name, volume.DropletIDs)
 	}
 	fmt.Println("")
 }
@@ -98,4 +98,32 @@ func ListAll(token string) {
 	listLoadBalancers(client)
 	listDomains(client)
 	listSSHKeys(client)
+}
+
+func PrepareVolumesCleanUp(token string) []godo.Volume {
+	var volumesForCleanUp []godo.Volume
+	client := godo.NewFromToken(token)
+	volumes, _, _ := client.Storage.ListVolumes(context.TODO(), &godo.ListVolumeParams{})
+	for _, volume := range volumes {
+		if len(volume.DropletIDs) == 0 {
+			volumesForCleanUp = append(volumesForCleanUp, volume)
+		}
+	}
+	fmt.Println("Volumes marked for clean up:")
+	for _, v := range volumesForCleanUp {
+		fmt.Println(v.Name)
+	}
+
+	return volumesForCleanUp
+}
+
+func DoVolumesCleanUp(token string, volumesForCleanUp []godo.Volume) {
+	var err error
+	client := godo.NewFromToken(token)
+	for _, v := range volumesForCleanUp {
+		_, err = client.Storage.DeleteVolume(context.TODO(), v.ID)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
 }
