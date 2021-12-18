@@ -1,0 +1,17 @@
+package config_utils
+
+import (
+	"github.com/sikalabs/slu/config"
+)
+
+func GetCurrentDigitalOceanAccount() *config.SluSecretsDigitalOcean {
+	s := config.ReadSecrets()
+	c := config.ReadConfig()
+
+	for _, do := range s.DigitalOcean {
+		if do.Alias == c.DigitalOcean.CurrentContext {
+			return &do
+		}
+	}
+	return nil
+}

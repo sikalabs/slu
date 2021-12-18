@@ -12,6 +12,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/digitalocean/auth/add"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/auth/list"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/auth/rm"
+	_ "github.com/sikalabs/slu/cmd/digitalocean/auth/use_context"
 	_ "github.com/sikalabs/slu/cmd/expand"
 	_ "github.com/sikalabs/slu/cmd/expand/file"
 	_ "github.com/sikalabs/slu/cmd/expand/string"
