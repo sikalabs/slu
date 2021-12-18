@@ -15,3 +15,14 @@ func GetCurrentDigitalOceanAccount() *config.SluSecretsDigitalOcean {
 	}
 	return nil
 }
+
+func GetDigitalOceanAccountByAlias(alias string) *config.SluSecretsDigitalOcean {
+	s := config.ReadSecrets()
+
+	for _, do := range s.DigitalOcean {
+		if do.Alias == alias {
+			return &do
+		}
+	}
+	return nil
+}

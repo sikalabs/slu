@@ -13,6 +13,7 @@ import (
 )
 
 var FlagAllAccounts bool
+var FlagAlias string
 
 var Cmd = &cobra.Command{
 	Use:   "list",
@@ -39,11 +40,21 @@ Currently, all resources means:
 				fmt.Println("")
 			}
 		} else {
-			// Show single account (from context)
-			do := config_utils.GetCurrentDigitalOceanAccount()
-			if do == nil {
-				log.Fatal("No context found")
+			var do *config.SluSecretsDigitalOcean
+			// Show single account
+
+			if FlagAlias == "" {
+				// from context
+				do = config_utils.GetCurrentDigitalOceanAccount()
+			} else {
+				// from flag
+				do = config_utils.GetDigitalOceanAccountByAlias(FlagAlias)
 			}
+
+			if do == nil {
+				log.Fatal("No credentials or context found")
+			}
+
 			fmt.Printf("===== Account: %s =====\n", do.Alias)
 			digitalocean_utils.ListAll(do.Token)
 			fmt.Println("")
@@ -59,5 +70,12 @@ func init() {
 		"A",
 		false,
 		"List resources from all accounts",
+	)
+	Cmd.PersistentFlags().StringVarP(
+		&FlagAlias,
+		"alias",
+		"a",
+		"",
+		"Use specific account (instead of selected account in context)",
 	)
 }
