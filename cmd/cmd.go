@@ -17,6 +17,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/expand/file"
 	_ "github.com/sikalabs/slu/cmd/expand/string"
 	_ "github.com/sikalabs/slu/cmd/file_templates"
+	_ "github.com/sikalabs/slu/cmd/static_api"
+	_ "github.com/sikalabs/slu/cmd/static_api/version"
 	_ "github.com/sikalabs/slu/cmd/file_templates/editorconfig"
 	_ "github.com/sikalabs/slu/cmd/file_templates/gitignore"
 	_ "github.com/sikalabs/slu/cmd/file_templates/go_cli_project"
