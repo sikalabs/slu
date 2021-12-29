@@ -3,6 +3,7 @@ package version
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -12,6 +13,8 @@ import (
 )
 
 var FlagPretty bool
+var FlagSetGitClean bool
+var FlagSetGitDirty bool
 
 type VersionJSON struct {
 	GitRef                 string `json:"git_ref"`
@@ -50,6 +53,15 @@ var Cmd = &cobra.Command{
 		} else {
 			gitTreeState = "dirty"
 		}
+		if FlagSetGitClean && FlagSetGitDirty {
+			log.Fatalln("can't use --set-git-clean and --set-git-dirty together")
+		}
+		if FlagSetGitClean {
+			gitTreeState = "clean"
+		}
+		if FlagSetGitDirty {
+			gitTreeState = "dirty"
+		}
 		t := time.Now()
 		var data []byte
 		v := VersionJSON{
@@ -80,5 +92,17 @@ func init() {
 		"p",
 		false,
 		"Pretty output",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagSetGitClean,
+		"set-git-clean",
+		false,
+		"Manually set Git tree state to clean",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagSetGitDirty,
+		"set-git-dirty",
+		false,
+		"Manually set Git tree state to dirty",
 	)
 }
