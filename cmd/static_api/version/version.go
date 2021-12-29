@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -16,14 +17,16 @@ var FlagPretty bool
 var FlagSetGitClean bool
 var FlagSetGitDirty bool
 var FlagSetGitRef string
+var FlagExtra []string
 
 type VersionJSON struct {
-	GitRef                 string `json:"git_ref"`
-	GitCommit              string `json:"git_commit"`
-	GitTreeState           string `json:"git_tree_state"`
-	BuildTimestampUnix     int    `json:"build_timestamp_unix"`
-	BuildTimestampRFC3339  string `json:"build_timestamp_rfc3339"`
-	BuildTimestampUnixDate string `json:"build_timestamp_unixdate"`
+	GitRef                 string            `json:"git_ref"`
+	GitCommit              string            `json:"git_commit"`
+	GitTreeState           string            `json:"git_tree_state"`
+	BuildTimestampUnix     int               `json:"build_timestamp_unix"`
+	BuildTimestampRFC3339  string            `json:"build_timestamp_rfc3339"`
+	BuildTimestampUnixDate string            `json:"build_timestamp_unixdate"`
+	Extra                  map[string]string `json:"extra"`
 }
 
 var Cmd = &cobra.Command{
@@ -69,6 +72,16 @@ var Cmd = &cobra.Command{
 		}
 		t := time.Now()
 		var data []byte
+		extra := map[string]string{}
+		if len(FlagExtra) != 0 {
+			for _, e := range FlagExtra {
+				e2 := strings.SplitN(e, "=", 2)
+				if len(e2) != 2 {
+					log.Fatalf("extra argument must be \"key=val\" not \"%s\"\n", e)
+				}
+				extra[e2[0]] = e2[1]
+			}
+		}
 		v := VersionJSON{
 			GitRef:                 gitRef,
 			GitCommit:              head.Hash().String(),
@@ -76,6 +89,7 @@ var Cmd = &cobra.Command{
 			BuildTimestampUnix:     int(t.Unix()),
 			BuildTimestampRFC3339:  t.Format(time.RFC3339),
 			BuildTimestampUnixDate: t.Format(time.UnixDate),
+			Extra:                  extra,
 		}
 		if FlagPretty {
 			data, err = json.MarshalIndent(v, "", "  ")
@@ -115,5 +129,12 @@ func init() {
 		"set-git-ref",
 		"",
 		"Manually set Git reference (branch, tag)",
+	)
+	Cmd.Flags().StringArrayVarP(
+		&FlagExtra,
+		"extra",
+		"e",
+		[]string{},
+		"Extra argument (key=val)",
 	)
 }
