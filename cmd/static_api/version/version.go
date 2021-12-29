@@ -15,6 +15,7 @@ import (
 var FlagPretty bool
 var FlagSetGitClean bool
 var FlagSetGitDirty bool
+var FlagSetGitRef string
 
 type VersionJSON struct {
 	GitRef                 string `json:"git_ref"`
@@ -62,10 +63,14 @@ var Cmd = &cobra.Command{
 		if FlagSetGitDirty {
 			gitTreeState = "dirty"
 		}
+		gitRef := head.Name().Short()
+		if FlagSetGitRef != "" {
+			gitRef = FlagSetGitRef
+		}
 		t := time.Now()
 		var data []byte
 		v := VersionJSON{
-			GitRef:                 head.Name().Short(),
+			GitRef:                 gitRef,
 			GitCommit:              head.Hash().String(),
 			GitTreeState:           gitTreeState,
 			BuildTimestampUnix:     int(t.Unix()),
@@ -104,5 +109,11 @@ func init() {
 		"set-git-dirty",
 		false,
 		"Manually set Git tree state to dirty",
+	)
+	Cmd.Flags().StringVar(
+		&FlagSetGitRef,
+		"set-git-ref",
+		"",
+		"Manually set Git reference (branch, tag)",
 	)
 }
