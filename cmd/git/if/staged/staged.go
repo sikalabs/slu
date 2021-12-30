@@ -30,6 +30,9 @@ var Cmd = &cobra.Command{
 			if f.Staging == git.Added {
 				os.Exit(0)
 			}
+			if f.Staging == git.Modified {
+				os.Exit(0)
+			}
 		}
 		os.Exit(1)
 	},
