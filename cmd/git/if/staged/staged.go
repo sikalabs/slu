@@ -14,7 +14,6 @@ var Cmd = &cobra.Command{
 	Short: "IF some files are staged",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		// os.Exit(1)
 		r, err := git.PlainOpen(".")
 		if err != nil {
 			panic(err)
