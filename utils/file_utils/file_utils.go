@@ -8,6 +8,19 @@ import (
 	"os"
 )
 
+func EnsureDir(path string) error {
+	var err error
+	_, err = os.Stat(path)
+	if os.IsNotExist(err) {
+		err = os.MkdirAll(path, 0755)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+	return err
+}
+
 // From https://www.rosettacode.org/wiki/Remove_lines_from_a_file#Go
 func RemoveLines(fn string, start, n int) (err error) {
 	if start < 1 {
