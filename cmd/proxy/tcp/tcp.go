@@ -36,5 +36,5 @@ func init() {
 		"",
 		"Remote address (eg. neverssl.com:80)",
 	)
-	Cmd.MarkFlagRequired("target")
+	Cmd.MarkFlagRequired("remote")
 }
