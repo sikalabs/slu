@@ -70,6 +70,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/postgres/list"
 	_ "github.com/sikalabs/slu/cmd/postgres/ping"
 	_ "github.com/sikalabs/slu/cmd/proxy"
+	_ "github.com/sikalabs/slu/cmd/proxy/smtp"
 	_ "github.com/sikalabs/slu/cmd/proxy/tcp"
 	_ "github.com/sikalabs/slu/cmd/random"
 	_ "github.com/sikalabs/slu/cmd/random/password"
