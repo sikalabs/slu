@@ -23,6 +23,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/file_templates/go_cli_project"
 	_ "github.com/sikalabs/slu/cmd/file_templates/incident_response"
 	_ "github.com/sikalabs/slu/cmd/generate_docs"
+	_ "github.com/sikalabs/slu/cmd/generate_files"
+	_ "github.com/sikalabs/slu/cmd/generate_files/tree"
 	_ "github.com/sikalabs/slu/cmd/git"
 	_ "github.com/sikalabs/slu/cmd/git/commit"
 	_ "github.com/sikalabs/slu/cmd/git/commit/terraform_lock"
