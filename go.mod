@@ -8,8 +8,9 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.2
-	github.com/mhale/smtpd v0.8.0 // indirect
+	github.com/mhale/smtpd v0.8.0
 	github.com/olekukonko/tablewriter v0.0.5
+	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
 	github.com/rs/zerolog v1.25.0
 	github.com/spf13/cobra v1.2.1
 	github.com/xanzy/go-gitlab v0.50.3
