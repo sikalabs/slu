@@ -5,15 +5,16 @@ import "net/smtp"
 func RawSendMail(
 	smtpHost string,
 	smtpPort string,
-	from string,
+	user string,
 	password string,
+	from string,
 	to string,
 	rawMessage []byte,
 ) error {
 	var auth smtp.Auth
 
 	if password != "" {
-		auth = smtp.PlainAuth(from, from, password, smtpHost)
+		auth = smtp.PlainAuth(from, user, password, smtpHost)
 	}
 
 	return smtp.SendMail(smtpHost+":"+smtpPort, auth, from,
@@ -23,8 +24,9 @@ func RawSendMail(
 func SendSimpleMail(
 	smtpHost string,
 	smtpPort string,
-	from string,
+	user string,
 	password string,
+	from string,
 	to string,
 	subject string,
 	message string,
@@ -34,5 +36,5 @@ func SendSimpleMail(
 		"Subject: " + subject + "\r\n" +
 		"\r\n" +
 		message + "\r\n")
-	return RawSendMail(smtpHost, smtpPort, from, password, to, rawMessage)
+	return RawSendMail(smtpHost, smtpPort, user, password, from, to, rawMessage)
 }

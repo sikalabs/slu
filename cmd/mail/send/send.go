@@ -12,6 +12,7 @@ import (
 var FlagSmtpHost string
 var FlagSmtpPort int
 var FlagFrom string
+var FlagSmtpUser string
 var FlagPassword string
 var FlagTo string
 var FlagSubject string
@@ -23,11 +24,16 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"s"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		user := FlagFrom
+		if FlagSmtpUser != "" {
+			user = FlagSmtpUser
+		}
 		err := mail_utils.SendSimpleMail(
 			FlagSmtpHost,
 			strconv.Itoa(FlagSmtpPort),
-			FlagFrom,
+			user,
 			FlagPassword,
+			FlagFrom,
 			FlagTo,
 			FlagSubject,
 			FlagMessage,
@@ -56,6 +62,13 @@ func init() {
 		"SMTP port (587, 25, ...)",
 	)
 	Cmd.MarkFlagRequired("smtp-port")
+	Cmd.Flags().StringVarP(
+		&FlagSmtpUser,
+		"smtp-user",
+		"U",
+		"",
+		"SMTP user (default from --from or -f)",
+	)
 	Cmd.Flags().StringVarP(
 		&FlagFrom,
 		"from",
