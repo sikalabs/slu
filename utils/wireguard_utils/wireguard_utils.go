@@ -16,9 +16,9 @@ func NewKeys() (string, string, string, error) {
 
 func PrintNewKeys() {
 	priv, pub, preshared, _ := NewKeys()
-	fmt.Printf("priv:\t%s\n", priv)
-	fmt.Printf("publ:\t%s\n", pub)
-	fmt.Printf("pres:\t%s\n", preshared)
+	fmt.Printf("priv: %s\n", priv)
+	fmt.Printf("publ: %s\n", pub)
+	fmt.Printf("pres: %s\n", preshared)
 }
 
 func PrintNewKeysJson() {
