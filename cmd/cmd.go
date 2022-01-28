@@ -105,6 +105,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/wait_for/k8s/pod"
 	_ "github.com/sikalabs/slu/cmd/wait_for_it"
 	_ "github.com/sikalabs/slu/cmd/wait_for_tls"
+	_ "github.com/sikalabs/slu/cmd/wireguard"
+	_ "github.com/sikalabs/slu/cmd/wireguard/genkey"
 	"github.com/spf13/cobra"
 )
 
