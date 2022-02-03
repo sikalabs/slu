@@ -44,7 +44,7 @@ var Version string = "` + CmdFlagVersion + `"
 		if err != nil {
 			panic(err)
 		}
-		commit, _ := w.Commit("VERSION "+CmdFlagVersion, &git.CommitOptions{})
+		commit, _ := w.Commit("VERSION: "+CmdFlagVersion, &git.CommitOptions{})
 		_, err = r.CommitObject(commit)
 		if err != nil {
 			panic(err)
@@ -55,7 +55,7 @@ var Version string = "` + CmdFlagVersion + `"
 				CmdFlagVersion,
 				commit,
 				&git.CreateTagOptions{
-					Message: "VERSION " + CmdFlagVersion,
+					Message: "VERSION: " + CmdFlagVersion,
 				},
 			)
 			if err != nil {
