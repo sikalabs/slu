@@ -6,6 +6,7 @@ require (
 	github.com/digitalocean/godo v1.73.0
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.2
 	github.com/mhale/smtpd v0.8.0
