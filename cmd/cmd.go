@@ -17,6 +17,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/docker"
 	_ "github.com/sikalabs/slu/cmd/docker/registry"
 	_ "github.com/sikalabs/slu/cmd/docker/registry/list"
+	_ "github.com/sikalabs/slu/cmd/docker/registry/tags"
 	_ "github.com/sikalabs/slu/cmd/du"
 	_ "github.com/sikalabs/slu/cmd/example_server"
 	_ "github.com/sikalabs/slu/cmd/expand"
