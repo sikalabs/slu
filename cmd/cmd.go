@@ -29,6 +29,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/generate_files/tree"
 	_ "github.com/sikalabs/slu/cmd/git"
 	_ "github.com/sikalabs/slu/cmd/git/commit"
+	_ "github.com/sikalabs/slu/cmd/git/commit/add_charts"
 	_ "github.com/sikalabs/slu/cmd/git/commit/terraform_lock"
 	_ "github.com/sikalabs/slu/cmd/git/if"
 	_ "github.com/sikalabs/slu/cmd/git/if/staged"

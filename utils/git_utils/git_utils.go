@@ -24,3 +24,25 @@ func GetRepoUrl() string {
 	}
 	return ""
 }
+
+func GetNewAddedFiles(repoPath string) ([]string, error) {
+	var newFiles []string
+	r, err := git.PlainOpen(repoPath)
+	if err != nil {
+		panic(err)
+	}
+	w, err := r.Worktree()
+	if err != nil {
+		panic(err)
+	}
+	s, err := w.Status()
+	if err != nil {
+		panic(err)
+	}
+	for name, f := range s {
+		if f.Staging == git.Added {
+			newFiles = append(newFiles, name)
+		}
+	}
+	return newFiles, nil
+}
