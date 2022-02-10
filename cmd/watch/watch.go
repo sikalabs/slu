@@ -32,7 +32,9 @@ var Cmd = &cobra.Command{
 			cmd.Stderr = os.Stderr
 			err := cmd.Run()
 			if err != nil {
-				log.Fatal(err)
+				if FlagVerbose {
+					log.Println(err)
+				}
 			}
 			time.Sleep(time.Duration(FlagSleepTime) * time.Millisecond)
 			i++
