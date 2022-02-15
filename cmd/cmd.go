@@ -91,6 +91,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/random/string"
 	_ "github.com/sikalabs/slu/cmd/rmline"
 	"github.com/sikalabs/slu/cmd/root"
+	_ "github.com/sikalabs/slu/cmd/s3"
+	_ "github.com/sikalabs/slu/cmd/s3/remove_bucket"
 	_ "github.com/sikalabs/slu/cmd/sleep"
 	_ "github.com/sikalabs/slu/cmd/sleep/forever"
 	_ "github.com/sikalabs/slu/cmd/sleep/random"
