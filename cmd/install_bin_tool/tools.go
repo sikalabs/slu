@@ -30,6 +30,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://dl.k8s.io/release/{{.Version}}/bin/{{.Os}}/{{.Arch}}/kubectl",
 	},
 	{
+		Name:           "minikube",
+		GetVersionFunc: func() string { return "latest" },
+		UrlTemplate:    "https://storage.googleapis.com/minikube/releases/{{.Version}}/minikube-{{.Os}}-{{.Arch}}",
+	},
+	{
 		Name:           "helm",
 		GetVersionFunc: func() string { return "v3.6.3" },
 		SourcePath:     "{{.Os}}-amd64/helm",
