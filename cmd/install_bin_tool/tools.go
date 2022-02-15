@@ -16,7 +16,7 @@ var Tools = []Tool{
 	{
 		Name:           "training-cli",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("ondrejsika", "training-cli") },
-		UrlTemplate:    "https://github.com/ondrejsika/training-cli/releases/download/{{.Version}}/tergum_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+		UrlTemplate:    "https://github.com/ondrejsika/training-cli/releases/download/{{.Version}}/training-cli_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
 		Name:           "statica",
