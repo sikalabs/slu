@@ -243,12 +243,10 @@ dockers:
 `,
 	// Dockerfile
 	"Dockerfile": `FROM debian:10-slim
-COPY {{.ProjectName}} /
-ENTRYPOINT [ "/{{.ProjectName}}" ]
+COPY {{.ProjectName}} /usr/local/bin/
 `,
 	// Dockerfile.arm64v8
 	"Dockerfile.arm64v8": `FROM arm64v8/debian:10-slim
-COPY {{.ProjectName}} /
-ENTRYPOINT [ "/{{.ProjectName}}" ]
+COPY {{.ProjectName}} /usr/local/bin/
 `,
 }
