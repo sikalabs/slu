@@ -14,6 +14,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/sikalabs/tergum/releases/download/{{.Version}}/tergum_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
+		Name:           "training-cli",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("ondrejsika", "training-cli") },
+		UrlTemplate:    "https://github.com/ondrejsika/training-cli/releases/download/{{.Version}}/tergum_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
 		Name:           "statica",
 		GetVersionFunc: func() string { return "v0.4.0" },
 		UrlTemplate:    "https://github.com/vojtechmares/statica/releases/download/{{.Version}}/statica_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
