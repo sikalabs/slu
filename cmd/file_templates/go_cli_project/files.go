@@ -128,7 +128,7 @@ builds:
     ldflags:
       - -s
       - -w
-      - -X {{.Package}}/version/version.Version=v{{"{{"}}.Version{{"}}"}}
+      - -X {{.Package}}/version.Version=v{{"{{"}}.Version{{"}}"}}
     goos:
       - windows
       - linux
