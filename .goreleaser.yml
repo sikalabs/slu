@@ -126,7 +126,7 @@ dockers:
         - "--label=com.github.actions.name={{.ProjectName}}"
         - "--label=repository=https://github.com/sikalabs/slu"
         - "--label=maintainer=SikaLabs <opensource@sikalabs.com>"
-        
+
 changelog:
   filters:
     exclude:
