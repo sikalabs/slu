@@ -131,3 +131,11 @@ changelog:
   filters:
     exclude:
       - '^VERSION'
+
+scoop:
+  bucket:
+    owner: sikalabs
+    name: scoop-bucket
+  homepage:  https://github.com/sikalabs/slu
+  description: SikaLabs Utils
+  license: MIT
