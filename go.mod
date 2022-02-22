@@ -3,24 +3,24 @@ module github.com/sikalabs/slu
 go 1.16
 
 require (
-	github.com/aws/aws-sdk-go v1.42.53
-	github.com/digitalocean/godo v1.73.0
+	github.com/aws/aws-sdk-go v1.43.3
+	github.com/digitalocean/godo v1.75.0
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
 	github.com/jpillora/go-tcp-proxy v1.0.2
-	github.com/lib/pq v1.10.2
+	github.com/lib/pq v1.10.4
 	github.com/mhale/smtpd v0.8.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
-	github.com/rs/zerolog v1.25.0
+	github.com/rs/zerolog v1.26.1
 	github.com/spf13/cobra v1.3.0
 	github.com/xanzy/go-gitlab v0.50.3
-	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20211230205640-daad0b7ba671
-	gorm.io/driver/mysql v1.1.2
-	gorm.io/driver/sqlite v1.1.5
-	gorm.io/gorm v1.21.15
-	k8s.io/api v0.22.0
-	k8s.io/apimachinery v0.22.0
-	k8s.io/client-go v0.22.0
+	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220208144051-fde48d68ee68
+	gorm.io/driver/mysql v1.3.2
+	gorm.io/driver/sqlite v1.3.1
+	gorm.io/gorm v1.23.1
+	k8s.io/api v0.23.4
+	k8s.io/apimachinery v0.23.4
+	k8s.io/client-go v0.23.4
 )
