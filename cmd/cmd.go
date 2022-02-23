@@ -58,6 +58,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/k8s"
 	_ "github.com/sikalabs/slu/cmd/k8s/delete_ns"
 	_ "github.com/sikalabs/slu/cmd/k8s/get"
+	_ "github.com/sikalabs/slu/cmd/k8s/get/bad_pods"
 	_ "github.com/sikalabs/slu/cmd/k8s/get/configmap"
 	_ "github.com/sikalabs/slu/cmd/k8s/get/secret"
 	_ "github.com/sikalabs/slu/cmd/k8s/kubeconfig"
