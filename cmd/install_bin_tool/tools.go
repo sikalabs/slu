@@ -93,6 +93,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/prometheus/alertmanager/releases/download/{{.Version}}/alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}.tar.gz",
 		SourcePath:     "alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}/alertmanager",
 	},
+	{
+		Name:           "amtool",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("prometheus", "alertmanager") },
+		UrlTemplate:    "https://github.com/prometheus/alertmanager/releases/download/{{.Version}}/alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}.tar.gz",
+		SourcePath:     "alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}/amtool",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
