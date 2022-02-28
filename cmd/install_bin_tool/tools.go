@@ -87,6 +87,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/profclems/glab/releases/download/v{{.Version}}/glab_{{.Version}}_{{.Os|capitalize}}_{{.ArchDocker}}.tar.gz",
 		SourcePath:     "bin/glab",
 	},
+	{
+		Name:           "alertmanager",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("prometheus", "alertmanager") },
+		UrlTemplate:    "https://github.com/prometheus/alertmanager/releases/download/{{.Version}}/alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}.tar.gz",
+		SourcePath:     "alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}/alertmanager",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
