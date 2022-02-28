@@ -78,7 +78,7 @@ func SkipStage(path string, stage string) {
 	key := "SKIP_STAGE_" + stage
 	val := "skip"
 
-	v, _, _ := g.ProjectVariables.GetVariable(config.ProjectID, key)
+	v, _, _ := g.ProjectVariables.GetVariable(config.ProjectID, key, &gitlab.GetProjectVariableOptions{})
 	if v == nil {
 		g.ProjectVariables.CreateVariable(config.ProjectID, &gitlab.CreateProjectVariableOptions{
 			Key:   &key,
@@ -108,7 +108,7 @@ func RemoveSkipStage(path string, stage string) {
 	key := "SKIP_STAGE_" + stage
 	val := "no-skip"
 
-	v, _, _ := g.ProjectVariables.GetVariable(config.ProjectID, key)
+	v, _, _ := g.ProjectVariables.GetVariable(config.ProjectID, key, &gitlab.GetProjectVariableOptions{})
 	if v == nil {
 		g.ProjectVariables.CreateVariable(config.ProjectID, &gitlab.CreateProjectVariableOptions{
 			Key:   &key,
@@ -137,8 +137,8 @@ func RemoveVariableSkipStage(path string, stage string) {
 
 	key := "SKIP_STAGE_" + stage
 
-	v, _, _ := g.ProjectVariables.GetVariable(config.ProjectID, key)
+	v, _, _ := g.ProjectVariables.GetVariable(config.ProjectID, key, &gitlab.GetProjectVariableOptions{})
 	if v != nil {
-		g.ProjectVariables.RemoveVariable(config.ProjectID, key)
+		g.ProjectVariables.RemoveVariable(config.ProjectID, key, &gitlab.RemoveProjectVariableOptions{})
 	}
 }

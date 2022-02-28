@@ -15,7 +15,7 @@ require (
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
 	github.com/rs/zerolog v1.26.1
 	github.com/spf13/cobra v1.3.0
-	github.com/xanzy/go-gitlab v0.50.3
+	github.com/xanzy/go-gitlab v0.55.1
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220208144051-fde48d68ee68
 	gorm.io/driver/mysql v1.3.2
 	gorm.io/driver/sqlite v1.3.1
