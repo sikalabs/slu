@@ -15,6 +15,7 @@ import (
 
 type Tool struct {
 	Name           string
+	Aliases        []string
 	SourcePath     string
 	GetVersionFunc func() string
 	UrlTemplate    string
@@ -83,6 +84,7 @@ func getSourcePath(SourcePathTemplate, version string) string {
 
 func buildCmd(
 	name string,
+	aliases []string,
 	sourceTemlate string,
 	urlTemplate string,
 	defaultVersionFunc func() string,
@@ -90,9 +92,10 @@ func buildCmd(
 	getSourcePathFunc func(string, string) string,
 ) *cobra.Command {
 	var cmd = &cobra.Command{
-		Use:   name,
-		Short: "Install " + name + " binary",
-		Args:  cobra.NoArgs,
+		Use:     name,
+		Short:   "Install " + name + " binary",
+		Aliases: aliases,
+		Args:    cobra.NoArgs,
 		Run: func(c *cobra.Command, args []string) {
 			if sourceTemlate == "" {
 				sourceTemlate = name
@@ -145,7 +148,15 @@ func init() {
 		"Version",
 	)
 	for _, tool := range Tools {
-		Cmd.AddCommand(buildCmd(tool.Name, tool.SourcePath, tool.UrlTemplate, tool.GetVersionFunc, getUrl, getSourcePath))
+		Cmd.AddCommand(buildCmd(
+			tool.Name,
+			tool.Aliases,
+			tool.SourcePath,
+			tool.UrlTemplate,
+			tool.GetVersionFunc,
+			getUrl,
+			getSourcePath,
+		))
 	}
 }
 
