@@ -89,6 +89,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "alertmanager",
+		Aliases:        []string{"am"},
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("prometheus", "alertmanager") },
 		UrlTemplate:    "https://github.com/prometheus/alertmanager/releases/download/{{.Version}}/alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}.tar.gz",
 		SourcePath:     "alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}/alertmanager",
