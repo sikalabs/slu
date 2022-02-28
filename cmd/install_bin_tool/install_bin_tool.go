@@ -34,6 +34,9 @@ var Cmd = &cobra.Command{
 func getUrl(urlTemplate, version string) string {
 	funcMap := template.FuncMap{
 		"capitalize": strings.Title,
+		"removev": func(s string) string {
+			return strings.ReplaceAll(s, "v", "")
+		},
 	}
 	tmpl, err := template.New("main").Funcs(funcMap).Parse(urlTemplate)
 	if err != nil {
@@ -56,6 +59,9 @@ func getUrl(urlTemplate, version string) string {
 func getSourcePath(SourcePathTemplate, version string) string {
 	funcMap := template.FuncMap{
 		"capitalize": strings.Title,
+		"removev": func(s string) string {
+			return strings.ReplaceAll(s, "v", "")
+		},
 	}
 	tmpl, err := template.New("source-path").Funcs(funcMap).Parse(SourcePathTemplate)
 	if err != nil {
