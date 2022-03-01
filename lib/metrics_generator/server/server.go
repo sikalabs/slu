@@ -79,7 +79,7 @@ func runMetrics() {
 	}
 }
 
-func Server() {
+func Server(addr string) {
 	prometheus.MustRegister(promRequestDurationSeconds)
 	prometheus.MustRegister(promInfo)
 	promInfo.Set(1)
@@ -140,5 +140,5 @@ func Server() {
 	go runMetrics()
 
 	fmt.Println("Server started.")
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(addr, nil))
 }
