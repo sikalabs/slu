@@ -62,6 +62,9 @@ func getSleepTime(rate int) time.Duration {
 }
 
 func addDeviationPerc(n float64, d int) float64 {
+	if d == 0 {
+		return n
+	}
 	r := float64(-d/2+rand.Intn(d)) / 100.
 	return n + n*r
 }
