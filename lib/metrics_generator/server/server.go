@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"net/http"
@@ -12,6 +13,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sikalabs/slu/version"
+
+	"gopkg.in/yaml.v3"
 )
 
 var promInfo = prometheus.NewGauge(prometheus.GaugeOpts{
@@ -35,21 +38,21 @@ var promRequestDurationSeconds = prometheus.NewHistogramVec(
 )
 
 type ServerStateMetrics struct {
-	StatusCode            int
-	Path                  string
-	Method                string
-	Duration              float64
-	DurationDeviationPerc int
-	Rate                  int
-	RateDeviationPerc     int
+	StatusCode            int     `yaml:"StatusCode"`
+	Path                  string  `yaml:"Path"`
+	Method                string  `yaml:"Method"`
+	Duration              float64 `yaml:"Duration"`
+	DurationDeviationPerc int     `yaml:"DurationDeviationPerc"`
+	Rate                  int     `yaml:"Rate"`
+	RateDeviationPerc     int     `yaml:"RateDeviationPerc"`
 }
 
 type ServerState struct {
-	Metrics []ServerStateMetrics
+	Metrics []ServerStateMetrics `yaml:"Metrics"`
 }
 
 type ServerConfig struct {
-	Metrics []ServerStateMetrics
+	Metrics []ServerStateMetrics `yaml:"Metrics"`
 }
 
 var State ServerState
@@ -108,6 +111,21 @@ func Server(addr string, config ServerConfig) {
 
 	fmt.Println("Server started.")
 	log.Fatal(http.ListenAndServe(addr, nil))
+}
+
+func ServerWithConfig(addr, configPath string) {
+	var config ServerConfig
+	var err error
+	f, err := ioutil.ReadFile(configPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = yaml.Unmarshal(f, &config)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(config)
+	Server(addr, config)
 }
 
 func ServerWithDefaultConfig(addr string) {

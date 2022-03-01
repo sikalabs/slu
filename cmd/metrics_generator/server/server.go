@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"strconv"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/metrics_generator"
@@ -10,6 +11,7 @@ import (
 )
 
 var FlagPort int
+var FlagConfigFilePath string
 
 var Cmd = &cobra.Command{
 	Use:     "server",
@@ -18,7 +20,12 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		addr := ":" + strconv.Itoa(FlagPort)
-		libserver.ServerWithDefaultConfig(addr)
+		if FlagConfigFilePath != "" {
+			libserver.ServerWithConfig(addr, FlagConfigFilePath)
+		} else {
+			fmt.Println("Run with default configuration")
+			libserver.ServerWithDefaultConfig(addr)
+		}
 	},
 }
 
@@ -30,5 +37,12 @@ func init() {
 		"p",
 		8000,
 		"listen on port",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagConfigFilePath,
+		"config",
+		"c",
+		"",
+		"config file path",
 	)
 }
