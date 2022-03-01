@@ -13,6 +13,7 @@ require (
 	github.com/mhale/smtpd v0.8.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
+	github.com/prometheus/client_golang v1.12.1
 	github.com/rs/zerolog v1.26.1
 	github.com/spf13/cobra v1.3.0
 	github.com/xanzy/go-gitlab v0.55.1
