@@ -48,6 +48,10 @@ type ServerState struct {
 	Metrics []ServerStateMetrics
 }
 
+type ServerConfig struct {
+	Metrics []ServerStateMetrics
+}
+
 var State ServerState
 
 func getSleepTime(rate int) time.Duration {
@@ -79,12 +83,35 @@ func runMetrics() {
 	}
 }
 
-func Server(addr string) {
+func Server(addr string, config ServerConfig) {
 	prometheus.MustRegister(promRequestDurationSeconds)
 	prometheus.MustRegister(promInfo)
 	promInfo.Set(1)
 
+	http.Handle("/metrics", promhttp.Handler())
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]string{
+			"cmd0":    "slu",
+			"cmd1":    "promdemo",
+			"metrics": "/metrics",
+		})
+	})
+
 	State = ServerState{
+		Metrics: config.Metrics,
+	}
+
+	go runMetrics()
+
+	fmt.Println("Server started.")
+	log.Fatal(http.ListenAndServe(addr, nil))
+}
+
+func ServerWithDefaultConfig(addr string) {
+	config := ServerConfig{
 		Metrics: []ServerStateMetrics{
 			{
 				StatusCode:            200,
@@ -124,21 +151,5 @@ func Server(addr string) {
 			},
 		},
 	}
-
-	http.Handle("/metrics", promhttp.Handler())
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(map[string]string{
-			"cmd0":    "slu",
-			"cmd1":    "promdemo",
-			"metrics": "/metrics",
-		})
-	})
-
-	go runMetrics()
-
-	fmt.Println("Server started.")
-	log.Fatal(http.ListenAndServe(addr, nil))
+	Server(addr, config)
 }

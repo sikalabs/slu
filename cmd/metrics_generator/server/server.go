@@ -18,7 +18,7 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		addr := ":" + strconv.Itoa(FlagPort)
-		libserver.Server(addr)
+		libserver.ServerWithDefaultConfig(addr)
 	},
 }
 
