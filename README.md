@@ -49,7 +49,7 @@ install-slu install
 ```bash
 sudo su -
 # Check the current version on Github https://github.com/sikalabs/slu/releases
-SLU_VERSION=v0.33.0 && \
+SLU_VERSION=v0.34.0 && \
 VERSION=$SLU_VERSION && \
 OS=linux && \
 ARCH=amd64 && \
