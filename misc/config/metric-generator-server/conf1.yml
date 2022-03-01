@@ -1,0 +1,8 @@
+Metrics:
+  - StatusCode: 200
+    Path: "/hello-world"
+    Method: "GET"
+    Duration: 0.01
+    DurationDeviationPerc: 1
+    Rate: 1
+    RateDeviationPerc: 1

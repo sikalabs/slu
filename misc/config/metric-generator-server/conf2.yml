@@ -1,0 +1,29 @@
+Metrics:
+  - StatusCode: 200
+    Path: "/foo"
+    Method: "GET"
+    Duration: 0.3
+    DurationDeviationPerc: 10
+    Rate: 10
+    RateDeviationPerc: 20
+  - StatusCode: 200
+    Path: "/bar"
+    Method: "GET"
+    Duration: 0.1
+    DurationDeviationPerc: 10
+    Rate: 20
+    RateDeviationPerc: 40
+  - StatusCode: 200
+    Path: "/baz"
+    Method: "GET"
+    Duration: 0.7
+    DurationDeviationPerc: 10
+    Rate: 11
+    RateDeviationPerc: 10
+  - StatusCode: 502
+    Path: "/baz"
+    Method: "GET"
+    Duration: 0.01
+    DurationDeviationPerc: 10
+    Rate: 1
+    RateDeviationPerc: 10
