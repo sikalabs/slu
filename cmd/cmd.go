@@ -4,6 +4,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/argocd"
 	_ "github.com/sikalabs/slu/cmd/argocd/initial_password"
 	_ "github.com/sikalabs/slu/cmd/argocd/set_image"
+	_ "github.com/sikalabs/slu/cmd/debug_server"
+	_ "github.com/sikalabs/slu/cmd/debug_server/long_response"
 	_ "github.com/sikalabs/slu/cmd/digitalocean"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/all"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/all/cleanup"
