@@ -24,3 +24,8 @@ func RandomString(length int, chars string) string {
 	}
 	return string(b)
 }
+
+func RandomInt(min int, max int) int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(max+min) - min
+}
