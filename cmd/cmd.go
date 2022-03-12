@@ -94,6 +94,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/proxy/smtp"
 	_ "github.com/sikalabs/slu/cmd/proxy/tcp"
 	_ "github.com/sikalabs/slu/cmd/random"
+	_ "github.com/sikalabs/slu/cmd/random/int"
 	_ "github.com/sikalabs/slu/cmd/random/password"
 	_ "github.com/sikalabs/slu/cmd/random/string"
 	_ "github.com/sikalabs/slu/cmd/rmline"
