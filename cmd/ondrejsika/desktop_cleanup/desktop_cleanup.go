@@ -18,6 +18,7 @@ var Cmd = &cobra.Command{
 		rm("./Library/Caches/pip/*")
 		rm("./Library/Caches/go-build/*")
 		rm("./Library/Caches/Homebrew/downloads/*")
+		rm("./go/pkg/mod/cache/*")
 	},
 }
 
