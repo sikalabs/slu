@@ -13,6 +13,7 @@ var Cmd = &cobra.Command{
 	Short: "Clean up desktop",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		sh("brew cleanup")
 		rm(".minikube/cache")
 		rm("./Library/Caches/Yarn/*")
 		rm("./Library/Caches/pip/*")
