@@ -1,10 +1,12 @@
 package git_utils
 
 import (
+	"log"
 	"strings"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/sikalabs/slu/utils/exec_utils"
 )
 
 func GetRepoUrl() string {
@@ -66,4 +68,20 @@ func GetLocalBranches() []string {
 		panic(err)
 	}
 	return branches
+}
+
+func DeleteBranch(name string) {
+	err := exec_utils.ExecOut("git", "branch", "-D", name)
+	if err != nil {
+		log.Fatalln(err)
+	}
+}
+
+func DeleteAllDependabotBranches() {
+	branches := GetLocalBranches()
+	for _, branch := range branches {
+		if strings.HasPrefix(branch, "dependabot/") {
+			DeleteBranch(branch)
+		}
+	}
 }
