@@ -1,4 +1,4 @@
-package version
+package ip
 
 import (
 	"encoding/json"
