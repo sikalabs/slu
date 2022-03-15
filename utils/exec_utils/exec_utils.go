@@ -12,3 +12,20 @@ func ExecOut(command string, args ...string) error {
 	err := cmd.Run()
 	return err
 }
+
+func ExecHomeOut(command string, args ...string) error {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+	cmd := exec.Command(command, args...)
+	cmd.Dir = home
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err = cmd.Run()
+	return err
+}
+
+func ExecShHomeOut(script string) error {
+	return ExecHomeOut("sh", "-c", script)
+}
