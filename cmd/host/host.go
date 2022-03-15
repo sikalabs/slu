@@ -13,6 +13,7 @@ import (
 
 var FlagIPv4Only bool
 var FlagIPv6Only bool
+var FlagOneAddress bool
 
 var Cmd = &cobra.Command{
 	Use:   "host <domain>",
@@ -37,6 +38,9 @@ var Cmd = &cobra.Command{
 				}
 			}
 			ipsStr = append(ipsStr, ipStr)
+			if FlagOneAddress {
+				break
+			}
 		}
 
 		if root.RootCmdFlagJson {
@@ -68,5 +72,11 @@ func init() {
 		"6",
 		false,
 		"Return IPv6 records only",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagOneAddress,
+		"one",
+		false,
+		"Return only one IP address",
 	)
 }
