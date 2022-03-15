@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/aws/aws-sdk-go v1.43.18
 	github.com/cloudflare/cloudflare-go v0.34.0
-	github.com/digitalocean/godo v1.75.0
+	github.com/digitalocean/godo v1.76.0
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
