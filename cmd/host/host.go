@@ -3,6 +3,7 @@ package host
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net"
 
 	"github.com/sikalabs/slu/cmd/root"
@@ -15,7 +16,10 @@ var Cmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	Run: func(c *cobra.Command, args []string) {
 		var ipsStr []string
-		ips, _ := net.LookupIP(args[0])
+		ips, err := net.LookupIP(args[0])
+		if err != nil {
+			log.Fatalln(err)
+		}
 		for _, ip := range ips {
 			ipStr := ip.String()
 			ipsStr = append(ipsStr, ipStr)
