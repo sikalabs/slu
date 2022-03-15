@@ -55,6 +55,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/go_code/version_bump"
 	_ "github.com/sikalabs/slu/cmd/helm"
 	_ "github.com/sikalabs/slu/cmd/helm/version_bump"
+	_ "github.com/sikalabs/slu/cmd/host"
 	_ "github.com/sikalabs/slu/cmd/install_bin"
 	_ "github.com/sikalabs/slu/cmd/install_bin_tool"
 	_ "github.com/sikalabs/slu/cmd/ip"
