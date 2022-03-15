@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"strings"
 
 	"github.com/sikalabs/slu/cmd/root"
 	"github.com/spf13/cobra"
 )
+
+var FlagIPv4Only bool
+var FlagIPv6Only bool
 
 var Cmd = &cobra.Command{
 	Use:   "host <domain>",
@@ -22,6 +26,16 @@ var Cmd = &cobra.Command{
 		}
 		for _, ip := range ips {
 			ipStr := ip.String()
+			if FlagIPv4Only {
+				if strings.Contains(ipStr, ":") {
+					continue
+				}
+			}
+			if FlagIPv6Only {
+				if strings.Contains(ipStr, ".") {
+					continue
+				}
+			}
 			ipsStr = append(ipsStr, ipStr)
 		}
 
@@ -41,4 +55,18 @@ var Cmd = &cobra.Command{
 
 func init() {
 	root.RootCmd.AddCommand(Cmd)
+	Cmd.Flags().BoolVarP(
+		&FlagIPv4Only,
+		"ipv4-only",
+		"4",
+		false,
+		"Return IPv4 records only",
+	)
+	Cmd.Flags().BoolVarP(
+		&FlagIPv6Only,
+		"ipv6-only",
+		"6",
+		false,
+		"Return IPv6 records only",
+	)
 }
