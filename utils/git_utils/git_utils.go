@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 )
 
 func GetRepoUrl() string {
@@ -45,4 +46,24 @@ func GetNewAddedFiles(repoPath string) ([]string, error) {
 		}
 	}
 	return newFiles, nil
+}
+
+func GetLocalBranches() []string {
+	var branches []string
+	r, err := git.PlainOpen(".")
+	if err != nil {
+		panic(err)
+	}
+	branchesIter, err := r.Branches()
+	if err != nil {
+		panic(err)
+	}
+	err = branchesIter.ForEach(func(b *plumbing.Reference) error {
+		branches = append(branches, b.Name().Short())
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+	return branches
 }
