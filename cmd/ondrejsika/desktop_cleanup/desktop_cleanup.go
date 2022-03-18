@@ -8,6 +8,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagYesGoBuildCache bool
+var FlagYesGoPkgModCache bool
+var FlagYesYarnCache bool
+
 var Cmd = &cobra.Command{
 	Use:   "desktop-cleanup",
 	Short: "Clean up desktop",
@@ -15,16 +19,40 @@ var Cmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		sh("brew cleanup")
 		rm(".minikube/cache")
-		rm("./Library/Caches/Yarn/*")
+		if FlagYesYarnCache {
+			rm("./Library/Caches/Yarn/*")
+		}
 		rm("./Library/Caches/pip/*")
-		rm("./Library/Caches/go-build/*")
+		if FlagYesGoBuildCache {
+			rm("./Library/Caches/go-build/*")
+		}
 		rm("./Library/Caches/Homebrew/downloads/*")
-		rm("./go/pkg/mod/cache/*")
+		if FlagYesGoPkgModCache {
+			rm("./go/pkg/mod/cache/*")
+		}
 	},
 }
 
 func init() {
 	parentcmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().BoolVar(
+		&FlagYesGoBuildCache,
+		"go-build-cache",
+		false,
+		"Cleanup GO build cache (rm -rf  ~/Library/Caches/go-build/*)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagYesGoPkgModCache,
+		"go-pkg-mod-cache",
+		false,
+		"Cleanup GO build cache (rm -rf  ~/go/pkg/mod/cache/*)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagYesYarnCache,
+		"yarn-cache",
+		false,
+		"Cleanup Yarn cache (rm -rf  ~/Library/Caches/Yarn/*)",
+	)
 }
 
 func sh(script string) {
