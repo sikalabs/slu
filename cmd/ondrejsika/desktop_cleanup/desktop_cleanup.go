@@ -7,6 +7,7 @@ import (
 	"time"
 
 	parentcmd "github.com/sikalabs/slu/cmd/ondrejsika"
+	"github.com/sikalabs/slu/utils/docker_utils"
 	"github.com/sikalabs/slu/utils/exec_utils"
 	"github.com/spf13/cobra"
 )
@@ -27,6 +28,10 @@ var Cmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		// Prepare cleanup script
 		registerSh("brew cleanup")
+		dockerUp, _ := docker_utils.Ping()
+		if dockerUp {
+			registerSh("docker system prune --force")
+		}
 		registerRm(".minikube/cache")
 		if FlagYesYarnCache {
 			registerRm("./Library/Caches/Yarn/*")
