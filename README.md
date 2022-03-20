@@ -64,6 +64,14 @@ rm ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
 mv ${BIN} /usr/local/bin/
 ```
 
+### Windows (scoop)
+
+Install unsing [scoop](https://scoop.sh/)
+
+```
+scoop install https://raw.githubusercontent.com/sikalabs/scoop-bucket/master/slu.json
+```
+
 ### Autocomplete
 
 See: `slu completion`
