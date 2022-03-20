@@ -7,13 +7,13 @@ import (
 	"log"
 
 	k8s_cmd "github.com/sikalabs/slu/cmd/k8s"
-	rootcmd "github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/k8s"
 
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+var FlagJson bool
 var CmdFlagServiceAccount string
 var CmdFlagNamespace string
 
@@ -41,7 +41,7 @@ var Cmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		if rootcmd.RootCmdFlagJson {
+		if FlagJson {
 			outJson, err := json.Marshal(string(secret.Data["token"]))
 			if err != nil {
 				panic(err)
@@ -68,5 +68,11 @@ func init() {
 		"n",
 		"",
 		"Kubernetes Namespace",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
 	)
 }

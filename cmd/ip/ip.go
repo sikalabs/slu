@@ -11,6 +11,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagJson bool
+
 var Cmd = &cobra.Command{
 	Use:   "ip",
 	Short: "Get my current IP address (using checkip.amazonaws.com)",
@@ -28,7 +30,7 @@ var Cmd = &cobra.Command{
 
 		ip := strings.TrimSuffix(string(body), "\n")
 
-		if root.RootCmdFlagJson {
+		if FlagJson {
 			outJson, err := json.Marshal(map[string]string{
 				"ip": ip,
 			})
@@ -44,4 +46,10 @@ var Cmd = &cobra.Command{
 
 func init() {
 	root.RootCmd.AddCommand(Cmd)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
+	)
 }

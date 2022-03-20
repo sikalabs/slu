@@ -2,18 +2,19 @@ package drop
 
 import (
 	mysqlcmd "github.com/sikalabs/slu/cmd/mysql"
-	rootcmd "github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/mysql"
 
 	"github.com/spf13/cobra"
 )
+
+var FlagJson bool
 
 var MysqlListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list Mysql databases",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		if rootcmd.RootCmdFlagJson {
+		if FlagJson {
 			mysql.ListJSON(
 				mysqlcmd.MysqlCmdFlagHost,
 				mysqlcmd.MysqlCmdFlagPort,
@@ -33,4 +34,10 @@ var MysqlListCmd = &cobra.Command{
 
 func init() {
 	mysqlcmd.MysqlCmd.AddCommand(MysqlListCmd)
+	MysqlListCmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
+	)
 }

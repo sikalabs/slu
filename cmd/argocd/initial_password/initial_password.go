@@ -7,13 +7,13 @@ import (
 	"log"
 
 	argocd_cmd "github.com/sikalabs/slu/cmd/argocd"
-	rootcmd "github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/k8s"
 
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+var FlagJson bool
 var CmdFlagNamespace string
 
 var Cmd = &cobra.Command{
@@ -31,7 +31,7 @@ var Cmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		if rootcmd.RootCmdFlagJson {
+		if FlagJson {
 			outJson, err := json.Marshal(string(secret.Data["password"]))
 			if err != nil {
 				panic(err)
@@ -51,5 +51,11 @@ func init() {
 		"n",
 		"argocd",
 		"ArgoCD Namespace",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
 	)
 }

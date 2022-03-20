@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagJson bool
 var CmdFlagVerbose bool
 
 var Cmd = &cobra.Command{
@@ -18,7 +19,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"v"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		if root.RootCmdFlagJson {
+		if FlagJson {
 			outJson, err := json.Marshal(map[string]string{
 				"version": version.Version,
 				"os":      runtime.GOOS,
@@ -46,5 +47,11 @@ func init() {
 		"v",
 		false,
 		"Verbose version output",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
 	)
 }

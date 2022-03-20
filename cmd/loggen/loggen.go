@@ -11,6 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagJson bool
 var FlagLogFile string
 var FlagLogPrefix string
 var FlagSleepTime int
@@ -24,7 +25,7 @@ var Cmd = &cobra.Command{
 	Short: "Log Generator",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		if root.RootCmdFlagJson {
+		if FlagJson {
 			var logger zerolog.Logger
 			if FlagLogFile != "" {
 				f, err := os.OpenFile(FlagLogFile,
@@ -164,5 +165,11 @@ func init() {
 		"d",
 		false,
 		"No debugs",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
 	)
 }

@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagJson bool
+
 var Cmd = &cobra.Command{
 	Use:     "length <string>",
 	Short:   "Length of a string",
@@ -15,7 +17,7 @@ var Cmd = &cobra.Command{
 	Args:    cobra.ExactArgs(1),
 	Run: func(c *cobra.Command, args []string) {
 		l := len(args[0])
-		if root.RootCmdFlagJson {
+		if FlagJson {
 			outJson, err := json.Marshal(l)
 			if err != nil {
 				panic(err)
@@ -29,4 +31,10 @@ var Cmd = &cobra.Command{
 
 func init() {
 	root.RootCmd.AddCommand(Cmd)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
+	)
 }

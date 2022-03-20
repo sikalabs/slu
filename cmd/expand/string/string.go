@@ -6,11 +6,11 @@ import (
 	"os"
 
 	expandcmd "github.com/sikalabs/slu/cmd/expand"
-	rootcmd "github.com/sikalabs/slu/cmd/root"
 
 	"github.com/spf13/cobra"
 )
 
+var FlagJson bool
 var CmdFlagSource string
 
 var Cmd = &cobra.Command{
@@ -18,7 +18,7 @@ var Cmd = &cobra.Command{
 	Short: "Expand environment variables in string",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		if rootcmd.RootCmdFlagJson {
+		if FlagJson {
 			outJson, err := json.Marshal(os.ExpandEnv(CmdFlagSource))
 			if err != nil {
 				panic(err)
@@ -40,4 +40,10 @@ func init() {
 		"Source template string",
 	)
 	Cmd.MarkFlagRequired("source")
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
+	)
 }

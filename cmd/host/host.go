@@ -11,6 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagJson bool
 var FlagIPv4Only bool
 var FlagIPv6Only bool
 var FlagOneAddress bool
@@ -43,7 +44,7 @@ var Cmd = &cobra.Command{
 			}
 		}
 
-		if root.RootCmdFlagJson {
+		if FlagJson {
 			outJson, err := json.Marshal(ipsStr)
 			if err != nil {
 				panic(err)
@@ -78,5 +79,11 @@ func init() {
 		"one",
 		false,
 		"Return only one IP address",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
 	)
 }

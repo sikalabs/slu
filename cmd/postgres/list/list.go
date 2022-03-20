@@ -2,18 +2,19 @@ package drop
 
 import (
 	postgrescmd "github.com/sikalabs/slu/cmd/postgres"
-	rootcmd "github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/postgres"
 
 	"github.com/spf13/cobra"
 )
+
+var FlagJson bool
 
 var PostgresListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list Postgres databases",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		if rootcmd.RootCmdFlagJson {
+		if FlagJson {
 			postgres.ListJSON(
 				postgrescmd.PostgresCmdFlagHost,
 				postgrescmd.PostgresCmdFlagPort,
@@ -33,4 +34,10 @@ var PostgresListCmd = &cobra.Command{
 
 func init() {
 	postgrescmd.PostgresCmd.AddCommand(PostgresListCmd)
+	PostgresListCmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
+	)
 }

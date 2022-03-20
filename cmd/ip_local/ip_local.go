@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagJson bool
 var FlagInterfaceName string
 
 var Cmd = &cobra.Command{
@@ -23,7 +24,7 @@ var Cmd = &cobra.Command{
 			if err != nil {
 				log.Fatal(err)
 			}
-			if root.RootCmdFlagJson {
+			if FlagJson {
 				outJson, err := json.Marshal(map[string]map[string]string{
 					"ips": ips,
 				})
@@ -42,7 +43,7 @@ var Cmd = &cobra.Command{
 				log.Fatal(err)
 			}
 
-			if root.RootCmdFlagJson {
+			if FlagJson {
 				outJson, err := json.Marshal(map[string]string{
 					"ip": ip,
 				})
@@ -65,5 +66,11 @@ func init() {
 		"i",
 		"",
 		"Interface name",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
 	)
 }

@@ -7,13 +7,13 @@ import (
 	"log"
 
 	k8s_get_cmd "github.com/sikalabs/slu/cmd/k8s/get"
-	rootcmd "github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/k8s"
 
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+var FlagJson bool
 var CmdFlagName string
 var CmdFlagNamespace string
 var CmdFlagKey string
@@ -39,7 +39,7 @@ var Cmd = &cobra.Command{
 		}
 
 		if CmdFlagKey != "" {
-			if rootcmd.RootCmdFlagJson {
+			if FlagJson {
 				outJson, err := json.Marshal(string(secret.Data[CmdFlagKey]))
 				if err != nil {
 					panic(err)
@@ -49,7 +49,7 @@ var Cmd = &cobra.Command{
 				fmt.Println(string(secret.Data[CmdFlagKey]))
 			}
 		} else {
-			if rootcmd.RootCmdFlagJson {
+			if FlagJson {
 				out := make(map[string]string)
 				for key, val := range secret.Data {
 					out[key] = string(val)
@@ -91,5 +91,11 @@ func init() {
 		"k",
 		"",
 		"Get only specific key from data",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagJson,
+		"json",
+		false,
+		"Format output to JSON",
 	)
 }
