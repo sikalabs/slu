@@ -30,6 +30,7 @@ var Cmd = &cobra.Command{
 		if FlagYesGoPkgModCache {
 			rm("./go/pkg/mod/cache/*")
 		}
+		rm(".nvm/.cache/*")
 	},
 }
 
