@@ -15,6 +15,7 @@ var FlagDryRun bool
 var FlagYesGoBuildCache bool
 var FlagYesGoPkgModCache bool
 var FlagYesYarnCache bool
+var FlagTerraformPluginDir bool
 
 var ListSh []string
 var ListRm []string
@@ -39,6 +40,9 @@ var Cmd = &cobra.Command{
 			registerRm("./go/pkg/mod/cache/*")
 		}
 		registerRm(".nvm/.cache/*")
+		if FlagTerraformPluginDir {
+			registerRm(".terraform-plugin-cache/*")
+		}
 
 		// Review cleanup script
 		for _, script := range ListSh {
@@ -91,6 +95,12 @@ func init() {
 		"yarn-cache",
 		false,
 		"Cleanup Yarn cache (rm -rf  ~/Library/Caches/Yarn/*)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagTerraformPluginDir,
+		"terraform-plugin-dir",
+		false,
+		"Remove Terraform providers Dir (rm -rf  ~/terraform-plugin-cache/*)",
 	)
 }
 
