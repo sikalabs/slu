@@ -1,11 +1,8 @@
 package tcp
 
 import (
-	"net"
-	"time"
-
 	parentcmd "github.com/sikalabs/slu/cmd/wait_for"
-	"github.com/sikalabs/slu/utils/wait_for_utils"
+	"github.com/sikalabs/slu/utils/wait_for_tcp_utils"
 	"github.com/spf13/cobra"
 )
 
@@ -17,16 +14,7 @@ var Cmd = &cobra.Command{
 	Short: "Wait for TCP connection",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		wait_for_utils.WaitFor(
-			CmdFlagTimeout, 100*time.Millisecond,
-			func() (bool, bool, string, error) {
-				_, err := net.DialTimeout("tcp", CmdFlagAddr, 100*time.Millisecond)
-				if err == nil {
-					return wait_for_utils.WaitForResponseSucceeded("Connected")
-				}
-				return wait_for_utils.WaitForResponseWaiting(err.Error())
-			},
-		)
+		wait_for_tcp_utils.WaitForTcp(CmdFlagTimeout, CmdFlagAddr)
 	},
 }
 
