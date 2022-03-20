@@ -20,6 +20,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/digitalocean/auth/use_context"
 	_ "github.com/sikalabs/slu/cmd/docker"
 	_ "github.com/sikalabs/slu/cmd/docker/create_config"
+	_ "github.com/sikalabs/slu/cmd/docker/ping"
 	_ "github.com/sikalabs/slu/cmd/docker/registry"
 	_ "github.com/sikalabs/slu/cmd/docker/registry/list"
 	_ "github.com/sikalabs/slu/cmd/docker/registry/tags"
