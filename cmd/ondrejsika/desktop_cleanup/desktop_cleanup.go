@@ -3,6 +3,7 @@ package desktop_cleanup
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	parentcmd "github.com/sikalabs/slu/cmd/ondrejsika"
@@ -10,6 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagDryRun bool
 var FlagYesGoBuildCache bool
 var FlagYesGoPkgModCache bool
 var FlagYesYarnCache bool
@@ -46,6 +48,10 @@ var Cmd = &cobra.Command{
 			fmt.Println("rm -rf", rmParam)
 		}
 
+		if FlagDryRun {
+			os.Exit(0)
+		}
+
 		// Wait
 		fmt.Println("Wait for 10 seconds... cancel using ctrl+c")
 		time.Sleep(10 * time.Second)
@@ -62,6 +68,12 @@ var Cmd = &cobra.Command{
 
 func init() {
 	parentcmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().BoolVar(
+		&FlagDryRun,
+		"dry-run",
+		false,
+		"Dry run",
+	)
 	Cmd.Flags().BoolVar(
 		&FlagYesGoBuildCache,
 		"go-build-cache",
