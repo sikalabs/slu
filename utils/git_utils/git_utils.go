@@ -88,3 +88,28 @@ func DeleteAllDependabotBranches() {
 		}
 	}
 }
+
+func GetCurrentBranch() string {
+	r, err := git.PlainOpen(".")
+	if err != nil {
+		panic(err)
+	}
+
+	head, err := r.Head()
+	if err != nil {
+		panic(err)
+	}
+
+	return head.Name().Short()
+}
+
+func DeleteAllLocalBranches() {
+	branches := GetLocalBranches()
+	currentBranch := GetCurrentBranch()
+	for _, branch := range branches {
+		if branch == currentBranch {
+			continue
+		}
+		DeleteBranch(branch)
+	}
+}
