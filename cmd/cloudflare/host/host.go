@@ -2,17 +2,20 @@ package host
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 	"strings"
 
+	"github.com/olekukonko/tablewriter"
 	parent_cmd "github.com/sikalabs/slu/cmd/cloudflare"
 
 	"github.com/spf13/cobra"
 
 	"github.com/cloudflare/cloudflare-go"
 )
+
+var FlagAll bool
+var FlagNoBr bool
 
 var Cmd = &cobra.Command{
 	Use:     "host",
@@ -38,16 +41,38 @@ var Cmd = &cobra.Command{
 		}
 
 		records, _ := api.DNSRecords(ctx, id, cloudflare.DNSRecord{})
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorder(false)
+		table.SetHeader([]string{
+			"Name",
+			"Type",
+			"Value",
+		})
 		for _, record := range records {
-			if record.Name == host {
-				fmt.Printf("%s\t%s\t%s\n", record.Name, record.Type, record.Content)
+			if FlagAll || record.Name == host {
+				table.Append([]string{br(record.Name, 30), record.Type, br(record.Content, 60)})
 			}
 		}
+		table.Render()
 	},
 }
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.PersistentFlags().BoolVarP(
+		&FlagAll,
+		"all",
+		"A",
+		false,
+		"Show all records",
+	)
+	Cmd.PersistentFlags().BoolVarP(
+		&FlagNoBr,
+		"no-br",
+		"B",
+		false,
+		"Don't break the long lines",
+	)
 }
 
 func getZoneFromDomain(api *cloudflare.API, domain string) (string, error) {
@@ -60,4 +85,24 @@ func getZoneFromDomain(api *cloudflare.API, domain string) (string, error) {
 		}
 	}
 	return "", err
+}
+
+func br(s string, max int) string {
+	if FlagNoBr {
+		return s
+	}
+	return strings.Join(splitBy(s, max), "\n")
+}
+
+func splitBy(s string, n int) []string {
+	var ss []string
+	for i := 1; i < len(s); i++ {
+		if i%n == 0 {
+			ss = append(ss, s[:i])
+			s = s[i:]
+			i = 1
+		}
+	}
+	ss = append(ss, s)
+	return ss
 }
