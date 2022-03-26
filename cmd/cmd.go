@@ -130,6 +130,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/wait_for/k8s/job"
 	_ "github.com/sikalabs/slu/cmd/wait_for/k8s/pod"
 	_ "github.com/sikalabs/slu/cmd/wait_for/tcp"
+	_ "github.com/sikalabs/slu/cmd/wait_for/tls"
 	_ "github.com/sikalabs/slu/cmd/wait_for_it"
 	_ "github.com/sikalabs/slu/cmd/wait_for_tls"
 	_ "github.com/sikalabs/slu/cmd/watch"
