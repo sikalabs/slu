@@ -14,8 +14,6 @@ import (
 	"github.com/cloudflare/cloudflare-go"
 )
 
-var CmdFlagNamespace string
-
 var Cmd = &cobra.Command{
 	Use:     "host",
 	Short:   "host command behind the cloudflare proxy",
