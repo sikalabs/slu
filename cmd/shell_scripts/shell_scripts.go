@@ -6,7 +6,7 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:     "shell_scripts",
+	Use:     "shell-scripts",
 	Short:   "Shell Scripts Utils",
 	Aliases: []string{"sh"},
 }
