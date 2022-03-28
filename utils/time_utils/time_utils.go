@@ -21,3 +21,7 @@ func DurationToString(d time.Duration) string {
 		":" + intToStr(mod60(d.Minutes())) +
 		":" + intToStr(mod60(d.Seconds()))
 }
+
+func NowForFileName() string {
+	return time.Now().Format("2006-01-02_15-04-05")
+}
