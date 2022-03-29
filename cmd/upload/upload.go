@@ -1,7 +1,9 @@
 package upload
 
 import (
+	"fmt"
 	"os"
+	"time"
 
 	"log"
 
@@ -90,18 +92,34 @@ var Cmd = &cobra.Command{
 			log.Fatalln("SLU_UPLOAD_BUCKET_NAME is empty")
 		}
 
+		key := time_utils.NowForFileName() + "_" + filePath
+
 		s3_utils.Upload(
 			accessKey,
 			secretKey,
 			region,
 			endpoint,
 			bucketName,
-			time_utils.NowForFileName()+"_"+filePath,
+			key,
 			f,
 		)
 		if err != nil {
 			log.Fatalln(err)
 		}
+		url, err := s3_utils.GetObjectPresignUrl(
+			accessKey,
+			secretKey,
+			region,
+			endpoint,
+			bucketName,
+			key,
+			24*time.Hour,
+		)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		fmt.Printf("Key:              %s\n", key)
+		fmt.Printf("Download (1 day): %s\n", url)
 	},
 }
 
