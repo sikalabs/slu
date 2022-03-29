@@ -3,7 +3,8 @@ module github.com/sikalabs/slu
 go 1.16
 
 require (
-	github.com/aws/aws-sdk-go v1.43.18
+	github.com/aws/aws-sdk-go v1.43.27
+	github.com/cheggaaa/pb/v3 v3.0.8
 	github.com/cloudflare/cloudflare-go v0.34.0
 	github.com/containerd/containerd v1.6.1 // indirect
 	github.com/digitalocean/godo v1.76.0
@@ -12,8 +13,8 @@ require (
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/go-sql-driver/mysql v1.6.0
-	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-hclog v1.0.0 // indirect
+	github.com/hashicorp/vault/api v1.5.0
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.4
