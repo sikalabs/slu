@@ -24,14 +24,14 @@ func GetSluStateFilePath() (string, error) {
 	return path.Join(home, fileName), nil
 }
 
-func ReadConfig() SluState {
+func ReadState() SluState {
 	configFile, _ := GetSluStateFilePath()
 	var c SluState
 	json_utils.ReadJsonFile(configFile, &c)
 	return c
 }
 
-func WriteConfig(c SluState) {
+func WriteState(c SluState) {
 	configFile, _ := GetSluStateFilePath()
 	json_utils.WriteJsonFile(configFile, c)
 }

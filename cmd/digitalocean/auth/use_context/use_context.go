@@ -15,9 +15,9 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"use"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		co := config.ReadConfig()
+		co := config.ReadState()
 		co.DigitalOcean.CurrentContext = FlagAlias
-		config.WriteConfig(co)
+		config.WriteState(co)
 	},
 }
 

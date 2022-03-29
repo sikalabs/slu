@@ -6,7 +6,7 @@ import (
 
 func GetCurrentDigitalOceanAccount() *config.SluSecretsDigitalOcean {
 	s := config.ReadSecrets()
-	c := config.ReadConfig()
+	c := config.ReadState()
 
 	for _, do := range s.DigitalOcean {
 		if do.Alias == c.DigitalOcean.CurrentContext {
