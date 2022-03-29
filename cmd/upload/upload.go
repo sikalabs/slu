@@ -94,7 +94,7 @@ var Cmd = &cobra.Command{
 
 		key := time_utils.NowForFileName() + "_" + filePath
 
-		s3_utils.Upload(
+		err = s3_utils.Upload(
 			accessKey,
 			secretKey,
 			region,
