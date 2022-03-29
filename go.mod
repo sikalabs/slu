@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/aws/aws-sdk-go v1.43.18
 	github.com/cheggaaa/pb/v3 v3.0.8
-	github.com/cloudflare/cloudflare-go v0.34.0
+	github.com/cloudflare/cloudflare-go v0.35.1
 	github.com/containerd/containerd v1.6.1 // indirect
 	github.com/digitalocean/godo v1.76.0
 	github.com/docker/docker v20.10.13+incompatible
@@ -27,7 +27,6 @@ require (
 	github.com/rs/zerolog v1.26.1
 	github.com/spf13/cobra v1.4.0
 	github.com/xanzy/go-gitlab v0.59.0
-	golang.org/x/crypto v0.0.0-20220208050332-20e1d8d225ab
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220208144051-fde48d68ee68
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
