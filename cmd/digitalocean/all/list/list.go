@@ -32,7 +32,6 @@ Currently, all resources means:
 	Args: cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		s := config.ReadSecrets()
-		// co := config.ReadConfig()
 		if FlagAllAccounts {
 			for _, do := range s.DigitalOcean {
 				fmt.Printf("===== Account: %s =====\n", do.Alias)
