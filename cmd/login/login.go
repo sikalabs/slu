@@ -22,6 +22,11 @@ var Cmd = &cobra.Command{
 	Short: "Login to slu vault",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		co := config.ReadConfig()
+		co.SluVault.Url = FlagUrl
+		co.SluVault.User = FlagUsename
+		config.WriteConfig(co)
+
 		client, err := vault_utils.GetClient(FlagUrl)
 		if err != nil {
 			log.Fatalln(err)
@@ -40,10 +45,6 @@ var Cmd = &cobra.Command{
 		if err != nil {
 			log.Fatalln(err)
 		}
-		co := config.ReadConfig()
-		co.SluVault.Url = FlagUrl
-		co.SluVault.User = FlagUsename
-		config.WriteConfig(co)
 		se := config.ReadSecrets()
 		se.SluVault.Token = token
 		config.WriteSecrets(se)
@@ -52,23 +53,28 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
+	co := config.ReadConfig()
 	root.RootCmd.AddCommand(Cmd)
 	Cmd.Flags().StringVarP(
 		&FlagUrl,
 		"url",
 		"U",
-		"",
+		co.SluVault.Url,
 		"Vault URL",
 	)
-	Cmd.MarkFlagRequired("url")
+	if co.SluVault.Url == "" {
+		Cmd.MarkFlagRequired("url")
+	}
 	Cmd.Flags().StringVarP(
 		&FlagUsename,
 		"user",
 		"u",
-		"",
+		co.SluVault.User,
 		"Vault username",
 	)
-	Cmd.MarkFlagRequired("user")
+	if co.SluVault.User == "" {
+		Cmd.MarkFlagRequired("user")
+	}
 	Cmd.Flags().StringVarP(
 		&FlagPassword,
 		"password",
