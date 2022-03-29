@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
 
 	aws_aws "github.com/aws/aws-sdk-go/aws"
 	aws_credentials "github.com/aws/aws-sdk-go/aws/credentials"
@@ -152,4 +153,49 @@ func baseUpload(
 	bar.Finish()
 
 	return nil
+}
+
+func GetObjectPresignUrl(
+	access_key string,
+	secret_key string,
+	region string,
+	endpoint string,
+	bucket_name string,
+	key string,
+	ttl time.Duration,
+) (string, error) {
+	awsConfig := aws_aws.Config{
+		Credentials: aws_credentials.NewStaticCredentials(
+			access_key,
+			secret_key,
+			"",
+		),
+	}
+	if region != "" {
+		awsConfig.Region = aws_aws.String(region)
+	}
+	if endpoint != "" {
+		awsConfig.Region = aws_aws.String(string("us-east-1"))
+		awsConfig.S3ForcePathStyle = aws_aws.Bool(true)
+		awsConfig.Endpoint = aws_aws.String(endpoint)
+	}
+	session, err := aws_session.NewSession(
+		&awsConfig,
+	)
+	if err != nil {
+		return "", err
+	}
+	svc := s3.New(session)
+
+	req, _ := svc.GetObjectRequest(&s3.GetObjectInput{
+		Bucket: aws_aws.String(bucket_name),
+		Key:    aws_aws.String(key),
+	})
+	urlStr, err := req.Presign(ttl)
+
+	if err != nil {
+		return "", err
+	}
+
+	return urlStr, nil
 }
