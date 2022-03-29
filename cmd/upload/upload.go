@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/sikalabs/slu/cmd/root"
+	"github.com/sikalabs/slu/lib/vault_upload"
 	"github.com/sikalabs/slu/utils/s3_utils"
 	"github.com/sikalabs/slu/utils/time_utils"
 	"github.com/spf13/cobra"
@@ -21,29 +22,80 @@ var Cmd = &cobra.Command{
 		if err != nil {
 			log.Fatalln(err)
 		}
-		access_key := os.Getenv("SLU_UPLOAD_ACCESS_KEY")
-		if access_key == "" {
+
+		accessKeyVault, secretKeyVault, regionVault,
+			endpointVault, bucketNameVault, _ := vault_upload.GetUploadSecrets()
+
+		// Access Key
+		var accessKey string
+		accessKeyEnv := os.Getenv("SLU_UPLOAD_ACCESS_KEY")
+		if accessKeyVault != "" {
+			accessKey = accessKeyVault
+		}
+		if accessKeyEnv != "" {
+			accessKey = accessKeyEnv
+		}
+		if accessKey == "" {
 			log.Fatalln("SLU_UPLOAD_ACCESS_KEY is empty")
 		}
-		secret_key := os.Getenv("SLU_UPLOAD_SECRET_KEY")
-		if secret_key == "" {
+
+		// Secret Key
+		var secretKey string
+		secretKeyEnv := os.Getenv("SLU_UPLOAD_ACCESS_KEY")
+		if secretKeyVault != "" {
+			secretKey = secretKeyVault
+		}
+		if accessKeyEnv != "" {
+			secretKey = secretKeyEnv
+		}
+		if accessKey == "" {
 			log.Fatalln("SLU_UPLOAD_SECRET_KEY is empty")
 		}
-		region := os.Getenv("SLU_UPLOAD_REGION")
-		endpoint := os.Getenv("SLU_UPLOAD_ENDPOINT")
+
+		// Region
+		var region string
+		regionEnv := os.Getenv("SLU_UPLOAD_REGION")
+		if regionVault != "" {
+			region = regionVault
+		}
+		if regionEnv != "" {
+			region = regionEnv
+		}
+
+		// Endpoint
+		var endpoint string
+		endpointEnv := os.Getenv("SLU_UPLOAD_ENDPOINT")
+		if endpointVault != "" {
+			endpoint = endpointVault
+		}
+		if endpointEnv != "" {
+			endpoint = endpointEnv
+		}
+
+		// Region, Endpoint Validation
 		if region == "" && endpoint == "" {
 			log.Fatalln("SLU_UPLOAD_REGION and SLU_UPLOAD_ENDPOINT are empty")
 		}
-		bucket_name := os.Getenv("SLU_UPLOAD_BUCKET_NAME")
-		if bucket_name == "" {
+
+		// Secret Key
+		var bucketName string
+		bucketNameEnv := os.Getenv("SLU_UPLOAD_BUCKET_NAME")
+		if bucketNameVault != "" {
+			bucketName = bucketNameVault
+		}
+		if bucketNameEnv != "" {
+			bucketName = bucketNameEnv
+		}
+		if bucketName == "" {
 			log.Fatalln("SLU_UPLOAD_BUCKET_NAME is empty")
 		}
+
 		s3_utils.Upload(
-			access_key,
-			secret_key,
+			accessKey,
+			secretKey,
 			region,
 			endpoint,
-			bucket_name,
+			bucketName,
 			time_utils.NowForFileName()+"_"+filePath,
 			f,
 		)
