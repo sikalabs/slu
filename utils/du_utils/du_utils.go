@@ -11,12 +11,14 @@ import (
 )
 
 func diskUsage(currPath string, info os.FileInfo, depth int,
-	maxDepth int, threshold int64, humanReadable bool) int64 {
+	maxDepth int, threshold int64, humanReadable bool, silent bool) int64 {
 	var size int64
 
 	dir, err := os.Open(currPath)
 	if err != nil {
-		fmt.Println(err)
+		if !silent {
+			fmt.Println(err)
+		}
 		return size
 	}
 	defer dir.Close()
@@ -29,7 +31,7 @@ func diskUsage(currPath string, info os.FileInfo, depth int,
 
 	for _, file := range files {
 		if file.IsDir() {
-			size += diskUsage(fmt.Sprintf("%s/%s", currPath, file.Name()), file, depth+1, maxDepth, threshold, humanReadable)
+			size += diskUsage(fmt.Sprintf("%s/%s", currPath, file.Name()), file, depth+1, maxDepth, threshold, humanReadable, silent)
 		} else {
 			size += file.Size()
 		}
@@ -62,7 +64,7 @@ func prettyPrintSize(size int64, humanReadable bool) {
 	}
 }
 
-func RunDiskUsage(humanReadable bool, thresholdStr string, dir string, maxDepth int) {
+func RunDiskUsage(humanReadable bool, thresholdStr string, dir string, maxDepth int, silent bool) {
 	var threshold int64
 	l := len(thresholdStr)
 	if l > 0 {
@@ -91,7 +93,7 @@ func RunDiskUsage(humanReadable bool, thresholdStr string, dir string, maxDepth 
 		os.Exit(1)
 	}
 
-	diskUsage(dir, info, 0, maxDepth, threshold, humanReadable)
+	diskUsage(dir, info, 0, maxDepth, threshold, humanReadable, silent)
 }
 
 func usageAndExit(msg string) {
