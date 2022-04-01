@@ -28,9 +28,13 @@ var Cmd = &cobra.Command{
 	Aliases: []string{},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		newFiles, _ := git_utils.GetNewAddedFiles(".")
+		allNewFiles, _ := git_utils.GetNewAddedFiles(".")
 		var messageFilesArray []string
-		for _, x := range newFiles {
+		for _, x := range allNewFiles {
+			// All packages ends with .tgz
+			if !strings.HasSuffix(x, ".tgz") {
+				continue
+			}
 			name, version, _ := getPackageFromFilename(x)
 			messageFilesArray = append(messageFilesArray, name+" "+version)
 		}
