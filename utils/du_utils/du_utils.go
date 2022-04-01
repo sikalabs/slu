@@ -62,7 +62,7 @@ func prettyPrintSize(size int64, humanReadable bool) {
 	}
 }
 
-func RunDiskUsage(humanReadable bool, thresholdStr string, maxDepth int) {
+func RunDiskUsage(humanReadable bool, thresholdStr string, dir string, maxDepth int) {
 	var threshold int64
 	l := len(thresholdStr)
 	if l > 0 {
@@ -83,16 +83,6 @@ func RunDiskUsage(humanReadable bool, thresholdStr string, maxDepth int) {
 			}
 		}
 		threshold = int64(t)
-	}
-
-	dir, err := os.Getwd()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-
-	if flag.NArg() > 0 {
-		dir = flag.Args()[0]
 	}
 
 	info, err := os.Lstat(dir)

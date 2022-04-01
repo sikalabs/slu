@@ -1,6 +1,9 @@
 package du
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/du_utils"
 	"github.com/spf13/cobra"
@@ -11,11 +14,19 @@ var FlagThreshold string
 var FlagMaxDepth int
 
 var Cmd = &cobra.Command{
-	Use:   "du",
+	Use:   "du [<dir>]",
 	Short: "Own implemetation of \"du\"",
-	Args:  cobra.NoArgs,
+	Args:  cobra.MaximumNArgs(1),
 	Run: func(c *cobra.Command, args []string) {
-		du_utils.RunDiskUsage(!FlagNoHumanReadable, FlagThreshold, FlagMaxDepth)
+		dir, err := os.Getwd()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		if len(args) == 1 {
+			dir = args[0]
+		}
+		du_utils.RunDiskUsage(!FlagNoHumanReadable, FlagThreshold, dir, FlagMaxDepth)
 	},
 }
 
