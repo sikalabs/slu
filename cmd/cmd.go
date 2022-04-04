@@ -93,6 +93,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/mysql/ping"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/desktop_cleanup"
+	_ "github.com/sikalabs/slu/cmd/ondrejsika/large_desktop_files"
 	_ "github.com/sikalabs/slu/cmd/postgres"
 	_ "github.com/sikalabs/slu/cmd/postgres/create"
 	_ "github.com/sikalabs/slu/cmd/postgres/drop"
