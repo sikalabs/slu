@@ -21,18 +21,16 @@ func init() {
 		&MysqlCmdFlagHost,
 		"host",
 		"H",
-		"",
+		"127.0.0.1",
 		"Database host",
 	)
-	MysqlCmd.MarkPersistentFlagRequired("host")
 	MysqlCmd.PersistentFlags().IntVarP(
 		&MysqlCmdFlagPort,
 		"port",
 		"P",
-		0,
+		3306,
 		"Database port",
 	)
-	MysqlCmd.MarkPersistentFlagRequired("port")
 	MysqlCmd.PersistentFlags().StringVarP(
 		&MysqlCmdFlagUser,
 		"user",
