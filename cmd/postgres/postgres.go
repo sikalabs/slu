@@ -21,26 +21,23 @@ func init() {
 		&PostgresCmdFlagHost,
 		"host",
 		"H",
-		"",
+		"127.0.0.1",
 		"Database host",
 	)
-	PostgresCmd.MarkPersistentFlagRequired("host")
 	PostgresCmd.PersistentFlags().IntVarP(
 		&PostgresCmdFlagPort,
 		"port",
 		"P",
-		0,
+		5432,
 		"Database port",
 	)
-	PostgresCmd.MarkPersistentFlagRequired("port")
 	PostgresCmd.PersistentFlags().StringVarP(
 		&PostgresCmdFlagUser,
 		"user",
 		"u",
-		"",
+		"postgres",
 		"Database user",
 	)
-	PostgresCmd.MarkPersistentFlagRequired("user")
 	PostgresCmd.PersistentFlags().StringVarP(
 		&PostgresCmdFlagPassword,
 		"password",
