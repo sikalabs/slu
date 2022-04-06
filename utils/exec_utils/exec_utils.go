@@ -29,3 +29,11 @@ func ExecHomeOut(command string, args ...string) error {
 func ExecShHomeOut(script string) error {
 	return ExecHomeOut("sh", "-c", script)
 }
+
+func ExecStr(command string, args ...string) (string, error) {
+	out, err := exec.Command(command, args...).Output()
+	if err != nil {
+		return "", err
+	}
+	return string(out), nil
+}
