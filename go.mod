@@ -8,7 +8,7 @@ require (
 	github.com/cloudflare/cloudflare-go v0.36.0
 	github.com/containerd/containerd v1.6.1 // indirect
 	github.com/digitalocean/godo v1.78.0
-	github.com/docker/docker v20.10.13+incompatible
+	github.com/docker/docker v20.10.14+incompatible
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/go-git/go-git/v5 v5.4.2
