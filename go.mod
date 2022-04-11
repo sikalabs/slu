@@ -3,7 +3,7 @@ module github.com/sikalabs/slu
 go 1.16
 
 require (
-	github.com/aws/aws-sdk-go v1.43.33
+	github.com/aws/aws-sdk-go v1.43.36
 	github.com/cheggaaa/pb/v3 v3.0.8
 	github.com/cloudflare/cloudflare-go v0.36.0
 	github.com/containerd/containerd v1.6.1 // indirect
