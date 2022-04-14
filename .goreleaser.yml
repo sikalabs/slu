@@ -53,29 +53,10 @@ checksum:
 brews:
   -
     name: slu
-    conflicts:
-      - slu-edge
     tap:
       owner: sikalabs
       name: homebrew-tap
     skip_upload: auto
-    homepage: https://github.com/sikalabs/slu
-    url_template: "https://github.com/sikalabs/slu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-    folder: Formula
-    caveats: "How to use this binary: https://github.com/sikalabs/slu"
-    description: "SikaLabs Utils"
-    install: |
-      bin.install "slu"
-    test: |
-      system "#{bin}/slu version"
-  -
-    name: slu-edge
-    conflicts:
-      - slu
-    tap:
-      owner: sikalabs
-      name: homebrew-tap
-    skip_upload: false
     homepage: https://github.com/sikalabs/slu
     url_template: "https://github.com/sikalabs/slu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     folder: Formula
