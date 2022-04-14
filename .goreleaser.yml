@@ -109,7 +109,6 @@ dockers:
         - "--label=maintainer=SikaLabs <opensource@sikalabs.com>"
 
 changelog:
-  use: github-native
   filters:
     exclude:
       - '^VERSION'
