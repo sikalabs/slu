@@ -17,7 +17,7 @@ require (
 	github.com/hashicorp/vault/api v1.5.0
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
 	github.com/jpillora/go-tcp-proxy v1.0.2
-	github.com/lib/pq v1.10.4
+	github.com/lib/pq v1.10.5
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mhale/smtpd v0.8.0
 	github.com/olekukonko/tablewriter v0.0.5
