@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"crypto/tls"
 	"crypto/x509"
+	"encoding/pem"
 	"io/ioutil"
 	"log"
 	"os"
@@ -16,6 +17,7 @@ import (
 
 var FlagInputKey string
 var FlagInputCert string
+var FlagInputCaCert string
 var FlagOutput string
 var FlagPassword string
 
@@ -33,7 +35,24 @@ var Cmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		pfxBytes, err := pkcs12.Encode(rand.Reader, tlsCert.PrivateKey, cert, []*x509.Certificate{}, FlagPassword)
+		var caCerts []*x509.Certificate
+		if FlagInputCaCert != "" {
+			f, err := ioutil.ReadFile(FlagInputCaCert)
+			if err != nil {
+				log.Fatal(err)
+			}
+			block, _ := pem.Decode(f)
+			if block == nil {
+				panic("failed to parse certificate PEM")
+			}
+			ca, err := x509.ParseCertificate(block.Bytes)
+			if err != nil {
+				log.Fatal(err)
+			}
+			caCerts = append(caCerts, ca)
+		}
+
+		pfxBytes, err := pkcs12.Encode(rand.Reader, tlsCert.PrivateKey, cert, caCerts, FlagPassword)
 
 		if err != nil {
 			log.Fatal(err)
@@ -83,6 +102,13 @@ func init() {
 		"Input key.pem",
 	)
 	Cmd.MarkFlagRequired("in-key")
+	Cmd.Flags().StringVarP(
+		&FlagInputCaCert,
+		"in-ca",
+		"a",
+		"",
+		"Input ca-cert.pem",
+	)
 	Cmd.Flags().StringVarP(
 		&FlagPassword,
 		"password",
