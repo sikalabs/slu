@@ -73,6 +73,7 @@ dockers:
       goarch: amd64
       image_templates:
         - "sikalabs/slu:{{ .Tag }}"
+        - "ghcr.io/sikalabs/slu:{{ .Tag }}"
       dockerfile: Dockerfile
       ids:
         - slu
