@@ -73,6 +73,7 @@ dockers:
       goarch: amd64
       image_templates:
         - "sikalabs/slu:{{ .Tag }}"
+        - "ghcr.io/sikalabs/slu:{{ .Tag }}"
       dockerfile: Dockerfile
       ids:
         - slu
@@ -82,6 +83,7 @@ dockers:
         - "--label=org.opencontainers.image.title={{.ProjectName}}"
         - "--label=org.opencontainers.image.revision={{.FullCommit}}"
         - "--label=org.opencontainers.image.version={{.Version}}"
+        - "--label=org.opencontainers.image.source=https://github.com/sikalabs/slu"
         - "--label=org.label-schema.schema-version=1.0"
         - "--label=org.label-schema.version={{.Version}}"
         - "--label=org.label-schema.name={{.ProjectName}}"
@@ -101,6 +103,7 @@ dockers:
         - "--label=org.opencontainers.image.title={{.ProjectName}}"
         - "--label=org.opencontainers.image.revision={{.FullCommit}}"
         - "--label=org.opencontainers.image.version={{.Version}}"
+        - "--label=org.opencontainers.image.source=https://github.com/sikalabs/slu"
         - "--label=org.label-schema.schema-version=1.0"
         - "--label=org.label-schema.version={{.Version}}"
         - "--label=org.label-schema.name={{.ProjectName}}"
