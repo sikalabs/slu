@@ -25,6 +25,7 @@ var CmdFlagBinDir string
 var CmdFlagOS string
 var CmdFlagArch string
 var FlagVersion string
+var FlagVerbose bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-bin-tool",
@@ -105,6 +106,9 @@ func buildCmd(
 				version = FlagVersion
 			}
 			url := getUrlFunc(urlTemplate, version)
+			if FlagVerbose {
+				fmt.Println(url)
+			}
 			source := getSourcePathFunc(sourceTemlate, version)
 			install_bin_utils.InstallBin(
 				url,
@@ -146,6 +150,12 @@ func init() {
 		"v",
 		"latest",
 		"Version",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagVerbose,
+		"verbose",
+		false,
+		"Verbose output",
 	)
 	for _, tool := range Tools {
 		Cmd.AddCommand(buildCmd(
