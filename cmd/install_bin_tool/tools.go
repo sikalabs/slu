@@ -6,7 +6,7 @@ var Tools = []Tool{
 	{
 		Name:           "install-slu",
 		GetVersionFunc: func() string { return "v0.1.0" },
-		UrlTemplate:    "https://github.com/sikalabs/install-slu/releases/download/{{.Version}}/install-slu_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+		UrlTemplate:    "https://github.com/sikalabs/install-slu/reases/download/{{.Version}}/install-slu_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
 		Name:           "tergum",
@@ -99,6 +99,12 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("prometheus", "alertmanager") },
 		UrlTemplate:    "https://github.com/prometheus/alertmanager/releases/download/{{.Version}}/alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}.tar.gz",
 		SourcePath:     "alertmanager-{{.Version|removev}}.{{.Os}}-{{.Arch}}/amtool",
+	},
+	{
+		Name:           "lego",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("go-acme", "lego") },
+		UrlTemplate:    "https://github.com/go-acme/lego/releases/download/{{.Version}}/lego_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+		SourcePath:     "lego",
 	},
 }
 
