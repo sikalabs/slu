@@ -35,7 +35,7 @@ require (
 	gorm.io/driver/sqlite v1.3.1
 	gorm.io/gorm v1.23.4
 	k8s.io/api v0.23.5
-	k8s.io/apimachinery v0.23.5
+	k8s.io/apimachinery v0.23.6
 	k8s.io/client-go v0.23.5
 	software.sslmate.com/src/go-pkcs12 v0.2.0
 )
