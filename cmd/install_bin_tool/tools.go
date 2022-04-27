@@ -72,6 +72,11 @@ var Tools = []Tool{
 		UrlTemplate:    hashicorpUrlTemplate("vault"),
 	},
 	{
+		Name:           "packer",
+		GetVersionFunc: func() string { return "1.8.0" },
+		UrlTemplate:    hashicorpUrlTemplate("packer"),
+	},
+	{
 		Name:           "doctl",
 		GetVersionFunc: func() string { return "1.64.0" },
 		UrlTemplate:    "https://github.com/digitalocean/doctl/releases/download/v{{.Version}}/doctl-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
