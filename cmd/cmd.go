@@ -3,8 +3,10 @@ package cmd
 import (
 	_ "github.com/sikalabs/slu/cmd/argocd"
 	_ "github.com/sikalabs/slu/cmd/argocd/initial_password"
+	_ "github.com/sikalabs/slu/cmd/argocd/open"
 	_ "github.com/sikalabs/slu/cmd/argocd/password_reset"
 	_ "github.com/sikalabs/slu/cmd/argocd/set_image"
+	_ "github.com/sikalabs/slu/cmd/argocd/url"
 	_ "github.com/sikalabs/slu/cmd/cloudflare"
 	_ "github.com/sikalabs/slu/cmd/cloudflare/host"
 	_ "github.com/sikalabs/slu/cmd/debug_server"
