@@ -7,7 +7,7 @@ require (
 	github.com/cheggaaa/pb/v3 v3.0.8
 	github.com/cloudflare/cloudflare-go v0.37.0
 	github.com/containerd/containerd v1.6.1 // indirect
-	github.com/digitalocean/godo v1.78.0
+	github.com/digitalocean/godo v1.79.0
 	github.com/docker/docker v20.10.14+incompatible
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
@@ -28,7 +28,6 @@ require (
 	github.com/spf13/cobra v1.4.0
 	github.com/xanzy/go-gitlab v0.64.0
 	golang.org/x/crypto v0.0.0-20220331220935-ae2d96664a29
-	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220208144051-fde48d68ee68
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 	gorm.io/driver/mysql v1.3.3
