@@ -14,6 +14,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/debug_server/long_response"
 	_ "github.com/sikalabs/slu/cmd/debug_server/request_debug"
 	_ "github.com/sikalabs/slu/cmd/df"
+	_ "github.com/sikalabs/slu/cmd/ssh"
+	_ "github.com/sikalabs/slu/cmd/ssh/keygen"
 	_ "github.com/sikalabs/slu/cmd/digitalocean"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/all"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/all/cleanup"
