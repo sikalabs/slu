@@ -21,6 +21,9 @@ func GetUploadSecrets() (string, string, string, string, string, error) {
 	if err != nil {
 		return "", "", "", "", "", err
 	}
+	if secret == nil {
+		return "", "", "", "", "", fmt.Errorf("secret secret/data/slu/upload not found")
+	}
 	data, ok := secret.Data["data"].(map[string]interface{})
 	if !ok {
 		return "", "", "", "", "", fmt.Errorf("wrong data")
