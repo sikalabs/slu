@@ -116,6 +116,7 @@ import (
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/s3"
 	_ "github.com/sikalabs/slu/cmd/s3/remove_bucket"
+	_ "github.com/sikalabs/slu/cmd/scripts"
 	_ "github.com/sikalabs/slu/cmd/shell_scripts"
 	_ "github.com/sikalabs/slu/cmd/shell_scripts/required_environment_variables"
 	_ "github.com/sikalabs/slu/cmd/sleep"
