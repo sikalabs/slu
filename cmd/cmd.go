@@ -121,6 +121,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cert_manager"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cluster_issuer"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_ingress"
+	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_metrics_server"
 	_ "github.com/sikalabs/slu/cmd/shell_scripts"
 	_ "github.com/sikalabs/slu/cmd/shell_scripts/required_environment_variables"
 	_ "github.com/sikalabs/slu/cmd/sleep"
