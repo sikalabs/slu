@@ -7,8 +7,8 @@ import (
 
 var Cmd = &cobra.Command{
 	Use:     "scripts",
-	Short:   "Stored (Shell) Scripts",
-	Aliases: []string{"s"},
+	Short:   "Go & Shell Scripts",
+	Aliases: []string{"script", "s"},
 }
 
 func init() {
