@@ -118,6 +118,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/s3/remove_bucket"
 	_ "github.com/sikalabs/slu/cmd/scripts"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
+	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_argocd"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cert_manager"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cluster_issuer"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_ingress"
