@@ -17,6 +17,8 @@ require (
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.6
 	github.com/mhale/smtpd v0.8.0
+	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
+	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
@@ -28,8 +30,9 @@ require (
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220504211119-3d4a969bb56b
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.3.4
-	gorm.io/driver/sqlite v1.3.4
+	gorm.io/driver/sqlite v1.3.5
 	gorm.io/gorm v1.23.6
+	gotest.tools/v3 v3.3.0 // indirect
 	k8s.io/api v0.24.2
 	k8s.io/apimachinery v0.24.2
 	k8s.io/client-go v0.24.2
