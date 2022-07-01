@@ -3,7 +3,7 @@ module github.com/sikalabs/slu
 go 1.16
 
 require (
-	github.com/aws/aws-sdk-go v1.44.43
+	github.com/aws/aws-sdk-go v1.44.46
 	github.com/cheggaaa/pb/v3 v3.0.8
 	github.com/cloudflare/cloudflare-go v0.43.0
 	github.com/digitalocean/godo v1.81.0
@@ -17,6 +17,8 @@ require (
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.6
 	github.com/mhale/smtpd v0.8.0
+	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
+	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
@@ -30,6 +32,7 @@ require (
 	gorm.io/driver/mysql v1.3.4
 	gorm.io/driver/sqlite v1.3.4
 	gorm.io/gorm v1.23.6
+	gotest.tools/v3 v3.3.0 // indirect
 	k8s.io/api v0.24.2
 	k8s.io/apimachinery v0.24.2
 	k8s.io/client-go v0.24.2
