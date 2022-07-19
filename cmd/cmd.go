@@ -117,6 +117,7 @@ import (
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/s3"
 	_ "github.com/sikalabs/slu/cmd/s3/remove_bucket"
+	_ "github.com/sikalabs/slu/cmd/s3/remove_objects_by_age"
 	_ "github.com/sikalabs/slu/cmd/scripts"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_argocd"
