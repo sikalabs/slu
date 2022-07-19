@@ -1,6 +1,7 @@
 package s3_utils
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -198,4 +199,63 @@ func GetObjectPresignUrl(
 	}
 
 	return urlStr, nil
+}
+
+func RemoveObjectsByAge(
+	access_key string,
+	secret_key string,
+	region string,
+	endpoint string,
+	bucket_name string,
+	age time.Duration,
+) error {
+	awsConfig := aws_aws.Config{
+		Credentials: aws_credentials.NewStaticCredentials(
+			access_key,
+			secret_key,
+			"",
+		),
+	}
+	if region != "" {
+		awsConfig.Region = aws_aws.String(region)
+	}
+	if endpoint != "" {
+		awsConfig.Region = aws_aws.String(string("us-east-1"))
+		awsConfig.S3ForcePathStyle = aws_aws.Bool(true)
+		awsConfig.Endpoint = aws_aws.String(endpoint)
+	}
+	session, err := aws_session.NewSession(
+		&awsConfig,
+	)
+	if err != nil {
+		return err
+	}
+
+	svc := aws_s3.New(session)
+	err = svc.ListObjectsPages(&aws_s3.ListObjectsInput{
+		Bucket:  aws_aws.String(bucket_name),
+		MaxKeys: aws_aws.Int64(1000),
+	}, func(p *s3.ListObjectsOutput, last bool) (shouldContinue bool) {
+		for _, obj := range p.Contents {
+			if time.Since(*obj.LastModified) > age {
+				fmt.Println("removing", *obj.Key)
+				_, err = svc.DeleteObject(&aws_s3.DeleteObjectInput{
+					Bucket: aws_aws.String(bucket_name),
+					Key:    obj.Key,
+				})
+				if err != nil {
+					log.Println(err)
+				}
+			} else {
+				fmt.Println("keeping", *obj.Key)
+			}
+		}
+		return true
+	})
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+
+	return nil
 }
