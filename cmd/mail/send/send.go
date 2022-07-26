@@ -6,6 +6,7 @@ import (
 
 	mail_cmd "github.com/sikalabs/slu/cmd/mail"
 	"github.com/sikalabs/slu/utils/mail_utils"
+	"github.com/sikalabs/slu/utils/stdin_utils"
 	"github.com/spf13/cobra"
 )
 
@@ -28,6 +29,10 @@ var Cmd = &cobra.Command{
 		if FlagSmtpUser != "" {
 			user = FlagSmtpUser
 		}
+		message := FlagMessage
+		if message == "-" {
+			message = stdin_utils.ReadAll()
+		}
 		err := mail_utils.SendSimpleMail(
 			FlagSmtpHost,
 			strconv.Itoa(FlagSmtpPort),
@@ -36,7 +41,7 @@ var Cmd = &cobra.Command{
 			FlagFrom,
 			FlagTo,
 			FlagSubject,
-			FlagMessage,
+			message,
 		)
 		if err != nil {
 			log.Fatal(err)
@@ -105,7 +110,7 @@ func init() {
 		"message",
 		"m",
 		"",
-		"email message",
+		"email message (\"-\" for stdin)",
 	)
 	Cmd.MarkFlagRequired("message")
 }
