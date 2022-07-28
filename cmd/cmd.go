@@ -89,6 +89,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/login"
 	_ "github.com/sikalabs/slu/cmd/mail"
 	_ "github.com/sikalabs/slu/cmd/mail/send"
+	_ "github.com/sikalabs/slu/cmd/mail/send_vault"
 	_ "github.com/sikalabs/slu/cmd/metrics_generator"
 	_ "github.com/sikalabs/slu/cmd/metrics_generator/server"
 	_ "github.com/sikalabs/slu/cmd/mysql"
