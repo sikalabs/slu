@@ -29,7 +29,7 @@ var Cmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname, FlagConcurency)
+		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname, FlagConcurency, false)
 		if err != nil {
 			log.Fatal(err)
 		}
