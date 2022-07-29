@@ -15,6 +15,7 @@ var FlagGitlabUrl string
 var FlagRegistrationToken string
 var FlagGitlabName string
 var FlagConcurency int
+var FlagDryRun bool
 
 var Cmd = &cobra.Command{
 	Use:     "setup-runner",
@@ -42,7 +43,7 @@ var Cmd = &cobra.Command{
 			log.Fatal("flags gitlab-url and registration-token OR flag gitlab (for Vault) are required")
 		}
 
-		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname, FlagConcurency, false)
+		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname, FlagConcurency, FlagDryRun)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -80,5 +81,11 @@ func init() {
 		"c",
 		1,
 		"Set maximun concurency",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagDryRun,
+		"dry-run",
+		false,
+		"Print the command instead of executing it",
 	)
 }
