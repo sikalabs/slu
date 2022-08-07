@@ -111,6 +111,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/go-acme/lego/releases/download/{{.Version}}/lego_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 		SourcePath:     "lego",
 	},
+	{
+		Name:           "rancher",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("rancher", "cli") },
+		UrlTemplate:    "https://github.com/rancher/cli/releases/download/{{.Version}}/rancher-{{.Os}}-{{.Arch}}-{{.Version}}.tar.gz",
+		SourcePath:     "./rancher-{{.Version}}/rancher",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
