@@ -39,7 +39,7 @@ sudo su - && VERSION=v0.1.0 && OS=linux && ARCH=amd64 && BIN=install-slu && curl
 ```
 
 ```bash
-curl -fsSL https://ins.oxs.cz/slu-linux-amd64.sh | sudo sh
+curl -fsSL https://raw.githubusercontent.com/sikalabs/slu/master/install.sh | sudo sh
 ```
 
 For upgrade of **slu** just run
