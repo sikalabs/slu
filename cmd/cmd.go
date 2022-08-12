@@ -58,6 +58,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/git/url/get"
 	_ "github.com/sikalabs/slu/cmd/git/url/open"
 	_ "github.com/sikalabs/slu/cmd/github"
+	_ "github.com/sikalabs/slu/cmd/github/latest_release"
 	_ "github.com/sikalabs/slu/cmd/gitlab"
 	_ "github.com/sikalabs/slu/cmd/gitlab/prune_environments"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci"
