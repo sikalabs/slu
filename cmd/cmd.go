@@ -9,6 +9,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/argocd/port_forward"
 	_ "github.com/sikalabs/slu/cmd/argocd/set_image"
 	_ "github.com/sikalabs/slu/cmd/argocd/url"
+	_ "github.com/sikalabs/slu/cmd/base64"
 	_ "github.com/sikalabs/slu/cmd/cloudflare"
 	_ "github.com/sikalabs/slu/cmd/cloudflare/host"
 	_ "github.com/sikalabs/slu/cmd/debug_server"
