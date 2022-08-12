@@ -35,7 +35,7 @@ require (
 	gorm.io/gorm v1.23.8
 	gotest.tools/v3 v3.3.0 // indirect
 	k8s.io/api v0.24.2
-	k8s.io/apimachinery v0.24.2
+	k8s.io/apimachinery v0.24.3
 	k8s.io/client-go v0.24.2
 	software.sslmate.com/src/go-pkcs12 v0.2.0
 )
