@@ -3,6 +3,7 @@ module github.com/sikalabs/slu
 go 1.16
 
 require (
+	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.44.58
 	github.com/cheggaaa/pb/v3 v3.0.8
 	github.com/cloudflare/cloudflare-go v0.43.0
