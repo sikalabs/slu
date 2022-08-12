@@ -2,6 +2,7 @@ package github_utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -18,19 +19,34 @@ type LatestReleaseResponse struct {
 }
 
 func GetLatestRelease(user, repo string) string {
+	release, err := GetLatestReleaseE(user, repo)
+	handleError(err)
+	return release
+}
+
+func GetLatestReleaseE(user, repo string) (string, error) {
 	var err error
 
 	resp, err := http.Get("https://api.github.com/repos/" + user + "/" + repo + "/releases/latest")
-	handleError(err)
+	if err != nil {
+		return "", err
+	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("repository %s/%s does not exist", user, repo)
+	}
 
-	handleError(err)
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
 	data := LatestReleaseResponse{}
 
 	err = json.Unmarshal(body, &data)
-	handleError(err)
+	if err != nil {
+		return "", err
+	}
 
-	return data.TagName
+	return data.TagName, nil
 }
