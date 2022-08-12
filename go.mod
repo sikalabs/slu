@@ -6,7 +6,7 @@ require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.44.75
 	github.com/cheggaaa/pb/v3 v3.1.0
-	github.com/cloudflare/cloudflare-go v0.43.0
+	github.com/cloudflare/cloudflare-go v0.46.0
 	github.com/digitalocean/godo v1.81.0
 	github.com/docker/docker v20.10.17+incompatible
 	github.com/docker/go-connections v0.4.0 // indirect
