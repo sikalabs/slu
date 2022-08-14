@@ -39,24 +39,11 @@ var Cmd = &cobra.Command{
 		if err != nil {
 			panic(err)
 		}
-		w, err := r.Worktree()
-		if err != nil {
-			panic(err)
-		}
-		s, err := w.Status()
-		if err != nil {
-			panic(err)
-		}
 		head, err := r.Head()
 		if err != nil {
 			panic(err)
 		}
 		var gitTreeState string
-		if s.IsClean() {
-			gitTreeState = "clean"
-		} else {
-			gitTreeState = "dirty"
-		}
 		if FlagSetGitClean && FlagSetGitDirty {
 			log.Fatalln("can't use --set-git-clean and --set-git-dirty together")
 		}
@@ -65,6 +52,21 @@ var Cmd = &cobra.Command{
 		}
 		if FlagSetGitDirty {
 			gitTreeState = "dirty"
+		}
+		if gitTreeState == "" {
+			w, err := r.Worktree()
+			if err != nil {
+				panic(err)
+			}
+			s, err := w.Status()
+			if err != nil {
+				panic(err)
+			}
+			if s.IsClean() {
+				gitTreeState = "clean"
+			} else {
+				gitTreeState = "dirty"
+			}
 		}
 		gitRef := head.Name().Short()
 		if FlagSetGitRef != "" {
