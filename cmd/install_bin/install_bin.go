@@ -55,6 +55,7 @@ func getUrl(urlTemplate, version string) string {
 		"OsDocker":   dockerOs(CmdFlagOS),
 		"Arch":       CmdFlagArch,
 		"ArchDocker": dockerArch(CmdFlagArch),
+		"ArchK9s":    k9sArch(CmdFlagArch),
 		"Version":    version,
 	})
 	if err != nil {
@@ -80,6 +81,7 @@ func getSourcePath(SourcePathTemplate, version string) string {
 		"OsDocker":   dockerOs(CmdFlagOS),
 		"Arch":       CmdFlagArch,
 		"ArchDocker": dockerArch(CmdFlagArch),
+		"ArchK9s":    k9sArch(CmdFlagArch),
 		"Version":    version,
 	})
 	if err != nil {
@@ -197,4 +199,11 @@ func dockerArch(arch string) string {
 	}
 	log.Fatal(fmt.Errorf("unknown arch: %s", arch))
 	return ""
+}
+
+func k9sArch(arch string) string {
+	if arch == "amd64" {
+		return "x86_64"
+	}
+	return arch
 }

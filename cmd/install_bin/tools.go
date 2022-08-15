@@ -120,7 +120,7 @@ var Tools = []Tool{
 	{
 		Name:           "k9s",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("derailed", "k9s") },
-		UrlTemplate:    "https://github.com/derailed/k9s/releases/download/{{.Version}}/k9s_{{.Os}}_{{.Arch}}.tar.gz",
+		UrlTemplate:    "https://github.com/derailed/k9s/releases/download/{{.Version}}/k9s_{{.Os}}_{{.ArchK9s}}.tar.gz",
 		SourcePath:     "k9s",
 	},
 }
