@@ -1,4 +1,4 @@
-package install_bin_tool
+package install_bin
 
 import "github.com/sikalabs/slu/utils/github_utils"
 
