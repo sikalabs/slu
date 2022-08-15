@@ -6,6 +6,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const DEFAULT_LETS_ENCRYPT_EMAIL = "lets-encrypt-slu@sikamail.com"
+
+var FlagEmail string
+
 var Cmd = &cobra.Command{
 	Use:     "install-cluster-issuer",
 	Short:   "Install Let's Encrypt Cluster Issuer",
@@ -19,7 +23,7 @@ metadata:
   name: letsencrypt
 spec:
   acme:
-    email: lets-encrypt-slu@sikamail.com
+    email: ` + FlagEmail + `
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-issuer-account-key
@@ -33,6 +37,13 @@ EOF`)
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().StringVarP(
+		&FlagEmail,
+		"email",
+		"e",
+		DEFAULT_LETS_ENCRYPT_EMAIL,
+		"Email for Let's Encrypt account & notifications",
+	)
 }
 
 func sh(script string) {
