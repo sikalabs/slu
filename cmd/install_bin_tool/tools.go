@@ -117,6 +117,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/rancher/cli/releases/download/{{.Version}}/rancher-{{.Os}}-{{.Arch}}-{{.Version}}.tar.gz",
 		SourcePath:     "./rancher-{{.Version}}/rancher",
 	},
+	{
+		Name:           "k9s",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("derailed", "k9s") },
+		UrlTemplate:    "https://github.com/derailed/k9s/releases/download/{{.Version}}/k9s_{{.Os}}_{{.Arch}}.tar.gz",
+		SourcePath:     "k9s",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
