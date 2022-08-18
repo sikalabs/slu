@@ -13,6 +13,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/base64"
 	_ "github.com/sikalabs/slu/cmd/base64/interactive_decode_clipboard"
 	_ "github.com/sikalabs/slu/cmd/check"
+	_ "github.com/sikalabs/slu/cmd/check/kubernetes_context"
 	_ "github.com/sikalabs/slu/cmd/check/slu_version"
 	_ "github.com/sikalabs/slu/cmd/check/version"
 	_ "github.com/sikalabs/slu/cmd/cloudflare"
