@@ -10,6 +10,7 @@ import (
 
 var FlagDry bool
 var FlagNamespace string
+var FlagDomain string
 
 var Cmd = &cobra.Command{
 	Use:     "install-argocd",
@@ -17,12 +18,30 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"iacd"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		sh(`helm upgrade --install \
+		if FlagDomain == "" {
+			sh(`helm upgrade --install \
 	argocd argo-cd \
 	--repo https://argoproj.github.io/argo-helm \
 	--create-namespace \
 	--namespace `+FlagNamespace+` \
 	--wait`, FlagDry)
+		} else {
+			sh(`helm upgrade --install \
+	argocd argo-cd \
+	--repo https://argoproj.github.io/argo-helm \
+	--create-namespace \
+	--namespace `+FlagNamespace+` \
+	--set 'server.ingress.enabled=true' \
+	--set 'server.ingress.hosts[0]='`+FlagDomain+` \
+	--set 'server.ingress.ingressClassName=nginx' \
+	--set 'server.ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt' \
+	--set 'server.ingress.annotations.nginx\.ingress\.kubernetes\.io/server-snippet=proxy_ssl_verify off;' \
+	--set 'server.ingress.annotations.nginx\.ingress\.kubernetes\.io/backend-protocol=HTTPS' \
+	--set 'server.ingress.tls[0].hosts[0]=`+FlagDomain+`' \
+	--set 'server.ingress.tls[0].secretName=argocd-tls' \
+	--wait`, FlagDry)
+		}
+
 	},
 }
 
@@ -40,6 +59,13 @@ func init() {
 		"dry",
 		false,
 		"Dry run",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagDomain,
+		"domain",
+		"d",
+		"",
+		"Domain of ArgoCD instance",
 	)
 }
 
