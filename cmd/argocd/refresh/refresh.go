@@ -41,14 +41,17 @@ var Cmd = &cobra.Command{
 
 func init() {
 	argocd_cmd.Cmd.AddCommand(Cmd)
+	argoCDDomain, _ := argocd_utils.ArgoCDGetDomain("argocd")
 	Cmd.Flags().StringVarP(
 		&FlagServerAddr,
 		"server",
 		"s",
-		"",
+		argoCDDomain,
 		"ArgoCD server address (host:port)",
 	)
-	Cmd.MarkFlagRequired("server")
+	if argoCDDomain == "" {
+		Cmd.MarkFlagRequired("server")
+	}
 	Cmd.Flags().BoolVar(
 		&FlagInsecure,
 		"insecure",
