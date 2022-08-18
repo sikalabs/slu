@@ -1,15 +1,12 @@
 package domain
 
 import (
-	"context"
 	"fmt"
-	"log"
 
 	argocd_cmd "github.com/sikalabs/slu/cmd/argocd"
-	"github.com/sikalabs/slu/utils/k8s"
+	"github.com/sikalabs/slu/utils/argocd_utils"
 
 	"github.com/spf13/cobra"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 var FlagNamespace string
@@ -20,17 +17,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"dom", "d"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		clientset, _, _ := k8s.KubernetesClient()
-
-		ingressClient := clientset.NetworkingV1().Ingresses(FlagNamespace)
-
-		ingress, err := ingressClient.Get(context.TODO(), "argocd-server", metav1.GetOptions{})
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		rule := ingress.Spec.Rules[0]
-		fmt.Println(rule.Host)
+		fmt.Println(argocd_utils.ArgoCDGetDomainOrDie(FlagNamespace))
 	},
 }
 
