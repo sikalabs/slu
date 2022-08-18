@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/sikalabs/slu/utils/exec_utils"
 )
@@ -112,4 +113,23 @@ func DeleteAllLocalBranches() {
 		}
 		DeleteBranch(branch)
 	}
+}
+
+func UseSSH() {
+	r, err := git.PlainOpen(".")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	remotes, err := r.Remotes()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	remoteName := remotes[0].Config().Name
+	oldUrl := remotes[0].Config().URLs[0]
+	newUrl := strings.Replace(oldUrl, "https://", "ssh://git@", 1)
+	r.DeleteRemote(remoteName)
+	r.CreateRemote(&config.RemoteConfig{
+		Name: remoteName,
+		URLs: []string{newUrl},
+	})
 }
