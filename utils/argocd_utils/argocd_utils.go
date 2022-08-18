@@ -81,3 +81,30 @@ func ArgoCDGetInitialPassword(namespace string) string {
 	}
 	return string(secret.Data["password"])
 }
+
+func ArgoCDGetDomain(namespace string) (string, error) {
+	var err error
+
+	clientset, _, err := k8s.KubernetesClient()
+	if err != nil {
+		return "", err
+	}
+
+	ingressClient := clientset.NetworkingV1().Ingresses(namespace)
+
+	ingress, err := ingressClient.Get(context.TODO(), "argocd-server", metav1.GetOptions{})
+	if err != nil {
+		return "", err
+	}
+
+	rule := ingress.Spec.Rules[0]
+	return rule.Host, nil
+}
+
+func ArgoCDGetDomainOrDie(namespace string) string {
+	domain, err := ArgoCDGetDomain(namespace)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return domain
+}
