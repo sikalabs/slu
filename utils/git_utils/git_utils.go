@@ -23,6 +23,9 @@ func GetRepoUrl() string {
 			if strings.HasPrefix(gitUrl, "https") {
 				return gitUrl
 			}
+			if strings.HasPrefix(gitUrl, "ssh") {
+				return strings.Replace(gitUrl, "ssh://git@", "https://", 1)
+			}
 			x := strings.Replace(gitUrl, ":", "/", 1)
 			x = strings.Replace(x, ".git", "", 1)
 			url := strings.Replace(x, "git@", "https://", 1)
