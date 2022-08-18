@@ -123,6 +123,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/derailed/k9s/releases/download/{{.Version}}/k9s_{{.Os}}_{{.ArchK9s}}.tar.gz",
 		SourcePath:     "k9s",
 	},
+	{
+		Name:           "slack-cli",
+		UrlTemplate:    "https://raw.githubusercontent.com/rockymadden/slack-cli/master/src/slack",
+		GetVersionFunc: func() string { return "" },
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
