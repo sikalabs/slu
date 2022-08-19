@@ -128,6 +128,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://raw.githubusercontent.com/rockymadden/slack-cli/master/src/slack",
 		GetVersionFunc: func() string { return "" },
 	},
+	{
+		Name:           "configboard-cli",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("configboard", "configboard-cli") },
+		UrlTemplate:    "https://github.com/configboard/configboard-cli/releases/download/{{.Version}}/configboard-cli_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
