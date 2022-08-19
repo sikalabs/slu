@@ -118,6 +118,8 @@ before:
   hooks:
     - rm -rf ./dist
     - go mod tidy
+		- git push
+		- git push --tags
 builds:
   -
     env:
