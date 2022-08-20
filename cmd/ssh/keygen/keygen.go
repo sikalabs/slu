@@ -12,6 +12,7 @@ import (
 const DEFAULT_KEY_LENGTH = 2048
 
 var FlagUseGo bool
+var FlagECDSA bool
 
 var Cmd = &cobra.Command{
 	Use:     "keygen",
@@ -19,10 +20,13 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"gen", "g", "key", "keygen"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		var pub string
+		var priv string
+		var err error
 		length := DEFAULT_KEY_LENGTH
 		if FlagUseGo {
 			// Go SSH key generation
-			pub, priv, err := ssh_utils.MakeSSHKeyPair()
+			pub, priv, err = ssh_utils.MakeSSHKeyPair()
 			if err != nil {
 				log.Fatalln(err)
 			}
@@ -30,7 +34,11 @@ var Cmd = &cobra.Command{
 			fmt.Println(pub)
 		} else {
 			// OpenSSH key generation
-			pub, priv, err := ssh_utils.MakeSSHKeyPairSSHKeyGen(length)
+			if FlagECDSA {
+				pub, priv, err = ssh_utils.MakeSSHKeyPairSSHKeyGenECDSA()
+			} else {
+				pub, priv, err = ssh_utils.MakeSSHKeyPairSSHKeyGen(length)
+			}
 			if err != nil {
 				log.Fatalln(err)
 			}
@@ -47,5 +55,11 @@ func init() {
 		"use-go",
 		false,
 		"Use Go implementation of SSH key generation",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagECDSA,
+		"ecdsa",
+		false,
+		"Use ECDSA key generation",
 	)
 }
