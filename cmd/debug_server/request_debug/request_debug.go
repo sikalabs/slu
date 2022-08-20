@@ -36,6 +36,7 @@ var Cmd = &cobra.Command{
 
 			w.Header().Set("Content-Type", "application/json")
 			w.Write(rrb)
+			fmt.Println(string(rrb))
 		})
 		fmt.Println("Server started on 0.0.0.0:8000, see http://127.0.0.1:8000")
 		http.ListenAndServe(":8000", nil)
