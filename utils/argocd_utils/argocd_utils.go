@@ -13,6 +13,7 @@ import (
 	sessionpkg "github.com/argoproj/argo-cd/v2/pkg/apiclient/session"
 	"github.com/argoproj/argo-cd/v2/util/io"
 
+	"github.com/sikalabs/slu/lib/vault_cfa_service_token"
 	"github.com/sikalabs/slu/utils/k8s"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -24,10 +25,25 @@ func ArgoCDGetToken(
 	insecure bool,
 	username string,
 	password string,
+	cloudflareAccessTokenName string,
 ) string {
+	headers := []string{}
+	grpcWeb := false
+
+	if cloudflareAccessTokenName != "" {
+		clientID, clientSecret, err := vault_cfa_service_token.Get(cloudflareAccessTokenName)
+		if err != nil {
+			log.Fatal(err)
+		}
+		headers = cloudflareAccessHeaders(clientID, clientSecret)
+		grpcWeb = true
+	}
+
 	opts := argocdclient.ClientOptions{
 		ServerAddr: serverAddr,
 		Insecure:   insecure,
+		Headers:    headers,
+		GRPCWeb:    grpcWeb,
 	}
 
 	acdClient, err := argocdclient.NewClient(&opts)
@@ -50,11 +66,25 @@ func ArgoCDRefresh(
 	insecure bool,
 	authToken string,
 	appName string,
+	cloudflareAccessTokenName string,
 ) {
+	headers := []string{}
+	grpcWeb := false
+	if cloudflareAccessTokenName != "" {
+		clientID, clientSecret, err := vault_cfa_service_token.Get(cloudflareAccessTokenName)
+		if err != nil {
+			log.Fatal(err)
+		}
+		headers = cloudflareAccessHeaders(clientID, clientSecret)
+		grpcWeb = true
+	}
+
 	opts := argocdclient.ClientOptions{
 		ServerAddr: serverAddr,
 		Insecure:   insecure,
 		AuthToken:  authToken,
+		Headers:    headers,
+		GRPCWeb:    grpcWeb,
 	}
 
 	acdClient, err := argocdclient.NewClient(&opts)
@@ -107,4 +137,11 @@ func ArgoCDGetDomainOrDie(namespace string) string {
 		log.Fatal(err)
 	}
 	return domain
+}
+
+func cloudflareAccessHeaders(clientID, clientSecret string) []string {
+	return []string{
+		"CF-Access-Client-Id:" + clientID,
+		"CF-Access-Client-Secret:" + clientSecret,
+	}
 }

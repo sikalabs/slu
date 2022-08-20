@@ -28,6 +28,7 @@ var Cmd = &cobra.Command{
 			FlagInsecure,
 			"admin",
 			password,
+			"",
 		)
 		argocd_utils.ArgoCDRefresh(
 			c.Context(),
@@ -35,6 +36,7 @@ var Cmd = &cobra.Command{
 			FlagInsecure,
 			token,
 			appName,
+			"",
 		)
 	},
 }
