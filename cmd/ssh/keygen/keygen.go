@@ -9,21 +9,43 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const DEFAULT_KEY_LENGTH = 2048
+
+var FlagUseGo bool
+
 var Cmd = &cobra.Command{
 	Use:     "keygen",
 	Short:   "Genetate SSH private key",
 	Aliases: []string{"gen", "g", "key", "keygen"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		pub, priv, err := ssh_utils.MakeSSHKeyPair()
-		if err != nil {
-			log.Fatalln(err)
+		length := DEFAULT_KEY_LENGTH
+		if FlagUseGo {
+			// Go SSH key generation
+			pub, priv, err := ssh_utils.MakeSSHKeyPair()
+			if err != nil {
+				log.Fatalln(err)
+			}
+			fmt.Println(priv)
+			fmt.Println(pub)
+		} else {
+			// OpenSSH key generation
+			pub, priv, err := ssh_utils.MakeSSHKeyPairSSHKeyGen(length)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			fmt.Println(priv)
+			fmt.Println(pub)
 		}
-		fmt.Println(priv)
-		fmt.Println(pub)
 	},
 }
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagUseGo,
+		"use-go",
+		false,
+		"Use Go implementation of SSH key generation",
+	)
 }
