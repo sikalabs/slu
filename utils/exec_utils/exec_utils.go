@@ -13,6 +13,12 @@ func ExecOut(command string, args ...string) error {
 	return err
 }
 
+func ExecNoOut(command string, args ...string) error {
+	cmd := exec.Command(command, args...)
+	err := cmd.Run()
+	return err
+}
+
 func ExecHomeOut(command string, args ...string) error {
 	home, err := os.UserHomeDir()
 	if err != nil {
