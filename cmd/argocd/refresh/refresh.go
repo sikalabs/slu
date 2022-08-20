@@ -10,6 +10,7 @@ import (
 var FlagServerAddr string
 var FlagPassword string
 var FlagInsecure bool
+var FlagCFAccessServiceTokenName string
 
 var Cmd = &cobra.Command{
 	Use:     "refresh <app>",
@@ -28,7 +29,7 @@ var Cmd = &cobra.Command{
 			FlagInsecure,
 			"admin",
 			password,
-			"",
+			FlagCFAccessServiceTokenName,
 		)
 		argocd_utils.ArgoCDRefresh(
 			c.Context(),
@@ -36,14 +37,14 @@ var Cmd = &cobra.Command{
 			FlagInsecure,
 			token,
 			appName,
-			"",
+			FlagCFAccessServiceTokenName,
 		)
 	},
 }
 
 func init() {
 	argocd_cmd.Cmd.AddCommand(Cmd)
-	argoCDDomain, _ := argocd_utils.ArgoCDGetDomain("argocd")
+	argoCDDomain, _ := argocd_utils.ArgoCDGetDomain(FlagCFAccessServiceTokenName)
 	Cmd.Flags().StringVarP(
 		&FlagServerAddr,
 		"server",
@@ -66,5 +67,11 @@ func init() {
 		"p",
 		"",
 		"ArgoCD server password",
+	)
+	Cmd.Flags().StringVar(
+		&FlagCFAccessServiceTokenName,
+		"service-token-name",
+		"",
+		"Cloudflare Access Service Token Name (in Vault)",
 	)
 }
