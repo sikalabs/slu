@@ -5,8 +5,10 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
+	"strconv"
 	"strings"
 
+	"github.com/sikalabs/slu/utils/exec_utils"
 	"golang.org/x/crypto/ssh"
 )
 
@@ -36,4 +38,29 @@ func MakeSSHKeyPair() (string, string, error) {
 	pubKeyBuf.Write(ssh.MarshalAuthorizedKey(pub))
 
 	return pubKeyBuf.String(), privKeyBuf.String(), nil
+}
+
+func MakeSSHKeyPairSSHKeyGen(length int) (string, string, error) {
+	var err error
+	err = exec_utils.ExecNoOut("rm", "-rf", "/tmp/slu_id_rsa", "/tmp/slu_id_rsa.pub")
+	if err != nil {
+		return "", "", err
+	}
+	err = exec_utils.ExecNoOut("ssh-keygen", "-t", "rsa", "-b", strconv.Itoa(length), "-N", "", "-C", "", "-f", "/tmp/slu_id_rsa")
+	if err != nil {
+		return "", "", err
+	}
+	pub, err := exec_utils.ExecStr("cat", "/tmp/slu_id_rsa.pub")
+	if err != nil {
+		return "", "", err
+	}
+	priv, err := exec_utils.ExecStr("cat", "/tmp/slu_id_rsa")
+	if err != nil {
+		return "", "", err
+	}
+	err = exec_utils.ExecNoOut("rm", "-rf", "/tmp/slu_id_rsa", "/tmp/slu_id_rsa.pub")
+	if err != nil {
+		return "", "", err
+	}
+	return pub, priv, nil
 }
