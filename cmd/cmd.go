@@ -137,6 +137,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/s3/remove_bucket"
 	_ "github.com/sikalabs/slu/cmd/s3/remove_objects_by_age"
 	_ "github.com/sikalabs/slu/cmd/scripts"
+	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci"
+	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci/update_docker_images"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_argocd"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cert_manager"
