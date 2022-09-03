@@ -129,12 +129,17 @@ func buildCmd(
 }
 
 func init() {
+	defaultBinDir := "/usr/local/bin"
+	if runtime.GOOS == "windows" {
+		defaultBinDir = "C:\\Windows\\system32"
+	}
+
 	root.RootCmd.AddCommand(Cmd)
 	Cmd.PersistentFlags().StringVarP(
 		&CmdFlagBinDir,
 		"bin-dir",
 		"d",
-		"/usr/local/bin",
+		defaultBinDir,
 		"Binary dir",
 	)
 	Cmd.PersistentFlags().StringVarP(
