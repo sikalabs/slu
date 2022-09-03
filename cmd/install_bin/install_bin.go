@@ -122,7 +122,7 @@ func buildCmd(
 				source,
 				CmdFlagBinDir,
 				name,
-				false,
+				CmdFlagOS == "windows",
 			)
 		},
 	}
