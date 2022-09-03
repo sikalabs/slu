@@ -9,7 +9,7 @@ require (
 	github.com/aws/aws-sdk-go v1.44.75
 	github.com/cheggaaa/pb/v3 v3.1.0
 	github.com/cloudflare/cloudflare-go v0.46.0
-	github.com/digitalocean/godo v1.81.0
+	github.com/digitalocean/godo v1.83.0
 	github.com/docker/docker v20.10.17+incompatible
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/go-sql-driver/mysql v1.6.0
