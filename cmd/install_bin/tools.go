@@ -6,7 +6,7 @@ var Tools = []Tool{
 	{
 		Name:           "install-slu",
 		GetVersionFunc: func() string { return "v0.1.0" },
-		UrlTemplate:    "https://github.com/sikalabs/install-slu/reases/download/{{.Version}}/install-slu_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+		UrlTemplate:    "https://github.com/sikalabs/install-slu/releases/download/{{.Version}}/install-slu_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
 		Name:           "tergum",
