@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492
-	github.com/argoproj/argo-cd/v2 v2.4.9
+	github.com/argoproj/argo-cd/v2 v2.4.11
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.44.91
 	github.com/cheggaaa/pb/v3 v3.1.0
