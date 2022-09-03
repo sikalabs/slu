@@ -26,6 +26,7 @@ var Cmd = &cobra.Command{
 			source,
 			CmdFlagBinDir,
 			CmdFlagName,
+			false,
 		)
 	},
 }

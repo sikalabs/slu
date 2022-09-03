@@ -122,6 +122,7 @@ func buildCmd(
 				source,
 				CmdFlagBinDir,
 				name,
+				false,
 			)
 		},
 	}

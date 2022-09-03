@@ -12,7 +12,10 @@ import (
 	"github.com/sikalabs/slu/utils/zip_utils"
 )
 
-func InstallBin(url, source, binDir, name string) {
+func InstallBin(url, source, binDir, name string, exeSuffix bool) {
+	if exeSuffix {
+		name = name + ".exe"
+	}
 	if strings.HasSuffix(url, "zip") {
 		zip_utils.WebZipToBin(
 			url,
