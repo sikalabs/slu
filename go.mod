@@ -8,25 +8,43 @@ require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.44.91
 	github.com/cheggaaa/pb/v3 v3.1.0
-	github.com/cloudflare/cloudflare-go v0.46.0
+	github.com/cloudflare/cloudflare-go v0.49.0
 	github.com/digitalocean/godo v1.83.0
 	github.com/docker/docker v20.10.17+incompatible
+	github.com/frankban/quicktest v1.14.3 // indirect
+	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/go-sql-driver/mysql v1.6.0
+	github.com/google/uuid v1.3.0 // indirect
+	github.com/hashicorp/go-uuid v1.0.3 // indirect
+	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hashicorp/vault/api v1.7.2
+	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
+	github.com/imdario/mergo v0.3.13 // indirect
+	github.com/jhump/protoreflect v1.6.1 // indirect
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.6
+	github.com/matryer/is v1.4.0 // indirect
 	github.com/mhale/smtpd v0.8.0
+	github.com/mitchellh/copystructure v1.2.0 // indirect
+	github.com/mitchellh/go-testing-interface v1.0.4 // indirect
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
 	github.com/olekukonko/tablewriter v0.0.5
+	github.com/onsi/gomega v1.19.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
 	github.com/prometheus/client_golang v1.13.0
 	github.com/rs/zerolog v1.28.0
+	github.com/russross/blackfriday v1.6.0 // indirect
+	github.com/sergi/go-diff v1.2.0 // indirect
+	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/spf13/cobra v1.5.0
 	github.com/xanzy/go-gitlab v0.68.2
+	go.starlark.net v0.0.0-20200821142938-949cc6f4b097 // indirect
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
+	golang.org/x/oauth2 v0.0.0-20220718184931-c8730f7fcb92 // indirect
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220504211119-3d4a969bb56b
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.3.5
