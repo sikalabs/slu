@@ -1,6 +1,7 @@
 package install_bin_utils
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -14,8 +15,10 @@ import (
 
 func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 	if exeSuffix {
+		source = source + ".exe"
 		name = name + ".exe"
 	}
+	fmt.Println(exeSuffix, name)
 	if strings.HasSuffix(url, "zip") {
 		zip_utils.WebZipToBin(
 			url,
@@ -25,6 +28,7 @@ func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 		return
 	}
 	if strings.HasSuffix(url, "tar.gz") || strings.HasSuffix(url, "tgz") {
+		fmt.Println(exeSuffix, name)
 		tar_gz_utils.WebTarGzToBin(
 			url,
 			source,
