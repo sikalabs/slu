@@ -133,6 +133,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("configboard", "configboard-cli") },
 		UrlTemplate:    "https://github.com/configboard/configboard-cli/releases/download/{{.Version}}/configboard-cli_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "viddy",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sachaos", "viddy") },
+		UrlTemplate:    "https://github.com/sachaos/viddy/releases/download/{{.Version}}/viddy_{{.Version|removev}}_{{.Os|capitalize}}_{{.ArchK9s}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
