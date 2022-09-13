@@ -44,6 +44,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/docker/registry/list"
 	_ "github.com/sikalabs/slu/cmd/docker/registry/tags"
 	_ "github.com/sikalabs/slu/cmd/du"
+	_ "github.com/sikalabs/slu/cmd/example"
+	_ "github.com/sikalabs/slu/cmd/example/counter_cli"
 	_ "github.com/sikalabs/slu/cmd/example_server"
 	_ "github.com/sikalabs/slu/cmd/expand"
 	_ "github.com/sikalabs/slu/cmd/expand/file"
