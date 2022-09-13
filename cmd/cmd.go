@@ -10,6 +10,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/argocd/refresh"
 	_ "github.com/sikalabs/slu/cmd/argocd/set_image"
 	_ "github.com/sikalabs/slu/cmd/argocd/url"
+	_ "github.com/sikalabs/slu/cmd/awx"
+	_ "github.com/sikalabs/slu/cmd/awx/password"
 	_ "github.com/sikalabs/slu/cmd/base64"
 	_ "github.com/sikalabs/slu/cmd/base64/interactive_decode_clipboard"
 	_ "github.com/sikalabs/slu/cmd/check"
