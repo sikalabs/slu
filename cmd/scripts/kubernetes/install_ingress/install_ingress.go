@@ -1,11 +1,14 @@
 package install_ingress
 
 import (
+	"fmt"
+
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts/kubernetes"
 	"github.com/sikalabs/slu/utils/sh_utils"
 	"github.com/spf13/cobra"
 )
 
+var FlagDry bool
 var FlagUseProxyProtocol bool
 
 var Cmd = &cobra.Command{
@@ -28,13 +31,19 @@ var Cmd = &cobra.Command{
 	--set controller.kind=DaemonSet \
 	--set controller.hostPort.enabled=true \
 	--set controller.metrics.enabled=true \
-	--set controller.config.use-proxy-protocol=` + useProxyProtocol + ` \
-	--wait`)
+	--set controller.config.use-proxy-protocol=`+useProxyProtocol+` \
+	--wait`, FlagDry)
 	},
 }
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().BoolVar(
+		&FlagDry,
+		"dry",
+		false,
+		"Dry run",
+	)
 	Cmd.Flags().BoolVar(
 		&FlagUseProxyProtocol,
 		"use-proxy-protocol",
@@ -43,7 +52,11 @@ func init() {
 	)
 }
 
-func sh(script string) {
+func sh(script string, dry bool) {
+	if dry {
+		fmt.Println(script)
+		return
+	}
 	err := sh_utils.ExecShOutDir("", script)
 	if err != nil {
 		sh_utils.HandleError(err)
