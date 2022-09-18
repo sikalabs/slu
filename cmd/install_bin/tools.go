@@ -144,6 +144,13 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/kubernetes-sigs/krew/releases/download/{{.Version}}/krew-{{.Os}}_{{.Arch}}.tar.gz",
 		SourcePath:     "krew-{{.Os}}_{{.Arch}}",
 	},
+
+	{
+		Name:           "k6",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "k6") },
+		UrlTemplate:    "https://github.com/grafana/k6/releases/download/{{.Version}}/k6-{{.Version}}-{{.OsK6}}-{{.Arch}}.zip",
+		SourcePath:     "k6-{{.Version}}-{{.OsK6}}-{{.Arch}}/k6",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
