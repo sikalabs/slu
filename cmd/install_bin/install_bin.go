@@ -53,6 +53,7 @@ func getUrl(urlTemplate, version string) string {
 	err = tmpl.Execute(&out, map[string]string{
 		"Os":         CmdFlagOS,
 		"OsDocker":   dockerOs(CmdFlagOS),
+		"OsK6":       k6_Os(CmdFlagOS),
 		"Arch":       CmdFlagArch,
 		"ArchDocker": dockerArch(CmdFlagArch),
 		"ArchK9s":    k9sArch(CmdFlagArch),
@@ -79,6 +80,7 @@ func getSourcePath(SourcePathTemplate, version string) string {
 	err = tmpl.Execute(&out, map[string]string{
 		"Os":         CmdFlagOS,
 		"OsDocker":   dockerOs(CmdFlagOS),
+		"OsK6":       k6_Os(CmdFlagOS),
 		"Arch":       CmdFlagArch,
 		"ArchDocker": dockerArch(CmdFlagArch),
 		"ArchK9s":    k9sArch(CmdFlagArch),
@@ -212,4 +214,11 @@ func k9sArch(arch string) string {
 		return "x86_64"
 	}
 	return arch
+}
+
+func k6_Os(osName string) string {
+	if osName == "darwin" {
+		return "macos"
+	}
+	return osName
 }
