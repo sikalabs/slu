@@ -138,6 +138,12 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sachaos", "viddy") },
 		UrlTemplate:    "https://github.com/sachaos/viddy/releases/download/{{.Version}}/viddy_{{.Version|removev}}_{{.Os|capitalize}}_{{.ArchK9s}}.tar.gz",
 	},
+	{
+		Name:           "krew",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("kubernetes-sigs", "krew") },
+		UrlTemplate:    "https://github.com/kubernetes-sigs/krew/releases/download/{{.Version}}/krew-{{.Os}}_{{.Arch}}.tar.gz",
+		SourcePath:     "krew-{{.Os}}_{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
