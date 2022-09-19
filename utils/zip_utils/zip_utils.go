@@ -34,7 +34,7 @@ func WebZipToBin(url, inZipFileName, outFileName string) {
 
 	for _, f := range r.File {
 		if f.Name == inZipFileName {
-			outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 755)
+			outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 0755)
 			handleError(err)
 			defer outFile.Close()
 

@@ -36,7 +36,7 @@ func WebTarGzToBin(url, inTarGzFileName, outFileName string) {
 
 		if header.Typeflag == tar.TypeReg &&
 			(header.Name == inTarGzFileName || header.Name == "./"+inTarGzFileName) {
-			outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 755)
+			outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 0755)
 			handleError(err)
 			defer outFile.Close()
 
