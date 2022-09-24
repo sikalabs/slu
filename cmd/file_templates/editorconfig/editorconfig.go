@@ -7,16 +7,26 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagWithGo bool
+
 var Cmd = &cobra.Command{
 	Use:     "editorconfig",
 	Short:   "Create basic editorconfig",
 	Aliases: []string{"ec"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		editorconfig.CreateEditorconfig(true)
+		editorconfig.CreateEditorconfig(
+			FlagWithGo,
+		)
 	},
 }
 
 func init() {
 	file_templates_cmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().BoolVar(
+		&FlagWithGo,
+		"go",
+		false,
+		"Add Go section to editorconfig",
+	)
 }
