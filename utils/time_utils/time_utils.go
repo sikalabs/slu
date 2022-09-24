@@ -5,6 +5,10 @@ import (
 	"time"
 )
 
+func Unix() int {
+	return int(time.Now().Unix())
+}
+
 func intToStr(i int) string {
 	if i < 10 {
 		return "0" + strconv.Itoa(i)
