@@ -13,7 +13,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ec"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		editorconfig.CreateEditorconfig()
+		editorconfig.CreateEditorconfig(true)
 	},
 }
 

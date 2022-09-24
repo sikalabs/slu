@@ -2,8 +2,10 @@ package editorconfig
 
 import "io/ioutil"
 
-func CreateEditorconfig() {
-	content := []byte(`root = true
+func CreateEditorconfig(
+	withGo bool,
+) {
+	content := `root = true
 [*]
 indent_style = space
 indent_size = 2
@@ -14,10 +16,13 @@ end_of_line = lf
 max_line_length = off
 [Makefile]
 indent_style = tab
-[*.go]
+`
+	if withGo {
+		content += `[*.go]
 indent_style = tab
-`)
-	err := ioutil.WriteFile(".editorconfig", content, 0644)
+`
+	}
+	err := ioutil.WriteFile(".editorconfig", []byte(content), 0644)
 	if err != nil {
 		panic(err)
 	}
