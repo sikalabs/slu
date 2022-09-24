@@ -25,6 +25,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/cloudflare/access/service_token/get"
 	_ "github.com/sikalabs/slu/cmd/cloudflare/access/service_token/set"
 	_ "github.com/sikalabs/slu/cmd/cloudflare/host"
+	_ "github.com/sikalabs/slu/cmd/ddev"
 	_ "github.com/sikalabs/slu/cmd/debug_server"
 	_ "github.com/sikalabs/slu/cmd/debug_server/long_response"
 	_ "github.com/sikalabs/slu/cmd/debug_server/request_debug"
