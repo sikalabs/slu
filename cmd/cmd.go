@@ -79,6 +79,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/skip_stage/remove_skip"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/skip_stage/show"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/skip_stage/skip"
+	_ "github.com/sikalabs/slu/cmd/gitlab_ci/terraform_convert_report"
 	_ "github.com/sikalabs/slu/cmd/go_code"
 	_ "github.com/sikalabs/slu/cmd/go_code/version_bump"
 	_ "github.com/sikalabs/slu/cmd/helm"
