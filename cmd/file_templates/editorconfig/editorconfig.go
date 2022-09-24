@@ -8,6 +8,7 @@ import (
 )
 
 var FlagWithGo bool
+var FlagWithPython bool
 
 var Cmd = &cobra.Command{
 	Use:     "editorconfig",
@@ -17,7 +18,7 @@ var Cmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		editorconfig.CreateEditorconfig(
 			FlagWithGo,
-			false,
+			FlagWithPython,
 		)
 	},
 }
@@ -29,5 +30,11 @@ func init() {
 		"go",
 		false,
 		"Add Go section to editorconfig",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagWithPython,
+		"python",
+		false,
+		"Add Python section to editorconfig",
 	)
 }
