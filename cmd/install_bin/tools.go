@@ -144,7 +144,6 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/kubernetes-sigs/krew/releases/download/{{.Version}}/krew-{{.Os}}_{{.Arch}}.tar.gz",
 		SourcePath:     "krew-{{.Os}}_{{.Arch}}",
 	},
-
 	{
 		Name:           "k6",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "k6") },
