@@ -17,6 +17,7 @@ var Cmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		editorconfig.CreateEditorconfig(
 			FlagWithGo,
+			false,
 		)
 	},
 }

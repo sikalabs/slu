@@ -4,6 +4,7 @@ import "io/ioutil"
 
 func CreateEditorconfig(
 	withGo bool,
+	withPython bool,
 ) {
 	content := `root = true
 [*]
@@ -20,6 +21,11 @@ indent_style = tab
 	if withGo {
 		content += `[*.go]
 indent_style = tab
+`
+	}
+	if withPython {
+		content += `[*.py]
+indent_size = 4
 `
 	}
 	err := ioutil.WriteFile(".editorconfig", []byte(content), 0644)
