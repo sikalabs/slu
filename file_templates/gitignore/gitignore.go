@@ -20,6 +20,10 @@ var GitignoreTerraform = `# Terraform
 .terraform.tfstate.lock.info
 *.tfvars
 !*.EXAMPLE.tfvars
+
+# Infracost
+.infracost
+.infracost-reports
 `
 
 func CreateGitignore(content string) {
