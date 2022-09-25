@@ -3,7 +3,6 @@ package install_bin
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"runtime"
 	"strings"
 	"text/template"
@@ -205,7 +204,6 @@ func dockerArch(arch string) string {
 	if arch == "arm64" {
 		return "aarch64"
 	}
-	log.Fatal(fmt.Errorf("unknown arch: %s", arch))
 	return ""
 }
 
