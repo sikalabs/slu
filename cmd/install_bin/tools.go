@@ -1,6 +1,8 @@
 package install_bin
 
-import "github.com/sikalabs/slu/utils/github_utils"
+import (
+	"github.com/sikalabs/slu/utils/github_utils"
+)
 
 var Tools = []Tool{
 	{
@@ -149,6 +151,26 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "k6") },
 		UrlTemplate:    "https://github.com/grafana/k6/releases/download/{{.Version}}/k6-{{.Version}}-{{.OsK6}}-{{.Arch}}.zip",
 		SourcePath:     "k6-{{.Version}}-{{.OsK6}}-{{.Arch}}/k6",
+	},
+	{
+		Name:           "oc",
+		GetVersionFunc: func() string { return "latest" },
+		UrlTemplate:    "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{.Version}}/openshift-client-{{.Os}}{{.Arch}}.tar.gz",
+		GetOsFunc: func(x string) string {
+			if x == "darwin" {
+				return "mac"
+			}
+			return x
+		},
+		GetArchFunc: func(x string) string {
+			if x == "amd64" {
+				return ""
+			}
+			if x == "arm64" {
+				return "-arm64"
+			}
+			return x
+		},
 	},
 }
 
