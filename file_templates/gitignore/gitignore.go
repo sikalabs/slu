@@ -26,6 +26,10 @@ var GitignoreTerraform = `# Terraform
 .infracost-reports
 `
 
+var GitignoreNodeJS = `# NodeJS
+node_modules
+`
+
 func CreateGitignore(content string) {
 	err := ioutil.WriteFile(".gitignore", []byte(content), 0644)
 	if err != nil {

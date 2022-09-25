@@ -8,6 +8,7 @@ import (
 )
 
 var FlagTerraform bool
+var FlagNodeJS bool
 
 var Cmd = &cobra.Command{
 	Use:     "gitignore",
@@ -18,6 +19,9 @@ var Cmd = &cobra.Command{
 		content := gitignore.GitignoreBase
 		if FlagTerraform {
 			content += "\n" + gitignore.GitignoreTerraform
+		}
+		if FlagNodeJS {
+			content += "\n" + gitignore.GitignoreNodeJS
 		}
 		gitignore.CreateGitignore(content)
 	},
@@ -30,5 +34,11 @@ func init() {
 		"terraform",
 		false,
 		"Add Terraform part",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagNodeJS,
+		"node",
+		false,
+		"Add NodeJS part",
 	)
 }
