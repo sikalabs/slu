@@ -156,45 +156,36 @@ var Tools = []Tool{
 		Name:           "oc",
 		GetVersionFunc: func() string { return "latest" },
 		UrlTemplate:    "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{.Version}}/openshift-client-{{.Os}}{{.Arch}}.tar.gz",
-		GetOsFunc: func(x string) string {
-			if x == "darwin" {
-				return "mac"
-			}
-			return x
-		},
-		GetArchFunc: func(x string) string {
-			if x == "amd64" {
-				return ""
-			}
-			if x == "arm64" {
-				return "-arm64"
-			}
-			return x
-		},
+		GetOsFunc:      openshiftGetOs,
+		GetArchFunc:    openshiftGetArch,
 	},
 	{
 		Name:           "openshift-install",
 		GetVersionFunc: func() string { return "latest" },
 		UrlTemplate:    "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{.Version}}/openshift-install-{{.Os}}{{.Arch}}.tar.gz",
-		GetOsFunc: func(x string) string {
-			if x == "darwin" {
-				return "mac"
-			}
-			return x
-		},
-		GetArchFunc: func(x string) string {
-			if x == "amd64" {
-				return ""
-			}
-			if x == "arm64" {
-				return "-arm64"
-			}
-			return x
-		},
+		GetOsFunc:      openshiftGetOs,
+		GetArchFunc:    openshiftGetArch,
 	},
 }
 
 func hashicorpUrlTemplate(name string) string {
 	return "https://releases.hashicorp.com/" + name + "/{{.Version}}/" + name +
 		"_{{.Version}}_{{.Os}}_{{.Arch}}.zip"
+}
+
+func openshiftGetOs(x string) string {
+	if x == "darwin" {
+		return "mac"
+	}
+	return x
+}
+
+func openshiftGetArch(x string) string {
+	if x == "amd64" {
+		return ""
+	}
+	if x == "arm64" {
+		return "-arm64"
+	}
+	return x
 }
