@@ -172,6 +172,26 @@ var Tools = []Tool{
 			return x
 		},
 	},
+	{
+		Name:           "openshift-install",
+		GetVersionFunc: func() string { return "latest" },
+		UrlTemplate:    "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{.Version}}/openshift-install-{{.Os}}{{.Arch}}.tar.gz",
+		GetOsFunc: func(x string) string {
+			if x == "darwin" {
+				return "mac"
+			}
+			return x
+		},
+		GetArchFunc: func(x string) string {
+			if x == "amd64" {
+				return ""
+			}
+			if x == "arm64" {
+				return "-arm64"
+			}
+			return x
+		},
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
