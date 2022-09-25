@@ -17,6 +17,8 @@ type Tool struct {
 	Aliases        []string
 	SourcePath     string
 	GetVersionFunc func() string
+	GetOsFunc      func(string) string
+	GetArchFunc    func(string) string
 	UrlTemplate    string
 }
 
@@ -37,7 +39,15 @@ var Cmd = &cobra.Command{
 	},
 }
 
-func getUrl(urlTemplate, version string) string {
+func getUrl(
+	urlTemplate string,
+	version string,
+	getOsFunc func(string) string,
+	getArchFunc func(string) string,
+) string {
+	os_ := getOsFunc(CmdFlagOS)
+	arch := getArchFunc(CmdFlagArch)
+
 	funcMap := template.FuncMap{
 		"capitalize": strings.Title,
 		"removev": func(s string) string {
@@ -50,12 +60,12 @@ func getUrl(urlTemplate, version string) string {
 	}
 	var out bytes.Buffer
 	err = tmpl.Execute(&out, map[string]string{
-		"Os":         CmdFlagOS,
-		"OsDocker":   dockerOs(CmdFlagOS),
-		"OsK6":       k6_Os(CmdFlagOS),
-		"Arch":       CmdFlagArch,
-		"ArchDocker": dockerArch(CmdFlagArch),
-		"ArchK9s":    k9sArch(CmdFlagArch),
+		"Os":         os_,
+		"OsDocker":   dockerOs(os_),
+		"OsK6":       k6_Os(os_),
+		"Arch":       arch,
+		"ArchDocker": dockerArch(arch),
+		"ArchK9s":    k9sArch(arch),
 		"Version":    version,
 	})
 	if err != nil {
@@ -64,7 +74,15 @@ func getUrl(urlTemplate, version string) string {
 	return out.String()
 }
 
-func getSourcePath(SourcePathTemplate, version string) string {
+func getSourcePath(
+	SourcePathTemplate string,
+	version string,
+	getOsFunc func(string) string,
+	getArchFunc func(string) string,
+) string {
+	os_ := getOsFunc(CmdFlagOS)
+	arch := getArchFunc(CmdFlagArch)
+
 	funcMap := template.FuncMap{
 		"capitalize": strings.Title,
 		"removev": func(s string) string {
@@ -77,12 +95,12 @@ func getSourcePath(SourcePathTemplate, version string) string {
 	}
 	var out bytes.Buffer
 	err = tmpl.Execute(&out, map[string]string{
-		"Os":         CmdFlagOS,
-		"OsDocker":   dockerOs(CmdFlagOS),
-		"OsK6":       k6_Os(CmdFlagOS),
-		"Arch":       CmdFlagArch,
-		"ArchDocker": dockerArch(CmdFlagArch),
-		"ArchK9s":    k9sArch(CmdFlagArch),
+		"Os":         os_,
+		"OsDocker":   dockerOs(os_),
+		"OsK6":       k6_Os(os_),
+		"Arch":       arch,
+		"ArchDocker": dockerArch(arch),
+		"ArchK9s":    k9sArch(arch),
 		"Version":    version,
 	})
 	if err != nil {
@@ -97,8 +115,10 @@ func buildCmd(
 	sourceTemlate string,
 	urlTemplate string,
 	defaultVersionFunc func() string,
-	getUrlFunc func(string, string) string,
-	getSourcePathFunc func(string, string) string,
+	getUrlFunc func(string, string, func(string) string, func(string) string) string,
+	getSourcePathFunc func(string, string, func(string) string, func(string) string) string,
+	getOsFunc func(string) string,
+	getArchFunc func(string) string,
 ) *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:     name,
@@ -113,11 +133,21 @@ func buildCmd(
 			if FlagVersion != "latest" {
 				version = FlagVersion
 			}
-			url := getUrlFunc(urlTemplate, version)
+			url := getUrlFunc(
+				urlTemplate,
+				version,
+				getOsFunc,
+				getArchFunc,
+			)
 			if FlagVerbose {
 				fmt.Println(url)
 			}
-			source := getSourcePathFunc(sourceTemlate, version)
+			source := getSourcePathFunc(
+				sourceTemlate,
+				version,
+				getOsFunc,
+				getArchFunc,
+			)
 			install_bin_utils.InstallBin(
 				url,
 				source,
@@ -172,6 +202,16 @@ func init() {
 		"Verbose output",
 	)
 	for _, tool := range Tools {
+		getOsFunc := func(x string) string { return x }
+		if tool.GetOsFunc != nil {
+			getOsFunc = tool.GetOsFunc
+		}
+
+		getArchFunc := func(x string) string { return x }
+		if tool.GetArchFunc != nil {
+			getArchFunc = tool.GetArchFunc
+		}
+
 		Cmd.AddCommand(buildCmd(
 			tool.Name,
 			tool.Aliases,
@@ -180,6 +220,8 @@ func init() {
 			tool.GetVersionFunc,
 			getUrl,
 			getSourcePath,
+			getOsFunc,
+			getArchFunc,
 		))
 	}
 }
