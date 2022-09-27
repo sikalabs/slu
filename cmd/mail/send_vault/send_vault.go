@@ -11,6 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagVaultKey string
 var FlagTo string
 var FlagFrom string
 var FlagSubject string
@@ -23,7 +24,7 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		var err error
-		host, port, user, password, err := vault_smtp.GetSMTPSecrets("default")
+		host, port, user, password, err := vault_smtp.GetSMTPSecrets(FlagVaultKey)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -53,6 +54,13 @@ var Cmd = &cobra.Command{
 
 func init() {
 	mail_cmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().StringVarP(
+		&FlagVaultKey,
+		"vault-key",
+		"k",
+		"default",
+		"Key in Vault SMTP passwords secret/data/slu/smtp/<key>",
+	)
 	Cmd.Flags().StringVarP(
 		&FlagTo,
 		"to",
