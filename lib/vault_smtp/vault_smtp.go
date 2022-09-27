@@ -8,7 +8,7 @@ import (
 	"github.com/sikalabs/slu/utils/vault_utils"
 )
 
-func GetSMTPSecrets() (string, int, string, string, error) {
+func GetSMTPSecrets(key string) (string, int, string, string, error) {
 	conf := config.ReadConfig()
 	sec := config.ReadSecrets()
 
@@ -18,12 +18,12 @@ func GetSMTPSecrets() (string, int, string, string, error) {
 	}
 	client.SetToken(sec.SluVault.Token)
 
-	secret, err := client.Logical().Read("secret/data/slu/smtp/default")
+	secret, err := client.Logical().Read("secret/data/slu/smtp/" + key)
 	if err != nil {
 		return "", 0, "", "", err
 	}
 	if secret == nil {
-		return "", 0, "", "", fmt.Errorf("secret secret/data/slu/smtp/default not found")
+		return "", 0, "", "", fmt.Errorf("secret secret/data/slu/smtp/" + key + " not found")
 	}
 	data, ok := secret.Data["data"].(map[string]interface{})
 	if !ok {

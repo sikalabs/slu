@@ -22,7 +22,7 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		var err error
-		host, port, user, password, err := vault_smtp.GetSMTPSecrets()
+		host, port, user, password, err := vault_smtp.GetSMTPSecrets("default")
 		if err != nil {
 			log.Fatal(err)
 		}
