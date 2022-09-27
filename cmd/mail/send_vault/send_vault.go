@@ -12,6 +12,7 @@ import (
 )
 
 var FlagTo string
+var FlagFrom string
 var FlagSubject string
 var FlagMessage string
 
@@ -30,12 +31,16 @@ var Cmd = &cobra.Command{
 		if message == "-" {
 			message = stdin_utils.ReadAll()
 		}
+		from := user
+		if FlagFrom != "" {
+			from = FlagFrom
+		}
 		err = mail_utils.SendSimpleMail(
 			host,
 			strconv.Itoa(port),
 			user,
 			password,
-			user,
+			from,
 			FlagTo,
 			FlagSubject,
 			message,
@@ -54,6 +59,13 @@ func init() {
 		"t",
 		"",
 		"to (john@acme.com)",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagFrom,
+		"from",
+		"f",
+		"",
+		"from (ben@acme.com)",
 	)
 	Cmd.MarkFlagRequired("to")
 	Cmd.Flags().StringVarP(
