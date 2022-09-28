@@ -11,17 +11,18 @@ import (
 )
 
 var FlagJson bool
+var FlagImage string
 
 var Cmd = &cobra.Command{
 	Use:   "kdev",
 	Short: "Run sikalabs/dev in Kubernetes",
-	Args:  cobra.NoArgs,
+	Args:  cobra.MaximumNArgs(1),
 	Run: func(c *cobra.Command, args []string) {
 		cmd := exec.Command(
 			"kubectl", "run",
 			"dev-"+strconv.Itoa(time_utils.Unix()),
 			"--rm", "-ti",
-			"--image", "sikalabs/dev",
+			"--image", FlagImage,
 			"--", "bash",
 		)
 		cmd.Stdout = os.Stdout
@@ -33,4 +34,11 @@ var Cmd = &cobra.Command{
 
 func init() {
 	root.RootCmd.AddCommand(Cmd)
+	Cmd.Flags().StringVarP(
+		&FlagImage,
+		"image",
+		"i",
+		"sikalabs/dev",
+		"Container Image",
+	)
 }
