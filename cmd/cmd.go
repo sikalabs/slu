@@ -149,6 +149,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci/update_docker_images"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
+	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_all"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_argocd"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cert_manager"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cluster_issuer"
