@@ -12,6 +12,7 @@ import (
 )
 
 var FlagVolume bool
+var FlagImage string
 
 var Cmd = &cobra.Command{
 	Use:   "ddev",
@@ -37,7 +38,7 @@ var Cmd = &cobra.Command{
 		}
 		cmdArgs = append(
 			cmdArgs,
-			"sikalabs/dev",
+			FlagImage,
 			"bash",
 		)
 		cmd := exec.Command("docker", cmdArgs...)
@@ -56,5 +57,12 @@ func init() {
 		"v",
 		false,
 		"Mount current directory to container",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagImage,
+		"image",
+		"i",
+		"sikalabs/dev",
+		"Container Image",
 	)
 }
