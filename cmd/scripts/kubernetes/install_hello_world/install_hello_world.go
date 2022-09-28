@@ -1,10 +1,8 @@
 package install_hello_world
 
 import (
-	"fmt"
-
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts/kubernetes"
-	"github.com/sikalabs/slu/utils/sh_utils"
+	"github.com/sikalabs/slu/utils/k8s_scripts"
 	"github.com/spf13/cobra"
 )
 
@@ -17,13 +15,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ihw"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		sh(`helm upgrade --install \
-		hello-world hello-world \
-	--repo https://helm.sikalabs.io \
-	--create-namespace \
-	--namespace hello-world \
-	--set host=`+FlagHost+` \
-	--wait`, FlagDry)
+		k8s_scripts.InstallHelloWorld(FlagHost, FlagDry)
 	},
 }
 
@@ -41,15 +33,4 @@ func init() {
 		"",
 		"public hostname of the hello-world server",
 	)
-}
-
-func sh(script string, dry bool) {
-	if dry {
-		fmt.Println(script)
-		return
-	}
-	err := sh_utils.ExecShOutDir("", script)
-	if err != nil {
-		sh_utils.HandleError(err)
-	}
 }

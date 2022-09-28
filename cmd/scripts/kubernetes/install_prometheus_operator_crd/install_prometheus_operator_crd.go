@@ -1,11 +1,8 @@
 package install_prometheus_operator_crd
 
 import (
-	"fmt"
-
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts/kubernetes"
-	"github.com/sikalabs/slu/utils/github_utils"
-	"github.com/sikalabs/slu/utils/sh_utils"
+	"github.com/sikalabs/slu/utils/k8s_scripts"
 	"github.com/spf13/cobra"
 )
 
@@ -18,18 +15,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ipocrd"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		version := FlagVersion
-		if version == "latest" {
-			version = github_utils.GetLatestRelease("prometheus-operator", "prometheus-operator")
-		}
-		sh(`kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/`+version+`/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml`, FlagDry)
-		sh(`kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/`+version+`/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml`, FlagDry)
-		sh(`kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/`+version+`/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml`, FlagDry)
-		sh(`kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/`+version+`/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml`, FlagDry)
-		sh(`kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/`+version+`/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml`, FlagDry)
-		sh(`kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/`+version+`/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml`, FlagDry)
-		sh(`kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/`+version+`/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml`, FlagDry)
-		sh(`kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/`+version+`/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml`, FlagDry)
+		k8s_scripts.InstallPrometheusOperatorCRD(FlagVersion, FlagDry)
 	},
 }
 
@@ -48,15 +34,4 @@ func init() {
 		"latest",
 		"Version of Prometheus Operator",
 	)
-}
-
-func sh(script string, dry bool) {
-	if dry {
-		fmt.Println(script)
-		return
-	}
-	err := sh_utils.ExecShOutDir("", script)
-	if err != nil {
-		sh_utils.HandleError(err)
-	}
 }

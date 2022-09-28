@@ -1,10 +1,8 @@
 package install_argocd
 
 import (
-	"fmt"
-
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts/kubernetes"
-	"github.com/sikalabs/slu/utils/sh_utils"
+	"github.com/sikalabs/slu/utils/k8s_scripts"
 	"github.com/spf13/cobra"
 )
 
@@ -19,29 +17,10 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		if FlagDomain == "" {
-			sh(`helm upgrade --install \
-	argocd argo-cd \
-	--repo https://argoproj.github.io/argo-helm \
-	--create-namespace \
-	--namespace `+FlagNamespace+` \
-	--wait`, FlagDry)
+			k8s_scripts.InstallArgoCD(FlagNamespace, FlagDry)
 		} else {
-			sh(`helm upgrade --install \
-	argocd argo-cd \
-	--repo https://argoproj.github.io/argo-helm \
-	--create-namespace \
-	--namespace `+FlagNamespace+` \
-	--set 'server.ingress.enabled=true' \
-	--set 'server.ingress.hosts[0]='`+FlagDomain+` \
-	--set 'server.ingress.ingressClassName=nginx' \
-	--set 'server.ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt' \
-	--set 'server.ingress.annotations.nginx\.ingress\.kubernetes\.io/server-snippet=proxy_ssl_verify off;' \
-	--set 'server.ingress.annotations.nginx\.ingress\.kubernetes\.io/backend-protocol=HTTPS' \
-	--set 'server.ingress.tls[0].hosts[0]=`+FlagDomain+`' \
-	--set 'server.ingress.tls[0].secretName=argocd-tls' \
-	--wait`, FlagDry)
+			k8s_scripts.InstallArgoCDDomain(FlagNamespace, FlagDomain, FlagDry)
 		}
-
 	},
 }
 
@@ -67,15 +46,4 @@ func init() {
 		"",
 		"Domain of ArgoCD instance",
 	)
-}
-
-func sh(script string, dry bool) {
-	if dry {
-		fmt.Println(script)
-		return
-	}
-	err := sh_utils.ExecShOutDir("", script)
-	if err != nil {
-		sh_utils.HandleError(err)
-	}
 }

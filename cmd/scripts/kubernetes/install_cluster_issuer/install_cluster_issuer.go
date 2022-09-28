@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts/kubernetes"
+	"github.com/sikalabs/slu/utils/k8s_scripts"
 	"github.com/sikalabs/slu/utils/sh_utils"
 	"github.com/spf13/cobra"
 )
@@ -19,22 +20,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ici"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		sh(`cat <<EOF | kubectl apply -f -
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt
-spec:
-  acme:
-    email: `+FlagEmail+`
-    server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-      name: letsencrypt-issuer-account-key
-    solvers:
-    - http01:
-        ingress:
-          class: nginx
-EOF`, FlagDry)
+		k8s_scripts.InstallClusterIssuer(FlagEmail, FlagDry)
 	},
 }
 

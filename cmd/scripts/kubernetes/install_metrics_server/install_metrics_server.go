@@ -1,10 +1,8 @@
 package install_metrics_server
 
 import (
-	"fmt"
-
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts/kubernetes"
-	"github.com/sikalabs/slu/utils/sh_utils"
+	"github.com/sikalabs/slu/utils/k8s_scripts"
 	"github.com/spf13/cobra"
 )
 
@@ -16,7 +14,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ims"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		sh(`kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`, FlagDry)
+		k8s_scripts.InstallMetricsServer(FlagDry)
 	},
 }
 
@@ -28,15 +26,4 @@ func init() {
 		false,
 		"Dry run",
 	)
-}
-
-func sh(script string, dry bool) {
-	if dry {
-		fmt.Println(script)
-		return
-	}
-	err := sh_utils.ExecShOutDir("", script)
-	if err != nil {
-		sh_utils.HandleError(err)
-	}
 }
