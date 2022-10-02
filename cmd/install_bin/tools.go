@@ -166,6 +166,11 @@ var Tools = []Tool{
 		GetOsFunc:      openshiftGetOs,
 		GetArchFunc:    openshiftGetArch,
 	},
+	{
+		Name:           "argocd-image-updater",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("argoproj-labs", "argocd-image-updater") },
+		UrlTemplate:    "https://github.com/argoproj-labs/argocd-image-updater/releases/download/{{.Version}}/argocd-image-updater-{{.Os}}_{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
