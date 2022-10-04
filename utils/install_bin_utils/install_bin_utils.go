@@ -8,6 +8,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/sikalabs/slu/utils/tar_bz2_utils"
 	"github.com/sikalabs/slu/utils/tar_gz_utils"
 	"github.com/sikalabs/slu/utils/zip_utils"
 )
@@ -27,6 +28,14 @@ func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 	}
 	if strings.HasSuffix(url, "tar.gz") || strings.HasSuffix(url, "tgz") {
 		tar_gz_utils.WebTarGzToBin(
+			url,
+			source,
+			path.Join(binDir, name),
+		)
+		return
+	}
+	if strings.HasSuffix(url, "tar.bz2") || strings.HasSuffix(url, "tbz2") {
+		tar_bz2_utils.WebTarBz2ToBin(
 			url,
 			source,
 			path.Join(binDir, name),
