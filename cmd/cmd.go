@@ -120,6 +120,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/mail/send_vault"
 	_ "github.com/sikalabs/slu/cmd/metrics_generator"
 	_ "github.com/sikalabs/slu/cmd/metrics_generator/server"
+	_ "github.com/sikalabs/slu/cmd/mssql"
 	_ "github.com/sikalabs/slu/cmd/mysql"
 	_ "github.com/sikalabs/slu/cmd/mysql/create"
 	_ "github.com/sikalabs/slu/cmd/mysql/drop"
