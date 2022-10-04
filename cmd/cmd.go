@@ -110,6 +110,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/kv"
 	_ "github.com/sikalabs/slu/cmd/kv/get"
 	_ "github.com/sikalabs/slu/cmd/kv/set"
+	_ "github.com/sikalabs/slu/cmd/kx"
 	_ "github.com/sikalabs/slu/cmd/length"
 	_ "github.com/sikalabs/slu/cmd/loggen"
 	_ "github.com/sikalabs/slu/cmd/login"
