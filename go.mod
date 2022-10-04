@@ -8,7 +8,7 @@ require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.44.91
 	github.com/cheggaaa/pb/v3 v3.1.0
-	github.com/cloudflare/cloudflare-go v0.49.0
+	github.com/cloudflare/cloudflare-go v0.51.0
 	github.com/denisenkom/go-mssqldb v0.12.2
 	github.com/digitalocean/godo v1.83.0
 	github.com/docker/docker v20.10.17+incompatible
