@@ -4,11 +4,12 @@ go 1.16
 
 require (
 	github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492
-	github.com/argoproj/argo-cd/v2 v2.4.11
+	github.com/argoproj/argo-cd/v2 v2.4.13
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.44.91
 	github.com/cheggaaa/pb/v3 v3.1.0
 	github.com/cloudflare/cloudflare-go v0.49.0
+	github.com/denisenkom/go-mssqldb v0.12.2
 	github.com/digitalocean/godo v1.83.0
 	github.com/docker/docker v20.10.17+incompatible
 	github.com/frankban/quicktest v1.14.3 // indirect
