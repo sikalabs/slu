@@ -171,6 +171,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("argoproj-labs", "argocd-image-updater") },
 		UrlTemplate:    "https://github.com/argoproj-labs/argocd-image-updater/releases/download/{{.Version}}/argocd-image-updater-{{.Os}}_{{.Arch}}",
 	},
+	{
+		Name:           "usql",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("xo", "usql") },
+		UrlTemplate:    "https://github.com/xo/usql/releases/download/{{.Version}}/usql-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.bz2",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
