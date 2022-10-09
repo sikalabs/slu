@@ -176,6 +176,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("xo", "usql") },
 		UrlTemplate:    "https://github.com/xo/usql/releases/download/{{.Version}}/usql-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.bz2",
 	},
+	{
+		Name:           "reg",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("genuinetools", "reg") },
+		UrlTemplate:    "https://github.com/genuinetools/reg/releases/download/{{.Version}}/reg-{{.Os}}-amd64",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
