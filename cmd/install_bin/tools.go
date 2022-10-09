@@ -181,6 +181,12 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("genuinetools", "reg") },
 		UrlTemplate:    "https://github.com/genuinetools/reg/releases/download/{{.Version}}/reg-{{.Os}}-amd64",
 	},
+	{
+		Name:           "crane",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("google", "go-containerregistry") },
+		UrlTemplate:    "https://github.com/google/go-containerregistry/releases/download/{{.Version}}/go-containerregistry_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
+		GetArchFunc:    craneGetArch,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
@@ -201,6 +207,13 @@ func openshiftGetArch(x string) string {
 	}
 	if x == "arm64" {
 		return "-arm64"
+	}
+	return x
+}
+
+func craneGetArch(x string) string {
+	if x == "amd64" {
+		return "x86_64"
 	}
 	return x
 }
