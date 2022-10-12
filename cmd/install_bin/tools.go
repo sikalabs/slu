@@ -187,6 +187,13 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/google/go-containerregistry/releases/download/{{.Version}}/go-containerregistry_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
 		GetArchFunc:    craneGetArch,
 	},
+	{
+		Name:           "editorconfig-checker",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("editorconfig-checker", "editorconfig-checker") },
+		UrlTemplate:    "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/{{.Version}}/ec-{{.Os}}-{{.Arch}}.tar.gz",
+		GetArchFunc:    craneGetArch,
+		SourcePath:     "bin/ec-{{.Os}}-{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
