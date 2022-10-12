@@ -155,8 +155,8 @@ github.com/apache/thrift v0.13.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb
 github.com/appscode/go v0.0.0-20190808133642-1d4ef1f1c1e0/go.mod h1:iy07dV61Z7QQdCKJCIvUoDL21u6AIceRhZzyleh2ymc=
 github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492 h1:rcEG5HI490FF0a7zuvxOxen52ddygCfNVjP0XOCMl+M=
 github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492/go.mod h1:9Beu8XsUNNfzml7WBf3QmyPToP1wm1Gj/Vc5UJKqTzU=
-github.com/argoproj/argo-cd/v2 v2.4.11 h1:bNm+T0hYm5jRelkX26G9fsd0AwLOqzsERV2+mTtRNqg=
-github.com/argoproj/argo-cd/v2 v2.4.11/go.mod h1:X+FgFyZDEDFoRPsTuYBtqykKjWhufwfxAD4nDzNmc1Y=
+github.com/argoproj/argo-cd/v2 v2.4.14 h1:ueOSZMc5vtoVCl9MVJ00yrM+eT21p73YGWOtjhEgYmE=
+github.com/argoproj/argo-cd/v2 v2.4.14/go.mod h1:X+FgFyZDEDFoRPsTuYBtqykKjWhufwfxAD4nDzNmc1Y=
 github.com/argoproj/gitops-engine v0.7.3 h1:0ZlRTReAJG5Y1PviQ8ZIJq/+VowxWe2uFwoXqYcbtXU=
 github.com/argoproj/gitops-engine v0.7.3/go.mod h1:pRgVpLW7pZqf7n3COJ7UcDepk4cI61LAcJd64Q3Jq/c=
 github.com/argoproj/notifications-engine v0.3.1-0.20220430155844-567361917320/go.mod h1:R3zlopt+/juYlebQc9Jarn9vBQ2xZruWOWjUNkfGY9M=
