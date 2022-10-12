@@ -82,7 +82,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "doctl",
-		GetVersionFunc: func() string { return "1.64.0" },
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("digitalocean", "doctl") },
 		UrlTemplate:    "https://github.com/digitalocean/doctl/releases/download/v{{.Version}}/doctl-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
 	},
 	{
