@@ -61,7 +61,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "terraform",
-		GetVersionFunc: func() string { return "1.0.5" },
+		GetVersionFunc: func() string { return "1.3.2" },
 		UrlTemplate:    hashicorpUrlTemplate("terraform"),
 	},
 	{
