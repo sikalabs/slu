@@ -193,7 +193,6 @@ var Tools = []Tool{
 		Name:           "editorconfig-checker",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("editorconfig-checker", "editorconfig-checker") },
 		UrlTemplate:    "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/{{.Version}}/ec-{{.Os}}-{{.Arch}}.tar.gz",
-		GetArchFunc:    craneGetArch,
 		SourcePath:     "bin/ec-{{.Os}}-{{.Arch}}",
 	},
 }
