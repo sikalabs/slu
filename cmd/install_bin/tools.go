@@ -72,7 +72,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "vault",
-		GetVersionFunc: func() string { return "1.8.2" },
+		GetVersionFunc: func() string { return "1.12.0" },
 		UrlTemplate:    hashicorpUrlTemplate("vault"),
 	},
 	{
