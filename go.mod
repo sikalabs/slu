@@ -25,7 +25,7 @@ require (
 	github.com/imdario/mergo v0.3.13 // indirect
 	github.com/jhump/protoreflect v1.6.1 // indirect
 	github.com/jpillora/go-tcp-proxy v1.0.2
-	github.com/lib/pq v1.10.6
+	github.com/lib/pq v1.10.7
 	github.com/matryer/is v1.4.0 // indirect
 	github.com/mhale/smtpd v0.8.0
 	github.com/mitchellh/copystructure v1.2.0 // indirect
