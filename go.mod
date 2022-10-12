@@ -48,8 +48,8 @@ require (
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220504211119-3d4a969bb56b
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.3.6
-	gorm.io/driver/sqlite v1.3.6
-	gorm.io/gorm v1.23.8
+	gorm.io/driver/sqlite v1.4.2
+	gorm.io/gorm v1.24.0
 	gotest.tools/v3 v3.3.0 // indirect
 	k8s.io/api v0.24.2
 	k8s.io/apimachinery v0.24.3
