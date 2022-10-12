@@ -2,6 +2,7 @@ package install_bin
 
 import (
 	"github.com/sikalabs/slu/utils/github_utils"
+	"github.com/sikalabs/slu/utils/http_utils"
 )
 
 var Tools = []Tool{
@@ -27,9 +28,10 @@ var Tools = []Tool{
 	},
 	{
 		Name: "kubectl",
-		// Get Version: `curl -L -s https://dl.k8s.io/release/stable.txt`
-		GetVersionFunc: func() string { return "v1.22.1" },
-		UrlTemplate:    "https://dl.k8s.io/release/{{.Version}}/bin/{{.Os}}/{{.Arch}}/kubectl",
+		GetVersionFunc: func() string {
+			return http_utils.UrlGetToString("https://storage.googleapis.com/kubernetes-release/release/stable.txt")
+		},
+		UrlTemplate: "https://dl.k8s.io/release/{{.Version}}/bin/{{.Os}}/{{.Arch}}/kubectl",
 	},
 	{
 		Name:           "minikube",
