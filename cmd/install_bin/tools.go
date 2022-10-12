@@ -77,7 +77,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "packer",
-		GetVersionFunc: func() string { return "1.8.0" },
+		GetVersionFunc: func() string { return "1.8.3" },
 		UrlTemplate:    hashicorpUrlTemplate("packer"),
 	},
 	{
