@@ -97,6 +97,13 @@ var Tools = []Tool{
 		SourcePath:     "bin/glab",
 	},
 	{
+		Name:           "prometheus",
+		Aliases:        []string{"prom"},
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("prometheus", "prometheus") },
+		UrlTemplate:    "https://github.com/prometheus/prometheus/releases/download/{{.Version}}/prometheus-{{.Version|removev}}.{{.Os}}-{{.Arch}}.tar.gz",
+		SourcePath:     "prometheus-{{.Version|removev}}.{{.Os}}-{{.Arch}}/prometheus",
+	},
+	{
 		Name:           "alertmanager",
 		Aliases:        []string{"am"},
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("prometheus", "alertmanager") },
