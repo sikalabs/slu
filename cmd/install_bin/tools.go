@@ -202,6 +202,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/editorconfig-checker/editorconfig-checker/releases/download/{{.Version}}/ec-{{.Os}}-{{.Arch}}.tar.gz",
 		SourcePath:     "bin/ec-{{.Os}}-{{.Arch}}",
 	},
+	{
+		Name:           "thanos",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("thanos-io", "thanos") },
+		UrlTemplate:    "https://github.com/thanos-io/thanos/releases/download/{{.Version}}/thanos-{{.Version|removev}}.{{.Os}}-{{.Arch}}.tar.gz",
+		SourcePath:     "thanos-{{.Version|removev}}.{{.Os}}-{{.Arch}}/thanos",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
