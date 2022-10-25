@@ -7,11 +7,13 @@ import (
 	"os"
 	"time"
 
+	"github.com/aws/aws-sdk-go/aws"
 	aws_aws "github.com/aws/aws-sdk-go/aws"
 	aws_credentials "github.com/aws/aws-sdk-go/aws/credentials"
 	aws_session "github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	aws_s3 "github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	aws_s3manager "github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/cheggaaa/pb/v3"
 )
@@ -94,6 +96,56 @@ func Upload(
 		5,
 		1,
 	)
+}
+
+func DownloadToFile(
+	access_key string,
+	secret_key string,
+	region string,
+	endpoint string,
+	bucket_name string,
+	key string,
+	localFilePath string,
+) error {
+
+	awsConfig := aws_aws.Config{
+		Credentials: aws_credentials.NewStaticCredentials(
+			access_key,
+			secret_key,
+			"",
+		),
+	}
+	if region != "" {
+		awsConfig.Region = aws_aws.String(region)
+	}
+	if endpoint != "" {
+		awsConfig.Region = aws_aws.String(string("us-east-1"))
+		awsConfig.S3ForcePathStyle = aws_aws.Bool(true)
+		awsConfig.Endpoint = aws_aws.String(endpoint)
+	}
+	session, err := aws_session.NewSession(
+		&awsConfig,
+	)
+	if err != nil {
+		return err
+	}
+
+	file, err := os.Create(localFilePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	downloader := s3manager.NewDownloader(session)
+	_, err = downloader.Download(file,
+		&s3.GetObjectInput{
+			Bucket: aws.String(bucket_name),
+			Key:    aws.String(key),
+		})
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func baseUpload(
