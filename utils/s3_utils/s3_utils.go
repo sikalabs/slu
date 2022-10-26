@@ -16,6 +16,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	aws_s3manager "github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/cheggaaa/pb/v3"
+	"github.com/sikalabs/slu/utils/vault_s3_utils"
 )
 
 func DeleteBucketWithObjects(
@@ -310,4 +311,77 @@ func RemoveObjectsByAge(
 	}
 
 	return nil
+}
+
+func GetS3SecretsFromVaultOrEnvOrDie(vaultPath string) (
+	string, string, string, string, string,
+) {
+	accessKeyVault, secretKeyVault, regionVault,
+		endpointVault, bucketNameVault, _ := vault_s3_utils.GetS3Secrets("secret/data/slu/upload")
+
+	// Access Key
+	var accessKey string
+	accessKeyEnv := os.Getenv("SLU_UPLOAD_ACCESS_KEY")
+	if accessKeyVault != "" {
+		accessKey = accessKeyVault
+	}
+	if accessKeyEnv != "" {
+		accessKey = accessKeyEnv
+	}
+	if accessKey == "" {
+		log.Fatalln("SLU_UPLOAD_ACCESS_KEY is empty")
+	}
+
+	// Secret Key
+	var secretKey string
+	secretKeyEnv := os.Getenv("SLU_UPLOAD_ACCESS_KEY")
+	if secretKeyVault != "" {
+		secretKey = secretKeyVault
+	}
+	if accessKeyEnv != "" {
+		secretKey = secretKeyEnv
+	}
+	if accessKey == "" {
+		log.Fatalln("SLU_UPLOAD_SECRET_KEY is empty")
+	}
+
+	// Region
+	var region string
+	regionEnv := os.Getenv("SLU_UPLOAD_REGION")
+	if regionVault != "" {
+		region = regionVault
+	}
+	if regionEnv != "" {
+		region = regionEnv
+	}
+
+	// Endpoint
+	var endpoint string
+	endpointEnv := os.Getenv("SLU_UPLOAD_ENDPOINT")
+	if endpointVault != "" {
+		endpoint = endpointVault
+	}
+	if endpointEnv != "" {
+		endpoint = endpointEnv
+	}
+
+	// Region, Endpoint Validation
+	if region == "" && endpoint == "" {
+		log.Fatalln("SLU_UPLOAD_REGION and SLU_UPLOAD_ENDPOINT are empty")
+	}
+
+	// Secret Key
+	var bucketName string
+	bucketNameEnv := os.Getenv("SLU_UPLOAD_BUCKET_NAME")
+	if bucketNameVault != "" {
+		bucketName = bucketNameVault
+	}
+	if bucketNameEnv != "" {
+		bucketName = bucketNameEnv
+	}
+	if bucketName == "" {
+		log.Fatalln("SLU_UPLOAD_BUCKET_NAME is empty")
+	}
+
+	return accessKey, secretKey, region, endpoint, bucketName
 }
