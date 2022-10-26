@@ -10,7 +10,6 @@ import (
 	"github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/s3_utils"
 	"github.com/sikalabs/slu/utils/time_utils"
-	"github.com/sikalabs/slu/utils/vault_s3_utils"
 	"github.com/spf13/cobra"
 )
 
@@ -25,72 +24,8 @@ var Cmd = &cobra.Command{
 			log.Fatalln(err)
 		}
 
-		accessKeyVault, secretKeyVault, regionVault,
-			endpointVault, bucketNameVault, _ := vault_s3_utils.GetS3Secrets("secret/data/slu/upload")
-
-		// Access Key
-		var accessKey string
-		accessKeyEnv := os.Getenv("SLU_UPLOAD_ACCESS_KEY")
-		if accessKeyVault != "" {
-			accessKey = accessKeyVault
-		}
-		if accessKeyEnv != "" {
-			accessKey = accessKeyEnv
-		}
-		if accessKey == "" {
-			log.Fatalln("SLU_UPLOAD_ACCESS_KEY is empty")
-		}
-
-		// Secret Key
-		var secretKey string
-		secretKeyEnv := os.Getenv("SLU_UPLOAD_ACCESS_KEY")
-		if secretKeyVault != "" {
-			secretKey = secretKeyVault
-		}
-		if accessKeyEnv != "" {
-			secretKey = secretKeyEnv
-		}
-		if accessKey == "" {
-			log.Fatalln("SLU_UPLOAD_SECRET_KEY is empty")
-		}
-
-		// Region
-		var region string
-		regionEnv := os.Getenv("SLU_UPLOAD_REGION")
-		if regionVault != "" {
-			region = regionVault
-		}
-		if regionEnv != "" {
-			region = regionEnv
-		}
-
-		// Endpoint
-		var endpoint string
-		endpointEnv := os.Getenv("SLU_UPLOAD_ENDPOINT")
-		if endpointVault != "" {
-			endpoint = endpointVault
-		}
-		if endpointEnv != "" {
-			endpoint = endpointEnv
-		}
-
-		// Region, Endpoint Validation
-		if region == "" && endpoint == "" {
-			log.Fatalln("SLU_UPLOAD_REGION and SLU_UPLOAD_ENDPOINT are empty")
-		}
-
-		// Secret Key
-		var bucketName string
-		bucketNameEnv := os.Getenv("SLU_UPLOAD_BUCKET_NAME")
-		if bucketNameVault != "" {
-			bucketName = bucketNameVault
-		}
-		if bucketNameEnv != "" {
-			bucketName = bucketNameEnv
-		}
-		if bucketName == "" {
-			log.Fatalln("SLU_UPLOAD_BUCKET_NAME is empty")
-		}
+		accessKey, secretKey, region,
+			endpoint, bucketName := s3_utils.GetS3SecretsFromVaultOrEnvOrDie("secret/data/slu/upload")
 
 		key := time_utils.NowForFileName() + "_" + filePath
 
