@@ -8,9 +8,9 @@ import (
 	"log"
 
 	"github.com/sikalabs/slu/cmd/root"
-	"github.com/sikalabs/slu/lib/vault_upload"
 	"github.com/sikalabs/slu/utils/s3_utils"
 	"github.com/sikalabs/slu/utils/time_utils"
+	"github.com/sikalabs/slu/utils/vault_s3_utils"
 	"github.com/spf13/cobra"
 )
 
@@ -26,7 +26,7 @@ var Cmd = &cobra.Command{
 		}
 
 		accessKeyVault, secretKeyVault, regionVault,
-			endpointVault, bucketNameVault, _ := vault_upload.GetUploadSecrets()
+			endpointVault, bucketNameVault, _ := vault_s3_utils.GetS3Secrets("secret/data/slu/upload")
 
 		// Access Key
 		var accessKey string
