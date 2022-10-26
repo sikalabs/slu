@@ -83,7 +83,7 @@ var Tools = []Tool{
 	{
 		Name:           "doctl",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("digitalocean", "doctl") },
-		UrlTemplate:    "https://github.com/digitalocean/doctl/releases/download/v{{.Version}}/doctl-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
+		UrlTemplate:    "https://github.com/digitalocean/doctl/releases/download/{{.Version}}/doctl-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.gz",
 	},
 	{
 		Name:           "skaffold",
