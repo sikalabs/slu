@@ -334,14 +334,14 @@ func GetS3SecretsFromVaultOrEnvOrDie(vaultPath string) (
 
 	// Secret Key
 	var secretKey string
-	secretKeyEnv := os.Getenv("SLU_UPLOAD_ACCESS_KEY")
+	secretKeyEnv := os.Getenv("SLU_UPLOAD_SECRET_KEY")
 	if secretKeyVault != "" {
 		secretKey = secretKeyVault
 	}
-	if accessKeyEnv != "" {
+	if secretKeyEnv != "" {
 		secretKey = secretKeyEnv
 	}
-	if accessKey == "" {
+	if secretKey == "" {
 		log.Fatalln("SLU_UPLOAD_SECRET_KEY is empty")
 	}
 
