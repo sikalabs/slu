@@ -6,6 +6,7 @@ import (
 
 	parent_cmd "github.com/sikalabs/slu/cmd/metrics_generator"
 	libserver "github.com/sikalabs/slu/lib/metrics_generator/server"
+	"github.com/sikalabs/slu/version"
 
 	"github.com/spf13/cobra"
 )
@@ -23,7 +24,7 @@ var Cmd = &cobra.Command{
 		if FlagConfigFilePath != "" {
 			libserver.ServerWithConfig(addr, FlagConfigFilePath)
 		} else {
-			fmt.Println("Run with default configuration")
+			fmt.Println("[slu " + version.Version + "] Run with default configuration")
 			libserver.ServerWithDefaultConfig(addr)
 		}
 	},

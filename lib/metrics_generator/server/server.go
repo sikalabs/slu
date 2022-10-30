@@ -101,9 +101,10 @@ func Server(addr string, config ServerConfig) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(map[string]string{
-			"cmd0":    "slu",
-			"cmd1":    "promdemo",
-			"metrics": "/metrics",
+			"_version": version.Version,
+			"cmd0":     "slu",
+			"cmd1":     "promdemo",
+			"metrics":  "/metrics",
 		})
 	})
 
@@ -117,7 +118,7 @@ func Server(addr string, config ServerConfig) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Server started on 0.0.0.0:" + port + ", see http://127.0.0.1:" + port)
+	fmt.Println("[slu " + version.Version + "] Server started on 0.0.0.0:" + port + ", see http://127.0.0.1:" + port)
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
 

@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/sikalabs/slu/cmd/root"
+	"github.com/sikalabs/slu/version"
 	"github.com/spf13/cobra"
 )
 
@@ -20,9 +21,9 @@ var Cmd = &cobra.Command{
 		portStr := strconv.Itoa(FlagPort)
 		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 			hostname, _ := os.Hostname()
-			fmt.Fprintf(w, "[slu] Example HTTP Server! %s %s \n", hostname, portStr)
+			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server! %s %s \n", hostname, portStr)
 		})
-		fmt.Println("Server started on 0.0.0.0:" + portStr + ", see http://127.0.0.1:" + portStr)
+		fmt.Println("[slu " + version.Version + "] Server started on 0.0.0.0:" + portStr + ", see http://127.0.0.1:" + portStr)
 		http.ListenAndServe(":"+portStr, nil)
 	},
 }
