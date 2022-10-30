@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"math/rand"
+	"net"
 	"net/http"
 	"strconv"
 	"time"
@@ -112,7 +113,11 @@ func Server(addr string, config ServerConfig) {
 
 	go runMetrics()
 
-	fmt.Println("Server started.")
+	_, port, err := net.SplitHostPort(addr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Server started on 0.0.0.0:" + port + ", see http://127.0.0.1:" + port)
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
 
