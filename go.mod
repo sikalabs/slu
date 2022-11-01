@@ -47,7 +47,7 @@ require (
 	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220504211119-3d4a969bb56b
 	gopkg.in/yaml.v3 v3.0.1
-	gorm.io/driver/mysql v1.3.6
+	gorm.io/driver/mysql v1.4.3
 	gorm.io/driver/sqlite v1.4.2
 	gorm.io/gorm v1.24.0
 	gotest.tools/v3 v3.3.0 // indirect
