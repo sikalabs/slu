@@ -4,7 +4,8 @@ go 1.16
 
 require (
 	github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492
-	github.com/argoproj/argo-cd/v2 v2.4.14
+	github.com/argoproj/argo-cd/v2 v2.5.0
+	github.com/argoproj/gitops-engine v0.7.3 // indirect
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.44.114
 	github.com/cheggaaa/pb/v3 v3.1.0
@@ -30,10 +31,7 @@ require (
 	github.com/mhale/smtpd v0.8.0
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-testing-interface v1.0.4 // indirect
-	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/onsi/gomega v1.19.0 // indirect
-	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
 	github.com/prometheus/client_golang v1.13.0
 	github.com/rs/zerolog v1.28.0
