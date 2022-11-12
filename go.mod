@@ -6,7 +6,7 @@ require (
 	github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492
 	github.com/argoproj/argo-cd/v2 v2.4.14
 	github.com/atotto/clipboard v0.1.4
-	github.com/aws/aws-sdk-go v1.44.114
+	github.com/aws/aws-sdk-go v1.44.136
 	github.com/cheggaaa/pb/v3 v3.1.0
 	github.com/cloudflare/cloudflare-go v0.52.0
 	github.com/denisenkom/go-mssqldb v0.12.2
@@ -44,7 +44,6 @@ require (
 	github.com/xanzy/go-gitlab v0.73.1
 	go.starlark.net v0.0.0-20200821142938-949cc6f4b097 // indirect
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
-	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20220504211119-3d4a969bb56b
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.4.3
