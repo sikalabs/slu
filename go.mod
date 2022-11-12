@@ -11,7 +11,7 @@ require (
 	github.com/cloudflare/cloudflare-go v0.52.0
 	github.com/denisenkom/go-mssqldb v0.12.2
 	github.com/digitalocean/godo v1.83.0
-	github.com/docker/docker v20.10.17+incompatible
+	github.com/docker/docker v20.10.21+incompatible
 	github.com/frankban/quicktest v1.14.3 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-git/go-git/v5 v5.4.2
