@@ -19,8 +19,8 @@ var Cmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		portStr := strconv.Itoa(FlagPort)
+		hostname, _ := os.Hostname()
 		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-			hostname, _ := os.Hostname()
 			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server! %s %s \n", hostname, portStr)
 		})
 		fmt.Println("[slu " + version.Version + "] Server started on 0.0.0.0:" + portStr + ", see http://127.0.0.1:" + portStr)
