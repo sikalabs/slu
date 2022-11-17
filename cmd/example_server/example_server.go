@@ -40,6 +40,18 @@ var Cmd = &cobra.Command{
 			time.Sleep(60 * time.Second)
 			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server (after 60s)! %s %s \n", hostname, portStr)
 		})
+		http.HandleFunc("/slow5m", func(w http.ResponseWriter, r *http.Request) {
+			time.Sleep(5 * time.Minute)
+			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server (after 5m)! %s %s \n", hostname, portStr)
+		})
+		http.HandleFunc("/slow10m", func(w http.ResponseWriter, r *http.Request) {
+			time.Sleep(10 * time.Minute)
+			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server (after 10m)! %s %s \n", hostname, portStr)
+		})
+		http.HandleFunc("/slow15m", func(w http.ResponseWriter, r *http.Request) {
+			time.Sleep(15 * time.Minute)
+			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server (after 15m)! %s %s \n", hostname, portStr)
+		})
 		fmt.Println("[slu " + version.Version + "] Server started on 0.0.0.0:" + portStr + ", see http://127.0.0.1:" + portStr)
 		http.ListenAndServe(":"+portStr, nil)
 	},
