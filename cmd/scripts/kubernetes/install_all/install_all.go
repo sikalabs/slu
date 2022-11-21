@@ -12,6 +12,7 @@ var FlagDry bool
 var FlagBaseDomain string
 var FlagDontUseProxyProtocol bool
 var FlagLetsEncryptEmail string
+var FlagNoArgoCD bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-all",
@@ -22,7 +23,9 @@ var Cmd = &cobra.Command{
 		k8s_scripts.InstallIngress(!FlagDontUseProxyProtocol, FlagDry)
 		k8s_scripts.InstallCertManager(FlagDry)
 		k8s_scripts.InstallClusterIssuer(FlagLetsEncryptEmail, FlagDry)
-		k8s_scripts.InstallArgoCDDomain("argocd", "argocd."+FlagBaseDomain, FlagDry)
+		if !FlagNoArgoCD {
+			k8s_scripts.InstallArgoCDDomain("argocd", "argocd."+FlagBaseDomain, FlagDry)
+		}
 	},
 }
 
@@ -54,5 +57,11 @@ func init() {
 		"e",
 		DEFAULT_LETS_ENCRYPT_EMAIL,
 		"Email for Let's Encrypt account & notifications",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagNoArgoCD,
+		"no-argocd",
+		false,
+		"Don't install ArgoCD",
 	)
 }
