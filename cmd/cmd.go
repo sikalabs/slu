@@ -146,6 +146,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/random/int"
 	_ "github.com/sikalabs/slu/cmd/random/password"
 	_ "github.com/sikalabs/slu/cmd/random/string"
+	_ "github.com/sikalabs/slu/cmd/rke2"
 	_ "github.com/sikalabs/slu/cmd/rmline"
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/s3"
