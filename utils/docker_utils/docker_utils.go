@@ -32,7 +32,9 @@ func ListContainerIDs() ([]string, error) {
 		return nil, err
 	}
 
-	containers, err := cli.ContainerList(ctx, types.ContainerListOptions{})
+	containers, err := cli.ContainerList(ctx, types.ContainerListOptions{
+		All: true,
+	})
 	if err != nil {
 		return nil, err
 	}
