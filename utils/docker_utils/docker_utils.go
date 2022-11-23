@@ -44,3 +44,22 @@ func ListContainerIDs() ([]string, error) {
 
 	return containerIDs, nil
 }
+
+func RemoveContainerByID(id string, force bool) error {
+	var err error
+
+	ctx := context.Background()
+	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	if err != nil {
+		return err
+	}
+
+	err = cli.ContainerRemove(ctx, id, types.ContainerRemoveOptions{
+		Force: force,
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
