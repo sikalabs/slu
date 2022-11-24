@@ -150,6 +150,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/rmline"
 	"github.com/sikalabs/slu/cmd/root"
 	_ "github.com/sikalabs/slu/cmd/s3"
+	_ "github.com/sikalabs/slu/cmd/s3/copy_from_s3"
+	_ "github.com/sikalabs/slu/cmd/s3/copy_to_s3"
 	_ "github.com/sikalabs/slu/cmd/s3/remove_bucket"
 	_ "github.com/sikalabs/slu/cmd/s3/remove_objects_by_age"
 	_ "github.com/sikalabs/slu/cmd/scripts"
