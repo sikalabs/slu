@@ -156,6 +156,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/s3/remove_objects_by_age"
 	_ "github.com/sikalabs/slu/cmd/scripts"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker_remove_all"
+	_ "github.com/sikalabs/slu/cmd/scripts/download"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci/update_docker_images"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
