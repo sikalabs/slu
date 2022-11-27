@@ -183,6 +183,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/time"
 	_ "github.com/sikalabs/slu/cmd/time/prefix"
 	_ "github.com/sikalabs/slu/cmd/time/unix"
+	_ "github.com/sikalabs/slu/cmd/time/yyyy_mm_dd_hh_mm_ss"
 	_ "github.com/sikalabs/slu/cmd/tls"
 	_ "github.com/sikalabs/slu/cmd/tls/parse"
 	_ "github.com/sikalabs/slu/cmd/tls/parse_file"
