@@ -20,6 +20,7 @@ var GitignoreTerraform = `# Terraform
 .terraform.tfstate.lock.info
 *.tfvars
 !*.EXAMPLE.tfvars
+override.tf
 
 # Infracost
 .infracost
