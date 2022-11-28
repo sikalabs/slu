@@ -11,7 +11,7 @@ import (
 
 var Cmd = &cobra.Command{
 	Use:   "yyyy-mm-dd-hh-mm-ss",
-	Short: "Get time in yyyy-mm-dd-hh-mm-ss format",
+	Short: "Get time in yyyy-mm-dd_hh-mm-ss format",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		fmt.Println(time.Now().Format("2006-01-02_15-04-05"))
