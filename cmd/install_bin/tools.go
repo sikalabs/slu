@@ -208,6 +208,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/thanos-io/thanos/releases/download/{{.Version}}/thanos-{{.Version|removev}}.{{.Os}}-{{.Arch}}.tar.gz",
 		SourcePath:     "thanos-{{.Version|removev}}.{{.Os}}-{{.Arch}}/thanos",
 	},
+	{
+		Name:           "kaf",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("birdayz", "kaf") },
+		UrlTemplate:    "https://github.com/birdayz/kaf/releases/download/{{.Version}}/kaf_{{.Version|removev}}_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
+		GetArchFunc:    craneGetArch,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
