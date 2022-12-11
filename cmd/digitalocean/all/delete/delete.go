@@ -1,19 +1,48 @@
 package delete
 
 import (
-	"log"
+	"fmt"
+	"time"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/digitalocean/all"
+	"github.com/sikalabs/slu/utils/digitalocean_utils"
 
 	"github.com/spf13/cobra"
 )
 
 var Cmd = &cobra.Command{
 	Use:   "delete",
-	Short: "Delete all resources in DigitalOcean account",
-	Args:  cobra.NoArgs,
+	Short: "Delete ALL resources in DigitalOcean account",
+	Long: `Delete ALL resources in DigitalOcean account
+
+	Currently, all resources means:
+
+	- Droplets
+	`,
+	Args: cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		log.Fatal("not implemented")
+		token := digitalocean_utils.GetToken()
+
+		// Prepare Delete
+		droplets := digitalocean_utils.PrepareAllDropletsDelete(token)
+
+		fmt.Println("")
+		fmt.Println("Wait 10s, cancel clean up using ctrl-c")
+
+		for i := 1; i <= 10; i++ {
+			fmt.Print(".")
+			time.Sleep(time.Second)
+		}
+
+		fmt.Println("")
+		fmt.Println("")
+		fmt.Println("Delete ...")
+		fmt.Println("")
+
+		// Do Delete
+		digitalocean_utils.DoAllDropletsDelete(token, droplets)
+
+		fmt.Println("Done.")
 	},
 }
 
