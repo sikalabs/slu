@@ -214,6 +214,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/birdayz/kaf/releases/download/{{.Version}}/kaf_{{.Version|removev}}_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
 		GetArchFunc:    craneGetArch,
 	},
+	{
+		Name:           "tflint",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("terraform-linters", "tflint") },
+		UrlTemplate:    "https://github.com/terraform-linters/tflint/releases/download/{{.Version}}/tflint_{{.Os}}_{{.Arch}}.zip",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
