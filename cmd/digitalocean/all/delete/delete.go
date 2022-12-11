@@ -18,6 +18,7 @@ var Cmd = &cobra.Command{
 	Currently, all resources means:
 
 	- Droplets
+	- SSH Keys
 	`,
 	Args: cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
@@ -25,6 +26,7 @@ var Cmd = &cobra.Command{
 
 		// Prepare Delete
 		droplets := digitalocean_utils.PrepareAllDropletsDelete(token)
+		sshKeys := digitalocean_utils.PrepareAllSSHKeysDelete(token)
 
 		fmt.Println("")
 		fmt.Println("Wait 10s, cancel clean up using ctrl-c")
@@ -41,6 +43,7 @@ var Cmd = &cobra.Command{
 
 		// Do Delete
 		digitalocean_utils.DoAllDropletsDelete(token, droplets)
+		digitalocean_utils.DoAllSSHKeysDelete(token, sshKeys)
 
 		fmt.Println("Done.")
 	},
