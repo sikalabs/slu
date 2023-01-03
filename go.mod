@@ -33,7 +33,7 @@ replace (
 
 require (
 	github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492
-	github.com/argoproj/argo-cd/v2 v2.5.2
+	github.com/argoproj/argo-cd/v2 v2.5.5
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.38.49
 	github.com/cheggaaa/pb/v3 v3.1.0
