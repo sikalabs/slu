@@ -3,6 +3,7 @@ module github.com/sikalabs/slu
 go 1.19
 
 replace (
+	cloud.google.com/go => cloud.google.com/go v0.100.2
 	github.com/go-check/check => github.com/go-check/check v0.0.0-20180628173108-788fd7840127
 	k8s.io/api => k8s.io/api v0.24.0
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.23.1
