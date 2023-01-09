@@ -225,6 +225,13 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("terraform-linters", "tflint") },
 		UrlTemplate:    "https://github.com/terraform-linters/tflint/releases/download/{{.Version}}/tflint_{{.Os}}_{{.Arch}}.zip",
 	},
+	{
+		Name:           "filebeat",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("elastic", "beats") },
+		UrlTemplate:    "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.gz",
+		GetArchFunc:    dockerArch,
+		SourcePath:     "filebeat-{{.Version|removev}}-{{.Os}}-{{.Arch}}/filebeat",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
