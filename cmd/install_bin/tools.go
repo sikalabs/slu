@@ -232,6 +232,11 @@ var Tools = []Tool{
 		GetArchFunc:    dockerArch,
 		SourcePath:     "filebeat-{{.Version|removev}}-{{.Os}}-{{.Arch}}/filebeat",
 	},
+	{
+		Name:           "nerdctl",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("containerd", "nerdctl") },
+		UrlTemplate:    "https://github.com/containerd/nerdctl/releases/download/{{.Version}}/nerdctl-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
