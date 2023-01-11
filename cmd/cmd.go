@@ -158,6 +158,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/s3/remove_bucket"
 	_ "github.com/sikalabs/slu/cmd/s3/remove_objects_by_age"
 	_ "github.com/sikalabs/slu/cmd/scripts"
+	_ "github.com/sikalabs/slu/cmd/scripts/counter"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker_remove_all"
 	_ "github.com/sikalabs/slu/cmd/scripts/download"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci"
