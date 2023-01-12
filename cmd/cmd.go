@@ -51,6 +51,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/du"
 	_ "github.com/sikalabs/slu/cmd/eck"
 	_ "github.com/sikalabs/slu/cmd/eck/elastic_password"
+	_ "github.com/sikalabs/slu/cmd/elasticsearch"
+	_ "github.com/sikalabs/slu/cmd/elasticsearch/get"
 	_ "github.com/sikalabs/slu/cmd/example_server"
 	_ "github.com/sikalabs/slu/cmd/expand"
 	_ "github.com/sikalabs/slu/cmd/expand/file"
