@@ -25,6 +25,7 @@ var Cmd = &cobra.Command{
 	Short: "Log Generator",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		var i int = 0
 		if FlagJson {
 			var logger zerolog.Logger
 			if FlagLogFile != "" {
@@ -52,19 +53,23 @@ var Cmd = &cobra.Command{
 
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
-					logger.Error().Str("prefix", FlagLogPrefix).Msg("An error is usually an exception that has been caught and not handled.")
+					logger.Error().Str("prefix", FlagLogPrefix).Int("i", i).Msg("An error is usually an exception that has been caught and not handled.")
+					i++
 					continue
 				}
 				if randomNumber > 70 && !FlagNoWarn {
-					logger.Warn().Str("prefix", FlagLogPrefix).Msg("WARN A warning that should be ignored is usually at this level and should be actionable.")
+					logger.Warn().Str("prefix", FlagLogPrefix).Int("i", i).Msg("WARN A warning that should be ignored is usually at this level and should be actionable.")
+					i++
 					continue
 				}
 				if randomNumber > 30 && !FlagNoInfo {
-					logger.Info().Str("prefix", FlagLogPrefix).Msg("INFO This is less important than debug log and is often used to provide context in the current task.")
+					logger.Info().Str("prefix", FlagLogPrefix).Int("i", i).Msg("INFO This is less important than debug log and is often used to provide context in the current task.")
+					i++
 					continue
 				}
 				if !FlagNoDebug {
-					logger.Debug().Str("prefix", FlagLogPrefix).Msg("DEBUG This is a debug log that shows a log that can be ignored.")
+					logger.Debug().Str("prefix", FlagLogPrefix).Int("i", i).Msg("DEBUG This is a debug log that shows a log that can be ignored.")
+					i++
 					continue
 				}
 			}
@@ -95,19 +100,23 @@ var Cmd = &cobra.Command{
 
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
-					logger.Println("ERROR An error is usually an exception that has been caught and not handled.")
+					logger.Printf("ERROR An error is usually an exception that has been caught and not handled. (i=%d)\n", i)
+					i++
 					continue
 				}
 				if randomNumber > 70 && !FlagNoWarn {
-					logger.Println("WARN A warning that should be ignored is usually at this level and should be actionable.")
+					logger.Printf("WARN A warning that should be ignored is usually at this level and should be actionable. (i=%d)\n", i)
+					i++
 					continue
 				}
 				if randomNumber > 30 && !FlagNoInfo {
-					logger.Println("INFO This is less important than debug log and is often used to provide context in the current task.")
+					logger.Printf("INFO This is less important than debug log and is often used to provide context in the current task (i=%d)\n", i)
+					i++
 					continue
 				}
 				if !FlagNoDebug {
-					logger.Println("DEBUG This is a debug log that shows a log that can be ignored.")
+					logger.Printf("DEBUG This is a debug log that shows a log that can be ignored. (i=%d)\n", i)
+					i++
 					continue
 				}
 			}
