@@ -35,15 +35,15 @@ var Cmd = &cobra.Command{
 				}
 				defer f.Close()
 				logger = zerolog.New(f).With().Timestamp().Logger()
-				logger.Info().Msg("Logging into file " + FlagLogFile)
+				logger.Info().Str("prefix", FlagLogPrefix).Msg("Logging into file " + FlagLogFile)
 
 			} else {
 				logger = zerolog.New(os.Stdout).With().Timestamp().Logger()
-				logger.Info().Msg("Logging into STDOUT")
+				logger.Info().Str("prefix", FlagLogPrefix).Msg("Logging into STDOUT")
 			}
 
 			if FlagNoError && FlagNoWarn && FlagNoInfo && FlagNoDebug {
-				logger.Error().Msg("ERROR No logging output enabled.")
+				logger.Error().Str("prefix", FlagLogPrefix).Msg("ERROR No logging output enabled.")
 				os.Exit(1)
 			}
 
@@ -52,19 +52,19 @@ var Cmd = &cobra.Command{
 
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
-					logger.Error().Msg("An error is usually an exception that has been caught and not handled.")
+					logger.Error().Str("prefix", FlagLogPrefix).Msg("An error is usually an exception that has been caught and not handled.")
 					continue
 				}
 				if randomNumber > 70 && !FlagNoWarn {
-					logger.Warn().Msg("WARN A warning that should be ignored is usually at this level and should be actionable.")
+					logger.Warn().Str("prefix", FlagLogPrefix).Msg("WARN A warning that should be ignored is usually at this level and should be actionable.")
 					continue
 				}
 				if randomNumber > 30 && !FlagNoInfo {
-					logger.Info().Msg("INFO This is less important than debug log and is often used to provide context in the current task.")
+					logger.Info().Str("prefix", FlagLogPrefix).Msg("INFO This is less important than debug log and is often used to provide context in the current task.")
 					continue
 				}
 				if !FlagNoDebug {
-					logger.Debug().Msg("DEBUG This is a debug log that shows a log that can be ignored.")
+					logger.Debug().Str("prefix", FlagLogPrefix).Msg("DEBUG This is a debug log that shows a log that can be ignored.")
 					continue
 				}
 			}
