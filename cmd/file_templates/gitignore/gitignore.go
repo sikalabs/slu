@@ -9,6 +9,7 @@ import (
 
 var FlagTerraform bool
 var FlagNodeJS bool
+var FlagNextJs bool
 
 var Cmd = &cobra.Command{
 	Use:     "gitignore",
@@ -22,6 +23,9 @@ var Cmd = &cobra.Command{
 		}
 		if FlagNodeJS {
 			content += "\n" + gitignore.GitignoreNodeJS
+		}
+		if FlagNextJs {
+			content += "\n" + gitignore.GitignoreNextJs
 		}
 		gitignore.CreateGitignore(content)
 	},
@@ -40,5 +44,11 @@ func init() {
 		"node",
 		false,
 		"Add NodeJS part",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagNextJs,
+		"nextjs",
+		false,
+		"Add Next.js part",
 	)
 }
