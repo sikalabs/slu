@@ -31,6 +31,11 @@ var GitignoreNodeJS = `# NodeJS
 node_modules
 `
 
+var GitignoreNextJs = `# NodeJS
+.next
+out
+`
+
 func CreateGitignore(content string) {
 	err := ioutil.WriteFile(".gitignore", []byte(content), 0644)
 	if err != nil {
