@@ -1,8 +1,12 @@
 package git_utils
 
 import (
+	"fmt"
 	"log"
+	"regexp"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/config"
@@ -135,4 +139,70 @@ func UseSSH() {
 		Name: remoteName,
 		URLs: []string{newUrl},
 	})
+}
+
+func TagNextCalver() {
+	now := time.Now()
+	nowY := now.Year()
+	nowM := int(now.Month())
+	r, err := git.PlainOpen(".")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	tagsIter, err := r.Tags()
+	if err != nil {
+		panic(err)
+	}
+	tags := []string{}
+	err = tagsIter.ForEach(func(b *plumbing.Reference) error {
+		tags = append(tags, b.Name().Short())
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	nextMicro := 0
+
+	for _, tag := range tags {
+		y, m, micro, err := ParseCalverTag(tag)
+		if err != nil {
+			continue
+		}
+		if y != nowY || m != nowM {
+			continue
+		}
+		if micro >= nextMicro {
+			nextMicro = micro + 1
+		}
+	}
+
+	nextTag := fmt.Sprintf("v%d.%d.%d", nowY, nowM, nextMicro)
+	err = exec_utils.ExecOut("git", "tag", nextTag)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(nextTag)
+}
+
+func ParseCalverTag(s string) (int, int, int, error) {
+	r := regexp.MustCompile(`^v(\d{4}).(\d{1,2}).(\d+)$`)
+	match := r.FindStringSubmatch(s)
+	ok := len(match) == 4
+	if !ok {
+		return 0, 0, 0, fmt.Errorf("tag %s is not valid calver tag", s)
+	}
+	y, err := strconv.Atoi(match[1])
+	if err != nil {
+		return 0, 0, 0, err
+	}
+	m, err := strconv.Atoi(match[2])
+	if err != nil {
+		return 0, 0, 0, err
+	}
+	micro, err := strconv.Atoi(match[3])
+	if err != nil {
+		return 0, 0, 0, err
+	}
+	return y, m, micro, nil
 }
