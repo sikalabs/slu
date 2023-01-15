@@ -63,6 +63,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/file_templates/go_cli_project"
 	_ "github.com/sikalabs/slu/cmd/file_templates/incident_response"
 	_ "github.com/sikalabs/slu/cmd/file_templates/terraform_project"
+	_ "github.com/sikalabs/slu/cmd/file_utils"
+	_ "github.com/sikalabs/slu/cmd/file_utils/replace_string"
 	_ "github.com/sikalabs/slu/cmd/generate_docs"
 	_ "github.com/sikalabs/slu/cmd/generate_files"
 	_ "github.com/sikalabs/slu/cmd/generate_files/tree"
