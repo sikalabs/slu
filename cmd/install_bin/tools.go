@@ -237,6 +237,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("containerd", "nerdctl") },
 		UrlTemplate:    "https://github.com/containerd/nerdctl/releases/download/{{.Version}}/nerdctl-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "helmfile",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("helmfile", "helmfile") },
+		UrlTemplate:    "https://github.com/helmfile/helmfile/releases/download/{{.Version}}/helmfile_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
