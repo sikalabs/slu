@@ -12,6 +12,11 @@ var GitignoreBase = `# Mac
 # Generic
 *.log
 *.backup
+*.local.sh
+*.local.yml
+*.local.yaml
+*.local.json
+*.local.txt
 `
 
 var GitignoreTerraform = `# Terraform
