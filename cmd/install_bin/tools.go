@@ -247,6 +247,18 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("helmfile", "helmfile") },
 		UrlTemplate:    "https://github.com/helmfile/helmfile/releases/download/{{.Version}}/helmfile_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "kubectx",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("ahmetb", "kubectx") },
+		UrlTemplate:    "https://github.com/ahmetb/kubectx/releases/download/{{.Version}}/kubectx_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+		GetArchFunc:    craneGetArch,
+	},
+	{
+		Name:           "kubens",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("ahmetb", "kubectx") },
+		UrlTemplate:    "https://github.com/ahmetb/kubectx/releases/download/{{.Version}}/kubens_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+		GetArchFunc:    craneGetArch,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
