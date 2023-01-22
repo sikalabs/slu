@@ -206,3 +206,54 @@ func ParseCalverTag(s string) (int, int, int, error) {
 	}
 	return y, m, micro, nil
 }
+
+func GetLastCalver() (string, error) {
+	r, err := git.PlainOpen(".")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	tagsIter, err := r.Tags()
+	if err != nil {
+		panic(err)
+	}
+	tags := []string{}
+	err = tagsIter.ForEach(func(b *plumbing.Reference) error {
+		tags = append(tags, b.Name().Short())
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	maxY := 0
+	maxM := 0
+	maxMicro := 0
+
+	for _, tag := range tags {
+		y, m, micro, err := ParseCalverTag(tag)
+		if err != nil {
+			continue
+		}
+		if y <= maxY && m <= maxM && micro <= maxMicro {
+			continue
+		}
+		maxY = y
+		maxM = m
+		maxMicro = micro
+	}
+
+	tag := fmt.Sprintf("v%d.%d.%d", maxY, maxM, maxMicro)
+	if tag == "v0.0.0" {
+		return "", fmt.Errorf("no calver tag found")
+	}
+
+	return tag, nil
+}
+
+func PrintLastCalverIfExistsOrFail() {
+	tag, err := GetLastCalver()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println(tag)
+}
