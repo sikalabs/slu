@@ -8,6 +8,19 @@ import (
 	"os"
 )
 
+func FileExists(path string) bool {
+	_, err := os.Stat(path)
+	return !os.IsNotExist(err)
+}
+
+func ReadFileToString(path string) (string, error) {
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+	return string(b), nil
+}
+
 func EnsureDir(path string) error {
 	var err error
 	_, err = os.Stat(path)
