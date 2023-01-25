@@ -200,6 +200,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/tls/parse_file"
 	_ "github.com/sikalabs/slu/cmd/tls/parse_k8s_secret"
 	_ "github.com/sikalabs/slu/cmd/tls/pem_to_pfx"
+	_ "github.com/sikalabs/slu/cmd/up"
 	_ "github.com/sikalabs/slu/cmd/upload"
 	_ "github.com/sikalabs/slu/cmd/version"
 	_ "github.com/sikalabs/slu/cmd/wait_for"
