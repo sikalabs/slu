@@ -1,6 +1,7 @@
 package docker_remove_all
 
 import (
+	"fmt"
 	"log"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts"
@@ -13,7 +14,10 @@ var Cmd = &cobra.Command{
 	Short:   "Docker Remove All Containers",
 	Aliases: []string{"dra"},
 	Run: func(c *cobra.Command, args []string) {
-		err := docker_utils.ForceRemoveAllContainers()
+		containers, err := docker_utils.ForceRemoveAllContainers()
+		for _, container := range containers {
+			fmt.Println(container)
+		}
 		if err != nil {
 			log.Fatalln(err)
 		}

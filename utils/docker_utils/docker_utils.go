@@ -66,20 +66,22 @@ func RemoveContainerByID(id string, force bool) error {
 	return nil
 }
 
-func ForceRemoveAllContainers() error {
+func ForceRemoveAllContainers() ([]string, error) {
 	var err error
 
 	containers, err := ListContainerIDs()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
+	removedContainers := []string{}
 	for _, container := range containers {
 		err = RemoveContainerByID(container, true)
 		if err != nil {
-			return err
+			return removedContainers, err
 		}
+		removedContainers = append(removedContainers, container)
 	}
 
-	return nil
+	return removedContainers, nil
 }
