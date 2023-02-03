@@ -187,6 +187,13 @@ var Tools = []Tool{
 		GetArchFunc:    openshiftGetArch,
 	},
 	{
+		Name:           "butane",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("coreos", "butane") },
+		UrlTemplate:    "https://github.com/coreos/butane/releases/download/{{.Version}}/butane-{{.Arch}}-{{.Os}}",
+		GetArchFunc:    butaneGetArchFunc,
+		GetOsFunc:      butaneGetOsFunc,
+	},
+	{
 		Name:           "argocd-image-updater",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("argoproj-labs", "argocd-image-updater") },
 		UrlTemplate:    "https://github.com/argoproj-labs/argocd-image-updater/releases/download/{{.Version}}/argocd-image-updater-{{.Os}}_{{.Arch}}",
@@ -288,4 +295,27 @@ func craneGetArch(x string) string {
 		return "x86_64"
 	}
 	return x
+}
+
+func butaneGetArchFunc(arch string) string {
+	if arch == "amd64" {
+		return "x86_64"
+	}
+	if arch == "arm64" {
+		return "aarch64"
+	}
+	return arch
+}
+
+func butaneGetOsFunc(os string) string {
+	if os == "darwin" {
+		return "apple-darwin"
+	}
+	if os == "linux" {
+		return "unknown-linux-gnu"
+	}
+	if os == "windows" {
+		return "pc-windows-gnu"
+	}
+	return os
 }
