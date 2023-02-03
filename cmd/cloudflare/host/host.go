@@ -35,12 +35,20 @@ var Cmd = &cobra.Command{
 		ctx := context.Background()
 
 		// Fetch the zone ID
-		id, err := getZoneFromDomain(api, host)
+		zoneID, err := api.ZoneIDByName(host)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		records, _ := api.DNSRecords(ctx, id, cloudflare.DNSRecord{})
+		records, _, err := api.ListDNSRecords(
+			ctx,
+			cloudflare.ZoneIdentifier(zoneID),
+			cloudflare.ListDNSRecordsParams{},
+		)
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		table := tablewriter.NewWriter(os.Stdout)
 		table.SetBorder(false)
 		table.SetHeader([]string{
@@ -73,18 +81,6 @@ func init() {
 		false,
 		"Don't break the long lines",
 	)
-}
-
-func getZoneFromDomain(api *cloudflare.API, domain string) (string, error) {
-	var err error
-	parts := strings.Split(domain, ".")
-	for i := len(parts) - 1; i >= 0; i-- {
-		id, err := api.ZoneIDByName(strings.Join(parts[i:], "."))
-		if err == nil {
-			return id, nil
-		}
-	}
-	return "", err
 }
 
 func br(s string, max int) string {
