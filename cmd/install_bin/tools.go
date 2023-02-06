@@ -266,6 +266,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/ahmetb/kubectx/releases/download/{{.Version}}/kubens_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 		GetArchFunc:    craneGetArch,
 	},
+	{
+		Name:           "yq",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("mikefarah", "yq") },
+		UrlTemplate:    "https://github.com/mikefarah/yq/releases/download/{{.Version}}/yq_{{.Os}}_{{.Arch}}.tar.gz",
+		SourcePath:     "yq_{{.Os}}_{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
