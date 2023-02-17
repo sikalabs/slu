@@ -272,6 +272,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/mikefarah/yq/releases/download/{{.Version}}/yq_{{.Os}}_{{.Arch}}.tar.gz",
 		SourcePath:     "yq_{{.Os}}_{{.Arch}}",
 	},
+	{
+		Name:           "argocd-vault-plugin",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("argoproj-labs", "argocd-vault-plugin") },
+		UrlTemplate:    "https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/{{.Version}}/argocd-vault-plugin_{{.Version|removev}}_{{.Os}}_{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
