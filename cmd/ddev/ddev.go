@@ -13,6 +13,7 @@ import (
 
 var FlagVolume bool
 var FlagImage string
+var FlagHostNetwork bool
 
 var Cmd = &cobra.Command{
 	Use:   "ddev",
@@ -64,5 +65,11 @@ func init() {
 		"i",
 		"sikalabs/dev",
 		"Container Image",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagHostNetwork,
+		"host",
+		false,
+		"Use host network (--network=host)",
 	)
 }
