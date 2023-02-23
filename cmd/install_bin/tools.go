@@ -158,7 +158,8 @@ var Tools = []Tool{
 	{
 		Name:           "viddy",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sachaos", "viddy") },
-		UrlTemplate:    "https://github.com/sachaos/viddy/releases/download/{{.Version}}/viddy_{{.Version|removev}}_{{.Os|capitalize}}_{{.ArchK9s}}.tar.gz",
+		UrlTemplate:    "https://github.com/sachaos/viddy/releases/download/{{.Version}}/viddy_{{.Version|removev}}_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
+		GetArchFunc:    craneGetArch,
 	},
 	{
 		Name:           "krew",
