@@ -65,7 +65,6 @@ func getUrl(
 		"OsK6":       k6_Os(os_),
 		"Arch":       arch,
 		"ArchDocker": dockerArch(arch),
-		"ArchK9s":    k9sArch(arch),
 		"Version":    version,
 	})
 	if err != nil {
@@ -100,7 +99,6 @@ func getSourcePath(
 		"OsK6":       k6_Os(os_),
 		"Arch":       arch,
 		"ArchDocker": dockerArch(arch),
-		"ArchK9s":    k9sArch(arch),
 		"Version":    version,
 	})
 	if err != nil {
@@ -247,13 +245,6 @@ func dockerArch(arch string) string {
 		return "aarch64"
 	}
 	return ""
-}
-
-func k9sArch(arch string) string {
-	if arch == "amd64" {
-		return "x86_64"
-	}
-	return arch
 }
 
 func k6_Os(osName string) string {
