@@ -10,7 +10,7 @@ const DEFAULT_LETS_ENCRYPT_EMAIL = "lets-encrypt-slu@sikamail.com"
 
 var FlagDry bool
 var FlagBaseDomain string
-var FlagDontUseProxyProtocol bool
+var FlagUseProxyProtocol bool
 var FlagLetsEncryptEmail string
 var FlagNoArgoCD bool
 
@@ -20,7 +20,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"iall"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallIngress(!FlagDontUseProxyProtocol, FlagDry)
+		k8s_scripts.InstallIngress(FlagUseProxyProtocol, FlagDry)
 		k8s_scripts.InstallCertManager(FlagDry)
 		k8s_scripts.InstallClusterIssuer(FlagLetsEncryptEmail, FlagDry)
 		if !FlagNoArgoCD {
@@ -46,8 +46,8 @@ func init() {
 	)
 	Cmd.MarkFlagRequired("base-domain")
 	Cmd.Flags().BoolVar(
-		&FlagDontUseProxyProtocol,
-		"dont-use-proxy-protocol",
+		&FlagUseProxyProtocol,
+		"use-proxy-protocol",
 		false,
 		"Use Proxy Protocol",
 	)
