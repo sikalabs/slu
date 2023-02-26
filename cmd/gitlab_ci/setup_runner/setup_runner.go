@@ -14,7 +14,7 @@ import (
 var FlagGitlabUrl string
 var FlagRegistrationToken string
 var FlagGitlabName string
-var FlagConcurency int
+var FlagConcurrency int
 var FlagDryRun bool
 
 var Cmd = &cobra.Command{
@@ -43,7 +43,7 @@ var Cmd = &cobra.Command{
 			log.Fatal("flags gitlab-url and registration-token OR flag gitlab (for Vault) are required")
 		}
 
-		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname, FlagConcurency, FlagDryRun)
+		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname, FlagConcurrency, FlagDryRun)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -76,8 +76,8 @@ func init() {
 	)
 	Cmd.MarkFlagsMutuallyExclusive("gitlab-url", "gitlab")
 	Cmd.PersistentFlags().IntVarP(
-		&FlagConcurency,
-		"concurency",
+		&FlagConcurrency,
+		"concurrency",
 		"c",
 		1,
 		"Set maximun concurency",

@@ -8,7 +8,7 @@ import (
 	"github.com/sikalabs/slu/utils/exec_utils"
 )
 
-func SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname string, concurency int, dryRun bool) error {
+func SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname string, concurrency int, dryRun bool) error {
 	var err error
 	var args []string
 
@@ -70,10 +70,10 @@ func SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname string, conc
 		}
 	}
 
-	if concurency != 1 {
+	if concurrency != 1 {
 		args = []string{
 			"exec", "gitlab-runner",
-			"sed", "-i", "s+concurrent = 1+concurrent = " + strconv.Itoa(concurency) + "+g",
+			"sed", "-i", "s+concurrent = 1+concurrent = " + strconv.Itoa(concurrency) + "+g",
 			"/etc/gitlab-runner/config.toml",
 		}
 		if dryRun {
