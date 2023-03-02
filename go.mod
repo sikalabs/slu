@@ -44,7 +44,7 @@ require (
 	github.com/digitalocean/godo v1.96.0
 	github.com/docker/docker v20.10.12+incompatible
 	github.com/go-git/go-git/v5 v5.4.2
-	github.com/go-sql-driver/mysql v1.6.0
+	github.com/go-sql-driver/mysql v1.7.0
 	github.com/hashicorp/vault/api v1.8.2
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
 	github.com/jpillora/go-tcp-proxy v1.0.2
@@ -59,7 +59,7 @@ require (
 	golang.org/x/crypto v0.4.0
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20221104135756-97bc4ad4a1cb
 	gopkg.in/yaml.v3 v3.0.1
-	gorm.io/driver/mysql v1.4.4
+	gorm.io/driver/mysql v1.4.7
 	gorm.io/driver/sqlite v1.4.3
 	gorm.io/gorm v1.24.5
 	k8s.io/api v0.24.2
