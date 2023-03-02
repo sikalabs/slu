@@ -278,6 +278,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("argoproj-labs", "argocd-vault-plugin") },
 		UrlTemplate:    "https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/{{.Version}}/argocd-vault-plugin_{{.Version|removev}}_{{.Os}}_{{.Arch}}",
 	},
+	{
+		Name:           "ctop",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("bcicen", "ctop") },
+		UrlTemplate:    "https://github.com/bcicen/ctop/releases/download/{{.Version}}/ctop-{{.Version|removev}}-{{.Os}}-{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
