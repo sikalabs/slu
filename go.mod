@@ -42,7 +42,7 @@ require (
 	github.com/cloudflare/cloudflare-go v0.60.0
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.96.0
-	github.com/docker/docker v20.10.12+incompatible
+	github.com/docker/docker v23.0.1+incompatible
 	github.com/go-git/go-git/v5 v5.4.2
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/hashicorp/vault/api v1.8.2
@@ -92,7 +92,6 @@ require (
 	github.com/cenkalti/backoff/v3 v3.0.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/chai2010/gettext-go v0.0.0-20170215093142-bf70f2a70fb1 // indirect
-	github.com/containerd/containerd v1.5.18 // indirect
 	github.com/coreos/go-oidc v2.2.1+incompatible // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
