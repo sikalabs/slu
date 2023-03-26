@@ -13,6 +13,10 @@ func ExecOut(command string, args ...string) error {
 	return err
 }
 
+func ExecShOut(script string) error {
+	return ExecOut("sh", "-c", script)
+}
+
 func ExecNoOut(command string, args ...string) error {
 	cmd := exec.Command(command, args...)
 	err := cmd.Run()
