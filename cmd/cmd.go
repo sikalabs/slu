@@ -98,6 +98,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/terraform_convert_report"
 	_ "github.com/sikalabs/slu/cmd/go_code"
 	_ "github.com/sikalabs/slu/cmd/go_code/version_bump"
+	_ "github.com/sikalabs/slu/cmd/golang"
+	_ "github.com/sikalabs/slu/cmd/golang/build_all_platforms"
 	_ "github.com/sikalabs/slu/cmd/helm"
 	_ "github.com/sikalabs/slu/cmd/helm/version_bump"
 	_ "github.com/sikalabs/slu/cmd/host"
