@@ -175,6 +175,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci/update_docker_images"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitstats_docker"
+	_ "github.com/sikalabs/slu/cmd/scripts/infracost_here"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_all"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_argocd"
