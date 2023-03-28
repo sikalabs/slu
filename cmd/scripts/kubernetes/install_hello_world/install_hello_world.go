@@ -9,6 +9,7 @@ import (
 var FlagDry bool
 var FlagHost string
 var FlagNamespace string
+var FlagReplicas int
 
 var Cmd = &cobra.Command{
 	Use:     "install-hello-world",
@@ -16,7 +17,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ihw"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallHelloWorld(FlagHost, FlagNamespace, FlagDry)
+		k8s_scripts.InstallHelloWorld(FlagHost, FlagReplicas, FlagNamespace, FlagDry)
 	},
 }
 
@@ -40,5 +41,12 @@ func init() {
 		"n",
 		"hello-world",
 		"Kubernetes namespace",
+	)
+	Cmd.Flags().IntVarP(
+		&FlagReplicas,
+		"replicas",
+		"r",
+		1,
+		"Nuber of replicas / pods",
 	)
 }
