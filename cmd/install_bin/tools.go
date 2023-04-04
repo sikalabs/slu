@@ -92,6 +92,11 @@ var Tools = []Tool{
 		UrlTemplate:    hashicorpUrlTemplate("packer"),
 	},
 	{
+		Name:           "consul",
+		GetVersionFunc: func() string { return "1.15.2" },
+		UrlTemplate:    hashicorpUrlTemplate("consul"),
+	},
+	{
 		Name:           "doctl",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("digitalocean", "doctl") },
 		UrlTemplate:    "https://github.com/digitalocean/doctl/releases/download/{{.Version}}/doctl-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.gz",
