@@ -12,6 +12,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/sikalabs/install-slu/releases/download/{{.Version}}/install-slu_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
+		Name:           "slu",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "slu") },
+		UrlTemplate:    "https://github.com/sikalabs/slu/releases/download/{{.Version}}/slu_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
 		Name:           "tergum",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "tergum") },
 		UrlTemplate:    "https://github.com/sikalabs/tergum/releases/download/{{.Version}}/tergum_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
