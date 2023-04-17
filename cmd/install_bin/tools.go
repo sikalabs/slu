@@ -37,6 +37,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/ondrejsika/training-cli/releases/download/{{.Version}}/training-cli_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
+		Name:           "hello-world-server",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "hello-world-server") },
+		UrlTemplate:    "https://github.com/sikalabs/hello-world-server/releases/download/{{.Version}}/hello-world-server_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
 		Name:           "statica",
 		GetVersionFunc: func() string { return "v0.4.0" },
 		UrlTemplate:    "https://github.com/vojtechmares/statica/releases/download/{{.Version}}/statica_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
