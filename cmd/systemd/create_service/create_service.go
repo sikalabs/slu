@@ -2,6 +2,7 @@ package create_service
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/systemd"
@@ -10,6 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagCreateFile bool
 var FlagName string
 var FlagDescription string
 var FlagUser string
@@ -34,12 +36,27 @@ var Cmd = &cobra.Command{
 		if err != nil {
 			log.Fatalln(err)
 		}
-		fmt.Println(out)
+		if FlagCreateFile {
+			err := ioutil.WriteFile(
+				"/etc/systemd/system/"+FlagName+".service", []byte(out), 0644)
+			if err != nil {
+				log.Fatalln(err)
+			}
+		} else {
+			fmt.Println(out)
+		}
 	},
 }
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().BoolVarP(
+		&FlagCreateFile,
+		"create-file",
+		"c",
+		false,
+		"Create service file in /etc/systemd/system",
+	)
 	Cmd.Flags().StringVarP(
 		&FlagName,
 		"name",
