@@ -10,6 +10,7 @@ var FlagDry bool
 var FlagHost string
 var FlagNamespace string
 var FlagReplicas int
+var FlagText string
 
 var Cmd = &cobra.Command{
 	Use:     "install-hello-world",
@@ -17,7 +18,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ihw"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallHelloWorld(FlagHost, FlagReplicas, FlagNamespace, FlagDry)
+		k8s_scripts.InstallHelloWorld(FlagHost, FlagReplicas, FlagText, FlagNamespace, FlagDry)
 	},
 }
 
@@ -48,5 +49,12 @@ func init() {
 		"r",
 		1,
 		"Nuber of replicas / pods",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagText,
+		"text",
+		"t",
+		"",
+		"Text to display",
 	)
 }
