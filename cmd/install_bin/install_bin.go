@@ -44,9 +44,11 @@ func getUrl(
 	version string,
 	getOsFunc func(string) string,
 	getArchFunc func(string) string,
+	defaultOSFunc func() string,
+	defaultArchFunc func() string,
 ) string {
-	os_ := getOsFunc(CmdFlagOS)
-	arch := getArchFunc(CmdFlagArch)
+	os_ := getOsFunc(defaultOSFunc())
+	arch := getArchFunc(defaultArchFunc())
 
 	funcMap := template.FuncMap{
 		"capitalize": strings.Title,
@@ -78,9 +80,11 @@ func getSourcePath(
 	version string,
 	getOsFunc func(string) string,
 	getArchFunc func(string) string,
+	defaultOSFunc func() string,
+	defaultArchFunc func() string,
 ) string {
-	os_ := getOsFunc(CmdFlagOS)
-	arch := getArchFunc(CmdFlagArch)
+	os_ := getOsFunc(defaultOSFunc())
+	arch := getArchFunc(defaultArchFunc())
 
 	funcMap := template.FuncMap{
 		"capitalize": strings.Title,
@@ -113,10 +117,13 @@ func buildCmd(
 	sourceTemlate string,
 	urlTemplate string,
 	defaultVersionFunc func() string,
-	getUrlFunc func(string, string, func(string) string, func(string) string) string,
-	getSourcePathFunc func(string, string, func(string) string, func(string) string) string,
+	getUrlFunc func(string, string, func(string) string, func(string) string, func() string, func() string) string,
+	getSourcePathFunc func(string, string, func(string) string, func(string) string, func() string, func() string) string,
 	getOsFunc func(string) string,
 	getArchFunc func(string) string,
+	defaultOSFunc func() string,
+	defaultArchFunc func() string,
+	defaultBinDirFunc func() string,
 ) *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:     name,
@@ -124,34 +131,19 @@ func buildCmd(
 		Aliases: aliases,
 		Args:    cobra.NoArgs,
 		Run: func(c *cobra.Command, args []string) {
-			if sourceTemlate == "" {
-				sourceTemlate = name
-			}
-			version := defaultVersionFunc()
-			if FlagVersion != "latest" {
-				version = FlagVersion
-			}
-			url := getUrlFunc(
-				urlTemplate,
-				version,
-				getOsFunc,
-				getArchFunc,
-			)
-			if FlagVerbose {
-				fmt.Println(url)
-			}
-			source := getSourcePathFunc(
-				sourceTemlate,
-				version,
-				getOsFunc,
-				getArchFunc,
-			)
-			install_bin_utils.InstallBin(
-				url,
-				source,
-				CmdFlagBinDir,
+			run(
 				name,
-				CmdFlagOS == "windows",
+				aliases,
+				sourceTemlate,
+				urlTemplate,
+				defaultVersionFunc,
+				getUrlFunc,
+				getSourcePathFunc,
+				getOsFunc,
+				getArchFunc,
+				defaultOSFunc,
+				defaultArchFunc,
+				defaultBinDirFunc,
 			)
 		},
 	}
@@ -209,7 +201,6 @@ func init() {
 		if tool.GetArchFunc != nil {
 			getArchFunc = tool.GetArchFunc
 		}
-
 		Cmd.AddCommand(buildCmd(
 			tool.Name,
 			tool.Aliases,
@@ -220,6 +211,9 @@ func init() {
 			getSourcePath,
 			getOsFunc,
 			getArchFunc,
+			func() string { return CmdFlagOS },
+			func() string { return CmdFlagArch },
+			func() string { return CmdFlagBinDir },
 		))
 	}
 }
@@ -252,4 +246,53 @@ func k6_Os(osName string) string {
 		return "macos"
 	}
 	return osName
+}
+
+func run(
+	name string,
+	aliases []string,
+	sourceTemlate string,
+	urlTemplate string,
+	defaultVersionFunc func() string,
+	getUrlFunc func(string, string, func(string) string, func(string) string, func() string, func() string) string,
+	getSourcePathFunc func(string, string, func(string) string, func(string) string, func() string, func() string) string,
+	getOsFunc func(string) string,
+	getArchFunc func(string) string,
+	defaultOSFunc func() string,
+	defaultArchFunc func() string,
+	defaultBinDirFunc func() string,
+) {
+	if sourceTemlate == "" {
+		sourceTemlate = name
+	}
+	version := defaultVersionFunc()
+	if FlagVersion != "latest" {
+		version = FlagVersion
+	}
+	url := getUrlFunc(
+		urlTemplate,
+		version,
+		getOsFunc,
+		getArchFunc,
+		defaultOSFunc,
+		defaultArchFunc,
+	)
+	if FlagVerbose {
+		fmt.Println(url)
+	}
+	source := getSourcePathFunc(
+		sourceTemlate,
+		version,
+		getOsFunc,
+		getArchFunc,
+		defaultOSFunc,
+		defaultArchFunc,
+	)
+	install_bin_utils.InstallBin(
+		url,
+		source,
+		defaultBinDirFunc(),
+		name,
+		defaultOSFunc() == "windows",
+	)
 }
