@@ -116,6 +116,7 @@ func buildCmd(
 	aliases []string,
 	sourceTemlate string,
 	urlTemplate string,
+	flagVersionFunc func() string,
 	defaultVersionFunc func() string,
 	getUrlFunc func(string, string, func(string) string, func(string) string, func() string, func() string) string,
 	getSourcePathFunc func(string, string, func(string) string, func(string) string, func() string, func() string) string,
@@ -136,6 +137,7 @@ func buildCmd(
 				aliases,
 				sourceTemlate,
 				urlTemplate,
+				flagVersionFunc,
 				defaultVersionFunc,
 				getUrlFunc,
 				getSourcePathFunc,
@@ -206,6 +208,7 @@ func init() {
 			tool.Aliases,
 			tool.SourcePath,
 			tool.UrlTemplate,
+			func() string { return FlagVersion },
 			tool.GetVersionFunc,
 			getUrl,
 			getSourcePath,
@@ -253,6 +256,7 @@ func run(
 	aliases []string,
 	sourceTemlate string,
 	urlTemplate string,
+	flagVersionFunc func() string,
 	defaultVersionFunc func() string,
 	getUrlFunc func(string, string, func(string) string, func(string) string, func() string, func() string) string,
 	getSourcePathFunc func(string, string, func(string) string, func(string) string, func() string, func() string) string,
@@ -266,8 +270,8 @@ func run(
 		sourceTemlate = name
 	}
 	version := defaultVersionFunc()
-	if FlagVersion != "latest" {
-		version = FlagVersion
+	if flagVersionFunc() != "latest" {
+		version = flagVersionFunc()
 	}
 	url := getUrlFunc(
 		urlTemplate,

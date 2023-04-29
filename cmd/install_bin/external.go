@@ -1,6 +1,6 @@
 package install_bin
 
-func InstallBinForExternalGoUse(name string, os string, arch string, binDir string) {
+func InstallBinForExternalGoUse(name string, version string, os string, arch string, binDir string) {
 	for _, tool := range Tools {
 		if tool.Name != name {
 			continue
@@ -21,6 +21,7 @@ func InstallBinForExternalGoUse(name string, os string, arch string, binDir stri
 			tool.Aliases,
 			tool.SourcePath,
 			tool.UrlTemplate,
+			func() string { return version },
 			tool.GetVersionFunc,
 			getUrl,
 			getSourcePath,
