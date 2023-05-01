@@ -44,7 +44,7 @@ require (
 	github.com/digitalocean/godo v1.98.0
 	github.com/docker/docker v23.0.3+incompatible
 	github.com/go-git/go-git/v5 v5.6.1
-	github.com/go-sql-driver/mysql v1.7.0
+	github.com/go-sql-driver/mysql v1.7.1
 	github.com/hashicorp/vault/api v1.9.1
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
 	github.com/joho/godotenv v1.5.1
