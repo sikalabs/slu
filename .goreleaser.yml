@@ -47,6 +47,8 @@ archives:
 
 release:
   prerelease: auto
+  extra_files:
+    - glob: ./dist/slu_windows_amd64_v1/slu.exe
 
 checksum:
   name_template: "{{ .ProjectName }}_checksums.txt"
