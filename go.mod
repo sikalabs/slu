@@ -39,7 +39,7 @@ require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.44.244
 	github.com/cheggaaa/pb/v3 v3.1.2
-	github.com/cloudflare/cloudflare-go v0.60.0
+	github.com/cloudflare/cloudflare-go v0.66.0
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.98.0
 	github.com/docker/docker v23.0.3+incompatible
@@ -198,7 +198,7 @@ require (
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/skeema/knownhosts v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/stretchr/testify v1.8.1 // indirect
+	github.com/stretchr/testify v1.8.2 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.1 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.4 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
@@ -209,12 +209,12 @@ require (
 	go.opentelemetry.io/otel/trace v1.11.1 // indirect
 	go.starlark.net v0.0.0-20200306205701-8dd3e2ee1dd5 // indirect
 	golang.org/x/exp v0.0.0-20210901193431-a062eea981d2 // indirect
-	golang.org/x/net v0.8.0 // indirect
+	golang.org/x/net v0.9.0 // indirect
 	golang.org/x/oauth2 v0.6.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
-	golang.org/x/term v0.6.0 // indirect
-	golang.org/x/text v0.8.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
+	golang.org/x/term v0.7.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
