@@ -298,6 +298,12 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("bcicen", "ctop") },
 		UrlTemplate:    "https://github.com/bcicen/ctop/releases/download/{{.Version}}/ctop-{{.Version|removev}}-{{.Os}}-{{.Arch}}",
 	},
+	{
+		Name:           "caddy",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("caddyserver", "caddy") },
+		UrlTemplate:    "https://github.com/caddyserver/caddy/releases/download/{{.Version}}/caddy_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
+		GetOsFunc:      openshiftGetOs,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
