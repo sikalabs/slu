@@ -57,7 +57,7 @@ require (
 	github.com/rs/zerolog v1.28.0
 	github.com/spf13/cobra v1.6.1
 	github.com/xanzy/go-gitlab v0.82.0
-	golang.org/x/crypto v0.6.0
+	golang.org/x/crypto v0.8.0
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20221104135756-97bc4ad4a1cb
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.4.7
@@ -209,12 +209,12 @@ require (
 	go.opentelemetry.io/otel/trace v1.11.1 // indirect
 	go.starlark.net v0.0.0-20200306205701-8dd3e2ee1dd5 // indirect
 	golang.org/x/exp v0.0.0-20210901193431-a062eea981d2 // indirect
-	golang.org/x/net v0.8.0 // indirect
+	golang.org/x/net v0.9.0 // indirect
 	golang.org/x/oauth2 v0.6.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
-	golang.org/x/term v0.6.0 // indirect
-	golang.org/x/text v0.8.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
+	golang.org/x/term v0.7.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
