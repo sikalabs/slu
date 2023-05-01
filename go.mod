@@ -47,6 +47,7 @@ require (
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/hashicorp/vault/api v1.8.2
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
+	github.com/joho/godotenv v1.5.1
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.7
 	github.com/mhale/smtpd v0.8.0
