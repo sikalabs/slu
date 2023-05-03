@@ -29,6 +29,14 @@ For upgrade of **slu** just run
 install-slu install
 ```
 
+### Windows (winget)
+
+Using winget, official Windows package manager
+
+```
+winget install -e --id sikalabs.slu
+```
+
 ### Windows (scoop)
 
 Install unsing [scoop](https://scoop.sh/)
