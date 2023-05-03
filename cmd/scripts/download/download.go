@@ -38,8 +38,8 @@ func init() {
 	Cmd.MarkFlagsMutuallyExclusive("wget", "curl")
 	buildCmd(
 		Cmd,
-		"https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.5.0-amd64-netinst.iso",
-		"debian-11.5.0-amd64-netinst.iso",
+		"https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.7.0-amd64-netinst.iso",
+		"debian-11.7.0-amd64-netinst.iso",
 		"debian-iso",
 		[]string{},
 	)
