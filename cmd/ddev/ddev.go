@@ -13,6 +13,7 @@ import (
 
 var FlagVolume bool
 var FlagImage string
+var FlagShell string
 var FlagHostNetwork bool
 
 var Cmd = &cobra.Command{
@@ -40,7 +41,7 @@ var Cmd = &cobra.Command{
 		cmdArgs = append(
 			cmdArgs,
 			FlagImage,
-			"bash",
+			FlagShell,
 		)
 		cmd := exec.Command("docker", cmdArgs...)
 		cmd.Stdout = os.Stdout
@@ -71,5 +72,12 @@ func init() {
 		"host",
 		false,
 		"Use host network (--network=host)",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagShell,
+		"shell",
+		"s",
+		"bash",
+		"Shell to run in container",
 	)
 }
