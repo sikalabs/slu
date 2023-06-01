@@ -60,9 +60,9 @@ require (
 	golang.org/x/crypto v0.8.0
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20221104135756-97bc4ad4a1cb
 	gopkg.in/yaml.v3 v3.0.1
-	gorm.io/driver/mysql v1.4.7
+	gorm.io/driver/mysql v1.5.1
 	gorm.io/driver/sqlite v1.4.3
-	gorm.io/gorm v1.24.5
+	gorm.io/gorm v1.25.1
 	k8s.io/api v0.24.2
 	k8s.io/apimachinery v0.24.2
 	k8s.io/client-go v0.24.2
