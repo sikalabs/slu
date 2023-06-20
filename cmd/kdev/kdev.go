@@ -12,6 +12,7 @@ import (
 
 var FlagJson bool
 var FlagImage string
+var FlagShell string
 
 var Cmd = &cobra.Command{
 	Use:   "kdev",
@@ -23,7 +24,7 @@ var Cmd = &cobra.Command{
 			"dev-"+strconv.Itoa(time_utils.Unix()),
 			"--rm", "-ti",
 			"--image", FlagImage,
-			"--", "bash",
+			"--", FlagShell,
 		)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -40,5 +41,12 @@ func init() {
 		"i",
 		"sikalabs/dev",
 		"Container Image",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagShell,
+		"shell",
+		"s",
+		"bash",
+		"Shell to run in container",
 	)
 }
