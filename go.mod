@@ -42,7 +42,7 @@ require (
 	github.com/cloudflare/cloudflare-go v0.60.0
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.98.0
-	github.com/docker/docker v23.0.3+incompatible
+	github.com/docker/docker v24.0.2+incompatible
 	github.com/go-git/go-git/v5 v5.6.1
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/hashicorp/vault/api v1.9.1
