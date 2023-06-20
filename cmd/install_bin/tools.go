@@ -304,6 +304,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/caddyserver/caddy/releases/download/{{.Version}}/caddy_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
 		GetOsFunc:      openshiftGetOs,
 	},
+	{
+		Name:           "hadolint",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("hadolint", "hadolint") },
+		UrlTemplate:    "https://github.com/hadolint/hadolint/releases/download/{{.Version}}/hadolint-{{.Os|capitalize}}-{{.Arch}}",
+		GetArchFunc:    hadolintGetArchFunc,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
@@ -356,4 +362,11 @@ func butaneGetOsFunc(os string) string {
 		return "pc-windows-gnu"
 	}
 	return os
+}
+
+func hadolintGetArchFunc(arch string) string {
+	if arch == "amd64" {
+		return "x86_64"
+	}
+	return arch
 }
