@@ -60,7 +60,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "helm",
-		GetVersionFunc: func() string { return "v3.6.3" },
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("helm", "helm") },
 		SourcePath:     "{{.Os}}-amd64/helm",
 		UrlTemplate:    "https://get.helm.sh/helm-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
 	},
