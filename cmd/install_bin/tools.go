@@ -103,7 +103,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "consul",
-		GetVersionFunc: func() string { return "1.15.2" },
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("hashicorp", "consul") },
 		UrlTemplate:    hashicorpUrlTemplate("consul"),
 	},
 	{
