@@ -72,7 +72,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "docker-compose",
-		GetVersionFunc: func() string { return "v2.7.0" },
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("docker", "compose") },
 		UrlTemplate:    "https://github.com/docker/compose/releases/download/{{.Version}}/docker-compose-{{.Os}}-{{.ArchDocker}}",
 	},
 	{
