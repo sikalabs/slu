@@ -93,7 +93,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "vault",
-		GetVersionFunc: func() string { return "1.12.0" },
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("hashicorp", "vault") },
 		UrlTemplate:    hashicorpUrlTemplate("vault"),
 	},
 	{
