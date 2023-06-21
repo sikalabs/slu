@@ -77,7 +77,7 @@ func init() {
 		&FlagShell,
 		"shell",
 		"s",
-		"bash",
+		"zsh",
 		"Shell to run in container",
 	)
 }
