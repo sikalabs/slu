@@ -98,7 +98,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "packer",
-		GetVersionFunc: func() string { return "1.8.3" },
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("hashicorp", "packer") },
 		UrlTemplate:    hashicorpUrlTemplate("packer"),
 	},
 	{
