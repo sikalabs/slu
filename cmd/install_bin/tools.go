@@ -82,7 +82,7 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "terraform",
-		GetVersionFunc: func() string { return "1.3.2" },
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("hashicorp", "terraform") },
 		UrlTemplate:    hashicorpUrlTemplate("terraform"),
 	},
 	{
@@ -313,8 +313,8 @@ var Tools = []Tool{
 }
 
 func hashicorpUrlTemplate(name string) string {
-	return "https://releases.hashicorp.com/" + name + "/{{.Version}}/" + name +
-		"_{{.Version}}_{{.Os}}_{{.Arch}}.zip"
+	return "https://releases.hashicorp.com/" + name + "/{{.Version|removev}}/" + name +
+		"_{{.Version|removev}}_{{.Os}}_{{.Arch}}.zip"
 }
 
 func openshiftGetOs(x string) string {
