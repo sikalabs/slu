@@ -310,6 +310,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/hadolint/hadolint/releases/download/{{.Version}}/hadolint-{{.Os|capitalize}}-{{.Arch}}",
 		GetArchFunc:    hadolintGetArchFunc,
 	},
+	{
+		Name:           "kubelogin",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("hadolint", "hadolint") },
+		UrlTemplate:    "https://github.com/hadolint/hadolint/releases/download/{{.Version}}/hadolint-{{.Os|capitalize}}-{{.Arch}}",
+		GetArchFunc:    hadolintGetArchFunc,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
