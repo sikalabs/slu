@@ -108,6 +108,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/ip"
 	_ "github.com/sikalabs/slu/cmd/ip_local"
 	_ "github.com/sikalabs/slu/cmd/k8s"
+	_ "github.com/sikalabs/slu/cmd/k8s/create_oidc_user"
 	_ "github.com/sikalabs/slu/cmd/k8s/delete_ns"
 	_ "github.com/sikalabs/slu/cmd/k8s/delete_pods"
 	_ "github.com/sikalabs/slu/cmd/k8s/get"
