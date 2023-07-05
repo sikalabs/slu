@@ -235,7 +235,7 @@ require (
 	k8s.io/kube-aggregator v0.24.2 // indirect
 	k8s.io/kube-openapi v0.0.0-20220627174259-011e075b9cb8 // indirect
 	k8s.io/kubectl v0.24.2 // indirect
-	k8s.io/kubernetes v1.24.14 // indirect
+	k8s.io/kubernetes v1.24.15 // indirect
 	k8s.io/utils v0.0.0-20220210201930-3a6ce19ff2f9 // indirect
 	sigs.k8s.io/json v0.0.0-20211208200746-9f7c6b3444d2 // indirect
 	sigs.k8s.io/kustomize/api v0.11.4 // indirect
