@@ -41,6 +41,11 @@ var GitignoreNextJs = `# NodeJS
 out
 `
 
+var GitignoreKubernetes = `# Kuberneres
+kubeconfig.yml
+kubeconfig.*.yml
+`
+
 func CreateGitignore(content string) {
 	err := ioutil.WriteFile(".gitignore", []byte(content), 0644)
 	if err != nil {
