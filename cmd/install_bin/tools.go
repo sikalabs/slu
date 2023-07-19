@@ -316,6 +316,13 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/hadolint/hadolint/releases/download/{{.Version}}/hadolint-{{.Os|capitalize}}-{{.Arch}}",
 		GetArchFunc:    hadolintGetArchFunc,
 	},
+	{
+		Name:           "oauth2-proxy",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("oauth2-proxy", "oauth2-proxy") },
+		UrlTemplate:    "https://github.com/oauth2-proxy/oauth2-proxy/releases/download/{{.Version}}/oauth2-proxy-{{.Version}}.{{.Os}}-{{.Arch}}.tar.gz",
+		SourcePath:     "oauth2-proxy-{{.Version}}.{{.Os}}-{{.Arch}}/oauth2-proxy",
+		GetArchFunc:    func(_ string) string { return "amd64" },
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
