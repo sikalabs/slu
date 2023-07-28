@@ -8,7 +8,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func DeleteNoReadyPods(clientset *kubernetes.Clientset) error {
+func DeleteNoReadyPods(clientset *kubernetes.Clientset, force bool) error {
 	var err error
 	namespaceClient := clientset.CoreV1().Namespaces()
 	namespaces, err := namespaceClient.List(context.TODO(), metav1.ListOptions{})
@@ -25,7 +25,14 @@ func DeleteNoReadyPods(clientset *kubernetes.Clientset) error {
 		for _, pod := range pods.Items {
 			if pod.Status.Phase != "Running" {
 				fmt.Printf("Deleting %s pod %s in namespace %s\n", pod.Status.Phase, pod.Name, namespace.Name)
-				err = podClient.Delete(context.TODO(), pod.Name, metav1.DeleteOptions{})
+				deleteOptions := metav1.DeleteOptions{}
+				if force {
+					var zero int64 = 0
+					deleteOptions = metav1.DeleteOptions{
+						GracePeriodSeconds: &zero,
+					}
+				}
+				err = podClient.Delete(context.TODO(), pod.Name, deleteOptions)
 				if err != nil {
 					return err
 				}

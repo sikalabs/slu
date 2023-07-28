@@ -13,7 +13,7 @@ var Cmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		clientset, _, _ := k8s.KubernetesClient()
-		k8s.DeleteNoReadyPods(clientset)
+		k8s.DeleteNoReadyPods(clientset, false)
 	},
 }
 
