@@ -41,7 +41,7 @@ require (
 	github.com/cheggaaa/pb/v3 v3.1.2
 	github.com/cloudflare/cloudflare-go v0.60.0
 	github.com/denisenkom/go-mssqldb v0.12.3
-	github.com/digitalocean/godo v1.98.0
+	github.com/digitalocean/godo v1.100.0
 	github.com/docker/docker v24.0.2+incompatible
 	github.com/go-git/go-git/v5 v5.6.1
 	github.com/go-sql-driver/mysql v1.7.1
