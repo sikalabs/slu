@@ -180,6 +180,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/gitstats_docker"
 	_ "github.com/sikalabs/slu/cmd/scripts/infracost_here"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
+	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/create_cluster_admin"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_all"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_argocd"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cert_manager"
