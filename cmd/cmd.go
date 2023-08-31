@@ -186,6 +186,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cert_manager"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cluster_issuer"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cluster_issuer_cloudflare"
+	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_cluster_issuer_zerossl"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_hello_world"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_ingress"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_ingress_aks"
