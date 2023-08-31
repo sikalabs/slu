@@ -62,3 +62,41 @@ stringData:
   api-token: `+cloudflareToken+`
 EOF`, dry)
 }
+
+func InstallClusterIssuerZeroSSL(
+	email string,
+	keyId string,
+	keySecret string,
+	dry bool,
+) {
+	sh(`cat <<EOF | kubectl apply -f -
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: zerossl
+spec:
+  acme:
+    server: https://acme.zerossl.com/v2/DV90
+    email: `+email+`
+    privateKeySecretRef:
+      name: zerossl
+    externalAccountBinding:
+      keyID: `+keyId+`
+      keySecretRef:
+        name: zerossl-eab
+        key: secret
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+EOF`, dry)
+	sh(`cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: zerossl-eab
+  namespace: cert-manager
+stringData:
+  secret: `+keySecret+`
+EOF`, dry)
+}
