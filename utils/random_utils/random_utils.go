@@ -9,6 +9,7 @@ const (
 	LOWER  = "abcdefghijklmnopqrstuvwxyz"
 	UPPER  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	DIGITS = "0123456789"
+	ALL    = LOWER + UPPER + DIGITS
 )
 
 func RandomString(length int, chars string) string {
