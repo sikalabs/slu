@@ -43,6 +43,7 @@ require (
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.102.1
 	github.com/docker/docker v24.0.5+incompatible
+	github.com/getsentry/sentry-go v0.24.0
 	github.com/go-git/go-git/v5 v5.8.1
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/hashicorp/vault/api v1.9.2
@@ -110,7 +111,7 @@ require (
 	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/fvbommel/sortorder v1.0.1 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
-	github.com/go-errors/errors v1.0.1 // indirect
+	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.4.1 // indirect
 	github.com/go-jose/go-jose/v3 v3.0.0 // indirect
@@ -205,7 +206,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/stretchr/testify v1.8.4 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.1 // indirect
-	github.com/vmihailenco/msgpack/v5 v5.3.4 // indirect
+	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/xlab/treeprint v0.0.0-20181112141820-a009c3971eca // indirect

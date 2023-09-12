@@ -196,6 +196,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/rename"
 	_ "github.com/sikalabs/slu/cmd/scripts/rename/spaces_and_commas"
 	_ "github.com/sikalabs/slu/cmd/scripts/run_tcp_proxy_in_docker"
+	_ "github.com/sikalabs/slu/cmd/sentry"
+	_ "github.com/sikalabs/slu/cmd/sentry/send_test_event"
 	_ "github.com/sikalabs/slu/cmd/serve_files"
 	_ "github.com/sikalabs/slu/cmd/shell_scripts"
 	_ "github.com/sikalabs/slu/cmd/shell_scripts/required_environment_variables"
