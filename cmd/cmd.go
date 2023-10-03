@@ -146,6 +146,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/mysql/list"
 	_ "github.com/sikalabs/slu/cmd/mysql/ping"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika"
+	_ "github.com/sikalabs/slu/cmd/ondrejsika/dela"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/clear_dns_cache_mac"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/desktop_cleanup"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/large_desktop_files"
