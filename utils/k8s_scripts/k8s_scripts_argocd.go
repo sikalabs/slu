@@ -19,7 +19,6 @@ func InstallArgoCDDomain(namespace string, domain string, dry bool) {
 	--set 'server.ingress.hosts[0]='`+domain+` \
 	--set 'server.ingress.ingressClassName=nginx' \
 	--set 'server.ingress.annotations.cert-manager\.io/cluster-issuer=letsencrypt' \
-	--set 'server.ingress.annotations.nginx\.ingress\.kubernetes\.io/server-snippet=proxy_ssl_verify off;' \
 	--set 'server.ingress.annotations.nginx\.ingress\.kubernetes\.io/backend-protocol=HTTPS' \
 	--set 'server.ingress.tls[0].hosts[0]=`+domain+`' \
 	--set 'server.ingress.tls[0].secretName=argocd-tls' \
