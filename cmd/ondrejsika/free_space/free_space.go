@@ -3,7 +3,6 @@ package free_space
 import (
 	"fmt"
 	"log"
-	"syscall"
 
 	parentcmd "github.com/sikalabs/slu/cmd/ondrejsika"
 	"github.com/spf13/cobra"
@@ -20,14 +19,6 @@ var Cmd = &cobra.Command{
 
 func init() {
 	parentcmd.Cmd.AddCommand(Cmd)
-}
-
-func getFreeSpaceOrDie() uint64 {
-	var stat syscall.Statfs_t
-	err := syscall.Statfs("/", &stat)
-	handleError(err)
-	freeSpace := stat.Bavail * uint64(stat.Bsize)
-	return freeSpace
 }
 
 func toGB(b uint64) float64 {
