@@ -15,6 +15,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/awx"
 	_ "github.com/sikalabs/slu/cmd/awx/password"
 	_ "github.com/sikalabs/slu/cmd/azure"
+	_ "github.com/sikalabs/slu/cmd/azure/get_all_resources"
 	_ "github.com/sikalabs/slu/cmd/azure/who_am_i"
 	_ "github.com/sikalabs/slu/cmd/base64"
 	_ "github.com/sikalabs/slu/cmd/base64/interactive_decode_clipboard"
