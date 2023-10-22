@@ -103,6 +103,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/go_code/version_bump"
 	_ "github.com/sikalabs/slu/cmd/golang"
 	_ "github.com/sikalabs/slu/cmd/golang/build_all_platforms"
+	_ "github.com/sikalabs/slu/cmd/google_drive"
+	_ "github.com/sikalabs/slu/cmd/google_drive/upload"
 	_ "github.com/sikalabs/slu/cmd/helm"
 	_ "github.com/sikalabs/slu/cmd/helm/version_bump"
 	_ "github.com/sikalabs/slu/cmd/host"
