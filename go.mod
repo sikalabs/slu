@@ -6,6 +6,7 @@ replace (
 	cloud.google.com/go => cloud.google.com/go v0.109.0
 	github.com/denisenkom/go-mssqldb => github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1
 	github.com/go-check/check => github.com/go-check/check v0.0.0-20180628173108-788fd7840127
+	github.com/ondrejsika/argo-cd => github.com/ondrejsika/fork-argo-cd-for-slu/v2 v2.8.5-0.20231023022133-14fa834c82bd
 	k8s.io/api => k8s.io/api v0.24.0
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.23.1
 	k8s.io/apimachinery => k8s.io/apimachinery v0.24.0
