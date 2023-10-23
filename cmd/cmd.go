@@ -205,6 +205,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/rename"
 	_ "github.com/sikalabs/slu/cmd/scripts/rename/spaces_and_commas"
 	_ "github.com/sikalabs/slu/cmd/scripts/run_tcp_proxy_in_docker"
+	_ "github.com/sikalabs/slu/cmd/scripts/webwings"
+	_ "github.com/sikalabs/slu/cmd/scripts/webwings/fill_aws_secrets"
 	_ "github.com/sikalabs/slu/cmd/sentry"
 	_ "github.com/sikalabs/slu/cmd/sentry/send_test_event"
 	_ "github.com/sikalabs/slu/cmd/serve_files"
