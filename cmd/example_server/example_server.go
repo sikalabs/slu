@@ -37,6 +37,7 @@ var Cmd = &cobra.Command{
 		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 			requestsTotal.Inc()
 			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server! %s %s \n", hostname, portStr)
+			fmt.Printf("RemoteAddr=%s\n", r.RemoteAddr)
 		})
 		http.HandleFunc("/slow1s", func(w http.ResponseWriter, r *http.Request) {
 			requestsTotal.Inc()
