@@ -8,12 +8,17 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/sikalabs/slu/utils/vault_google_drive_utils"
 	"golang.org/x/oauth2"
 	drive "google.golang.org/api/drive/v3"
 	"google.golang.org/api/option"
 )
 
 func Upload(clientId, clientSecret, accessToken, fileToUpload string) {
+	if clientId == "" && clientSecret == "" {
+		clientId, clientSecret = GetGoogleDriveUploadSecretsFromVaultOrEnvOrDie()
+	}
+
 	conf := &oauth2.Config{
 		ClientID:     clientId,
 		ClientSecret: clientSecret,
@@ -54,6 +59,10 @@ func Upload(clientId, clientSecret, accessToken, fileToUpload string) {
 }
 
 func GetToken(clientId, clientSecret string) {
+	if clientId == "" && clientSecret == "" {
+		clientId, clientSecret = GetGoogleDriveUploadSecretsFromVaultOrEnvOrDie()
+	}
+
 	ctx := context.Background()
 	conf := &oauth2.Config{
 		ClientID:     clientId,
@@ -82,4 +91,39 @@ func GetToken(clientId, clientSecret string) {
 		}
 		time.Sleep(1 * time.Second)
 	}
+}
+
+func GetGoogleDriveUploadSecretsFromVaultOrEnvOrDie() (
+	string, string,
+) {
+	clientIdVault, clientSecretVault,
+		_ := vault_google_drive_utils.GetGoogleDriveUploadSecrets("secret/data/slu/google-drive-upload/client")
+
+	// Client ID
+	var clientId string
+	clientIdEnv := os.Getenv("SLU_GOOGLE_DRIVE_UPLOAD_CLIENT_ID")
+	if clientIdVault != "" {
+		clientId = clientIdVault
+	}
+	if clientIdEnv != "" {
+		clientId = clientIdEnv
+	}
+	if clientId == "" {
+		log.Fatalln("SLU_GOOGLE_DRIVE_UPLOAD_CLIENT_ID is empty")
+	}
+
+	// Client Secret
+	var clientSecret string
+	clientSecretEnv := os.Getenv("SLU_GOOGLE_DRIVE_UPLOAD_CLIENT_SECRET")
+	if clientIdVault != "" {
+		clientSecret = clientSecretVault
+	}
+	if clientIdEnv != "" {
+		clientSecret = clientSecretEnv
+	}
+	if clientSecret == "" {
+		log.Fatalln("SLU_GOOGLE_DRIVE_UPLOAD_CLIENT_SECRET is empty")
+	}
+
+	return clientId, clientSecret
 }

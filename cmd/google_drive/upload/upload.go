@@ -34,18 +34,17 @@ func init() {
 		"",
 		"Google Drive Client ID",
 	)
-	Cmd.MarkFlagRequired("client-id")
 	Cmd.Flags().StringVar(
 		&FlagClientSecret,
 		"client-secret",
 		"",
 		"Google Drive Client Secret",
 	)
-	Cmd.MarkFlagRequired("client-secret")
 	Cmd.Flags().StringVar(
 		&FlagAccessToken,
 		"access-token",
 		"",
 		"Google Drive Access Token",
 	)
+	Cmd.MarkFlagRequired("access-token")
 }

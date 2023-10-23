@@ -16,10 +16,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"u"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		google_drive_utils.GetToken(
-			FlagClientId,
-			FlagClientSecret,
-		)
+		google_drive_utils.GetToken(FlagClientId, FlagClientSecret)
 	},
 }
 
@@ -31,12 +28,10 @@ func init() {
 		"",
 		"Google Drive Client ID",
 	)
-	Cmd.MarkFlagRequired("client-id")
 	Cmd.Flags().StringVar(
 		&FlagClientSecret,
 		"client-secret",
 		"",
 		"Google Drive Client Secret",
 	)
-	Cmd.MarkFlagRequired("client-secret")
 }
