@@ -46,5 +46,4 @@ func init() {
 		"",
 		"Google Drive Access Token",
 	)
-	Cmd.MarkFlagRequired("access-token")
 }

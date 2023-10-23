@@ -19,6 +19,10 @@ func Upload(clientId, clientSecret, accessToken, fileToUpload string) {
 		clientId, clientSecret = GetGoogleDriveUploadSecretsFromVaultOrEnvOrDie()
 	}
 
+	if accessToken == "" {
+		accessToken = vault_google_drive_utils.GetGoogleDriveUploadTokenSecretsFromVaultOrEnvOrDie()
+	}
+
 	conf := &oauth2.Config{
 		ClientID:     clientId,
 		ClientSecret: clientSecret,
@@ -58,7 +62,7 @@ func Upload(clientId, clientSecret, accessToken, fileToUpload string) {
 	fmt.Printf("File ID: %s\n", file.Id)
 }
 
-func GetToken(clientId, clientSecret string) {
+func GetToken(clientId, clientSecret string) string {
 	if clientId == "" && clientSecret == "" {
 		clientId, clientSecret = GetGoogleDriveUploadSecretsFromVaultOrEnvOrDie()
 	}
@@ -87,7 +91,7 @@ func GetToken(clientId, clientSecret string) {
 		if err == nil {
 			fmt.Printf("Got access token: %s\n", token.AccessToken)
 			fmt.Printf("Got refresh token: %s\n", token.RefreshToken)
-			break
+			return token.AccessToken
 		}
 		time.Sleep(1 * time.Second)
 	}
