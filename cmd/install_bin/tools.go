@@ -203,6 +203,14 @@ var Tools = []Tool{
 		GetArchFunc:    openshiftGetArch,
 	},
 	{
+		Name:           "openshift-install-okd",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("okd-project", "okd") },
+		UrlTemplate:    "https://github.com/okd-project/okd/releases/download/{{.Version}}/openshift-install-{{.Os}}{{.Arch}}-{{.Version}}.tar.gz",
+		GetOsFunc:      openshiftGetOs,
+		GetArchFunc:    openshiftGetArch,
+		SourcePath:     "openshift-install",
+	},
+	{
 		Name:           "butane",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("coreos", "butane") },
 		UrlTemplate:    "https://github.com/coreos/butane/releases/download/{{.Version}}/butane-{{.Arch}}-{{.Os}}",
