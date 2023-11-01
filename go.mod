@@ -42,7 +42,7 @@ require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.45.20
 	github.com/cheggaaa/pb/v3 v3.1.2
-	github.com/cloudflare/cloudflare-go v0.78.0
+	github.com/cloudflare/cloudflare-go v0.80.0
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.102.1
 	github.com/docker/docker v24.0.5+incompatible
