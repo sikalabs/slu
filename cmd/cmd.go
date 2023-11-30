@@ -156,6 +156,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/dela"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/desktop_cleanup"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/free_space"
+	_ "github.com/sikalabs/slu/cmd/ondrejsika/iceland"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/large_desktop_files"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/setup_git"
 	_ "github.com/sikalabs/slu/cmd/postgres"
