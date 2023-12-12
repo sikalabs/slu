@@ -8,16 +8,6 @@ metadata:
   name: cluster-admin-`+suffix+`
   namespace: kube-system
 secrets:
-  - name: cluster-admin-`+suffix+`
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: cluster-admin-`+suffix+`
-  namespace: kube-system
-  annotations:
-    kubernetes.io/service-account.name: cluster-admin-`+suffix+`
-type: kubernetes.io/service-account-token
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -32,4 +22,6 @@ subjects:
     name: cluster-admin-`+suffix+`
     namespace: kube-system
 EOF`, dry)
+
+	sh(`kubectl create token -n kube-system cluster-admin-`+suffix+` --duration 999999h`, dry)
 }

@@ -23,10 +23,8 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		suffix := strconv.Itoa(int(time.Now().Unix()))
-		k8s_scripts.CreateClusterAdmin(suffix, FlagDry)
-		token := getTokenOrDie("kube-system", "cluster-admin-"+suffix)
 		fmt.Println("cluster-admin-" + suffix)
-		fmt.Println(token)
+		k8s_scripts.CreateClusterAdmin(suffix, FlagDry)
 	},
 }
 
