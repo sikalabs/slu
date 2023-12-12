@@ -48,7 +48,7 @@ require (
 	github.com/getsentry/sentry-go v0.24.0
 	github.com/go-git/go-git/v5 v5.8.1
 	github.com/go-sql-driver/mysql v1.7.1
-	github.com/hashicorp/vault/api v1.9.2
+	github.com/hashicorp/vault/api v1.10.0
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
 	github.com/joho/godotenv v1.5.1
 	github.com/jpillora/go-tcp-proxy v1.0.2
