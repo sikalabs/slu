@@ -45,7 +45,7 @@ require (
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.102.1
 	github.com/docker/docker v24.0.7+incompatible
-	github.com/getsentry/sentry-go v0.24.0
+	github.com/getsentry/sentry-go v0.25.0
 	github.com/go-git/go-git/v5 v5.11.0
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/hashicorp/vault/api v1.10.0
