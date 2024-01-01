@@ -61,7 +61,7 @@ require (
 	github.com/prometheus/client_golang v1.16.0
 	github.com/qeesung/image2ascii v1.0.1
 	github.com/rs/zerolog v1.31.0
-	github.com/spf13/cobra v1.7.0
+	github.com/spf13/cobra v1.8.0
 	github.com/xanzy/go-gitlab v0.91.1
 	golang.org/x/crypto v0.17.0
 	golang.org/x/oauth2 v0.14.0
@@ -113,7 +113,7 @@ require (
 	github.com/chai2010/gettext-go v0.0.0-20170215093142-bf70f2a70fb1 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/coreos/go-oidc/v3 v3.6.0 // indirect
-	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.3 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
