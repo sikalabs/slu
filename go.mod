@@ -64,7 +64,7 @@ require (
 	github.com/spf13/cobra v1.8.0
 	github.com/xanzy/go-gitlab v0.91.1
 	golang.org/x/crypto v0.17.0
-	golang.org/x/oauth2 v0.14.0
+	golang.org/x/oauth2 v0.15.0
 	golang.org/x/sys v0.15.0
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20221104135756-97bc4ad4a1cb
 	google.golang.org/api v0.153.0
