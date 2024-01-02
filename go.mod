@@ -39,7 +39,7 @@ require (
 	github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492
 	github.com/argoproj/argo-cd/v2 v2.9.3
 	github.com/atotto/clipboard v0.1.4
-	github.com/aws/aws-sdk-go v1.45.20
+	github.com/aws/aws-sdk-go v1.49.13
 	github.com/cheggaaa/pb/v3 v3.1.2
 	github.com/cloudflare/cloudflare-go v0.83.0
 	github.com/denisenkom/go-mssqldb v0.12.3
