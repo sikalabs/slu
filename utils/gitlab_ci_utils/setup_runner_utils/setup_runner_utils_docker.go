@@ -8,7 +8,7 @@ import (
 	"github.com/sikalabs/slu/utils/exec_utils"
 )
 
-func SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname string, concurrency int, dryRun bool) error {
+func SetupGitlabRunnerDocker(gitlabUrl, token, hostname string, concurrency int, dryRun bool) error {
 	var err error
 	var args []string
 
@@ -52,7 +52,7 @@ func SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname string, conc
 		"gitlab-runner", "register",
 		"--non-interactive",
 		"--url", gitlabUrl,
-		"--registration-token", registrationToken,
+		"--token", token,
 		"--name", hostname,
 		"--executor", "docker",
 		"--docker-pull-policy", "if-not-present",

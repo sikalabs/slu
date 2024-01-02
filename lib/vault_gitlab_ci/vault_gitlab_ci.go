@@ -33,7 +33,7 @@ func GetGitlabCiSecrets(name string) (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	registrationToken, err := getString(data, "REGISTRATION_TOKEN", true)
+	registrationToken, err := getString(data, "TOKEN", true)
 	if err != nil {
 		return "", "", err
 	}

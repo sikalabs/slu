@@ -12,7 +12,7 @@ import (
 )
 
 var FlagGitlabUrl string
-var FlagRegistrationToken string
+var FlagToken string
 var FlagGitlabName string
 var FlagConcurrency int
 var FlagDryRun bool
@@ -30,10 +30,10 @@ var Cmd = &cobra.Command{
 		}
 
 		gitlabUrl := FlagGitlabUrl
-		registrationToken := FlagRegistrationToken
+		token := FlagToken
 
 		if FlagGitlabName != "" {
-			gitlabUrl, registrationToken, err = vault_gitlab_ci.GetGitlabCiSecrets(FlagGitlabName)
+			gitlabUrl, token, err = vault_gitlab_ci.GetGitlabCiSecrets(FlagGitlabName)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -43,7 +43,7 @@ var Cmd = &cobra.Command{
 			log.Fatal("flags gitlab-url and registration-token OR flag gitlab (for Vault) are required")
 		}
 
-		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, registrationToken, hostname, FlagConcurrency, FlagDryRun)
+		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, token, hostname, FlagConcurrency, FlagDryRun)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -60,13 +60,13 @@ func init() {
 		"Gitlab URL",
 	)
 	Cmd.PersistentFlags().StringVarP(
-		&FlagRegistrationToken,
-		"registration-token",
+		&FlagToken,
+		"token",
 		"t",
 		"",
-		"Gitlab Registration Token",
+		"Gitlab Runner Token",
 	)
-	Cmd.MarkFlagsRequiredTogether("gitlab-url", "registration-token")
+	Cmd.MarkFlagsRequiredTogether("gitlab-url", "token")
 	Cmd.PersistentFlags().StringVarP(
 		&FlagGitlabName,
 		"gitlab",
