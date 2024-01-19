@@ -37,7 +37,7 @@ require (
 	github.com/Azure/azure-sdk-for-go v55.0.0+incompatible
 	github.com/Azure/go-autorest/autorest/azure/auth v0.5.12
 	github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492
-	github.com/argoproj/argo-cd/v2 v2.9.3
+	github.com/argoproj/argo-cd/v2 v2.9.4
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.49.13
 	github.com/cheggaaa/pb/v3 v3.1.2
@@ -72,8 +72,8 @@ require (
 	gorm.io/driver/mysql v1.5.2
 	gorm.io/driver/sqlite v1.5.3
 	gorm.io/gorm v1.25.2-0.20230530020048-26663ab9bf55
-	k8s.io/api v0.24.2
-	k8s.io/apimachinery v0.24.2
+	k8s.io/api v0.24.17
+	k8s.io/apimachinery v0.24.17
 	k8s.io/client-go v11.0.1-0.20190816222228-6d55c1b1f1ca+incompatible
 	software.sslmate.com/src/go-pkcs12 v0.2.0
 )
@@ -255,15 +255,15 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/apiextensions-apiserver v0.24.2 // indirect
-	k8s.io/apiserver v0.24.2 // indirect
-	k8s.io/cli-runtime v0.24.2 // indirect
-	k8s.io/component-base v0.24.2 // indirect
-	k8s.io/component-helpers v0.24.2 // indirect
+	k8s.io/apiserver v0.24.17 // indirect
+	k8s.io/cli-runtime v0.24.17 // indirect
+	k8s.io/component-base v0.24.17 // indirect
+	k8s.io/component-helpers v0.24.17 // indirect
 	k8s.io/klog/v2 v2.70.1 // indirect
 	k8s.io/kube-aggregator v0.24.2 // indirect
 	k8s.io/kube-openapi v0.0.0-20220627174259-011e075b9cb8 // indirect
 	k8s.io/kubectl v0.24.2 // indirect
-	k8s.io/kubernetes v1.24.14 // indirect
+	k8s.io/kubernetes v1.24.17 // indirect
 	k8s.io/utils v0.0.0-20220706174534-f6158b442e7c // indirect
 	oras.land/oras-go/v2 v2.3.0 // indirect
 	sigs.k8s.io/json v0.0.0-20220525155127-227cbc7cc124 // indirect

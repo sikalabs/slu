@@ -413,8 +413,8 @@ github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kd
 github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20210826220005-b48c857c3a0e/go.mod h1:F7bn7fEU90QkQ3tnmaTx3LTKLEDqnwWODIYppRQ5hnY=
 github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492 h1:rcEG5HI490FF0a7zuvxOxen52ddygCfNVjP0XOCMl+M=
 github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492/go.mod h1:9Beu8XsUNNfzml7WBf3QmyPToP1wm1Gj/Vc5UJKqTzU=
-github.com/argoproj/argo-cd/v2 v2.9.3 h1:P3oi9WEzi7NkPoinPhv/RCS6vKJT5vmB1YjgZduK0uw=
-github.com/argoproj/argo-cd/v2 v2.9.3/go.mod h1:+Ve37mJedhW4fpRTpQNbE9VaSmkijET1UgxZOFNi3dI=
+github.com/argoproj/argo-cd/v2 v2.9.4 h1:I048tTKiXsQiJVoJ69TSPvq0Umnsc9TMCNMjL4Ok4P8=
+github.com/argoproj/argo-cd/v2 v2.9.4/go.mod h1:3DQwsQvXosH/lpa7NYI9xBdDl5pdXQijO99ltKuSxQA=
 github.com/argoproj/gitops-engine v0.7.1-0.20230906152414-b0fffe419a0f h1:cb2j6HxYJutMBvvQc/Y3EOSL7pcr5pcnP/4MNmYi4xc=
 github.com/argoproj/gitops-engine v0.7.1-0.20230906152414-b0fffe419a0f/go.mod h1:/GMN0JuoJUUpnKlNLp2Wn/mfK8sglFsdPn+eoxSddmg=
 github.com/argoproj/pkg v0.13.7-0.20230627120311-a4dd357b057e h1:kuLQvJqwwRMQTheT4MFyKVM8Txncu21CHT4yBWUl1Mk=
@@ -1861,8 +1861,8 @@ k8s.io/kube-openapi v0.0.0-20220627174259-011e075b9cb8 h1:yEQKdMCjzAOvGeiTwG4hO/
 k8s.io/kube-openapi v0.0.0-20220627174259-011e075b9cb8/go.mod h1:mbJ+NSUoAhuR14N0S63bPkh8MGVSo3VYSGZtH/mfMe0=
 k8s.io/kubectl v0.24.0 h1:nA+WtMLVdXUs4wLogGd1mPTAesnLdBpCVgCmz3I7dXo=
 k8s.io/kubectl v0.24.0/go.mod h1:pdXkmCyHiRTqjYfyUJiXtbVNURhv0/Q1TyRhy2d5ic0=
-k8s.io/kubernetes v1.24.14 h1:GgPqHpXKf1ECOG5XqTPJA/gwJ6zpJupD4I8gmon+AhQ=
-k8s.io/kubernetes v1.24.14/go.mod h1:QrcYLfTDAGt5RKsRCVHMBAL3g7NWhe6vFR5pIg9CB9g=
+k8s.io/kubernetes v1.24.17 h1:+4+5VIoxcDv35PnVELouMdDC58AQF/sWs+hjjr4Ra44=
+k8s.io/kubernetes v1.24.17/go.mod h1:LJ66K8sMVLCol0l5oJlWPaj59qXgWCCYZIaHHPm+5s8=
 k8s.io/metrics v0.24.0/go.mod h1:jrLlFGdKl3X+szubOXPG0Lf2aVxuV3QJcbsgVRAM6fI=
 k8s.io/utils v0.0.0-20210802155522-efc7438f0176/go.mod h1:jPW/WVKK9YHAvNhRxK0md/EJ228hCsBRufyofKtW8HA=
 k8s.io/utils v0.0.0-20210930125809-cb0fa318a74b/go.mod h1:jPW/WVKK9YHAvNhRxK0md/EJ228hCsBRufyofKtW8HA=
