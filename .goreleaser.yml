@@ -78,7 +78,7 @@ dockers:
       image_templates:
         - "sikalabs/slu:{{ .Tag }}"
         - "ghcr.io/sikalabs/slu:{{ .Tag }}"
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.goreleaser
       ids:
         - slu
       build_flag_templates:
@@ -98,7 +98,7 @@ dockers:
       goarch: arm64
       image_templates:
         - "sikalabs/slu:{{ .Tag }}-arm64v8"
-      dockerfile: Dockerfile.arm64v8
+      dockerfile: Dockerfile.goreleaser.arm64v8
       ids:
         - slu
       build_flag_templates:
