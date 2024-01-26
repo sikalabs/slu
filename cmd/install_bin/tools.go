@@ -331,6 +331,11 @@ var Tools = []Tool{
 		SourcePath:     "oauth2-proxy-{{.Version}}.{{.Os}}-{{.Arch}}/oauth2-proxy",
 		GetArchFunc:    func(_ string) string { return "amd64" },
 	},
+	{
+		Name:           "goexpandenv",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "goexpandenv") },
+		UrlTemplate:    "https://github.com/sikalabs/goexpandenv/releases/download/{{.Version}}/goexpandenv_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
