@@ -2,8 +2,8 @@ package terraform_project
 
 import (
 	"embed"
+	"io"
 	"io/fs"
-	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -56,12 +56,12 @@ func do() {
 		} else {
 			file, err := secFS.Open(filePath)
 			handleError(err)
-			fileContent, err := ioutil.ReadAll(file)
+			fileContent, err := io.ReadAll(file)
 			handleError(err)
 			if contains(executables, filePath) {
-				err = ioutil.WriteFile(path.Join(CmdFlagPathPrefix, filePath), fileContent, 0755)
+				err = os.WriteFile(path.Join(CmdFlagPathPrefix, filePath), fileContent, 0755)
 			} else {
-				err = ioutil.WriteFile(path.Join(CmdFlagPathPrefix, filePath), fileContent, 0644)
+				err = os.WriteFile(path.Join(CmdFlagPathPrefix, filePath), fileContent, 0644)
 			}
 			handleError(err)
 		}

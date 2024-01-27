@@ -3,7 +3,7 @@ package request_debug
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/debug_server"
@@ -22,7 +22,7 @@ var Cmd = &cobra.Command{
 			rr.Method = r.Method
 			rr.Headers = r.Header
 			rr.URL = r.URL.String()
-			rr.Body, err = ioutil.ReadAll(r.Body)
+			rr.Body, err = io.ReadAll(r.Body)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return

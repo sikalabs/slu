@@ -5,7 +5,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/pem"
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -37,7 +36,7 @@ var Cmd = &cobra.Command{
 
 		var caCerts []*x509.Certificate
 		if FlagInputCaCert != "" {
-			f, err := ioutil.ReadFile(FlagInputCaCert)
+			f, err := os.ReadFile(FlagInputCaCert)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -64,7 +63,7 @@ var Cmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		err = ioutil.WriteFile(
+		err = os.WriteFile(
 			FlagOutput,
 			pfxBytes,
 			os.ModePerm,

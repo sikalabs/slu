@@ -2,8 +2,8 @@ package replace_string
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/file_utils"
@@ -22,7 +22,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"rs"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		inputBytes, err := ioutil.ReadFile(FlagInputFilePath)
+		inputBytes, err := os.ReadFile(FlagInputFilePath)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -33,7 +33,7 @@ var Cmd = &cobra.Command{
 		if FlagOutputFilePath == "" {
 			fmt.Println(output)
 		} else {
-			err = ioutil.WriteFile(FlagOutputFilePath, []byte(output), 0644)
+			err = os.WriteFile(FlagOutputFilePath, []byte(output), 0644)
 			if err != nil {
 				log.Fatalln(err)
 			}

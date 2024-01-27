@@ -3,7 +3,7 @@ package prune_environments
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 
@@ -21,7 +21,7 @@ func LoadConfig(config *Config, path string) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	byteValue, err := ioutil.ReadAll(jsonFile)
+	byteValue, err := io.ReadAll(jsonFile)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -2,7 +2,7 @@ package list
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"strings"
 
@@ -26,7 +26,7 @@ var Cmd = &cobra.Command{
 		username := ""
 		password := ""
 		registry_client.Quiet("")
-		log.SetOutput(ioutil.Discard)
+		log.SetOutput(io.Discard)
 		r, _ := registry_client.New(url, username, password)
 		r.Logf = registry_client.Quiet
 		repositories, _ := r.Tags(path)

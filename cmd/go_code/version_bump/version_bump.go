@@ -1,7 +1,7 @@
 package version_bump
 
 import (
-	"io/ioutil"
+	"os"
 
 	"github.com/go-git/go-git/v5"
 	go_code_cmd "github.com/sikalabs/slu/cmd/go_code"
@@ -23,7 +23,7 @@ var Cmd = &cobra.Command{
 
 var Version string = "` + CmdFlagVersion + `"
 `
-		err := ioutil.WriteFile("version/version.go", []byte(version_go_file), 0644)
+		err := os.WriteFile("version/version.go", []byte(version_go_file), 0644)
 		if err != nil {
 			panic(err)
 		}

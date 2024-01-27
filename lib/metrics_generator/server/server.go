@@ -3,11 +3,11 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"math/rand"
 	"net"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -125,7 +125,7 @@ func Server(addr string, config ServerConfig) {
 func ServerWithConfig(addr, configPath string) {
 	var config ServerConfig
 	var err error
-	f, err := ioutil.ReadFile(configPath)
+	f, err := os.ReadFile(configPath)
 	if err != nil {
 		log.Fatal(err)
 	}

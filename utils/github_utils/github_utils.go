@@ -3,7 +3,7 @@ package github_utils
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 )
@@ -47,7 +47,7 @@ func GetLatestReleaseE(user, repo string) (string, error) {
 		return "", fmt.Errorf("repository %s/%s does not exist", user, repo)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}
@@ -74,7 +74,7 @@ func GetLatestTagE(user, repo string) (string, error) {
 		return "", fmt.Errorf("repository %s/%s does not exist", user, repo)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}

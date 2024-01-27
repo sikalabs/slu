@@ -1,7 +1,7 @@
 package set_image
 
 import (
-	"io/ioutil"
+	"os"
 	"regexp"
 
 	argocd_cmd "github.com/sikalabs/slu/cmd/argocd"
@@ -24,9 +24,9 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"si"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		data, _ := ioutil.ReadFile(FlagFile)
+		data, _ := os.ReadFile(FlagFile)
 		s := replaceImage(string(data), FlagKey, FlagValue)
-		ioutil.WriteFile(FlagFile, []byte(s), 0644)
+		os.WriteFile(FlagFile, []byte(s), 0644)
 	},
 }
 

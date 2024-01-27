@@ -3,7 +3,6 @@ package File
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	expandcmd "github.com/sikalabs/slu/cmd/expand"
@@ -19,7 +18,7 @@ var Cmd = &cobra.Command{
 	Short: "Expand environment variables in file",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		source, err := ioutil.ReadFile(CmdFlagSource)
+		source, err := os.ReadFile(CmdFlagSource)
 		if err != nil {
 			panic(err)
 		}

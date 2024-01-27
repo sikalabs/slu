@@ -1,7 +1,7 @@
 package set_image
 
 import (
-	"io/ioutil"
+	"os"
 	"regexp"
 
 	"github.com/go-git/go-git/v5"
@@ -27,9 +27,9 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"vb"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		data, _ := ioutil.ReadFile(FlagFile)
+		data, _ := os.ReadFile(FlagFile)
 		s := replace(string(data), "version", FlagVersion)
-		ioutil.WriteFile(FlagFile, []byte(s), 0644)
+		os.WriteFile(FlagFile, []byte(s), 0644)
 
 		if CmdFlagNoCommit {
 			return

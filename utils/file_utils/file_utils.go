@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 )
 
@@ -14,7 +14,7 @@ func FileExists(path string) bool {
 }
 
 func ReadFileToString(path string) (string, error) {
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		return "", err
 	}
@@ -52,7 +52,7 @@ func RemoveLines(fn string, start, n int) (err error) {
 		}
 	}()
 	var b []byte
-	if b, err = ioutil.ReadAll(f); err != nil {
+	if b, err = io.ReadAll(f); err != nil {
 		return
 	}
 	cut, ok := skip(b, start-1)

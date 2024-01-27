@@ -1,7 +1,6 @@
 package sh_utils
 
 import (
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -38,7 +37,7 @@ func File(file_path, content string) {
 	if err != nil {
 		HandleError(err)
 	}
-	err = ioutil.WriteFile(path.Join(home, file_path), []byte(content), 0644)
+	err = os.WriteFile(path.Join(home, file_path), []byte(content), 0644)
 	if err != nil {
 		HandleError(err)
 	}

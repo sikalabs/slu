@@ -1,6 +1,6 @@
 package editorconfig
 
-import "io/ioutil"
+import "os"
 
 func CreateEditorconfig(
 	withGo bool,
@@ -28,7 +28,7 @@ indent_style = tab
 indent_size = 4
 `
 	}
-	err := ioutil.WriteFile(".editorconfig", []byte(content), 0644)
+	err := os.WriteFile(".editorconfig", []byte(content), 0644)
 	if err != nil {
 		panic(err)
 	}

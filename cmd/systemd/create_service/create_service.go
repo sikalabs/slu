@@ -2,8 +2,8 @@ package create_service
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/systemd"
 	"github.com/sikalabs/slu/utils/systemd_utils"
@@ -37,7 +37,7 @@ var Cmd = &cobra.Command{
 			log.Fatalln(err)
 		}
 		if FlagCreateFile {
-			err := ioutil.WriteFile(
+			err := os.WriteFile(
 				"/etc/systemd/system/"+FlagName+".service", []byte(out), 0644)
 			if err != nil {
 				log.Fatalln(err)

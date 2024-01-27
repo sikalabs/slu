@@ -2,7 +2,6 @@ package spaces_and_commas
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -31,7 +30,7 @@ func init() {
 func replaceSpacesAndCommas() {
 	dir := "."
 
-	files, err := ioutil.ReadDir(dir)
+	files, err := os.ReadDir(dir)
 	if err != nil {
 		fmt.Println("Error reading directory:", err)
 		return

@@ -1,6 +1,6 @@
 package gitignore
 
-import "io/ioutil"
+import "os"
 
 var GitignoreBase = `# Mac
 .DS_Store
@@ -47,7 +47,7 @@ kubeconfig.*.yml
 `
 
 func CreateGitignore(content string) {
-	err := ioutil.WriteFile(".gitignore", []byte(content), 0644)
+	err := os.WriteFile(".gitignore", []byte(content), 0644)
 	if err != nil {
 		panic(err)
 	}
