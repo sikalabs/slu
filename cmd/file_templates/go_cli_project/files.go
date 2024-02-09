@@ -208,7 +208,7 @@ dockers:
       goarch: amd64
       image_templates:
         - "{{.DockerRegistry}}/{{.ProjectName}}:{{"{{"}} .Tag {{"}}"}}"
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.goreleaser
       ids:
         - {{.ProjectName}}
       build_flag_templates:
@@ -227,7 +227,7 @@ dockers:
       goarch: arm64
       image_templates:
         - "{{.DockerRegistry}}/{{.ProjectName}}:{{"{{"}} .Tag {{"}}"}}-arm64v8"
-      dockerfile: Dockerfile.arm64v8
+      dockerfile: Dockerfile.goreleaser.arm64v8
       ids:
         - {{.ProjectName}}
       build_flag_templates:
@@ -243,12 +243,12 @@ dockers:
         - "--label=repository=https://{{.Package}}"
         {{ if .Maintainer }}- "--label=maintainer={{.Maintainer}}"{{ end }}
 `,
-	// Dockerfile
-	"Dockerfile": `FROM debian:10-slim
+	// Dockerfile.goreleaser
+	"Dockerfile.goreleaser": `FROM debian:10-slim
 COPY {{.ProjectName}} /usr/local/bin/
 `,
-	// Dockerfile.arm64v8
-	"Dockerfile.arm64v8": `FROM arm64v8/debian:10-slim
+	// Dockerfile.goreleaser.arm64v8
+	"Dockerfile.goreleaser.arm64v8": `FROM arm64v8/debian:10-slim
 COPY {{.ProjectName}} /usr/local/bin/
 `,
 }
