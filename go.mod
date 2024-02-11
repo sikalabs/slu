@@ -53,7 +53,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/lib/pq v1.10.9
-	github.com/mhale/smtpd v0.8.0
+	github.com/mhale/smtpd v0.8.2
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/ondrejsika/go-dela v1.0.0
 	github.com/ondrejsika/go-iceland v0.1.0
