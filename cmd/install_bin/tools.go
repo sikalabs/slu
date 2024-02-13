@@ -336,6 +336,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "goexpandenv") },
 		UrlTemplate:    "https://github.com/sikalabs/goexpandenv/releases/download/{{.Version}}/goexpandenv_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "cloudflared",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("cloudflare", "cloudflared") },
+		UrlTemplate:    "https://github.com/cloudflare/cloudflared/releases/download/{{.Version}}/cloudflared-{{.Os}}-{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
