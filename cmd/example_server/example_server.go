@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/ondrejsika/go-dela"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sikalabs/slu/cmd/root"
@@ -73,6 +74,13 @@ var Cmd = &cobra.Command{
 			requestsTotal.Inc()
 			time.Sleep(15 * time.Minute)
 			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server (after 15m)! %s %s \n", hostname, portStr)
+		})
+
+		http.HandleFunc("/dela.jpg", func(w http.ResponseWriter, r *http.Request) {
+			requestsTotal.Inc()
+			w.Header().Set("Content-Type", "image/jpeg")
+			w.WriteHeader(http.StatusOK)
+			w.Write(dela.DELA1_JPG)
 		})
 
 		http.Handle("/metrics", promhttp.Handler())
