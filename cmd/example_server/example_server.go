@@ -76,6 +76,20 @@ var Cmd = &cobra.Command{
 			fmt.Fprintf(w, "[slu "+version.Version+"] Example HTTP Server (after 15m)! %s %s \n", hostname, portStr)
 		})
 
+		http.HandleFunc("/dela", func(w http.ResponseWriter, r *http.Request) {
+			requestsTotal.Inc()
+			fmt.Fprint(w, `<!doctype html><html lang="en"><head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dela</title><style>
+body, html { margin: 0; padding: 0; height: 100%; width: 100%; }
+.dog-image-container { position: relative; height: 100%; width: 100%; overflow: hidden; }
+.dog-image { object-fit: cover; width: 100%; height: 100%; display: block; }
+</style></head><body>
+<div class="dog-image-container"><img src="/dela.jpg" alt="Dela" class="dog-image" /></div>
+</body></html>
+			`)
+		})
+
 		http.HandleFunc("/dela.jpg", func(w http.ResponseWriter, r *http.Request) {
 			requestsTotal.Inc()
 			w.Header().Set("Content-Type", "image/jpeg")
