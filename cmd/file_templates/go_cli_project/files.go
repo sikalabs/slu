@@ -62,8 +62,7 @@ func Execute() {
 }
 `,
 	// cmd/root/root.go
-	"cmd/root/root.go": `
-package root
+	"cmd/root/root.go": `package root
 
 import (
 	"{{.Package}}/version"
