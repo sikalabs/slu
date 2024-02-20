@@ -168,29 +168,10 @@ checksum:
 brews:
   -
     name: {{.ProjectName}}
-    conflicts:
-      - {{.ProjectName}}-edge
     tap:
       owner: {{.BrewOrganization}}
       name: {{.BrewRepo}}
     skip_upload: auto
-    homepage: https://{{.Package}}
-    url_template: "https://{{.Package}}/releases/download/{{"{{"}} .Tag {{"}}"}}/{{"{{"}} .ArtifactName {{"}}"}}"
-    folder: Formula
-    caveats: "How to use this binary: https://{{.Package}}"
-    description: "{{.ProjectName}}"
-    install: |
-      bin.install "{{.ProjectName}}"
-    test: |
-      system "#{bin}/{{.ProjectName}} version"
-  -
-    name: {{.ProjectName}}-edge
-    conflicts:
-      - {{.ProjectName}}
-    tap:
-      owner: {{.BrewOrganization}}
-      name: {{.BrewRepo}}
-    skip_upload: false
     homepage: https://{{.Package}}
     url_template: "https://{{.Package}}/releases/download/{{"{{"}} .Tag {{"}}"}}/{{"{{"}} .ArtifactName {{"}}"}}"
     folder: Formula
