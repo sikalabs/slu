@@ -224,11 +224,11 @@ dockers:
         {{ if .Maintainer }}- "--label=maintainer={{.Maintainer}}"{{ end }}
 `,
 	// Dockerfile.goreleaser
-	"Dockerfile.goreleaser": `FROM debian:10-slim
+	"Dockerfile.goreleaser": `FROM debian:12-slim
 COPY {{.ProjectName}} /usr/local/bin/
 `,
 	// Dockerfile.goreleaser.arm64v8
-	"Dockerfile.goreleaser.arm64v8": `FROM arm64v8/debian:10-slim
+	"Dockerfile.goreleaser.arm64v8": `FROM arm64v8/debian:12-slim
 COPY {{.ProjectName}} /usr/local/bin/
 `,
 }
