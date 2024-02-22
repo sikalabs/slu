@@ -346,6 +346,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "clicksecret-cli") },
 		UrlTemplate:    "https://github.com/sikalabs/clicksecret-cli/releases/download/{{.Version}}/clicksecret-cli_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "flog",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("mingrammer", "flog") },
+		UrlTemplate:    "https://github.com/mingrammer/flog/releases/download/{{.Version}}/flog_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
