@@ -44,7 +44,7 @@ require (
 	github.com/aws/aws-sdk-go v1.49.13
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/caarlos0/env/v6 v6.10.1
-	github.com/cheggaaa/pb/v3 v3.1.2
+	github.com/cheggaaa/pb/v3 v3.1.5
 	github.com/cloudflare/cloudflare-go v0.83.0
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.102.1
@@ -131,7 +131,7 @@ require (
 	github.com/evanphx/json-patch v5.6.0+incompatible // indirect
 	github.com/exponent-io/jsonpath v0.0.0-20151013193312-d6023ce2651d // indirect
 	github.com/fatih/camelcase v1.0.0 // indirect
-	github.com/fatih/color v1.14.1 // indirect
+	github.com/fatih/color v1.15.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fvbommel/sortorder v1.0.1 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
@@ -193,7 +193,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
-	github.com/mattn/go-runewidth v0.0.14 // indirect
+	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
