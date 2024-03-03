@@ -73,9 +73,9 @@ require (
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20221104135756-97bc4ad4a1cb
 	google.golang.org/api v0.163.0
 	gopkg.in/yaml.v3 v3.0.1
-	gorm.io/driver/mysql v1.5.2
+	gorm.io/driver/mysql v1.5.4
 	gorm.io/driver/sqlite v1.5.3
-	gorm.io/gorm v1.25.2-0.20230530020048-26663ab9bf55
+	gorm.io/gorm v1.25.7-0.20240204074919-46816ad31dde
 	k8s.io/api v0.24.17
 	k8s.io/apimachinery v0.24.17
 	k8s.io/client-go v11.0.1-0.20190816222228-6d55c1b1f1ca+incompatible
