@@ -10,6 +10,7 @@ import (
 
 var FlagMinTime int
 var FlagMaxTime int
+var FlagVerbose bool
 
 var Cmd = &cobra.Command{
 	Use:     "random",
@@ -18,7 +19,12 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		rand.Seed(time.Now().UnixNano())
-		time.Sleep(time.Duration(rand.Intn(FlagMaxTime-FlagMinTime)+FlagMinTime) * time.Millisecond)
+		sleepTimeInt := rand.Intn(FlagMaxTime-FlagMinTime) + FlagMinTime
+		if FlagVerbose {
+			c.Println("Sleep for", sleepTimeInt, "ms")
+
+		}
+		time.Sleep(time.Duration(sleepTimeInt) * time.Millisecond)
 	},
 }
 
@@ -35,5 +41,12 @@ func init() {
 		"max",
 		1000, // 1s
 		"Maximum sleep time (in ms)",
+	)
+	Cmd.Flags().BoolVarP(
+		&FlagVerbose,
+		"verbose",
+		"v",
+		false,
+		"verbose output",
 	)
 }
