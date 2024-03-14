@@ -222,6 +222,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/sqlite/read"
 	_ "github.com/sikalabs/slu/cmd/ssh"
 	_ "github.com/sikalabs/slu/cmd/ssh/keygen"
+	_ "github.com/sikalabs/slu/cmd/ssh/ssh"
 	_ "github.com/sikalabs/slu/cmd/static_api"
 	_ "github.com/sikalabs/slu/cmd/static_api/version"
 	_ "github.com/sikalabs/slu/cmd/systemd"
