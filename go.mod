@@ -39,7 +39,7 @@ require (
 	github.com/Azure/azure-sdk-for-go v68.0.0+incompatible
 	github.com/Azure/go-autorest/autorest/azure/auth v0.5.12
 	github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492
-	github.com/argoproj/argo-cd/v2 v2.9.5
+	github.com/argoproj/argo-cd/v2 v2.9.8
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.49.13
 	github.com/brianvoe/gofakeit/v6 v6.28.0
