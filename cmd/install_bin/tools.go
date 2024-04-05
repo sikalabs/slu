@@ -351,6 +351,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("mingrammer", "flog") },
 		UrlTemplate:    "https://github.com/mingrammer/flog/releases/download/{{.Version}}/flog_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "slc",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "slc") },
+		UrlTemplate:    "https://github.com/sikalabs/slc/releases/download/{{.Version}}/slc_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
