@@ -318,7 +318,6 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/hadolint/hadolint/releases/download/{{.Version}}/hadolint-{{.Os|capitalize}}-{{.Arch}}",
 		GetArchFunc:    hadolintGetArchFunc,
 	},
-
 	{
 		Name:           "oauth2-proxy",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("oauth2-proxy", "oauth2-proxy") },
@@ -350,6 +349,12 @@ var Tools = []Tool{
 		Name:           "slc",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "slc") },
 		UrlTemplate:    "https://github.com/sikalabs/slc/releases/download/{{.Version}}/slc_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
+		Name:           "kubelogin",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("Azure", "kubelogin") },
+		UrlTemplate:    "https://github.com/Azure/kubelogin/releases/download/{{.Version}}/kubelogin-{{.Os}}-{{.Arch}}.zip",
+		SourcePath:     "bin/{{.Os}}_{{.Arch}}/kubelogin",
 	},
 }
 
