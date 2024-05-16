@@ -269,9 +269,11 @@ func run(
 	if sourceTemlate == "" {
 		sourceTemlate = name
 	}
-	version := defaultVersionFunc()
+	version := ""
 	if flagVersionFunc() != "latest" {
 		version = flagVersionFunc()
+	} else {
+		version = defaultVersionFunc()
 	}
 	url := getUrlFunc(
 		urlTemplate,
