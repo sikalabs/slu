@@ -140,8 +140,8 @@ builds:
       - arm
       - arm64
     goarm:
-      - 6
-      - 7
+      - "6"
+      - "7"
     ignore:
       - goos: darwin
         goarch: "386"
@@ -151,7 +151,7 @@ builds:
         goarch: "arm64"
       - goos: linux
         goarch: arm
-        goarm: 6
+        goarm: "6"
     binary: {{.ProjectName}}
 
 archives:
