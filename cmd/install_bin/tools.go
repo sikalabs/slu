@@ -356,6 +356,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/Azure/kubelogin/releases/download/{{.Version}}/kubelogin-{{.Os}}-{{.Arch}}.zip",
 		SourcePath:     "bin/{{.Os}}_{{.Arch}}/kubelogin",
 	},
+	{
+		Name:           "mon",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "mon") },
+		UrlTemplate:    "https://github.com/sikalabs/mon/releases/download/{{.Version}}/mon_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
