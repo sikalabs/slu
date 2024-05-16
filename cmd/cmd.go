@@ -201,6 +201,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_hello_world"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_ingress"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_ingress_aks"
+	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/create_kubernetes_api_ingress"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_maildev"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_metrics_server"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_prometheus_operator_crd"
