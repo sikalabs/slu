@@ -41,7 +41,7 @@ indent_style = tab
 
 go 1.21
 
-require github.com/spf13/cobra v1.2.1
+require github.com/spf13/cobra v1.8.0
 `,
 	// version/version.go
 	"version/version.go": `package version
