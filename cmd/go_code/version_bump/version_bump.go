@@ -1,10 +1,13 @@
 package version_bump
 
 import (
+	"log"
 	"os"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 	go_code_cmd "github.com/sikalabs/slu/cmd/go_code"
+	"github.com/sikalabs/slu/utils/exec_utils"
 
 	"github.com/spf13/cobra"
 )
@@ -12,6 +15,7 @@ import (
 var CmdFlagVersion string
 var CmdFlagNoCommit bool
 var CmdFlagTag bool
+var CmdFlagGoGit bool
 
 var Cmd = &cobra.Command{
 	Use:     "version-bump",
@@ -32,34 +36,57 @@ var Version string = "` + CmdFlagVersion + `"
 			return
 		}
 
-		r, err := git.PlainOpen(".")
-		if err != nil {
-			panic(err)
-		}
-		w, err := r.Worktree()
-		if err != nil {
-			panic(err)
-		}
-		_, err = w.Add("version/version.go")
-		if err != nil {
-			panic(err)
-		}
-		commit, _ := w.Commit("VERSION: "+CmdFlagVersion, &git.CommitOptions{})
-		_, err = r.CommitObject(commit)
-		if err != nil {
-			panic(err)
-		}
+		var r *git.Repository
+		var commit plumbing.Hash
 
-		if CmdFlagTag {
-			_, err := r.CreateTag(
-				CmdFlagVersion,
-				commit,
-				&git.CreateTagOptions{
-					Message: "VERSION: " + CmdFlagVersion,
-				},
-			)
+		if !CmdFlagGoGit {
+			err = exec_utils.ExecOut("git", "add", "version/version.go")
+			if err != nil {
+				log.Fatalln(err)
+			}
+			err = exec_utils.ExecOut("git", "commit", "-m", "VERSION: "+CmdFlagVersion)
+			if err != nil {
+				log.Fatalln(err)
+			}
+		} else {
+			r, err = git.PlainOpen(".")
 			if err != nil {
 				panic(err)
+			}
+			w, err := r.Worktree()
+			if err != nil {
+				panic(err)
+			}
+			_, err = w.Add("version/version.go")
+			if err != nil {
+				panic(err)
+			}
+			commit, _ = w.Commit("VERSION: "+CmdFlagVersion, &git.CommitOptions{})
+			_, err = r.CommitObject(commit)
+			if err != nil {
+				panic(err)
+			}
+		}
+
+		if !CmdFlagGoGit {
+			if CmdFlagTag {
+				err = exec_utils.ExecOut("git", "tag", CmdFlagVersion, "-m", "VERSION: "+CmdFlagVersion)
+				if err != nil {
+					log.Fatalln(err)
+				}
+			}
+		} else {
+			if CmdFlagTag {
+				_, err := r.CreateTag(
+					CmdFlagVersion,
+					commit,
+					&git.CreateTagOptions{
+						Message: "VERSION: " + CmdFlagVersion,
+					},
+				)
+				if err != nil {
+					panic(err)
+				}
 			}
 		}
 	},
@@ -88,5 +115,11 @@ func init() {
 		"t",
 		false,
 		"Create also git tag",
+	)
+	Cmd.Flags().BoolVar(
+		&CmdFlagNoCommit,
+		"go-git",
+		false,
+		"Use go-git instead of git binary",
 	)
 }
