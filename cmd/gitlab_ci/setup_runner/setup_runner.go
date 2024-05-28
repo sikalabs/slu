@@ -16,6 +16,7 @@ var FlagToken string
 var FlagGitlabName string
 var FlagConcurrency int
 var FlagDryRun bool
+var FlagDontForwardDockerSocket bool
 
 var Cmd = &cobra.Command{
 	Use:     "setup-runner",
@@ -43,7 +44,7 @@ var Cmd = &cobra.Command{
 			log.Fatal("flags gitlab-url and registration-token OR flag gitlab (for Vault) are required")
 		}
 
-		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, token, hostname, FlagConcurrency, FlagDryRun)
+		err = setup_runner_utils.SetupGitlabRunnerDocker(gitlabUrl, token, hostname, FlagConcurrency, !FlagDontForwardDockerSocket, FlagDryRun)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -87,5 +88,11 @@ func init() {
 		"dry-run",
 		false,
 		"Print the command instead of executing it",
+	)
+	Cmd.PersistentFlags().BoolVar(
+		&FlagDontForwardDockerSocket,
+		"no-docker-socket",
+		false,
+		"Don't forward docker socket",
 	)
 }

@@ -8,7 +8,7 @@ import (
 	"github.com/sikalabs/slu/utils/exec_utils"
 )
 
-func SetupGitlabRunnerDocker(gitlabUrl, token, hostname string, concurrency int, dryRun bool) error {
+func SetupGitlabRunnerDocker(gitlabUrl, token, hostname string, concurrency int, forwardDockerSocket, dryRun bool) error {
 	var err error
 	var args []string
 
@@ -59,7 +59,9 @@ func SetupGitlabRunnerDocker(gitlabUrl, token, hostname string, concurrency int,
 		"--docker-image", "docker:git",
 		"--docker-volumes", etcVolume,
 		"--docker-volumes", buildsVolume,
-		"--docker-volumes", "/var/run/docker.sock:/var/run/docker.sock",
+	}
+	if forwardDockerSocket {
+		args = append(args, "--docker-volumes", "/var/run/docker.sock:/var/run/docker.sock")
 	}
 	if dryRun {
 		printCommand("docker", args)
