@@ -67,7 +67,7 @@ var Tools = []Tool{
 	{
 		Name:           "docker",
 		SourcePath:     "docker/docker",
-		GetVersionFunc: func() string { return "20.10.8" },
+		GetVersionFunc: func() string { return "24.0.5" },
 		UrlTemplate:    "https://download.docker.com/{{.OsDocker}}/static/stable/{{.ArchDocker}}/docker-{{.Version}}.tgz",
 	},
 	{
