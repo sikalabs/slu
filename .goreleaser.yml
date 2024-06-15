@@ -1,3 +1,5 @@
+version: 2
+
 project_name: slu
 
 before:
@@ -57,13 +59,13 @@ checksum:
 brews:
   -
     name: slu
-    tap:
+    repository:
       owner: sikalabs
       name: homebrew-tap
     skip_upload: auto
     homepage: https://github.com/sikalabs/slu
     url_template: "https://github.com/sikalabs/slu/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
-    folder: Formula
+    directory: Formula
     caveats: "How to use this binary: https://github.com/sikalabs/slu"
     description: "SikaLabs Utils"
     install: |
@@ -120,10 +122,11 @@ changelog:
     exclude:
       - '^VERSION'
 
-scoop:
-  bucket:
-    owner: sikalabs
-    name: scoop-bucket
-  homepage:  https://github.com/sikalabs/slu
-  description: SikaLabs Utils
-  license: MIT
+scoops:
+  -
+    repository:
+      owner: sikalabs
+      name: scoop-bucket
+    homepage:  https://github.com/sikalabs/slu
+    description: SikaLabs Utils
+    license: MIT
