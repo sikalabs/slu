@@ -192,6 +192,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci/update_docker_images"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitstats_docker"
 	_ "github.com/sikalabs/slu/cmd/scripts/infracost_here"
+	_ "github.com/sikalabs/slu/cmd/scripts/ins_oxs_cz"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/create_cluster_admin"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/create_kubernetes_api_ingress"
