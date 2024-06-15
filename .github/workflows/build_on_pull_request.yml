@@ -13,4 +13,4 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
-          args: build --snapshot --skip-before
+          args: build --snapshot --skip before
