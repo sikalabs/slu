@@ -3,7 +3,7 @@ package docker_utils
 import (
 	"context"
 
-	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 )
 
@@ -32,7 +32,7 @@ func ListContainerIDs() ([]string, error) {
 		return nil, err
 	}
 
-	containers, err := cli.ContainerList(ctx, types.ContainerListOptions{
+	containers, err := cli.ContainerList(ctx, container.ListOptions{
 		All: true,
 	})
 	if err != nil {
@@ -56,7 +56,7 @@ func RemoveContainerByID(id string, force bool) error {
 		return err
 	}
 
-	err = cli.ContainerRemove(ctx, id, types.ContainerRemoveOptions{
+	err = cli.ContainerRemove(ctx, id, container.RemoveOptions{
 		Force: force,
 	})
 	if err != nil {
