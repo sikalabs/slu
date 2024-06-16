@@ -64,7 +64,7 @@ require (
 	github.com/ondrejsika/go-dela v1.0.0
 	github.com/ondrejsika/go-iceland v0.1.0
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
-	github.com/prometheus/client_golang v1.19.0
+	github.com/prometheus/client_golang v1.19.1
 	github.com/qeesung/image2ascii v1.0.1
 	github.com/rs/zerolog v1.32.0
 	github.com/sirupsen/logrus v1.9.3
