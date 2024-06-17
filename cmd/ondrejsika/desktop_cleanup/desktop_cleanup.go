@@ -17,6 +17,7 @@ var FlagYesGoBuildCache bool
 var FlagYesGoPkgModCache bool
 var FlagYesYarnCache bool
 var FlagTerraformPluginDir bool
+var FlagBrewCache bool
 
 var ListSh []string
 var ListRm []string
@@ -27,7 +28,6 @@ var Cmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		// Prepare cleanup script
-		registerSh("brew cleanup")
 		dockerUp, _ := docker_utils.Ping()
 		if dockerUp {
 			registerSh("docker system prune --force")
@@ -40,7 +40,9 @@ var Cmd = &cobra.Command{
 		if FlagYesGoBuildCache {
 			registerRm("./Library/Caches/go-build/*")
 		}
-		registerRm("./Library/Caches/Homebrew/downloads/*")
+		if FlagBrewCache {
+			registerRm("./Library/Caches/Homebrew/*")
+		}
 		if FlagYesGoPkgModCache {
 			registerRm("./go/pkg/mod/cache/*")
 		}
@@ -106,6 +108,12 @@ func init() {
 		"terraform-plugin-dir",
 		false,
 		"Remove Terraform providers Dir (rm -rf  ~/terraform-plugin-cache/*)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagBrewCache,
+		"brew-cache",
+		false,
+		"Cleanup Brew cache (rm -rf ~/Library/Caches/Homebrew/*)",
 	)
 }
 
