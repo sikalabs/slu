@@ -58,7 +58,7 @@ func PruneEnvironments(path string) {
 		}
 		for _, e := range envs {
 			fmt.Println("stop & delete environment:", e.Name)
-			_, _, err = g.Environments.StopEnvironment(config.ProjectID, e.ID)
+			_, _, err = g.Environments.StopEnvironment(config.ProjectID, e.ID, &gitlab.StopEnvironmentOptions{})
 			if err != nil {
 				panic(err)
 			}
