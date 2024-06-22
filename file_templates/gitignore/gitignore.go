@@ -46,6 +46,10 @@ kubeconfig.yml
 kubeconfig.*.yml
 `
 
+var GitignoreHelm = `# Helm
+*.tgz
+`
+
 func CreateGitignore(content string) {
 	err := os.WriteFile(".gitignore", []byte(content), 0644)
 	if err != nil {
