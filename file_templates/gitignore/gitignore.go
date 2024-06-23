@@ -8,6 +8,9 @@ var GitignoreBase = `# Mac
 # Editor
 .vscode
 .idea
+*.swp
+*.swo
+*~
 
 # Generic
 *.log
