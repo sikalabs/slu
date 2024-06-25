@@ -8,15 +8,28 @@ import (
 	_ "image/jpeg"
 )
 
+var FlagRandom bool
+
 var Cmd = &cobra.Command{
 	Use:   "dela",
 	Short: "Print picture of Dela to terminal",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		printdela.PrintDela()
+		if FlagRandom {
+			printdela.PrintRandomDela()
+		} else {
+			printdela.PrintDela()
+		}
 	},
 }
 
 func init() {
 	parentcmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().BoolVarP(
+		&FlagRandom,
+		"random",
+		"r",
+		false,
+		"Print random picture",
+	)
 }
