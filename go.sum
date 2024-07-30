@@ -562,8 +562,8 @@ github.com/docker/distribution v0.0.0-20171011171712-7484e51bf6af/go.mod h1:J2gT
 github.com/docker/distribution v2.8.1+incompatible/go.mod h1:J2gT2udsDAN96Uj4KfcMRqY0/ypR+oyYUYmja8H+y+w=
 github.com/docker/distribution v2.8.2+incompatible h1:T3de5rq0dB1j30rp0sA2rER+m322EBzniBPB6ZIzuh8=
 github.com/docker/distribution v2.8.2+incompatible/go.mod h1:J2gT2udsDAN96Uj4KfcMRqY0/ypR+oyYUYmja8H+y+w=
-github.com/docker/docker v27.0.0+incompatible h1:JRugTYuelmWlW0M3jakcIadDx2HUoUO6+Tf2C5jVfwA=
-github.com/docker/docker v27.0.0+incompatible/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
+github.com/docker/docker v27.1.0+incompatible h1:rEHVQc4GZ0MIQKifQPHSFGV/dVgaZafgRf8fCPtDYBs=
+github.com/docker/docker v27.1.0+incompatible/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
 github.com/docker/go-connections v0.4.0 h1:El9xVISelRB7BuFusrZozjnkIM5YnzCViNKohAFqRJQ=
 github.com/docker/go-connections v0.4.0/go.mod h1:Gbd7IOopHjR8Iph03tsViu4nIes5XhDvyHbTtUxmeec=
 github.com/docker/go-units v0.4.0 h1:3uh0PgVws3nIA0Q+MwDC8yjEPf9zjRfZZWXZYDct3Tw=
@@ -1095,8 +1095,6 @@ github.com/olekukonko/tablewriter v0.0.5/go.mod h1:hPp6KlRPjbx+hW8ykQs1w3UBbZlj6
 github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852/go.mod h1:eqOVx5Vwu4gd2mmMZvVZsgIqNSaW3xxRThUJ0k/TPk4=
 github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1 h1:lCvf9k+OGumpvIbMG5y20qZYQQhdnRvEAE4A1/vFsKo=
 github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1/go.mod h1:eYEc5khu5Jdv99uvgoItbm5LCPsXZ3n/9K0X2NTV94c=
-github.com/ondrejsika/go-dela v1.0.0 h1:a7Fs3Abk5TJZENYVqV9d2JhE39PlPTINMb7Kd1tNWPw=
-github.com/ondrejsika/go-dela v1.0.0/go.mod h1:o+SjPdAROkZEGYPm/1LRqMymnYxPQ+6MsDosV44GT2Y=
 github.com/ondrejsika/go-dela v1.1.0 h1:OondBOZNvIlADT5Ufd7FagUJXhG5Kr87f3m8sza7lAo=
 github.com/ondrejsika/go-dela v1.1.0/go.mod h1:o+SjPdAROkZEGYPm/1LRqMymnYxPQ+6MsDosV44GT2Y=
 github.com/ondrejsika/go-iceland v0.1.0 h1:ToBwKD7Brmtyp52rKKtjcTZSrcl2K8xyQjZ970v/z94=
