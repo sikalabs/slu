@@ -425,10 +425,10 @@ github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kd
 github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20210826220005-b48c857c3a0e/go.mod h1:F7bn7fEU90QkQ3tnmaTx3LTKLEDqnwWODIYppRQ5hnY=
 github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492 h1:rcEG5HI490FF0a7zuvxOxen52ddygCfNVjP0XOCMl+M=
 github.com/aquasecurity/go-version v0.0.0-20210121072130-637058cfe492/go.mod h1:9Beu8XsUNNfzml7WBf3QmyPToP1wm1Gj/Vc5UJKqTzU=
-github.com/argoproj/argo-cd/v2 v2.9.15 h1:ckBImgFqBCDyGWQZeJazHqfK3XP8IxEy3qNrTn9+4ic=
-github.com/argoproj/argo-cd/v2 v2.9.15/go.mod h1:PFG0qlpogLbD4CVFHADpE2+T5lLpu0FqiHzgobLsMeU=
-github.com/argoproj/gitops-engine v0.7.1-0.20230906152414-b0fffe419a0f h1:cb2j6HxYJutMBvvQc/Y3EOSL7pcr5pcnP/4MNmYi4xc=
-github.com/argoproj/gitops-engine v0.7.1-0.20230906152414-b0fffe419a0f/go.mod h1:/GMN0JuoJUUpnKlNLp2Wn/mfK8sglFsdPn+eoxSddmg=
+github.com/argoproj/argo-cd/v2 v2.9.21 h1:asVFgXfv0pvw7Q9STOhT75sWUU9cIKHRWWrAzJWmRgo=
+github.com/argoproj/argo-cd/v2 v2.9.21/go.mod h1:V9EKQR1U5kJV/aLVRgUV46muOStnP6C5c4wTeT6nkoY=
+github.com/argoproj/gitops-engine v0.7.1-0.20240715141028-c68bce0f979c h1:kkHx4mvqnUCLruADf1t/aO6yXnLcrl6rhsINaJomukc=
+github.com/argoproj/gitops-engine v0.7.1-0.20240715141028-c68bce0f979c/go.mod h1:/GMN0JuoJUUpnKlNLp2Wn/mfK8sglFsdPn+eoxSddmg=
 github.com/argoproj/pkg v0.13.7-0.20230627120311-a4dd357b057e h1:kuLQvJqwwRMQTheT4MFyKVM8Txncu21CHT4yBWUl1Mk=
 github.com/argoproj/pkg v0.13.7-0.20230627120311-a4dd357b057e/go.mod h1:xBN5PLx2MoK63dmPfMo/PGBvd77K1Y0m/rzZOe4cs1s=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
@@ -1095,8 +1095,6 @@ github.com/olekukonko/tablewriter v0.0.5/go.mod h1:hPp6KlRPjbx+hW8ykQs1w3UBbZlj6
 github.com/oliveagle/jsonpath v0.0.0-20180606110733-2e52cf6e6852/go.mod h1:eqOVx5Vwu4gd2mmMZvVZsgIqNSaW3xxRThUJ0k/TPk4=
 github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1 h1:lCvf9k+OGumpvIbMG5y20qZYQQhdnRvEAE4A1/vFsKo=
 github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1/go.mod h1:eYEc5khu5Jdv99uvgoItbm5LCPsXZ3n/9K0X2NTV94c=
-github.com/ondrejsika/go-dela v1.0.0 h1:a7Fs3Abk5TJZENYVqV9d2JhE39PlPTINMb7Kd1tNWPw=
-github.com/ondrejsika/go-dela v1.0.0/go.mod h1:o+SjPdAROkZEGYPm/1LRqMymnYxPQ+6MsDosV44GT2Y=
 github.com/ondrejsika/go-dela v1.1.0 h1:OondBOZNvIlADT5Ufd7FagUJXhG5Kr87f3m8sza7lAo=
 github.com/ondrejsika/go-dela v1.1.0/go.mod h1:o+SjPdAROkZEGYPm/1LRqMymnYxPQ+6MsDosV44GT2Y=
 github.com/ondrejsika/go-iceland v0.1.0 h1:ToBwKD7Brmtyp52rKKtjcTZSrcl2K8xyQjZ970v/z94=
