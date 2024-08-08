@@ -366,6 +366,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "slr") },
 		UrlTemplate:    "https://github.com/sikalabs/slr/releases/download/{{.Version}}/slr_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "kubeseal",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("bitnami-labs", "sealed-secrets") },
+		UrlTemplate:    "https://github.com/bitnami-labs/sealed-secrets/releases/download/{{.Version}}/kubeseal-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
