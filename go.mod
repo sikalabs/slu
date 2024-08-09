@@ -77,7 +77,7 @@ require (
 	google.golang.org/api v0.191.0
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/driver/mysql v1.5.4
-	gorm.io/driver/sqlite v1.5.3
+	gorm.io/driver/sqlite v1.5.6
 	gorm.io/gorm v1.25.7-0.20240204074919-46816ad31dde
 	k8s.io/api v0.24.17
 	k8s.io/apimachinery v0.24.17
@@ -219,7 +219,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/mattn/go-shellwords v1.0.12 // indirect
-	github.com/mattn/go-sqlite3 v1.14.17 // indirect
+	github.com/mattn/go-sqlite3 v1.14.22 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
 	github.com/microsoft/go-mssqldb v0.20.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
