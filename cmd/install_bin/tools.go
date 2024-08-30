@@ -3,6 +3,8 @@ package install_bin
 import (
 	"github.com/sikalabs/slu/utils/github_utils"
 	"github.com/sikalabs/slu/utils/http_utils"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 var Tools = []Tool{
@@ -370,6 +372,13 @@ var Tools = []Tool{
 		Name:           "kubeseal",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("bitnami-labs", "sealed-secrets") },
 		UrlTemplate:    "https://github.com/bitnami-labs/sealed-secrets/releases/download/{{.Version}}/kubeseal-{{.Version|removev}}-{{.Os}}-{{.Arch}}.tar.gz",
+	},
+	{
+		Name:           "goreleaser",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("goreleaser", "goreleaser") },
+		UrlTemplate:    "https://github.com/goreleaser/goreleaser/releases/download/{{.Version}}/goreleaser_{{.Os}}_{{.Arch}}.tar.gz",
+		GetOsFunc:      func(x string) string { return cases.Title(language.Und).String(x) },
+		GetArchFunc:    craneGetArch,
 	},
 }
 
