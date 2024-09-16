@@ -188,6 +188,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/counter"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker_remove_all"
 	_ "github.com/sikalabs/slu/cmd/scripts/download"
+	_ "github.com/sikalabs/slu/cmd/scripts/env_file_to_json"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitlab_ci/update_docker_images"
 	_ "github.com/sikalabs/slu/cmd/scripts/gitstats_docker"
