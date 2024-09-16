@@ -245,6 +245,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/up"
 	_ "github.com/sikalabs/slu/cmd/upload"
 	_ "github.com/sikalabs/slu/cmd/vault"
+	_ "github.com/sikalabs/slu/cmd/vault/password_hash"
 	_ "github.com/sikalabs/slu/cmd/version"
 	_ "github.com/sikalabs/slu/cmd/wait_for"
 	_ "github.com/sikalabs/slu/cmd/wait_for/docker"
