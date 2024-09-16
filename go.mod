@@ -59,7 +59,7 @@ require (
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/k0sproject/rig v0.18.0
 	github.com/lib/pq v1.10.9
-	github.com/mhale/smtpd v0.8.2
+	github.com/mhale/smtpd v0.8.3
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/ondrejsika/go-dela v1.1.0
 	github.com/ondrejsika/go-iceland v0.1.0
