@@ -16,6 +16,7 @@ func InstallArgoCDDomain(namespace string, domain string, dry bool) {
 	--repo https://argoproj.github.io/argo-helm \
 	--create-namespace \
 	--namespace `+namespace+` \
+	--set 'configs.cm.url'=https://`+domain+` \
 	--set 'server.ingress.enabled=true' \
 	--set 'server.ingress.hostname='`+domain+` \
 	--set 'server.ingress.ingressClassName=nginx' \
