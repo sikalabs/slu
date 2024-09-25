@@ -50,6 +50,7 @@ var Cmd = &cobra.Command{
 		if FlagTerraformPluginDir {
 			registerRm(".terraform-plugin-cache/*")
 		}
+		registerRm("./Library/Caches/lima/")
 
 		// Review cleanup script
 		for _, script := range ListSh {
