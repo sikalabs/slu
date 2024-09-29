@@ -1,4 +1,4 @@
-package ip
+package ddev
 
 import (
 	"log"
