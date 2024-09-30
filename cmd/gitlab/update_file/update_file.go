@@ -2,6 +2,8 @@ package update_file
 
 import (
 	"bytes"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -106,6 +108,15 @@ func init() {
 }
 
 func gitlabUpdateFile(gitlabUrl, token string, projectId int, branch, file, content, email, name, message string) {
+	contentCurrent := readGitlabFile(gitlabUrl, token, projectId, branch, file)
+	if contentCurrent == content {
+		log.Println("Content is the same, skipping")
+		return
+	}
+	rawGitlabUpdateFile(gitlabUrl, token, projectId, branch, file, content, email, name, message)
+}
+
+func rawGitlabUpdateFile(gitlabUrl, token string, projectId int, branch, file, content, email, name, message string) {
 	url := fmt.Sprintf("%s/api/v4/projects/%d/repository/files/%s", gitlabUrl, projectId, url.QueryEscape(file))
 	jsonData := `{
 		"branch": "` + branch + `",
@@ -133,4 +144,39 @@ func gitlabUpdateFile(gitlabUrl, token string, projectId int, branch, file, cont
 	if resp.StatusCode != 200 {
 		log.Fatalln("Error updating file:", resp.Status)
 	}
+}
+
+func readGitlabFile(gitlabUrl, token string, projectId int, branch, file string) string {
+	url := fmt.Sprintf("%s/api/v4/projects/%d/repository/files/%s?ref=%s", gitlabUrl, projectId, url.QueryEscape(file), branch)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatalln("Error creating request:", err)
+	}
+
+	req.Header.Set("PRIVATE-TOKEN", token)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatalln("Error making request:", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		log.Fatalln("Error updating file:", resp.Status)
+	}
+
+	var data map[string]interface{}
+	err = json.NewDecoder(resp.Body).Decode(&data)
+	if err != nil {
+		log.Fatalln("Error decoding response:", err)
+	}
+
+	decoded, err := base64.StdEncoding.DecodeString(data["content"].(string))
+	if err != nil {
+		log.Fatal("Error decoding string:", err)
+	}
+
+	return string(decoded)
 }
