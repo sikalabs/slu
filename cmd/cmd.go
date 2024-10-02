@@ -61,6 +61,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/example"
 	_ "github.com/sikalabs/slu/cmd/example_server"
 	_ "github.com/sikalabs/slu/cmd/example_server_oidc"
+	_ "github.com/sikalabs/slu/cmd/example_server_rest"
 	_ "github.com/sikalabs/slu/cmd/expand"
 	_ "github.com/sikalabs/slu/cmd/expand/file"
 	_ "github.com/sikalabs/slu/cmd/expand/string"
