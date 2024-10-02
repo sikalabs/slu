@@ -1,7 +1,8 @@
 module github.com/sikalabs/slu
 
-go 1.21
-toolchain go1.22.5
+go 1.22
+
+toolchain go1.23.1
 
 replace (
 	cloud.google.com/go => cloud.google.com/go v0.109.0
