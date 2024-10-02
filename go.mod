@@ -1,8 +1,7 @@
 module github.com/sikalabs/slu
 
 go 1.21
-
-toolchain go1.21.6
+toolchain go1.22.5
 
 replace (
 	cloud.google.com/go => cloud.google.com/go v0.109.0
@@ -48,7 +47,7 @@ require (
 	github.com/cloudflare/cloudflare-go v0.106.0
 	github.com/coreos/go-oidc v2.2.1+incompatible
 	github.com/denisenkom/go-mssqldb v0.12.3
-	github.com/digitalocean/godo v1.102.1
+	github.com/digitalocean/godo v1.126.0
 	github.com/docker/docker v27.1.1+incompatible
 	github.com/getsentry/sentry-go v0.28.1
 	github.com/go-git/go-git/v5 v5.11.0
