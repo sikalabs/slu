@@ -212,6 +212,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_metrics_server"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_prometheus_operator_crd"
 	_ "github.com/sikalabs/slu/cmd/scripts/nginx_log_generator"
+	_ "github.com/sikalabs/slu/cmd/scripts/podcast_rss_download"
 	_ "github.com/sikalabs/slu/cmd/scripts/rename"
 	_ "github.com/sikalabs/slu/cmd/scripts/rename/spaces_and_commas"
 	_ "github.com/sikalabs/slu/cmd/scripts/run_tcp_proxy_in_docker"
