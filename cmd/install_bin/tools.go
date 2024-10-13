@@ -380,6 +380,12 @@ var Tools = []Tool{
 		GetOsFunc:      func(x string) string { return cases.Title(language.Und).String(x) },
 		GetArchFunc:    craneGetArch,
 	},
+	{
+		Name:           "promtail",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "loki") },
+		UrlTemplate:    "https://github.com/grafana/loki/releases/download/{{.Version}}/promtail-{{.Os}}-{{.Arch}}.zip",
+		SourcePath:     "promtail-{{.Os}}-{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
