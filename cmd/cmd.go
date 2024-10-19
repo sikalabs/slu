@@ -149,6 +149,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/mssql"
 	_ "github.com/sikalabs/slu/cmd/mssql/ping"
 	_ "github.com/sikalabs/slu/cmd/mysql"
+	_ "github.com/sikalabs/slu/cmd/mysql/counter"
 	_ "github.com/sikalabs/slu/cmd/mysql/create"
 	_ "github.com/sikalabs/slu/cmd/mysql/drop"
 	_ "github.com/sikalabs/slu/cmd/mysql/generate"
