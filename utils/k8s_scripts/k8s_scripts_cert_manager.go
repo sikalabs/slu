@@ -6,7 +6,7 @@ cert-manager cert-manager \
 --repo https://charts.jetstack.io \
 --create-namespace \
 --namespace cert-manager \
---set installCRDs=true \
+--set crds.enabled=true \
 --wait`, dry)
 }
 
