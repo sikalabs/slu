@@ -386,6 +386,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/grafana/loki/releases/download/{{.Version}}/promtail-{{.Os}}-{{.Arch}}.zip",
 		SourcePath:     "promtail-{{.Os}}-{{.Arch}}",
 	},
+	{
+		Name:           "coredns",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("coredns", "coredns") },
+		UrlTemplate:    "https://github.com/coredns/coredns/releases/download/{{.Version}}/coredns_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tgz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
