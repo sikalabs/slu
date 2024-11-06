@@ -1,6 +1,7 @@
 module github.com/sikalabs/slu
 
-go 1.22
+go 1.23.2
+
 replace (
 	cloud.google.com/go => cloud.google.com/go v0.109.0
 	github.com/denisenkom/go-mssqldb => github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1
