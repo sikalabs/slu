@@ -393,6 +393,12 @@ var Tools = []Tool{
 		SourcePath:     "promtail-{{.Os}}-{{.Arch}}",
 	},
 	{
+		Name:           "logcli",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "loki") },
+		UrlTemplate:    "https://github.com/grafana/loki/releases/download/{{.Version}}/logcli-{{.Os}}-{{.Arch}}.zip",
+		SourcePath:     "logcli-{{.Os}}-{{.Arch}}",
+	},
+	{
 		Name:           "coredns",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("coredns", "coredns") },
 		UrlTemplate:    "https://github.com/coredns/coredns/releases/download/{{.Version}}/coredns_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tgz",
