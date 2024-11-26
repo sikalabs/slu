@@ -3,9 +3,14 @@ package loggen
 import (
 	"log"
 	"math/rand"
+	"net/url"
 	"os"
+	"strconv"
 	"time"
 
+	"github.com/grafana/loki-client-go/loki"
+	"github.com/grafana/loki-client-go/pkg/urlutil"
+	"github.com/prometheus/common/model"
 	"github.com/rs/zerolog"
 	"github.com/sikalabs/slu/cmd/root"
 	"github.com/spf13/cobra"
@@ -13,6 +18,7 @@ import (
 
 var FlagJson bool
 var FlagLogFile string
+var FlagLokiURL string
 var FlagLogPrefix string
 var FlagSleepTime int
 var FlagNoError bool
@@ -25,6 +31,21 @@ var Cmd = &cobra.Command{
 	Short: "Log Generator",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		u, err := url.Parse(FlagLokiURL)
+		handleError(err)
+		cfg := loki.Config{
+			URL: urlutil.URLValue{
+				URL: u,
+			},
+			BatchWait: 5 * time.Second,
+			BatchSize: 1024 * 1024,
+			Timeout:   2 * time.Second,
+		}
+
+		client, err := loki.New(cfg)
+		handleError(err)
+		defer client.Stop()
+
 		var i int = 0
 		if FlagJson {
 			var logger zerolog.Logger
@@ -37,7 +58,6 @@ var Cmd = &cobra.Command{
 				defer f.Close()
 				logger = zerolog.New(f).With().Timestamp().Logger()
 				logger.Info().Str("prefix", FlagLogPrefix).Msg("Logging into file " + FlagLogFile)
-
 			} else {
 				logger = zerolog.New(os.Stdout).With().Timestamp().Logger()
 				logger.Info().Str("prefix", FlagLogPrefix).Msg("Logging into STDOUT")
@@ -54,21 +74,49 @@ var Cmd = &cobra.Command{
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
 					logger.Error().Str("prefix", FlagLogPrefix).Int("i", i).Msg("An error is usually an exception that has been caught and not handled.")
+					if FlagLokiURL != "" {
+						client.Handle(model.LabelSet{
+							"prefix": model.LabelValue(FlagLogPrefix),
+							"level":  "error",
+							"i":      model.LabelValue(strconv.Itoa(i)),
+						}, time.Now(), "An error is usually an exception that has been caught and not handled.")
+					}
 					i++
 					continue
 				}
 				if randomNumber > 70 && !FlagNoWarn {
 					logger.Warn().Str("prefix", FlagLogPrefix).Int("i", i).Msg("WARN A warning that should be ignored is usually at this level and should be actionable.")
+					if FlagLokiURL != "" {
+						client.Handle(model.LabelSet{
+							"prefix": model.LabelValue(FlagLogPrefix),
+							"level":  "warn",
+							"i":      model.LabelValue(strconv.Itoa(i)),
+						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable.")
+					}
 					i++
 					continue
 				}
 				if randomNumber > 30 && !FlagNoInfo {
 					logger.Info().Str("prefix", FlagLogPrefix).Int("i", i).Msg("INFO This is less important than debug log and is often used to provide context in the current task.")
+					if FlagLokiURL != "" {
+						client.Handle(model.LabelSet{
+							"prefix": model.LabelValue(FlagLogPrefix),
+							"level":  "info",
+							"i":      model.LabelValue(strconv.Itoa(i)),
+						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task.")
+					}
 					i++
 					continue
 				}
 				if !FlagNoDebug {
 					logger.Debug().Str("prefix", FlagLogPrefix).Int("i", i).Msg("DEBUG This is a debug log that shows a log that can be ignored.")
+					if FlagLokiURL != "" {
+						client.Handle(model.LabelSet{
+							"prefix": model.LabelValue(FlagLogPrefix),
+							"level":  "info",
+							"i":      model.LabelValue(strconv.Itoa(i)),
+						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
+					}
 					i++
 					continue
 				}
@@ -101,21 +149,49 @@ var Cmd = &cobra.Command{
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
 					logger.Printf("ERROR An error is usually an exception that has been caught and not handled. (i=%d)\n", i)
+					if FlagLokiURL != "" {
+						client.Handle(model.LabelSet{
+							"prefix": model.LabelValue(FlagLogPrefix),
+							"level":  "error",
+							"i":      model.LabelValue(strconv.Itoa(i)),
+						}, time.Now(), "An error is usually an exception that has been caught and not handled.")
+					}
 					i++
 					continue
 				}
 				if randomNumber > 70 && !FlagNoWarn {
 					logger.Printf("WARN A warning that should be ignored is usually at this level and should be actionable. (i=%d)\n", i)
+					if FlagLokiURL != "" {
+						client.Handle(model.LabelSet{
+							"prefix": model.LabelValue(FlagLogPrefix),
+							"level":  "warn",
+							"i":      model.LabelValue(strconv.Itoa(i)),
+						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable.")
+					}
 					i++
 					continue
 				}
 				if randomNumber > 30 && !FlagNoInfo {
 					logger.Printf("INFO This is less important than debug log and is often used to provide context in the current task (i=%d)\n", i)
+					if FlagLokiURL != "" {
+						client.Handle(model.LabelSet{
+							"prefix": model.LabelValue(FlagLogPrefix),
+							"level":  "info",
+							"i":      model.LabelValue(strconv.Itoa(i)),
+						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task.")
+					}
 					i++
 					continue
 				}
 				if !FlagNoDebug {
 					logger.Printf("DEBUG This is a debug log that shows a log that can be ignored. (i=%d)\n", i)
+					if FlagLokiURL != "" {
+						client.Handle(model.LabelSet{
+							"prefix": model.LabelValue(FlagLogPrefix),
+							"level":  "info",
+							"i":      model.LabelValue(strconv.Itoa(i)),
+						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
+					}
 					i++
 					continue
 				}
@@ -132,6 +208,12 @@ func init() {
 		"f",
 		"",
 		"Output log file (default: STDOUT)",
+	)
+	Cmd.Flags().StringVar(
+		&FlagLokiURL,
+		"loki-url",
+		"",
+		"Log also to Loki, use full URL (e.g. http://127.0.0.1:3100/loki/api/v1/push)",
 	)
 	Cmd.Flags().StringVarP(
 		&FlagLogPrefix,
@@ -181,4 +263,10 @@ func init() {
 		false,
 		"Format output to JSON",
 	)
+}
+
+func handleError(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
 }
