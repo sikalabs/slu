@@ -381,6 +381,12 @@ var Tools = []Tool{
 		GetArchFunc:    craneGetArch,
 	},
 	{
+		Name:           "loki",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "loki") },
+		UrlTemplate:    "https://github.com/grafana/loki/releases/download/{{.Version}}/loki-{{.Os}}-{{.Arch}}.zip",
+		SourcePath:     "loki-{{.Os}}-{{.Arch}}",
+	},
+	{
 		Name:           "promtail",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "loki") },
 		UrlTemplate:    "https://github.com/grafana/loki/releases/download/{{.Version}}/promtail-{{.Os}}-{{.Arch}}.zip",
