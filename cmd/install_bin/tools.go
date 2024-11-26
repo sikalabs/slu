@@ -399,6 +399,12 @@ var Tools = []Tool{
 		SourcePath:     "logcli-{{.Os}}-{{.Arch}}",
 	},
 	{
+		Name:           "alloy",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "alloy") },
+		UrlTemplate:    "https://github.com/grafana/alloy/releases/download/{{.Version}}/alloy-{{.Os}}-{{.Arch}}.zip",
+		SourcePath:     "alloy-{{.Os}}-{{.Arch}}",
+	},
+	{
 		Name:           "coredns",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("coredns", "coredns") },
 		UrlTemplate:    "https://github.com/coredns/coredns/releases/download/{{.Version}}/coredns_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tgz",
