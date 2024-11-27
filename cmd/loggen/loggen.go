@@ -1,6 +1,7 @@
 package loggen
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"net/url"
@@ -79,7 +80,7 @@ var Cmd = &cobra.Command{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "error",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "An error is usually an exception that has been caught and not handled.")
+						}, time.Now(), "An error is usually an exception that has been caught and not handled. "+fmt.Sprintf("i=%d", i))
 					}
 					i++
 					continue
@@ -91,7 +92,7 @@ var Cmd = &cobra.Command{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "warn",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable.")
+						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable. "+fmt.Sprintf("i=%d", i))
 					}
 					i++
 					continue
@@ -103,7 +104,7 @@ var Cmd = &cobra.Command{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "info",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task.")
+						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task. "+fmt.Sprintf("i=%d", i))
 					}
 					i++
 					continue
@@ -115,7 +116,7 @@ var Cmd = &cobra.Command{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "debug",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
+						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored. "+fmt.Sprintf("i=%d", i))
 					}
 					i++
 					continue
@@ -154,7 +155,7 @@ var Cmd = &cobra.Command{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "error",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "An error is usually an exception that has been caught and not handled.")
+						}, time.Now(), "An error is usually an exception that has been caught and not handled. "+fmt.Sprintf("i=%d", i))
 					}
 					i++
 					continue
@@ -166,7 +167,7 @@ var Cmd = &cobra.Command{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "warn",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable.")
+						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable. "+fmt.Sprintf("i=%d", i))
 					}
 					i++
 					continue
@@ -178,7 +179,7 @@ var Cmd = &cobra.Command{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "info",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task.")
+						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task. "+fmt.Sprintf("i=%d", i))
 					}
 					i++
 					continue
@@ -190,7 +191,7 @@ var Cmd = &cobra.Command{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "debug",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
+						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored. "+fmt.Sprintf("i=%d", i))
 					}
 					i++
 					continue
