@@ -113,7 +113,7 @@ var Cmd = &cobra.Command{
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
-							"level":    "info",
+							"level":    "debug",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
 					}
@@ -188,7 +188,7 @@ var Cmd = &cobra.Command{
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
-							"level":    "info",
+							"level":    "debug",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
 					}
