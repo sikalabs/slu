@@ -73,7 +73,7 @@ var Cmd = &cobra.Command{
 
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
-					logger.Error().Str("prefix", FlagLogPrefix).Int("i", i).Msg("An error is usually an exception that has been caught and not handled.")
+					logger.Error().Str("prefix", FlagLogPrefix).Int("i", i).Msg("ERROR An error is usually an exception that has been caught and not handled.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
