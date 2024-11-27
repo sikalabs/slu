@@ -5,7 +5,6 @@ import (
 	"math/rand"
 	"net/url"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/grafana/loki-client-go/loki"
@@ -78,7 +77,6 @@ var Cmd = &cobra.Command{
 						client.Handle(model.LabelSet{
 							"prefix": model.LabelValue(FlagLogPrefix),
 							"level":  "error",
-							"i":      model.LabelValue(strconv.Itoa(i)),
 						}, time.Now(), "An error is usually an exception that has been caught and not handled.")
 					}
 					i++
@@ -90,7 +88,6 @@ var Cmd = &cobra.Command{
 						client.Handle(model.LabelSet{
 							"prefix": model.LabelValue(FlagLogPrefix),
 							"level":  "warn",
-							"i":      model.LabelValue(strconv.Itoa(i)),
 						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable.")
 					}
 					i++
@@ -102,7 +99,6 @@ var Cmd = &cobra.Command{
 						client.Handle(model.LabelSet{
 							"prefix": model.LabelValue(FlagLogPrefix),
 							"level":  "info",
-							"i":      model.LabelValue(strconv.Itoa(i)),
 						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task.")
 					}
 					i++
@@ -114,7 +110,6 @@ var Cmd = &cobra.Command{
 						client.Handle(model.LabelSet{
 							"prefix": model.LabelValue(FlagLogPrefix),
 							"level":  "info",
-							"i":      model.LabelValue(strconv.Itoa(i)),
 						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
 					}
 					i++
@@ -153,7 +148,6 @@ var Cmd = &cobra.Command{
 						client.Handle(model.LabelSet{
 							"prefix": model.LabelValue(FlagLogPrefix),
 							"level":  "error",
-							"i":      model.LabelValue(strconv.Itoa(i)),
 						}, time.Now(), "An error is usually an exception that has been caught and not handled.")
 					}
 					i++
@@ -165,7 +159,6 @@ var Cmd = &cobra.Command{
 						client.Handle(model.LabelSet{
 							"prefix": model.LabelValue(FlagLogPrefix),
 							"level":  "warn",
-							"i":      model.LabelValue(strconv.Itoa(i)),
 						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable.")
 					}
 					i++
@@ -177,7 +170,6 @@ var Cmd = &cobra.Command{
 						client.Handle(model.LabelSet{
 							"prefix": model.LabelValue(FlagLogPrefix),
 							"level":  "info",
-							"i":      model.LabelValue(strconv.Itoa(i)),
 						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task.")
 					}
 					i++
@@ -189,7 +181,6 @@ var Cmd = &cobra.Command{
 						client.Handle(model.LabelSet{
 							"prefix": model.LabelValue(FlagLogPrefix),
 							"level":  "info",
-							"i":      model.LabelValue(strconv.Itoa(i)),
 						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
 					}
 					i++
