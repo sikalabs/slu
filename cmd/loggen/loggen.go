@@ -24,6 +24,7 @@ var FlagNoError bool
 var FlagNoWarn bool
 var FlagNoInfo bool
 var FlagNoDebug bool
+var FlagLokiLabelInstance string
 
 var Cmd = &cobra.Command{
 	Use:   "loggen",
@@ -75,8 +76,9 @@ var Cmd = &cobra.Command{
 					logger.Error().Str("prefix", FlagLogPrefix).Int("i", i).Msg("An error is usually an exception that has been caught and not handled.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
-							"prefix": model.LabelValue(FlagLogPrefix),
-							"level":  "error",
+							"prefix":   model.LabelValue(FlagLogPrefix),
+							"level":    "error",
+							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "An error is usually an exception that has been caught and not handled.")
 					}
 					i++
@@ -86,8 +88,9 @@ var Cmd = &cobra.Command{
 					logger.Warn().Str("prefix", FlagLogPrefix).Int("i", i).Msg("WARN A warning that should be ignored is usually at this level and should be actionable.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
-							"prefix": model.LabelValue(FlagLogPrefix),
-							"level":  "warn",
+							"prefix":   model.LabelValue(FlagLogPrefix),
+							"level":    "warn",
+							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable.")
 					}
 					i++
@@ -97,8 +100,9 @@ var Cmd = &cobra.Command{
 					logger.Info().Str("prefix", FlagLogPrefix).Int("i", i).Msg("INFO This is less important than debug log and is often used to provide context in the current task.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
-							"prefix": model.LabelValue(FlagLogPrefix),
-							"level":  "info",
+							"prefix":   model.LabelValue(FlagLogPrefix),
+							"level":    "info",
+							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task.")
 					}
 					i++
@@ -108,8 +112,9 @@ var Cmd = &cobra.Command{
 					logger.Debug().Str("prefix", FlagLogPrefix).Int("i", i).Msg("DEBUG This is a debug log that shows a log that can be ignored.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
-							"prefix": model.LabelValue(FlagLogPrefix),
-							"level":  "info",
+							"prefix":   model.LabelValue(FlagLogPrefix),
+							"level":    "info",
+							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
 					}
 					i++
@@ -146,8 +151,9 @@ var Cmd = &cobra.Command{
 					logger.Printf("ERROR An error is usually an exception that has been caught and not handled. (i=%d)\n", i)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
-							"prefix": model.LabelValue(FlagLogPrefix),
-							"level":  "error",
+							"prefix":   model.LabelValue(FlagLogPrefix),
+							"level":    "error",
+							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "An error is usually an exception that has been caught and not handled.")
 					}
 					i++
@@ -157,8 +163,9 @@ var Cmd = &cobra.Command{
 					logger.Printf("WARN A warning that should be ignored is usually at this level and should be actionable. (i=%d)\n", i)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
-							"prefix": model.LabelValue(FlagLogPrefix),
-							"level":  "warn",
+							"prefix":   model.LabelValue(FlagLogPrefix),
+							"level":    "warn",
+							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable.")
 					}
 					i++
@@ -168,8 +175,9 @@ var Cmd = &cobra.Command{
 					logger.Printf("INFO This is less important than debug log and is often used to provide context in the current task (i=%d)\n", i)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
-							"prefix": model.LabelValue(FlagLogPrefix),
-							"level":  "info",
+							"prefix":   model.LabelValue(FlagLogPrefix),
+							"level":    "info",
+							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task.")
 					}
 					i++
@@ -179,8 +187,9 @@ var Cmd = &cobra.Command{
 					logger.Printf("DEBUG This is a debug log that shows a log that can be ignored. (i=%d)\n", i)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
-							"prefix": model.LabelValue(FlagLogPrefix),
-							"level":  "info",
+							"prefix":   model.LabelValue(FlagLogPrefix),
+							"level":    "info",
+							"instance": model.LabelValue(FlagLokiLabelInstance),
 						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored.")
 					}
 					i++
@@ -253,6 +262,12 @@ func init() {
 		"json",
 		false,
 		"Format output to JSON",
+	)
+	Cmd.Flags().StringVar(
+		&FlagLokiLabelInstance,
+		"loki-label-instance",
+		"0",
+		"Loki label instance",
 	)
 }
 
