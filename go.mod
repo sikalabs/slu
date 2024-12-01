@@ -69,7 +69,7 @@ require (
 	github.com/qeesung/image2ascii v1.0.1
 	github.com/rs/zerolog v1.32.0
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/xanzy/go-gitlab v0.113.0
 	golang.org/x/crypto v0.28.0
 	golang.org/x/oauth2 v0.23.0
