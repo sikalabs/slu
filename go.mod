@@ -50,7 +50,7 @@ require (
 	github.com/docker/docker v27.3.1+incompatible
 	github.com/getsentry/sentry-go v0.30.0
 	github.com/go-git/go-git/v5 v5.12.0
-	github.com/go-sql-driver/mysql v1.7.1
+	github.com/go-sql-driver/mysql v1.8.1
 	github.com/grafana/loki-client-go v0.0.0-20240913122146-e119d400c3a5
 	github.com/hashicorp/vault/api v1.15.0
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
@@ -93,6 +93,7 @@ require (
 	cloud.google.com/go/auth/oauth2adapt v0.2.5 // indirect
 	cloud.google.com/go/compute/metadata v0.5.2 // indirect
 	dario.cat/mergo v1.0.0 // indirect
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.11.1 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.6.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/internal v1.8.0 // indirect
