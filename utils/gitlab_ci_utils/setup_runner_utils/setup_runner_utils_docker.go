@@ -61,7 +61,7 @@ func SetupGitlabRunnerDocker(gitlabUrl, token, hostname string, concurrency int,
 		"--docker-volumes", buildsVolume,
 	}
 	if forwardDockerSocket {
-		args = append(args, "--docker-volumes", "/var/run/docker.sock:/var/run/docker.sock")
+		args = append(args, "--docker-volumes", "/var/run/docker.sock:/var/run/docker.sock", "--docker-privileged")
 	}
 	if dryRun {
 		printCommand("docker", args)
