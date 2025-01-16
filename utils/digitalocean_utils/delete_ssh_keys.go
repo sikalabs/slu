@@ -9,7 +9,9 @@ import (
 
 func PrepareAllSSHKeysDelete(token string) []godo.Key {
 	client := godo.NewFromToken(token)
-	Keys, _, _ := client.Keys.List(context.TODO(), &godo.ListOptions{})
+	Keys, _, _ := client.Keys.List(context.TODO(), &godo.ListOptions{
+		PerPage: 200,
+	})
 	fmt.Println("SSH Keys marked for clean up:")
 	for _, el := range Keys {
 		fmt.Println(el.Name)

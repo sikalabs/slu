@@ -9,7 +9,9 @@ import (
 
 func PrepareAllDomainsDelete(token string) []godo.Domain {
 	client := godo.NewFromToken(token)
-	domains, _, _ := client.Domains.List(context.TODO(), &godo.ListOptions{})
+	domains, _, _ := client.Domains.List(context.TODO(), &godo.ListOptions{
+		PerPage: 200,
+	})
 	fmt.Println("Domains marked for clean up:")
 	for _, el := range domains {
 		fmt.Println(el.Name)

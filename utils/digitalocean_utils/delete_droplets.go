@@ -9,7 +9,9 @@ import (
 
 func PrepareAllDropletsDelete(token string) []godo.Droplet {
 	client := godo.NewFromToken(token)
-	Droplets, _, _ := client.Droplets.List(context.TODO(), &godo.ListOptions{})
+	Droplets, _, _ := client.Droplets.List(context.TODO(), &godo.ListOptions{
+		PerPage: 200,
+	})
 	fmt.Println("Droplets marked for clean up:")
 	for _, v := range Droplets {
 		fmt.Println(v.Name)

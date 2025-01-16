@@ -18,7 +18,9 @@ func GetToken() string {
 }
 
 func listKubernetes(client *godo.Client) {
-	clusters, _, _ := client.Kubernetes.List(context.TODO(), &godo.ListOptions{})
+	clusters, _, _ := client.Kubernetes.List(context.TODO(), &godo.ListOptions{
+		PerPage: 200,
+	})
 	if len(clusters) == 0 {
 		return
 	}
@@ -31,7 +33,9 @@ func listKubernetes(client *godo.Client) {
 }
 
 func listDroplets(client *godo.Client) {
-	droplets, _, _ := client.Droplets.List(context.TODO(), &godo.ListOptions{})
+	droplets, _, _ := client.Droplets.List(context.TODO(), &godo.ListOptions{
+		PerPage: 200,
+	})
 	if len(droplets) == 0 {
 		return
 	}
@@ -43,7 +47,9 @@ func listDroplets(client *godo.Client) {
 }
 
 func listLoadBalancers(client *godo.Client) {
-	loadbalancers, _, _ := client.LoadBalancers.List(context.TODO(), &godo.ListOptions{})
+	loadbalancers, _, _ := client.LoadBalancers.List(context.TODO(), &godo.ListOptions{
+		PerPage: 200,
+	})
 	if len(loadbalancers) == 0 {
 		return
 	}
@@ -55,7 +61,11 @@ func listLoadBalancers(client *godo.Client) {
 }
 
 func listVolumes(client *godo.Client) {
-	volumes, _, _ := client.Storage.ListVolumes(context.TODO(), &godo.ListVolumeParams{})
+	volumes, _, _ := client.Storage.ListVolumes(context.TODO(), &godo.ListVolumeParams{
+		ListOptions: &godo.ListOptions{
+			PerPage: 200,
+		},
+	})
 	if len(volumes) == 0 {
 		return
 	}
@@ -67,7 +77,9 @@ func listVolumes(client *godo.Client) {
 }
 
 func listDomains(client *godo.Client) {
-	domains, _, _ := client.Domains.List(context.TODO(), &godo.ListOptions{})
+	domains, _, _ := client.Domains.List(context.TODO(), &godo.ListOptions{
+		PerPage: 200,
+	})
 	if len(domains) == 0 {
 		return
 	}
@@ -79,7 +91,9 @@ func listDomains(client *godo.Client) {
 }
 
 func listSSHKeys(client *godo.Client) {
-	keys, _, _ := client.Keys.List(context.TODO(), &godo.ListOptions{})
+	keys, _, _ := client.Keys.List(context.TODO(), &godo.ListOptions{
+		PerPage: 200,
+	})
 	if len(keys) == 0 {
 		return
 	}
@@ -103,7 +117,11 @@ func ListAll(token string) {
 func PrepareVolumesCleanUp(token string) []godo.Volume {
 	var volumesForCleanUp []godo.Volume
 	client := godo.NewFromToken(token)
-	volumes, _, _ := client.Storage.ListVolumes(context.TODO(), &godo.ListVolumeParams{})
+	volumes, _, _ := client.Storage.ListVolumes(context.TODO(), &godo.ListVolumeParams{
+		ListOptions: &godo.ListOptions{
+			PerPage: 200,
+		},
+	})
 	for _, volume := range volumes {
 		if len(volume.DropletIDs) == 0 {
 			volumesForCleanUp = append(volumesForCleanUp, volume)
