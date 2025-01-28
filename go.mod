@@ -61,7 +61,7 @@ require (
 	github.com/mhale/smtpd v0.8.3
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/ondrejsika/go-dela v1.1.0
-	github.com/ondrejsika/go-iceland v0.1.0
+	github.com/ondrejsika/go-iceland v0.2.0
 	github.com/pires/go-proxyproto v0.8.0
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
 	github.com/prometheus/client_golang v1.20.4
