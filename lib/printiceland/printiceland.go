@@ -18,6 +18,7 @@ func PrintRadomIcelandPhoto() {
 		&iceland.ICELAND_LAVA_FIELD_2022,
 		&iceland.ICELAND_RIVER_AT_POOL_2022,
 		&iceland.ICELAND_ICE_2018,
+		&iceland.ICELAND_FREE_CAMP_2022,
 	}
 	randomIndex := rand.Intn(len(images))
 	randomImage := images[randomIndex]
