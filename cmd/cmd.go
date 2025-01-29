@@ -268,6 +268,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/watch"
 	_ "github.com/sikalabs/slu/cmd/web_server"
 	_ "github.com/sikalabs/slu/cmd/web_server/iceland"
+	_ "github.com/sikalabs/slu/cmd/web_server/iceland_fullscreen"
 	_ "github.com/sikalabs/slu/cmd/windows"
 	_ "github.com/sikalabs/slu/cmd/windows/scoop_install"
 	_ "github.com/sikalabs/slu/cmd/wireguard"
