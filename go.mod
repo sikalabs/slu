@@ -73,7 +73,7 @@ require (
 	github.com/xanzy/go-gitlab v0.113.0
 	golang.org/x/crypto v0.31.0
 	golang.org/x/oauth2 v0.25.0
-	golang.org/x/sys v0.28.0
+	golang.org/x/sys v0.30.0
 	golang.org/x/text v0.21.0
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20221104135756-97bc4ad4a1cb
 	google.golang.org/api v0.204.0
