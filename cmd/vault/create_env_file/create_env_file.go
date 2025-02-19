@@ -16,13 +16,14 @@ var FlagVaultToken string
 var FlagPath string
 var FlagMount string
 var FlagEnvFileName string
+var FlagHeaders map[string]string
 
 var Cmd = &cobra.Command{
 	Use:   "create-env-file",
 	Short: "Create .env file form secret stored in HashiCorp Vault",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		createEnvFile(FlagVaultAddress, FlagVaultToken, FlagPath, FlagMount, FlagEnvFileName)
+		createEnvFile(FlagVaultAddress, FlagVaultToken, FlagPath, FlagMount, FlagEnvFileName, FlagHeaders)
 	},
 }
 
@@ -66,9 +67,16 @@ func init() {
 		".env",
 		"Name of the env file to create",
 	)
+	Cmd.Flags().StringToStringVarP(
+		&FlagHeaders,
+		"header",
+		"H",
+		map[string]string{},
+		"Headers to add to the request",
+	)
 }
 
-func createEnvFile(vaultAddress, vaultToken, secretPath, mount, envFileName string) {
+func createEnvFile(vaultAddress, vaultToken, secretPath, mount, envFileName string, headers map[string]string) {
 	// Create a Vault client
 	config := api.DefaultConfig()
 	config.Address = vaultAddress
@@ -76,6 +84,10 @@ func createEnvFile(vaultAddress, vaultToken, secretPath, mount, envFileName stri
 	client, err := api.NewClient(config)
 	if err != nil {
 		log.Fatalf("Failed to create Vault client: %v", err)
+	}
+
+	for key, value := range headers {
+		client.AddHeader(key, value)
 	}
 
 	// Set the token
