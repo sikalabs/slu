@@ -109,7 +109,7 @@ func createEnvFile(vaultAddress, vaultToken, secretPath, mount, envFileName stri
 	// Write the environment variables to the .env file
 	for key, value := range secret.Data {
 		if v, ok := value.(string); ok {
-			envLine := fmt.Sprintf("%s=%s\n", key, v)
+			envLine := fmt.Sprintf("%s=\"%s\"\n", key, v)
 			_, err := file.WriteString(envLine)
 			if err != nil {
 				log.Fatalf("Failed to write to %s file: %v", envFileName, err)
