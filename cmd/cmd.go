@@ -117,6 +117,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/install_bin"
 	_ "github.com/sikalabs/slu/cmd/ip"
 	_ "github.com/sikalabs/slu/cmd/ip_local"
+	_ "github.com/sikalabs/slu/cmd/jwt"
 	_ "github.com/sikalabs/slu/cmd/k8s"
 	_ "github.com/sikalabs/slu/cmd/k8s/create_oidc_user"
 	_ "github.com/sikalabs/slu/cmd/k8s/delete_ns"
