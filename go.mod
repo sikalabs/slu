@@ -51,6 +51,7 @@ require (
 	github.com/getsentry/sentry-go v0.31.1
 	github.com/go-git/go-git/v5 v5.13.2
 	github.com/go-sql-driver/mysql v1.8.1
+	github.com/golang-jwt/jwt/v4 v4.5.1
 	github.com/grafana/loki-client-go v0.0.0-20240913122146-e119d400c3a5
 	github.com/hashicorp/vault/api v1.15.0
 	github.com/heroku/docker-registry-client v0.0.0-20211012143308-9463674c8930
@@ -171,7 +172,6 @@ require (
 	github.com/goccy/go-json v0.10.4 // indirect
 	github.com/gofrs/uuid v4.4.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang-jwt/jwt/v4 v4.5.1 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect

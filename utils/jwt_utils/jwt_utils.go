@@ -1,10 +1,12 @@
 package jwt_utils
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 
+	"github.com/coreos/go-oidc"
 	"github.com/golang-jwt/jwt/v4"
 )
 
@@ -37,4 +39,20 @@ func decodeJSON(data []byte) interface{} {
 		log.Fatal("Error unmarshalling JSON: ", err)
 	}
 	return obj
+}
+
+func ValidateJWT(issuer, rawToken string) error {
+	ctx := context.Background()
+
+	provider, err := oidc.NewProvider(ctx, issuer)
+	if err != nil {
+		return err
+	}
+
+	_, err = provider.Verifier(&oidc.Config{SkipClientIDCheck: true}).Verify(ctx, rawToken)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
