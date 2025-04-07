@@ -25,11 +25,11 @@ func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
 }
 
-type GoVersion struct {
-	Version string `json:"version"`
-}
-
 func getLatestVersionOfGoOrDie() string {
+	type GoVersion struct {
+		Version string `json:"version"`
+	}
+
 	resp, err := http.Get("https://go.dev/dl/?mode=json")
 	if err != nil {
 		log.Fatalln(err)
