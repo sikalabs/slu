@@ -46,7 +46,7 @@ require (
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/cheggaaa/pb/v3 v3.1.5
 	github.com/cloudflare/cloudflare-go v0.115.0
-	github.com/coreos/go-oidc v2.2.1+incompatible
+	github.com/coreos/go-oidc v2.3.0+incompatible
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.136.0
 	github.com/docker/docker v27.3.1+incompatible
@@ -304,8 +304,8 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20241021214115-324edc3d5d38 // indirect
 	google.golang.org/grpc v1.67.1 // indirect
 	google.golang.org/protobuf v1.36.1 // indirect
+	gopkg.in/go-jose/go-jose.v2 v2.6.3 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
-	gopkg.in/square/go-jose.v2 v2.5.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/apiextensions-apiserver v0.24.2 // indirect
