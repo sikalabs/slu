@@ -409,6 +409,13 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("coredns", "coredns") },
 		UrlTemplate:    "https://github.com/coredns/coredns/releases/download/{{.Version}}/coredns_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tgz",
 	},
+	{
+		Name:           "rclone",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("rclone", "rclone") },
+		UrlTemplate:    "https://github.com/rclone/rclone/releases/download/{{.Version}}/rclone-{{.Version}}-{{.Os}}-{{.Arch}}.zip",
+		SourcePath:     "rclone-{{.Version}}-{{.Os}}-{{.Arch}}/rclone",
+		GetOsFunc:      rcloneGetOsFunc,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
@@ -468,4 +475,11 @@ func hadolintGetArchFunc(arch string) string {
 		return "x86_64"
 	}
 	return arch
+}
+
+func rcloneGetOsFunc(os string) string {
+	if os == "darwin" {
+		return "osx"
+	}
+	return os
 }
