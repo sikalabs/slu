@@ -39,9 +39,9 @@ indent_style = tab
 	// go.mod
 	"go.mod": `module {{.Package}}
 
-go 1.21
+go 1.24
 
-require github.com/spf13/cobra v1.8.0
+require github.com/spf13/cobra v1.9.1
 `,
 	// version/version.go
 	"version/version.go": `package version
