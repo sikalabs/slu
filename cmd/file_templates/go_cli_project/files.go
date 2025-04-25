@@ -111,7 +111,9 @@ func main() {
 }
 `,
 	// .goreleaser.yml
-	".goreleaser.yml": `project_name: {{.ProjectName}}
+	".goreleaser.yml": `version: 2
+
+project_name: {{.ProjectName}}
 
 before:
   hooks:
@@ -155,7 +157,7 @@ builds:
     binary: {{.ProjectName}}
 
 archives:
-  - format: tar.gz
+  - formats: [ "tar.gz" ]
     name_template: "{{"{{"}} .ProjectName {{"}}"}}_v{{"{{"}} .Version {{"}}"}}_{{"{{"}} .Os {{"}}"}}_{{"{{"}} .Arch {{"}}"}}"
 
 release:
@@ -168,13 +170,13 @@ checksum:
 brews:
   -
     name: {{.ProjectName}}
-    tap:
+    repository:
       owner: {{.BrewOrganization}}
       name: {{.BrewRepo}}
     skip_upload: auto
     homepage: https://{{.Package}}
     url_template: "https://{{.Package}}/releases/download/{{"{{"}} .Tag {{"}}"}}/{{"{{"}} .ArtifactName {{"}}"}}"
-    folder: Formula
+    directory: Formula
     caveats: "How to use this binary: https://{{.Package}}"
     description: "{{.ProjectName}}"
     install: |
