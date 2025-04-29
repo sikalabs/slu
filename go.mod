@@ -71,6 +71,7 @@ require (
 	github.com/prometheus/common v0.62.0
 	github.com/qeesung/image2ascii v1.0.1
 	github.com/rs/zerolog v1.33.0
+	github.com/showwin/speedtest-go v1.7.10
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.8.1
 	github.com/xanzy/go-gitlab v0.113.0
@@ -153,7 +154,7 @@ require (
 	github.com/evanphx/json-patch v5.6.0+incompatible // indirect
 	github.com/exponent-io/jsonpath v0.0.0-20151013193312-d6023ce2651d // indirect
 	github.com/fatih/camelcase v1.0.0 // indirect
-	github.com/fatih/color v1.16.0 // indirect
+	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fvbommel/sortorder v1.0.1 // indirect
 	github.com/go-errors/errors v1.4.2 // indirect
