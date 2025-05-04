@@ -78,7 +78,7 @@ require (
 	golang.org/x/crypto v0.36.0
 	golang.org/x/oauth2 v0.29.0
 	golang.org/x/sys v0.31.0
-	golang.org/x/text v0.23.0
+	golang.org/x/text v0.24.0
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20221104135756-97bc4ad4a1cb
 	google.golang.org/api v0.204.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -296,7 +296,7 @@ require (
 	go.uber.org/goleak v1.3.0 // indirect
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56 // indirect
 	golang.org/x/net v0.38.0 // indirect
-	golang.org/x/sync v0.12.0 // indirect
+	golang.org/x/sync v0.13.0 // indirect
 	golang.org/x/term v0.30.0 // indirect
 	golang.org/x/time v0.9.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
