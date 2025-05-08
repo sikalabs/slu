@@ -245,6 +245,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/static_api/version"
 	_ "github.com/sikalabs/slu/cmd/systemd"
 	_ "github.com/sikalabs/slu/cmd/systemd/create_service"
+	_ "github.com/sikalabs/slu/cmd/telegram"
 	_ "github.com/sikalabs/slu/cmd/time"
 	_ "github.com/sikalabs/slu/cmd/time/prefix"
 	_ "github.com/sikalabs/slu/cmd/time/unix"
