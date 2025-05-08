@@ -46,7 +46,7 @@ func init() {
 		&FlagSendToChat,
 		"send-to-chat",
 		"s",
-		FlagSendToChat,
+		false,
 		"Send message to chat",
 	)
 }
