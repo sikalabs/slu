@@ -3,6 +3,7 @@ package get_chat_id
 import (
 	"fmt"
 	"log"
+	"os"
 
 	parentcmd "github.com/sikalabs/slu/cmd/telegram"
 	"github.com/sikalabs/slu/utils/telegram_utils"
@@ -29,15 +30,18 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
+	botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
 	parentcmd.Cmd.AddCommand(Cmd)
 	Cmd.Flags().StringVarP(
 		&FlagBotToken,
 		"bot-token",
 		"t",
-		FlagBotToken,
-		"Telegram Bot token",
+		botToken,
+		"Telegram Bot token, can be set via TELEGRAM_BOT_TOKEN env var",
 	)
-	Cmd.MarkFlagRequired("bot-token")
+	if botToken == "" {
+		Cmd.MarkFlagRequired("bot-token")
+	}
 	Cmd.Flags().BoolVarP(
 		&FlagSendToChat,
 		"send-to-chat",
