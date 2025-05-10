@@ -421,6 +421,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "dogsay") },
 		UrlTemplate:    "https://github.com/sikalabs/dogsay/releases/download/{{.Version}}/dogsay_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "counter",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("ondrejsika", "counter") },
+		UrlTemplate:    "https://github.com/ondrejsika/counter/releases/download/{{.Version}}/counter_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
