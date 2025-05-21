@@ -13,18 +13,31 @@ import (
 var FlagJson bool
 var FlagImage string
 var FlagShell string
+var FlagNode string
 
 var Cmd = &cobra.Command{
 	Use:   "kdev",
 	Short: "Run sikalabs/dev in Kubernetes",
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(c *cobra.Command, args []string) {
-		cmd := exec.Command(
-			"kubectl", "run",
-			"dev-"+strconv.Itoa(time_utils.Unix()),
+		kubectlRunArgs := []string{
+			"dev-" + strconv.Itoa(time_utils.Unix()),
 			"--rm", "-ti",
 			"--image", FlagImage,
-			"--", FlagShell,
+		}
+
+		if FlagNode != "" {
+			kubectlRunArgs = append(
+				kubectlRunArgs,
+				"--overrides", `{"spec": {"nodeName": "`+FlagNode+`"}}`,
+			)
+		}
+
+		kubectlArgs := append([]string{"run"}, kubectlRunArgs...)
+		kubectlArgs = append(kubectlArgs, "--", FlagShell)
+
+		cmd := exec.Command(
+			"kubectl", kubectlArgs...,
 		)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -48,5 +61,11 @@ func init() {
 		"s",
 		"zsh",
 		"Shell to run in container",
+	)
+	Cmd.Flags().StringVar(
+		&FlagNode,
+		"node",
+		"",
+		"Node to run on",
 	)
 }
