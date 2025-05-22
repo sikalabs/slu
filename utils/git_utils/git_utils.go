@@ -178,7 +178,7 @@ func TagNextCalver() {
 	}
 
 	nextTag := fmt.Sprintf("v%d.%d.%d", nowY, nowM, nextMicro)
-	err = exec_utils.ExecOut("git", "tag", nextTag)
+	err = exec_utils.ExecOut("git", "tag", nextTag, "-a", "-m", nextTag)
 	if err != nil {
 		log.Fatalln(err)
 	}
