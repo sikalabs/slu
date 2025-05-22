@@ -1,6 +1,8 @@
 package crictl
 
 import (
+	"log"
+
 	parent_cmd "github.com/sikalabs/slu/cmd/rke2"
 	"github.com/sikalabs/slu/utils/exec_utils"
 
@@ -16,7 +18,10 @@ var Cmd = &cobra.Command{
 			"--runtime-endpoint", "unix:///run/k3s/containerd/containerd.sock",
 		}
 		crictlArgs = append(crictlArgs, args...)
-		exec_utils.ExecOut(crictlBin, crictlArgs...)
+		err := exec_utils.ExecOut(crictlBin, crictlArgs...)
+		if err != nil {
+			log.Fatalln(err)
+		}
 	},
 }
 
