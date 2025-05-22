@@ -28,10 +28,6 @@ var Cmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		// Prepare cleanup script
-		dockerUp, _ := docker_utils.Ping()
-		if dockerUp {
-			registerSh("docker system prune --force")
-		}
 		registerRm(".minikube/cache")
 		if FlagYesYarnCache {
 			registerRm("./Library/Caches/Yarn/*")
@@ -51,13 +47,17 @@ var Cmd = &cobra.Command{
 			registerRm(".terraform-plugin-cache/*")
 		}
 		registerRm("./Library/Caches/lima/")
+		dockerUp, _ := docker_utils.Ping()
+		if dockerUp {
+			registerSh("docker system prune --force")
+		}
 
 		// Review cleanup script
-		for _, script := range ListSh {
-			fmt.Println(script)
-		}
 		for _, rmParam := range ListRm {
 			fmt.Println("rm -rf", rmParam)
+		}
+		for _, script := range ListSh {
+			fmt.Println(script)
 		}
 
 		if FlagDryRun {
@@ -69,11 +69,11 @@ var Cmd = &cobra.Command{
 		time.Sleep(10 * time.Second)
 
 		// Do cleanup
-		for _, script := range ListSh {
-			sh(script)
-		}
 		for _, rmParam := range ListRm {
 			rm(rmParam)
+		}
+		for _, script := range ListSh {
+			sh(script)
 		}
 	},
 }
