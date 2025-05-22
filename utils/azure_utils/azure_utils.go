@@ -69,8 +69,7 @@ func PrintAllResourcesFromCurrentSubscription() {
 	resources := GetAllResourcesFromCurrentSubscription()
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetBorder(false)
-	table.SetHeader([]string{
+	table.Header([]string{
 		"Name",
 		"Type",
 		"Location",

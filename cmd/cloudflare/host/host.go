@@ -50,8 +50,7 @@ var Cmd = &cobra.Command{
 		}
 
 		table := tablewriter.NewWriter(os.Stdout)
-		table.SetBorder(false)
-		table.SetHeader([]string{
+		table.Header([]string{
 			"Name",
 			"Type",
 			"Value",

@@ -65,7 +65,7 @@ func GetRows(db *gorm.DB, table string) [][]string {
 
 func PrintTable(db *gorm.DB, table string) {
 	tw := tablewriter.NewWriter(os.Stdout)
-	tw.SetHeader(GetColumns(db, table))
+	tw.Header(GetColumns(db, table))
 	data := GetRows(db, table)
 
 	for _, row := range data {

@@ -62,7 +62,7 @@ require (
 	github.com/k0sproject/rig v0.20.0
 	github.com/lib/pq v1.10.9
 	github.com/mhale/smtpd v0.8.3
-	github.com/olekukonko/tablewriter v0.0.6-0.20230925090304-df64c4bbad77
+	github.com/olekukonko/tablewriter v1.0.6
 	github.com/ondrejsika/go-dela v1.1.0
 	github.com/ondrejsika/go-iceland v0.2.0
 	github.com/pires/go-proxyproto v0.8.0
@@ -242,7 +242,7 @@ require (
 	github.com/masterzen/winrm v0.0.0-20240702205601-3fad6e106085 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mattn/go-runewidth v0.0.15 // indirect
+	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/mattn/go-shellwords v1.0.12 // indirect
 	github.com/mattn/go-sqlite3 v1.14.22 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
@@ -260,6 +260,8 @@ require (
 	github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f // indirect
 	github.com/mxk/go-flowrate v0.0.0-20140419014527-cca7078d478f // indirect
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
+	github.com/olekukonko/errors v0.0.0-20250405072817-4e6d85265da6 // indirect
+	github.com/olekukonko/ll v0.0.8-0.20250516010636-22ea57d81985 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
