@@ -64,7 +64,7 @@ func init() {
 		&FlagImage,
 		"image",
 		"i",
-		"sikalabs/dev",
+		"ghcr.io/sikalabs/dev",
 		"Container Image",
 	)
 	Cmd.Flags().BoolVar(
