@@ -436,6 +436,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("k3d-io", "k3d") },
 		UrlTemplate:    "https://github.com/k3d-io/k3d/releases/download/{{.Version}}/k3d-{{.Os}}-{{.Arch}}",
 	},
+	{
+		Name:           "terragrunt",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("gruntwork-io", "terragrunt") },
+		UrlTemplate:    "https://github.com/gruntwork-io/terragrunt/releases/download/{{.Version}}/terragrunt_{{.Os}}_{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
