@@ -441,6 +441,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("gruntwork-io", "terragrunt") },
 		UrlTemplate:    "https://github.com/gruntwork-io/terragrunt/releases/download/{{.Version}}/terragrunt_{{.Os}}_{{.Arch}}",
 	},
+	{
+		Name:           "asdf",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("asdf-vm", "asdf") },
+		UrlTemplate:    "https://github.com/asdf-vm/asdf/releases/download/{{.Version}}/asdf-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
