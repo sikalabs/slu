@@ -18,6 +18,7 @@ var FlagYesGoPkgModCache bool
 var FlagYesYarnCache bool
 var FlagTerraformPluginDir bool
 var FlagBrewCache bool
+var FlagNoDockerPrune bool
 
 var ListSh []string
 var ListRm []string
@@ -47,9 +48,11 @@ var Cmd = &cobra.Command{
 			registerRm(".terraform-plugin-cache/*")
 		}
 		registerRm("./Library/Caches/lima/")
-		dockerUp, _ := docker_utils.Ping()
-		if dockerUp {
-			registerSh("docker system prune --force")
+		if !FlagNoDockerPrune {
+			dockerUp, _ := docker_utils.Ping()
+			if dockerUp {
+				registerSh("docker system prune --force")
+			}
 		}
 
 		// Review cleanup script
@@ -115,6 +118,12 @@ func init() {
 		"brew-cache",
 		false,
 		"Cleanup Brew cache (rm -rf ~/Library/Caches/Homebrew/*)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagNoDockerPrune,
+		"no-docker-prune",
+		false,
+		"Do not run docker system prune",
 	)
 }
 
