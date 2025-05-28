@@ -67,6 +67,7 @@ require (
 	github.com/ondrejsika/go-iceland v0.2.0
 	github.com/pires/go-proxyproto v0.8.0
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
+	github.com/pquerna/otp v1.5.0
 	github.com/prometheus/client_golang v1.21.1
 	github.com/prometheus/common v0.62.0
 	github.com/qeesung/image2ascii v1.0.1
@@ -131,6 +132,7 @@ require (
 	github.com/bodgit/ntlmssp v0.0.0-20240506230425-31973bb52d9b // indirect
 	github.com/bodgit/windows v1.0.1 // indirect
 	github.com/bombsimon/logrusr/v4 v4.1.0 // indirect
+	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/bradleyfalzon/ghinstallation/v2 v2.14.0 // indirect
 	github.com/casbin/casbin/v2 v2.103.0 // indirect
 	github.com/casbin/govaluate v1.3.0 // indirect
