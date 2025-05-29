@@ -3,6 +3,7 @@
 
 # Editer
 .vscode
+.idea
 
 # App
 dist/**
@@ -18,3 +19,6 @@ cobra-docs
 
 # Local scripts
 *.local.sh
+
+# Go
+/vendor

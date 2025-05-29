@@ -238,6 +238,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/serve_files"
 	_ "github.com/sikalabs/slu/cmd/shell_scripts"
 	_ "github.com/sikalabs/slu/cmd/shell_scripts/required_environment_variables"
+	_ "github.com/sikalabs/slu/cmd/slack"
+	_ "github.com/sikalabs/slu/cmd/slack/send_notification"
 	_ "github.com/sikalabs/slu/cmd/sleep"
 	_ "github.com/sikalabs/slu/cmd/sleep/forever"
 	_ "github.com/sikalabs/slu/cmd/sleep/random"
