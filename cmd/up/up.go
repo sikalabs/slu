@@ -51,7 +51,10 @@ func checkMakeUp() bool {
 }
 
 func checkDockerComposeUp() bool {
-	return file_utils.FileExists("docker-compose.yml") || file_utils.FileExists("docker-compose.yaml")
+	return file_utils.FileExists("compose.yml") ||
+		file_utils.FileExists("compose.yaml") ||
+		file_utils.FileExists("docker-compose.yml") ||
+		file_utils.FileExists("docker-compose.yaml")
 }
 
 func checkGoRunMailGO() bool {
