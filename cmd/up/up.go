@@ -22,6 +22,9 @@ var Cmd = &cobra.Command{
 		} else if checkDockerComposeUp() {
 			fmt.Println("slu up: docker compose up")
 			exec_utils.ExecOut("docker", append([]string{"compose", "up"}, args...)...)
+		} else if checkGoRunMod() {
+			fmt.Println("slu up: go run .")
+			exec_utils.ExecOut("go", append([]string{"run", "."}, args...)...)
 		} else if checkGoRunMainGO() {
 			fmt.Println("slu up: go run main.go")
 			exec_utils.ExecOut("go", append([]string{"run", "main.go"}, args...)...)
@@ -55,6 +58,10 @@ func checkDockerComposeUp() bool {
 		file_utils.FileExists("compose.yaml") ||
 		file_utils.FileExists("docker-compose.yml") ||
 		file_utils.FileExists("docker-compose.yaml")
+}
+
+func checkGoRunMod() bool {
+	return file_utils.FileExists("go.mod")
 }
 
 func checkGoRunMainGO() bool {
