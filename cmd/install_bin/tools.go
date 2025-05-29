@@ -446,6 +446,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("asdf-vm", "asdf") },
 		UrlTemplate:    "https://github.com/asdf-vm/asdf/releases/download/{{.Version}}/asdf-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "kube-score",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("zegl", "kube-score") },
+		UrlTemplate:    "https://github.com/zegl/kube-score/releases/download/{{.Version}}/kube-score_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
