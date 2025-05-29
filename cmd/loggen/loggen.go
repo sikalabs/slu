@@ -26,6 +26,7 @@ var FlagNoWarn bool
 var FlagNoInfo bool
 var FlagNoDebug bool
 var FlagLokiLabelInstance string
+var FlagLimit int
 
 var Cmd = &cobra.Command{
 	Use:   "loggen",
@@ -70,6 +71,11 @@ var Cmd = &cobra.Command{
 			}
 
 			for {
+				if FlagLimit > 0 && i >= FlagLimit {
+					logger.Info().Str("prefix", FlagLogPrefix).Int("i", i).Msg("Reached limit, exiting.")
+					os.Exit(0)
+				}
+
 				time.Sleep(time.Duration(FlagSleepTime) * time.Millisecond)
 
 				randomNumber := rand.Intn(100)
@@ -145,6 +151,12 @@ var Cmd = &cobra.Command{
 			}
 
 			for {
+				if FlagLimit > 0 && i >= FlagLimit {
+					// Log the limit reached message
+					logger.Printf("INFO Reached limit, exiting. (i=%d)\n", i)
+					os.Exit(0)
+				}
+
 				time.Sleep(time.Duration(FlagSleepTime) * time.Millisecond)
 
 				randomNumber := rand.Intn(100)
@@ -269,6 +281,12 @@ func init() {
 		"loki-label-instance",
 		"0",
 		"Loki label instance",
+	)
+	Cmd.Flags().IntVar(
+		&FlagLimit,
+		"limit",
+		0,
+		"Limit number of logs to generate (default: no limit)",
 	)
 }
 
