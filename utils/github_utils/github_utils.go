@@ -22,6 +22,10 @@ type TagsResponse struct {
 	Name string `json:"name"`
 }
 
+type CommitResponse struct {
+	Sha string `json:"sha"`
+}
+
 func GetLatestRelease(user, repo string) string {
 	release, err := GetLatestReleaseE(user, repo)
 	handleError(err)
@@ -90,4 +94,35 @@ func GetLatestTagE(user, repo string) (string, error) {
 	}
 
 	return data[0].Name, nil
+}
+
+func GetLatestCommitE(user, repo string) (string, error) {
+	var err error
+
+	resp, err := http.Get("https://api.github.com/repos/" + user + "/" + repo + "/commits")
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("repository %s/%s does not exist", user, repo)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	data := []CommitResponse{}
+
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return "", err
+	}
+
+	if len(data) == 0 {
+		return "", fmt.Errorf("repository %s/%s has no tags", user, repo)
+	}
+
+	return data[0].Sha, nil
 }
