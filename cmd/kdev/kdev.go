@@ -10,7 +10,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var FlagJson bool
 var FlagImage string
 var FlagShell string
 var FlagNode string
