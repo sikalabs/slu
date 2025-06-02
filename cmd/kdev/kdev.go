@@ -1,9 +1,11 @@
 package ip
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 
 	"github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/time_utils"
@@ -13,6 +15,7 @@ import (
 var FlagImage string
 var FlagShell string
 var FlagNode string
+var FlagDryRun bool
 
 var Cmd = &cobra.Command{
 	Use:   "kdev",
@@ -35,13 +38,20 @@ var Cmd = &cobra.Command{
 		kubectlArgs := append([]string{"run"}, kubectlRunArgs...)
 		kubectlArgs = append(kubectlArgs, "--", FlagShell)
 
-		cmd := exec.Command(
-			"kubectl", kubectlArgs...,
-		)
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		cmd.Stdin = os.Stdin
-		cmd.Run()
+		if FlagDryRun {
+			fmt.Printf(
+				"kubectl %s\n",
+				strings.Join(kubectlArgs, " "),
+			)
+		} else {
+			cmd := exec.Command(
+				"kubectl", kubectlArgs...,
+			)
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			cmd.Stdin = os.Stdin
+			cmd.Run()
+		}
 	},
 }
 
@@ -66,5 +76,11 @@ func init() {
 		"node",
 		"",
 		"Node to run on",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagDryRun,
+		"dry-run",
+		false,
+		"print command instead of running it",
 	)
 }
