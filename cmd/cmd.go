@@ -258,6 +258,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/telegram/get_chat_id"
 	_ "github.com/sikalabs/slu/cmd/time"
 	_ "github.com/sikalabs/slu/cmd/time/now"
+	_ "github.com/sikalabs/slu/cmd/time/parse"
 	_ "github.com/sikalabs/slu/cmd/time/prefix"
 	_ "github.com/sikalabs/slu/cmd/time/unix"
 	_ "github.com/sikalabs/slu/cmd/time/yyyy_mm_dd_hh_mm_ss"
