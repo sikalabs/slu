@@ -16,6 +16,7 @@ var FlagImage string
 var FlagShell string
 var FlagNode string
 var FlagDryRun bool
+var FlagDetached bool
 
 var Cmd = &cobra.Command{
 	Use:   "kdev",
@@ -24,8 +25,11 @@ var Cmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		kubectlRunArgs := []string{
 			"dev-" + strconv.Itoa(time_utils.Unix()),
-			"--rm", "-ti",
 			"--image", FlagImage,
+		}
+
+		if !FlagDetached {
+			kubectlRunArgs = append(kubectlRunArgs, "--rm", "-ti")
 		}
 
 		if FlagNode != "" {
@@ -36,7 +40,12 @@ var Cmd = &cobra.Command{
 		}
 
 		kubectlArgs := append([]string{"run"}, kubectlRunArgs...)
-		kubectlArgs = append(kubectlArgs, "--", FlagShell)
+
+		if !FlagDetached {
+			kubectlArgs = append(kubectlArgs, "--", FlagShell)
+		} else {
+			kubectlArgs = append(kubectlArgs, "--", "sleep", "infinity")
+		}
 
 		if FlagDryRun {
 			fmt.Printf(
@@ -76,6 +85,13 @@ func init() {
 		"node",
 		"",
 		"Node to run on",
+	)
+	Cmd.Flags().BoolVarP(
+		&FlagDetached,
+		"detached",
+		"d",
+		false,
+		"Run in detached mode",
 	)
 	Cmd.Flags().BoolVar(
 		&FlagDryRun,
