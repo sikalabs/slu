@@ -16,12 +16,18 @@ func handleError(err error) {
 	}
 }
 
-func WebTarBz2ToBin(url, inTarBz2FileName, outFileName string) {
+func WebTarBz2ToBin(url, inTarBz2FileName string, headers map[string]string, outFileName string) {
 	var err error
 
-	resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
 	handleError(err)
-	defer resp.Body.Close()
+
+	for key, value := range headers {
+		req.Header.Add(key, value)
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
 
 	uncompressedStream := bzip2.NewReader(resp.Body)
 	handleError(err)

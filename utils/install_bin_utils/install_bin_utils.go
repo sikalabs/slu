@@ -22,6 +22,7 @@ func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 		zip_utils.WebZipToBin(
 			url,
 			source,
+			map[string]string{},
 			path.Join(binDir, name),
 		)
 		return
@@ -30,6 +31,7 @@ func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 		tar_gz_utils.WebTarGzToBin(
 			url,
 			source,
+			map[string]string{},
 			path.Join(binDir, name),
 		)
 		return
@@ -38,20 +40,30 @@ func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 		tar_bz2_utils.WebTarBz2ToBin(
 			url,
 			source,
+			map[string]string{},
 			path.Join(binDir, name),
 		)
 		return
 	}
 	webToBin(
 		url,
-		path.Join(binDir, name),
+		map[string]string{},
+		name,
 	)
 }
 
-func webToBin(url, outFileName string) {
+func webToBin(url string, headers map[string]string, outFileName string) {
 	var err error
 
-	resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	handleError(err)
+
+	for key, value := range headers {
+		req.Header.Add(key, value)
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
 	handleError(err)
 	defer resp.Body.Close()
 

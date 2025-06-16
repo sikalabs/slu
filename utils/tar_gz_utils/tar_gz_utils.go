@@ -16,12 +16,18 @@ func handleError(err error) {
 	}
 }
 
-func WebTarGzToBin(url, inTarGzFileName, outFileName string) {
+func WebTarGzToBin(url, inTarGzFileName string, headers map[string]string, outFileName string) {
 	var err error
 
-	resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
 	handleError(err)
-	defer resp.Body.Close()
+
+	for key, value := range headers {
+		req.Header.Add(key, value)
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
 
 	uncompressedStream, err := gzip.NewReader(resp.Body)
 	handleError(err)
