@@ -7,6 +7,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log"
+	"runtime"
 	"syscall"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts"
@@ -14,6 +15,8 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
 )
+
+var FlagOS string
 
 var Cmd = &cobra.Command{
 	Use:     "install-sli",
@@ -27,7 +30,7 @@ var Cmd = &cobra.Command{
 		}
 		fmt.Println() // Print a newline after password input
 
-		installSli(string(bytePassword))
+		installSli(string(bytePassword), FlagOS)
 
 		fmt.Println("sli installed successfully to current folder! You can try it with `./sli` command.")
 	},
@@ -35,16 +38,34 @@ var Cmd = &cobra.Command{
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.PersistentFlags().StringVarP(
+		&FlagOS,
+		"os",
+		"o",
+		runtime.GOOS,
+		"OS",
+	)
 }
 
-func installSli(password string) {
+func installSli(password, flagOs string) {
 	const (
 		encryptedToken              = "eqLoHqyn0Sq9t+SRafoI/XJKA4ePdUn4DylKVfn2tQMvG06WxRyAN6Bdj90aCQ5VX4/E6t+jHOB1awwnfDX1SNISAeYk7bAL5+2whjL++kUxQMAHKELZt+hegcRYOGFQcpDLnfXrXlELu+Ox4CK1ttUXjAi9f+Xdew=="
 		encryptedAssetIDDarwinArm64 = "ZeX1YA38SMaPx/JlCpwBYxwWeRYPcyg5yXU28hhvIhttqLJopQ=="
+		encryptedAssetIDLinuxAmd64  = "AgSK+LhuapiuN8hVJGZbCyAeYq4SVuWNS3/IwQQWdgQaxlKbxQ=="
 	)
 
+	assetId := ""
+
+	if flagOs == "darwin" {
+		assetId = decrypt(encryptedAssetIDDarwinArm64, password)
+	} else if flagOs == "linux" {
+		assetId = decrypt(encryptedAssetIDLinuxAmd64, password)
+	} else {
+		log.Fatalf("Unsupported OS: %s. Supported OS are: darwin, linux.", flagOs)
+	}
+
 	tar_gz_utils.WebTarGzToBin(
-		"https://api.github.com/repos/sikalabs/sli/releases/assets/"+decrypt(encryptedAssetIDDarwinArm64, password),
+		"https://api.github.com/repos/sikalabs/sli/releases/assets/"+assetId,
 		"sli",
 		map[string]string{
 			"Accept":        "application/octet-stream",
