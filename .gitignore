@@ -14,6 +14,7 @@ cobra-docs
 
 # Config
 *.local.json
+*.local.yaml
 .slu.state.json
 .slu.secrets.json
 
