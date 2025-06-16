@@ -10,13 +10,18 @@ import (
 )
 
 var FlagSleepTime int
+var FlagConfigFile string
 
 var Cmd = &cobra.Command{
 	Use:   "mon",
 	Short: "Simple VM monitoring tool",
 	Run: func(c *cobra.Command, args []string) {
 		for {
-			mon.Mon()
+			config, err := mon.ReadMonConfig(FlagConfigFile)
+			if err != nil {
+				log.Fatalf("Error reading config file: %v", err)
+			}
+			mon.Mon(config)
 			if FlagSleepTime <= 0 {
 				log.Println("Invalid sleep time, using default of 10 seconds")
 				time.Sleep(10 * time.Second)
@@ -36,5 +41,12 @@ func init() {
 		"s",
 		10,
 		"Sleep time in minutes between checks",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagConfigFile,
+		"config",
+		"c",
+		".slu_mon.yaml",
+		"Path to slu_mon.yaml config file",
 	)
 }
