@@ -38,7 +38,7 @@ func Mon(config MonConfig) {
 				config.SMTPPassword,
 				config.FromEmail,
 				toEmail,
-				"[slu mon] !!! Disk Usage Alert on "+hostname+" !!!",
+				"⚠️ [slu mon] "+hostname+": disk usage alert !!!",
 				`Disk usage alert on `+hostname+`
 
 Disk usage `+usage.UsedPercentStr+" exceeds threshold "+strconv.FormatFloat(config.DiskUsageAlertThreshold, 'f', 2, 64)+`%.
@@ -59,7 +59,7 @@ Disk usage `+usage.UsedPercentStr+" exceeds threshold "+strconv.FormatFloat(conf
 			err := telegram_utils.TelegramSendMessage(
 				config.TelegramBotToken,
 				chatID,
-				`⚠️ [slu mon] Disk Usage Alert on `+hostname+`
+				`⚠️ [slu mon] `+hostname+`: disk usage alert !!!
 
 Disk usage `+usage.UsedPercentStr+" exceeds threshold "+strconv.FormatFloat(config.DiskUsageAlertThreshold, 'f', 2, 64)+`%.
 
