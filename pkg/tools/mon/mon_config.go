@@ -15,6 +15,9 @@ type MonConfig struct {
 	FromEmail    string   `json:"from_email" yaml:"from_email"`
 	ToEmails     []string `json:"to_emails" yaml:"to_emails"`
 
+	TelegramBotToken string  `json:"telegram_bot_token" yaml:"telegram_bot_token"`
+	TelegramChatIDs  []int64 `json:"telegram_chat_ids" yaml:"telegram_chat_ids"`
+
 	DiskUsageAlertThreshold float64 `json:"disk_usage_alert_threshold" yaml:"disk_usage_alert_threshold"`
 }
 

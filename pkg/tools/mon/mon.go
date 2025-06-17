@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/sikalabs/slu/utils/mail_utils"
+	"github.com/sikalabs/slu/utils/telegram_utils"
 )
 
 func Mon(config MonConfig) {
@@ -24,7 +25,7 @@ func Mon(config MonConfig) {
 	)
 	if usage.UsedPercent > config.DiskUsageAlertThreshold {
 		log.Printf(
-			"!!! Disk usage alert: Used percent %.2f%% exceeds threshold %.2f%%, sending email alert",
+			"!!! Disk usage alert: Used percent %.2f%% exceeds threshold %.2f%%, sending alerts",
 			usage.UsedPercent,
 			config.DiskUsageAlertThreshold,
 		)
@@ -51,6 +52,26 @@ Disk usage `+usage.UsedPercentStr+" exceeds threshold "+strconv.FormatFloat(conf
 			)
 			if err != nil {
 				log.Printf("Error sending email: %v", err)
+			}
+		}
+
+		for _, chatID := range config.TelegramChatIDs {
+			err := telegram_utils.TelegramSendMessage(
+				config.TelegramBotToken,
+				chatID,
+				`⚠️ [slu mon] Disk Usage Alert on `+hostname+`
+
+Disk usage `+usage.UsedPercentStr+" exceeds threshold "+strconv.FormatFloat(config.DiskUsageAlertThreshold, 'f', 2, 64)+`%.
+
+- Used: `+usage.UsedGbStr+`
+- Free: `+usage.FreeGbStr+`
+- Total: `+usage.TotalGbStr+`
+
+-- slu mon
+`,
+			)
+			if err != nil {
+				log.Printf("Error sending Telegram message: %v", err)
 			}
 		}
 	}
