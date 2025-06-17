@@ -24,7 +24,7 @@ var Cmd = &cobra.Command{
 		}
 		fmt.Println(chatID)
 		if FlagSendToChat {
-			telegram_utils.TelegramSendMessage(FlagBotToken, chatID, fmt.Sprintf("`%d`", chatID))
+			telegram_utils.TelegramSendMessageMarkdown(FlagBotToken, chatID, fmt.Sprintf("`%d`", chatID))
 		}
 	},
 }
