@@ -5,9 +5,13 @@ import (
 	"crypto/cipher"
 	"crypto/sha256"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
+	"net/http"
 	"runtime"
+	"strings"
 	"syscall"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts"
@@ -49,19 +53,12 @@ func init() {
 
 func installSli(password, flagOs string) {
 	const (
-		encryptedToken              = "eqLoHqyn0Sq9t+SRafoI/XJKA4ePdUn4DylKVfn2tQMvG06WxRyAN6Bdj90aCQ5VX4/E6t+jHOB1awwnfDX1SNISAeYk7bAL5+2whjL++kUxQMAHKELZt+hegcRYOGFQcpDLnfXrXlELu+Ox4CK1ttUXjAi9f+Xdew=="
-		encryptedAssetIDDarwinArm64 = "ZeX1YA38SMaPx/JlCpwBYxwWeRYPcyg5yXU28hhvIhttqLJopQ=="
-		encryptedAssetIDLinuxAmd64  = "AgSK+LhuapiuN8hVJGZbCyAeYq4SVuWNS3/IwQQWdgQaxlKbxQ=="
+		encryptedToken = "eqLoHqyn0Sq9t+SRafoI/XJKA4ePdUn4DylKVfn2tQMvG06WxRyAN6Bdj90aCQ5VX4/E6t+jHOB1awwnfDX1SNISAeYk7bAL5+2whjL++kUxQMAHKELZt+hegcRYOGFQcpDLnfXrXlELu+Ox4CK1ttUXjAi9f+Xdew=="
 	)
 
-	assetId := ""
-
-	if flagOs == "darwin" {
-		assetId = decrypt(encryptedAssetIDDarwinArm64, password)
-	} else if flagOs == "linux" {
-		assetId = decrypt(encryptedAssetIDLinuxAmd64, password)
-	} else {
-		log.Fatalf("Unsupported OS: %s. Supported OS are: darwin, linux.", flagOs)
+	assetId, err := getAssetID(FlagOS, decrypt(encryptedToken, password))
+	if err != nil {
+		log.Fatalf("Failed to get asset ID: %v", err)
 	}
 
 	tar_gz_utils.WebTarGzToBin(
@@ -111,4 +108,56 @@ func decrypt(encryptedDataBase64, password string) string {
 func deriveKey(password string) []byte {
 	hash := sha256.Sum256([]byte(password))
 	return hash[:]
+}
+
+func getAssetID(os, token string) (string, error) {
+	release, err := getReleaseInfo(token)
+	if err != nil {
+		return "", fmt.Errorf("failed to get release info: %v", err)
+	}
+
+	for _, asset := range release.Assets {
+		if strings.Contains(asset.Name, os) {
+			return fmt.Sprintf("%d", asset.ID), nil
+		}
+	}
+
+	return "", fmt.Errorf("asset not found")
+}
+
+type releaseInfo struct {
+	Assets []releaseInfoAsset `json:"assets"`
+}
+
+type releaseInfoAsset struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+func getReleaseInfo(token string) (releaseInfo, error) {
+	url := "https://api.github.com/repos/sikalabs/sli/releases/latest"
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return releaseInfo{}, err
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return releaseInfo{}, err
+	}
+	defer resp.Body.Close()
+
+	// Read response
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return releaseInfo{}, err
+	}
+
+	var release releaseInfo
+	if err := json.Unmarshal(body, &release); err != nil {
+		return releaseInfo{}, fmt.Errorf("failed to parse response: %v", err)
+	}
+
+	return release, nil
 }
