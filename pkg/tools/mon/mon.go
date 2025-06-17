@@ -43,8 +43,8 @@ func Mon(config MonConfig) {
 
 Disk usage `+usage.UsedPercentStr+" exceeds threshold "+strconv.FormatFloat(config.DiskUsageAlertThreshold, 'f', 2, 64)+`%.
 
-- Used: `+usage.UsedGbStr+`
 - Free: `+usage.FreeGbStr+`
+- Used: `+usage.UsedGbStr+`
 - Total: `+usage.TotalGbStr+`
 
 -- slu mon
@@ -63,8 +63,8 @@ Disk usage `+usage.UsedPercentStr+" exceeds threshold "+strconv.FormatFloat(conf
 
 Disk usage `+usage.UsedPercentStr+" exceeds threshold "+strconv.FormatFloat(config.DiskUsageAlertThreshold, 'f', 2, 64)+`%.
 
-- Used: `+usage.UsedGbStr+`
 - Free: `+usage.FreeGbStr+`
+- Used: `+usage.UsedGbStr+`
 - Total: `+usage.TotalGbStr+`
 
 -- slu mon
