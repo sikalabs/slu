@@ -139,6 +139,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/k8s/token"
 	_ "github.com/sikalabs/slu/cmd/kdev"
 	_ "github.com/sikalabs/slu/cmd/keycloak"
+	_ "github.com/sikalabs/slu/cmd/keycloak/password_reset"
 	_ "github.com/sikalabs/slu/cmd/kn"
 	_ "github.com/sikalabs/slu/cmd/kv"
 	_ "github.com/sikalabs/slu/cmd/kv/get"
