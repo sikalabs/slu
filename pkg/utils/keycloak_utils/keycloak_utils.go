@@ -10,22 +10,30 @@ import (
 )
 
 func PasswordResetOrDie(keycloakUrl, adminUser, adminPass, realm, username, password string) {
+	err := PasswordReset(keycloakUrl, adminUser, adminPass, realm, username, password)
+	if err != nil {
+		log.Fatalln("Password reset failed: " + err.Error())
+	}
+	fmt.Println("Password reset successfully!")
+}
+
+func PasswordReset(keycloakUrl, adminUser, adminPass, realm, username, password string) error {
 	token, err := getToken(keycloakUrl, adminUser, adminPass, "admin-cli")
 	if err != nil {
-		log.Fatalln("Token error: " + err.Error())
+		return fmt.Errorf("failed to get token: %w", err)
 	}
 
 	userID, err := getUserID(keycloakUrl, realm, token, username)
 	if err != nil {
-		log.Fatalln("User lookup error: " + err.Error())
+		return fmt.Errorf("failed to get user ID: %w", err)
 	}
 
 	err = resetPassword(keycloakUrl, realm, token, userID, password, true)
 	if err != nil {
-		log.Fatalln("Password reset failed: " + err.Error())
+		return fmt.Errorf("failed to reset password: %w", err)
 	}
 
-	fmt.Println("Password reset successfully!")
+	return nil
 }
 
 func getToken(keycloakUrl, user, pass, clientID string) (string, error) {
