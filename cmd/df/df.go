@@ -12,7 +12,7 @@ import (
 
 var Cmd = &cobra.Command{
 	Use:   "df",
-	Short: "System's \"df\" filtered for /dev devices and human readable",
+	Short: "System's \"df\" filtered for /dev devices and human readable, excluding /dev/longhorn",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		out, err := exec_utils.ExecStr("df", "-h")
@@ -21,7 +21,9 @@ var Cmd = &cobra.Command{
 		}
 		lines := strings.Split(out, "\n")
 		for i, line := range lines {
-			if strings.HasPrefix(line, "/dev") || i == 0 {
+			if i == 0 {
+				fmt.Println(line)
+			} else if strings.Contains(line, "/dev/") && !strings.Contains(line, "/dev/longhorn") {
 				fmt.Println(line)
 			}
 		}
