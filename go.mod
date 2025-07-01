@@ -62,7 +62,7 @@ require (
 	github.com/k0sproject/rig v0.20.0
 	github.com/lib/pq v1.10.9
 	github.com/mhale/smtpd v0.8.3
-	github.com/olekukonko/tablewriter v1.0.6
+	github.com/olekukonko/tablewriter v1.0.7
 	github.com/ondrejsika/go-dela v1.1.0
 	github.com/ondrejsika/go-iceland v0.2.0
 	github.com/pires/go-proxyproto v0.8.0
@@ -267,7 +267,7 @@ require (
 	github.com/mxk/go-flowrate v0.0.0-20140419014527-cca7078d478f // indirect
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/olekukonko/errors v0.0.0-20250405072817-4e6d85265da6 // indirect
-	github.com/olekukonko/ll v0.0.8-0.20250516010636-22ea57d81985 // indirect
+	github.com/olekukonko/ll v0.0.8 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
