@@ -24,6 +24,7 @@ var GitignoreBase = `# Mac
 
 var GitignoreTerraform = `# Terraform
 .terraform
+*.tfplan
 *.tfstate
 .terraform.tfstate.lock.info
 *.tfvars
