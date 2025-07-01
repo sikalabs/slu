@@ -31,6 +31,9 @@ var GitignoreTerraform = `# Terraform
 !*.EXAMPLE.tfvars
 override.tf
 
+# Terragrunt
+.terragrunt-cache
+
 # Infracost
 .infracost
 .infracost-reports
