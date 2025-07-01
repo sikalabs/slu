@@ -44,7 +44,7 @@ require (
 	github.com/aws/aws-sdk-go v1.55.7
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/caarlos0/env/v6 v6.10.1
-	github.com/cheggaaa/pb/v3 v3.1.5
+	github.com/cheggaaa/pb/v3 v3.1.7
 	github.com/cloudflare/cloudflare-go v0.115.0
 	github.com/coreos/go-oidc v2.3.0+incompatible
 	github.com/denisenkom/go-mssqldb v0.12.3
@@ -246,7 +246,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/masterzen/simplexml v0.0.0-20190410153822-31eea3082786 // indirect
 	github.com/masterzen/winrm v0.0.0-20240702205601-3fad6e106085 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/mattn/go-shellwords v1.0.12 // indirect
