@@ -9,6 +9,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/argocd/port_forward"
 	_ "github.com/sikalabs/slu/cmd/argocd/refresh"
 	_ "github.com/sikalabs/slu/cmd/argocd/set_image"
+	_ "github.com/sikalabs/slu/cmd/argocd/sync"
 	_ "github.com/sikalabs/slu/cmd/argocd/url"
 	_ "github.com/sikalabs/slu/cmd/aws"
 	_ "github.com/sikalabs/slu/cmd/aws/who_am_i"
