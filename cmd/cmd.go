@@ -144,6 +144,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/keycloak"
 	_ "github.com/sikalabs/slu/cmd/keycloak/password_reset"
 	_ "github.com/sikalabs/slu/cmd/kn"
+	_ "github.com/sikalabs/slu/cmd/kubelogin"
 	_ "github.com/sikalabs/slu/cmd/kv"
 	_ "github.com/sikalabs/slu/cmd/kv/get"
 	_ "github.com/sikalabs/slu/cmd/kv/set"
