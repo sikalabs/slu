@@ -2,6 +2,7 @@ package random_utils
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
 	"unicode"
 )
@@ -17,6 +18,16 @@ func RandomPassword() (string, error) {
 			return "", fmt.Errorf("cannot generate password")
 		}
 	}
+}
+
+func RandomHumanReadablePassword() string {
+	words := make([]string, 4)
+	for i := range words {
+		words[i] = capitalize(BIP39_WORDS[rand.Intn(len(BIP39_WORDS))]) + fmt.Sprintf("%02d", rand.Intn(100))
+	}
+
+	result := strings.Join(words, "_")
+	return result
 }
 
 func containsLowercase(s string) bool {
@@ -57,4 +68,11 @@ func addUnderscores(input string) string {
 	}
 
 	return strings.Join(blocks, "_")
+}
+
+func capitalize(s string) string {
+	if len(s) == 0 {
+		return s
+	}
+	return strings.ToUpper(string(s[0])) + s[1:]
 }
