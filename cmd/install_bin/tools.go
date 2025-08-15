@@ -451,6 +451,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("zegl", "kube-score") },
 		UrlTemplate:    "https://github.com/zegl/kube-score/releases/download/{{.Version}}/kube-score_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "migrate",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("golang-migrate", "migrate") },
+		UrlTemplate:    "https://github.com/golang-migrate/migrate/releases/download/{{.Version}}/migrate.{{.Os}}-{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
