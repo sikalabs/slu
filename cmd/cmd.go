@@ -264,6 +264,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/systemd/create_service"
 	_ "github.com/sikalabs/slu/cmd/telegram"
 	_ "github.com/sikalabs/slu/cmd/telegram/get_chat_id"
+	_ "github.com/sikalabs/slu/cmd/telegram/send_message"
 	_ "github.com/sikalabs/slu/cmd/time"
 	_ "github.com/sikalabs/slu/cmd/time/now"
 	_ "github.com/sikalabs/slu/cmd/time/parse"
