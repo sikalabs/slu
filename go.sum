@@ -2389,8 +2389,8 @@ github.com/julienschmidt/httprouter v1.2.0/go.mod h1:SYymIcj16QtmaHHD7aYtjjsJG7V
 github.com/julienschmidt/httprouter v1.3.0/go.mod h1:JR6WtHb+2LUe8TCKY3cZOxFyyO8IZAc4RVcycCCAKdM=
 github.com/jung-kurt/gofpdf v1.0.0/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+r32jIOes=
 github.com/jung-kurt/gofpdf v1.0.3-0.20190309125859-24315acbbda5/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+r32jIOes=
-github.com/k0sproject/rig v0.20.0 h1:HJQPyB/5hnHyTOgX7Hpz8dgGIc04BAQOsZ2ZrB9bpgY=
-github.com/k0sproject/rig v0.20.0/go.mod h1:XUZa4te/D/lbQfDyiRbLAYyDY06YbGDSgXzOnhJwWf0=
+github.com/k0sproject/rig v0.21.0 h1:BV3hVDZiH1at3F4QIkDFVpu0F7RajLo/yScNcYygALA=
+github.com/k0sproject/rig v0.21.0/go.mod h1:CwxhnGDFDE1pQtaN41XUvoLMCnXWSnQoXT2n4kDE9lA=
 github.com/karrick/godirwalk v1.8.0/go.mod h1:H5KPZjojv4lE+QYImBI8xVtrBRgYrIVsaRPx4tDPEn4=
 github.com/karrick/godirwalk v1.10.3/go.mod h1:RoGL9dQei4vP9ilrpETWE8CLOZ1kiN0LhBygSwrAsHA=
 github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 h1:Z9n2FFNUXsshfwJMBgNA0RU6/i7WVaAegv3PtuIHPMs=
