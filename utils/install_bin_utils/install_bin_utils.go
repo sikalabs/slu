@@ -48,7 +48,7 @@ func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 	webToBin(
 		url,
 		map[string]string{},
-		name,
+		path.Join(binDir, name),
 	)
 }
 
