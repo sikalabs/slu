@@ -69,8 +69,8 @@ var Tools = []Tool{
 	{
 		Name:           "docker",
 		SourcePath:     "docker/docker",
-		GetVersionFunc: func() string { return "24.0.5" },
-		UrlTemplate:    "https://download.docker.com/{{.OsDocker}}/static/stable/{{.ArchDocker}}/docker-{{.Version}}.tgz",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("moby", "moby") },
+		UrlTemplate:    "https://download.docker.com/{{.OsDocker}}/static/stable/{{.ArchDocker}}/docker-{{.Version|removev}}.tgz",
 	},
 	{
 		Name:           "docker-compose",
