@@ -100,6 +100,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/gitlab"
 	_ "github.com/sikalabs/slu/cmd/gitlab/prune_environments"
 	_ "github.com/sikalabs/slu/cmd/gitlab/update_file"
+	_ "github.com/sikalabs/slu/cmd/gitlab/upgrade_path"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/setup_runner"
 	_ "github.com/sikalabs/slu/cmd/gitlab_ci/skip_stage"
