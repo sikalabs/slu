@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagFormateDates bool
+
 var Cmd = &cobra.Command{
 	Use:   "parse <jwt>",
 	Short: "Parse JWT from stdin into JSON list of 3 objects (Header, Payload, Signature)",
@@ -17,10 +19,11 @@ var Cmd = &cobra.Command{
 		if jwtToken == "-" {
 			jwtToken = stdin_utils.ReadFromPipeOrDie()
 		}
-		jwt_utils.ParseJWT(jwtToken)
+		jwt_utils.ParseJWT(jwtToken, FlagFormateDates)
 	},
 }
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.PersistentFlags().BoolVarP(&FlagFormateDates, "format-dates", "f", false, "Format dates from UNIX to local date-time")
 }
