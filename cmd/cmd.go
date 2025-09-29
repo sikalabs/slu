@@ -5,6 +5,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/argocd/domain"
 	_ "github.com/sikalabs/slu/cmd/argocd/initial_password"
 	_ "github.com/sikalabs/slu/cmd/argocd/open"
+	_ "github.com/sikalabs/slu/cmd/argocd/password_hash"
 	_ "github.com/sikalabs/slu/cmd/argocd/password_reset"
 	_ "github.com/sikalabs/slu/cmd/argocd/port_forward"
 	_ "github.com/sikalabs/slu/cmd/argocd/refresh"
