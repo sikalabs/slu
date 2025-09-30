@@ -2,6 +2,7 @@ package init
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -17,44 +18,35 @@ var Cmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		// Get current directory name
 		cwd, err := os.Getwd()
-		if err != nil {
-			fmt.Println("Error getting current directory:", err)
-			os.Exit(1)
-		}
+		handleError(err, "Error getting current directory")
 		dirName := filepath.Base(cwd)
 
 		// Initialize git repository
 		err = exec_utils.ExecOut("git", "init")
-		if err != nil {
-			fmt.Println("Error initializing git repository:", err)
-			os.Exit(1)
-		}
+		handleError(err, "Error initializing git repository")
 
 		// Create README.md with directory name as header
 		readmeContent := fmt.Sprintf("# %s\n", dirName)
 		err = os.WriteFile("README.md", []byte(readmeContent), 0644)
-		if err != nil {
-			fmt.Println("Error creating README.md:", err)
-			os.Exit(1)
-		}
+		handleError(err, "Error creating README.md")
 
 		// Add README.md to staging
 		err = exec_utils.ExecOut("git", "add", "README.md")
-		if err != nil {
-			fmt.Println("Error adding README.md:", err)
-			os.Exit(1)
-		}
+		handleError(err, "Error adding README.md")
 
 		// Commit with initial message
 		commitMsg := fmt.Sprintf("init: Initial commit, %s", dirName)
 		err = exec_utils.ExecOut("git", "commit", "-m", commitMsg)
-		if err != nil {
-			fmt.Println("Error creating initial commit:", err)
-			os.Exit(1)
-		}
+		handleError(err, "Error creating initial commit")
 	},
 }
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+}
+
+func handleError(err error, prefix string) {
+	if err != nil {
+		log.Fatalf("%s: %v\n", prefix, err)
+	}
 }
