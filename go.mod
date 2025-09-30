@@ -37,7 +37,7 @@ require (
 	github.com/Azure/azure-sdk-for-go v68.0.0+incompatible
 	github.com/Azure/go-autorest/autorest/azure/auth v0.5.13
 	github.com/aquasecurity/go-version v0.0.1
-	github.com/argoproj/argo-cd/v3 v3.0.14
+	github.com/argoproj/argo-cd/v3 v3.0.19
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go v1.55.7
 	github.com/brianvoe/gofakeit/v6 v6.28.0
@@ -125,7 +125,7 @@ require (
 	github.com/ProtonMail/go-crypto v1.1.5 // indirect
 	github.com/VividCortex/ewma v1.2.0 // indirect
 	github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d // indirect
-	github.com/argoproj/gitops-engine v0.7.1-0.20250520182409-89c110b5952e // indirect
+	github.com/argoproj/gitops-engine v0.7.1-0.20250905153922-d96c3d51e4c4 // indirect
 	github.com/argoproj/pkg v0.13.7-0.20250305113207-cbc37dc61de5 // indirect
 	github.com/aybabtme/rgbterm v0.0.0-20170906152045-cc83f3b3ce59 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
