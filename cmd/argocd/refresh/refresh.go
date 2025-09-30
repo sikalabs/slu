@@ -19,13 +19,24 @@ var Cmd = &cobra.Command{
 	Args:    cobra.ExactArgs(1),
 	Run: func(c *cobra.Command, args []string) {
 		appName := args[0]
+
+		// Lazy-load the ArgoCD domain if server flag is not provided
+		serverAddr := FlagServerAddr
+		if serverAddr == "" {
+			argoCDDomain, err := argocd_utils.ArgoCDGetDomain(FlagCFAccessServiceTokenName)
+			if err != nil {
+				cobra.CheckErr(err)
+			}
+			serverAddr = argoCDDomain
+		}
+
 		password := FlagPassword
 		if password == "" {
 			password = argocd_utils.ArgoCDGetInitialPassword("argocd")
 		}
 		token := argocd_utils.ArgoCDGetToken(
 			c.Context(),
-			FlagServerAddr,
+			serverAddr,
 			FlagInsecure,
 			"admin",
 			password,
@@ -33,7 +44,7 @@ var Cmd = &cobra.Command{
 		)
 		argocd_utils.ArgoCDRefresh(
 			c.Context(),
-			FlagServerAddr,
+			serverAddr,
 			FlagInsecure,
 			token,
 			appName,
@@ -44,17 +55,13 @@ var Cmd = &cobra.Command{
 
 func init() {
 	argocd_cmd.Cmd.AddCommand(Cmd)
-	argoCDDomain, _ := argocd_utils.ArgoCDGetDomain(FlagCFAccessServiceTokenName)
 	Cmd.Flags().StringVarP(
 		&FlagServerAddr,
 		"server",
 		"s",
-		argoCDDomain,
+		"",
 		"ArgoCD server address (host:port)",
 	)
-	if argoCDDomain == "" {
-		Cmd.MarkFlagRequired("server")
-	}
 	Cmd.Flags().BoolVar(
 		&FlagInsecure,
 		"insecure",
