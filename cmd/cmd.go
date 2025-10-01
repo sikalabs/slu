@@ -91,6 +91,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/git/if"
 	_ "github.com/sikalabs/slu/cmd/git/if/staged"
 	_ "github.com/sikalabs/slu/cmd/git/init"
+	_ "github.com/sikalabs/slu/cmd/git/remove_dot_git"
 	_ "github.com/sikalabs/slu/cmd/git/tag_next_calver"
 	_ "github.com/sikalabs/slu/cmd/git/url"
 	_ "github.com/sikalabs/slu/cmd/git/url/get"
