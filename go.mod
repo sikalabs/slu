@@ -75,7 +75,7 @@ require (
 	github.com/showwin/speedtest-go v1.7.10
 	github.com/sikalabs/dogsay v0.1.0
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spf13/cobra v1.9.1
+	github.com/spf13/cobra v1.10.1
 	github.com/xanzy/go-gitlab v0.113.0
 	golang.org/x/crypto v0.40.0
 	golang.org/x/oauth2 v0.30.0
@@ -287,7 +287,7 @@ require (
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
 	github.com/skeema/knownhosts v1.3.1 // indirect
-	github.com/spf13/pflag v1.0.6 // indirect
+	github.com/spf13/pflag v1.0.9 // indirect
 	github.com/stretchr/testify v1.10.0 // indirect
 	github.com/tidwall/transform v0.0.0-20201103190739-32f242e2dbde // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
