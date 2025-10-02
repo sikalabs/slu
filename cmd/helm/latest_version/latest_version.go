@@ -2,6 +2,7 @@ package latest_version
 
 import (
 	"fmt"
+	"log"
 	"strings"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/helm"
@@ -22,10 +23,7 @@ var Cmd = &cobra.Command{
 		if strings.HasPrefix(FlagRepo, "oci://") {
 			ociURL := FlagRepo + "/" + FlagChart
 			version, err := helm_utils.GetLatestVersionFromOCI(ociURL)
-			if err != nil {
-				fmt.Printf("Error: %s\n", err)
-				return
-			}
+			handleError(err, "Error getting latest version from OCI registry")
 			fmt.Println(version)
 			return
 		}
@@ -35,19 +33,13 @@ var Cmd = &cobra.Command{
 		// If FlagRepo looks like a URL, try to find the repo name
 		if strings.HasPrefix(FlagRepo, "http://") || strings.HasPrefix(FlagRepo, "https://") {
 			name, err := helm_utils.GetRepoNameFromURL(FlagRepo)
-			if err != nil {
-				fmt.Printf("Error: %s\n", err)
-				return
-			}
+			handleError(err, "Error finding repository by URL")
 			repoName = name
 		}
 
 		// Get latest version from repo
 		version, err := helm_utils.GetLatestVersionFromRepo(repoName, FlagChart)
-		if err != nil {
-			fmt.Printf("Error: %s\n", err)
-			return
-		}
+		handleError(err, "Error getting latest version from repository")
 
 		fmt.Println(version)
 	},
@@ -71,4 +63,10 @@ func init() {
 		"Chart name",
 	)
 	Cmd.MarkFlagRequired("chart")
+}
+
+func handleError(err error, message string) {
+	if err != nil {
+		log.Fatalf("%s: %v\n", message, err)
+	}
 }
