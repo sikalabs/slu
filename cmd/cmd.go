@@ -119,6 +119,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/google_drive/get_token"
 	_ "github.com/sikalabs/slu/cmd/google_drive/upload"
 	_ "github.com/sikalabs/slu/cmd/helm"
+	_ "github.com/sikalabs/slu/cmd/helm/latest_version"
 	_ "github.com/sikalabs/slu/cmd/helm/version_bump"
 	_ "github.com/sikalabs/slu/cmd/host"
 	_ "github.com/sikalabs/slu/cmd/install_any_bin"
