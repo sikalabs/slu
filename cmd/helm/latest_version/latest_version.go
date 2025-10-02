@@ -1,87 +1,16 @@
 package latest_version
 
 import (
-	"encoding/json"
 	"fmt"
-	"os/exec"
-	"regexp"
 	"strings"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/helm"
+	"github.com/sikalabs/slu/utils/helm_utils"
 	"github.com/spf13/cobra"
-	"gopkg.in/yaml.v3"
 )
 
 var FlagRepo string
 var FlagChart string
-
-type ChartVersion struct {
-	Name        string `json:"name"`
-	Version     string `json:"version"`
-	AppVersion  string `json:"app_version"`
-	Description string `json:"description"`
-}
-
-type RepoEntry struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
-}
-
-type ChartMetadata struct {
-	Version string `yaml:"version"`
-}
-
-func getRepoNameFromURL(repoURL string) (string, error) {
-	// Normalize URL - remove trailing slash
-	repoURL = strings.TrimSuffix(repoURL, "/")
-
-	// Get list of repos
-	cmd := exec.Command("helm", "repo", "list", "--output", "json")
-	output, err := cmd.Output()
-	if err != nil {
-		return "", err
-	}
-
-	var repos []RepoEntry
-	err = json.Unmarshal(output, &repos)
-	if err != nil {
-		return "", err
-	}
-
-	// Find repo by URL
-	for _, repo := range repos {
-		if strings.TrimSuffix(repo.URL, "/") == repoURL {
-			return repo.Name, nil
-		}
-	}
-
-	return "", fmt.Errorf("no repository found with URL: %s", repoURL)
-}
-
-func getLatestVersionFromOCI(ociURL string) (string, error) {
-	// Execute helm show chart command
-	cmd := exec.Command("helm", "show", "chart", ociURL)
-	output, err := cmd.Output()
-	if err != nil {
-		return "", err
-	}
-
-	// Extract version from the "Pulled:" line using regex
-	pulledRegex := regexp.MustCompile(`Pulled: [^:]+:([^\s]+)`)
-	matches := pulledRegex.FindStringSubmatch(string(output))
-	if len(matches) > 1 {
-		return matches[1], nil
-	}
-
-	// Fallback: parse YAML to get version
-	var metadata ChartMetadata
-	err = yaml.Unmarshal(output, &metadata)
-	if err != nil {
-		return "", err
-	}
-
-	return metadata.Version, nil
-}
 
 var Cmd = &cobra.Command{
 	Use:     "latest-version",
@@ -92,7 +21,7 @@ var Cmd = &cobra.Command{
 		// Handle OCI registries
 		if strings.HasPrefix(FlagRepo, "oci://") {
 			ociURL := FlagRepo + "/" + FlagChart
-			version, err := getLatestVersionFromOCI(ociURL)
+			version, err := helm_utils.GetLatestVersionFromOCI(ociURL)
 			if err != nil {
 				fmt.Printf("Error: %s\n", err)
 				return
@@ -105,7 +34,7 @@ var Cmd = &cobra.Command{
 
 		// If FlagRepo looks like a URL, try to find the repo name
 		if strings.HasPrefix(FlagRepo, "http://") || strings.HasPrefix(FlagRepo, "https://") {
-			name, err := getRepoNameFromURL(FlagRepo)
+			name, err := helm_utils.GetRepoNameFromURL(FlagRepo)
 			if err != nil {
 				fmt.Printf("Error: %s\n", err)
 				return
@@ -113,30 +42,14 @@ var Cmd = &cobra.Command{
 			repoName = name
 		}
 
-		// Execute helm search repo command with JSON output
-		cmd := exec.Command("helm", "search", "repo", repoName+"/"+FlagChart, "--output", "json")
-		output, err := cmd.Output()
+		// Get latest version from repo
+		version, err := helm_utils.GetLatestVersionFromRepo(repoName, FlagChart)
 		if err != nil {
-			if exitErr, ok := err.(*exec.ExitError); ok {
-				fmt.Printf("Error: %s\n", string(exitErr.Stderr))
-			}
-			panic(err)
-		}
-
-		// Parse JSON output
-		var charts []ChartVersion
-		err = json.Unmarshal(output, &charts)
-		if err != nil {
-			panic(err)
-		}
-
-		if len(charts) == 0 {
-			fmt.Printf("No chart found for %s/%s\n", repoName, FlagChart)
+			fmt.Printf("Error: %s\n", err)
 			return
 		}
 
-		// Print the latest version (first result from helm search)
-		fmt.Println(strings.TrimSpace(charts[0].Version))
+		fmt.Println(version)
 	},
 }
 
