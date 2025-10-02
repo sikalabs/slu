@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"os/exec"
+	"regexp"
 	"strings"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/helm"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v3"
 )
 
 var FlagRepo string
@@ -23,6 +25,10 @@ type ChartVersion struct {
 type RepoEntry struct {
 	Name string `json:"name"`
 	URL  string `json:"url"`
+}
+
+type ChartMetadata struct {
+	Version string `yaml:"version"`
 }
 
 func getRepoNameFromURL(repoURL string) (string, error) {
@@ -52,12 +58,49 @@ func getRepoNameFromURL(repoURL string) (string, error) {
 	return "", fmt.Errorf("no repository found with URL: %s", repoURL)
 }
 
+func getLatestVersionFromOCI(ociURL string) (string, error) {
+	// Execute helm show chart command
+	cmd := exec.Command("helm", "show", "chart", ociURL)
+	output, err := cmd.Output()
+	if err != nil {
+		return "", err
+	}
+
+	// Extract version from the "Pulled:" line using regex
+	pulledRegex := regexp.MustCompile(`Pulled: [^:]+:([^\s]+)`)
+	matches := pulledRegex.FindStringSubmatch(string(output))
+	if len(matches) > 1 {
+		return matches[1], nil
+	}
+
+	// Fallback: parse YAML to get version
+	var metadata ChartMetadata
+	err = yaml.Unmarshal(output, &metadata)
+	if err != nil {
+		return "", err
+	}
+
+	return metadata.Version, nil
+}
+
 var Cmd = &cobra.Command{
 	Use:     "latest-version",
 	Short:   "Get latest version of a Helm chart from a repository",
 	Aliases: []string{"lv"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		// Handle OCI registries
+		if strings.HasPrefix(FlagRepo, "oci://") {
+			ociURL := FlagRepo + "/" + FlagChart
+			version, err := getLatestVersionFromOCI(ociURL)
+			if err != nil {
+				fmt.Printf("Error: %s\n", err)
+				return
+			}
+			fmt.Println(version)
+			return
+		}
+
 		repoName := FlagRepo
 
 		// If FlagRepo looks like a URL, try to find the repo name
@@ -104,7 +147,7 @@ func init() {
 		"repo",
 		"r",
 		"",
-		"Helm repository name or URL",
+		"Helm repository name, URL, or OCI registry URL (oci://...)",
 	)
 	Cmd.MarkFlagRequired("repo")
 	Cmd.Flags().StringVarP(
