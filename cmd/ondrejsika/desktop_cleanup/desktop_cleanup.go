@@ -19,6 +19,7 @@ var FlagYesYarnCache bool
 var FlagTerraformPluginDir bool
 var FlagBrewCache bool
 var FlagNoDockerPrune bool
+var FlagVirtualEnvs bool
 
 var ListSh []string
 var ListRm []string
@@ -48,6 +49,9 @@ var Cmd = &cobra.Command{
 			registerRm(".terraform-plugin-cache/*")
 		}
 		registerRm("./Library/Caches/lima/")
+		if FlagVirtualEnvs {
+			registerRm(".local/share/virtualenvs/*")
+		}
 		if !FlagNoDockerPrune {
 			dockerUp, _ := docker_utils.Ping()
 			if dockerUp {
@@ -124,6 +128,12 @@ func init() {
 		"no-docker-prune",
 		false,
 		"Do not run docker system prune",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagVirtualEnvs,
+		"virtualenvs",
+		false,
+		"Remove virtualenvs (rm -rf ~/.local/share/virtualenvs/)",
 	)
 }
 
