@@ -2,11 +2,11 @@ package get_images_from_env_for_values_yaml
 
 import (
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/joho/godotenv"
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts/atol"
+	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +25,7 @@ func init() {
 
 func GetImagesFromEnvForValuesYaml() {
 	dotEnvVars, err := godotenv.Read(".env")
-	handleError(err)
+	error_utils.HandleError(err, "Failed to read .env file")
 
 	out := []string{}
 
@@ -37,11 +37,5 @@ func GetImagesFromEnvForValuesYaml() {
 
 	for _, line := range out {
 		fmt.Println(line)
-	}
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatalln(err)
 	}
 }

@@ -2,10 +2,10 @@ package read_file
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/hashicorp/vault/api"
 	parentcmd "github.com/sikalabs/slu/cmd/vault"
+	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/sikalabs/slu/utils/vault_utils"
 	"github.com/spf13/cobra"
 )
@@ -58,19 +58,13 @@ func init() {
 	Cmd.MarkFlagRequired("file-path")
 }
 
-func handleError(err error, message string) {
-	if err != nil {
-		log.Fatalf("%s: %v\n", message, err)
-	}
-}
-
 func readFileFromVault(vaultAddress, vaultToken, vaultPath, filePath string) {
 	client, err := api.NewClient(&api.Config{
 		Address: vaultAddress,
 	})
-	handleError(err, "Failed to create Vault client")
+	error_utils.HandleError(err, "Failed to create Vault client")
 	client.SetToken(vaultToken)
 	err = vault_utils.ReadFileFromVault(client, vaultPath, filePath)
-	handleError(err, "Failed to read file from vault")
+	error_utils.HandleError(err, "Failed to read file from vault")
 	fmt.Printf("File successfully read from vault and saved to %s\n", filePath)
 }

@@ -4,15 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
-)
 
-func handleError(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
+	"github.com/sikalabs/slu/internal/error_utils"
+)
 
 type LatestReleaseResponse struct {
 	TagName string `json:"tag_name"`
@@ -28,13 +23,13 @@ type CommitResponse struct {
 
 func GetLatestRelease(user, repo string) string {
 	release, err := GetLatestReleaseE(user, repo)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to get latest release")
 	return release
 }
 
 func GetLatestTag(user, repo string) string {
 	release, err := GetLatestTagE(user, repo)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to get latest tag")
 	return release
 }
 

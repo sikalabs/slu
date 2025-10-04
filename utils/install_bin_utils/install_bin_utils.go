@@ -2,12 +2,12 @@ package install_bin_utils
 
 import (
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"path"
 	"strings"
 
+	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/sikalabs/slu/utils/tar_bz2_utils"
 	"github.com/sikalabs/slu/utils/tar_gz_utils"
 	"github.com/sikalabs/slu/utils/zip_utils"
@@ -56,7 +56,7 @@ func webToBin(url string, headers map[string]string, outFileName string) {
 	var err error
 
 	req, err := http.NewRequest("GET", url, nil)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to create HTTP request")
 
 	for key, value := range headers {
 		req.Header.Add(key, value)
@@ -64,19 +64,13 @@ func webToBin(url string, headers map[string]string, outFileName string) {
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to execute HTTP request")
 	defer resp.Body.Close()
 
 	outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 0755)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to create output file")
 	defer outFile.Close()
 
 	_, err = io.Copy(outFile, resp.Body)
-	handleError(err)
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
+	error_utils.HandleError(err, "Failed to copy response to file")
 }

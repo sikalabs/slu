@@ -3,13 +3,13 @@ package azure_utils
 import (
 	"context"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/subscriptions"
 	"github.com/Azure/azure-sdk-for-go/profiles/latest/resources/mgmt/resources"
 	"github.com/Azure/go-autorest/autorest/azure/auth"
 	"github.com/olekukonko/tablewriter"
+	"github.com/sikalabs/slu/internal/error_utils"
 )
 
 func GetSubscriptionID() (string, error) {
@@ -38,11 +38,11 @@ func GetSubscriptionID() (string, error) {
 func GetAllResourcesFromCurrentSubscription() []resources.GenericResourceExpanded {
 	// Use Azure CLI authentication
 	authorizer, err := auth.NewAuthorizerFromCLI()
-	handleError(err)
+	error_utils.HandleError(err, "Failed to create Azure authorizer")
 
 	// Get the subscription ID
 	subscriptionID, err := GetSubscriptionID()
-	handleError(err)
+	error_utils.HandleError(err, "Failed to get subscription ID")
 
 	// Create a new instance of the resources client
 	resourcesClient := resources.NewClient(subscriptionID)
@@ -50,7 +50,7 @@ func GetAllResourcesFromCurrentSubscription() []resources.GenericResourceExpande
 
 	// List resources
 	resourcesList, err := resourcesClient.ListComplete(context.Background(), "", "", nil)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to list resources")
 
 	// Print the resources
 	res := []resources.GenericResourceExpanded{}
@@ -59,7 +59,7 @@ func GetAllResourcesFromCurrentSubscription() []resources.GenericResourceExpande
 		r := resourcesList.Value()
 		res = append(res, r)
 		err = resourcesList.NextWithContext(context.Background())
-		handleError(err)
+		error_utils.HandleError(err, "Failed to get next resource")
 	}
 
 	return res
@@ -78,10 +78,4 @@ func PrintAllResourcesFromCurrentSubscription() {
 		table.Append([]string{*r.Name, *r.Type, *r.Location})
 	}
 	table.Render()
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatalln(err)
-	}
 }

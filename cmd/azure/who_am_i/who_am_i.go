@@ -6,6 +6,7 @@ import (
 	"log"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/azure"
+	"github.com/sikalabs/slu/internal/error_utils"
 
 	"github.com/spf13/cobra"
 
@@ -30,7 +31,7 @@ func init() {
 func printSubscriptionInfo() {
 	// Use environment variables for authentication
 	authorizer, err := auth.NewAuthorizerFromCLI()
-	handleError(err)
+	error_utils.HandleError(err, "Failed to create Azure authorizer")
 
 	// Create a client
 	subscriptionsClient := subscriptions.NewClient()
@@ -38,7 +39,7 @@ func printSubscriptionInfo() {
 
 	// Get the list of subscriptions
 	subList, err := subscriptionsClient.List(context.Background())
-	handleError(err)
+	error_utils.HandleError(err, "Failed to list subscriptions")
 
 	for _, sub := range subList.Values() {
 		if sub.State == subscriptions.Enabled {
@@ -49,10 +50,4 @@ func printSubscriptionInfo() {
 	}
 
 	log.Fatalln("No active subscription found")
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatalln(err)
-	}
 }

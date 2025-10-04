@@ -13,6 +13,7 @@ import (
 	"github.com/prometheus/common/model"
 	"github.com/rs/zerolog"
 	"github.com/sikalabs/slu/cmd/root"
+	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/spf13/cobra"
 )
 
@@ -34,7 +35,7 @@ var Cmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		u, err := url.Parse(FlagLokiURL)
-		handleError(err)
+		error_utils.HandleError(err, "Failed to parse Loki URL")
 		cfg := loki.Config{
 			URL: urlutil.URLValue{
 				URL: u,
@@ -45,7 +46,7 @@ var Cmd = &cobra.Command{
 		}
 
 		client, err := loki.New(cfg)
-		handleError(err)
+		error_utils.HandleError(err, "Failed to create Loki client")
 		defer client.Stop()
 
 		var i int = 0
@@ -288,10 +289,4 @@ func init() {
 		0,
 		"Limit number of logs to generate (default: no limit)",
 	)
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
 }

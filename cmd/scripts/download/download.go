@@ -2,11 +2,11 @@ package download
 
 import (
 	"io"
-	"log"
 	"net/http"
 	"os"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts"
+	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/sikalabs/slu/utils/exec_utils"
 	"github.com/spf13/cobra"
 )
@@ -68,19 +68,13 @@ func webToBin(url, outFileName string) {
 	var err error
 
 	resp, err := http.Get(url)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to download file")
 	defer resp.Body.Close()
 
 	outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 0755)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to create output file")
 	defer outFile.Close()
 
 	_, err = io.Copy(outFile, resp.Body)
-	handleError(err)
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
+	error_utils.HandleError(err, "Failed to write file")
 }

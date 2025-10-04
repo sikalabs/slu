@@ -5,22 +5,17 @@ import (
 	"compress/bzip2"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
-)
 
-func handleError(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-}
+	"github.com/sikalabs/slu/internal/error_utils"
+)
 
 func WebTarBz2ToBin(url, inTarBz2FileName string, headers map[string]string, outFileName string) {
 	var err error
 
 	req, err := http.NewRequest("GET", url, nil)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to create HTTP request")
 
 	for key, value := range headers {
 		req.Header.Add(key, value)
@@ -30,7 +25,6 @@ func WebTarBz2ToBin(url, inTarBz2FileName string, headers map[string]string, out
 	resp, err := client.Do(req)
 
 	uncompressedStream := bzip2.NewReader(resp.Body)
-	handleError(err)
 	tarReader := tar.NewReader(uncompressedStream)
 
 	for {
@@ -38,19 +32,19 @@ func WebTarBz2ToBin(url, inTarBz2FileName string, headers map[string]string, out
 		if err == io.EOF {
 			break
 		}
-		handleError(err)
+		error_utils.HandleError(err, "Failed to read tar header")
 
 		if header.Typeflag == tar.TypeReg &&
 			(header.Name == inTarBz2FileName || header.Name == "./"+inTarBz2FileName) {
 			outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 0755)
-			handleError(err)
+			error_utils.HandleError(err, "Failed to create output file")
 			defer outFile.Close()
 
 			_, err = io.Copy(outFile, tarReader)
-			handleError(err)
+			error_utils.HandleError(err, "Failed to copy file from tar")
 			return
 		}
 	}
 
-	handleError(fmt.Errorf("file \"%s\" not found in bz2", inTarBz2FileName))
+	error_utils.HandleError(fmt.Errorf("file \"%s\" not found in bz2", inTarBz2FileName), "File not found in bz2")
 }

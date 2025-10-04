@@ -2,10 +2,10 @@ package write_file
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/hashicorp/vault/api"
 	parentcmd "github.com/sikalabs/slu/cmd/vault"
+	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/sikalabs/slu/utils/vault_utils"
 	"github.com/spf13/cobra"
 )
@@ -58,19 +58,13 @@ func init() {
 	Cmd.MarkFlagRequired("file-path")
 }
 
-func handleError(err error, message string) {
-	if err != nil {
-		log.Fatalf("%s: %v\n", message, err)
-	}
-}
-
 func writeFileToVault(vaultAddress, vaultToken, vaultPath, filePath string) {
 	client, err := api.NewClient(&api.Config{
 		Address: vaultAddress,
 	})
-	handleError(err, "Failed to create Vault client")
+	error_utils.HandleError(err, "Failed to create Vault client")
 	client.SetToken(vaultToken)
 	err = vault_utils.WriteFileToVault(client, vaultPath, filePath)
-	handleError(err, "Failed to write file to vault")
+	error_utils.HandleError(err, "Failed to write file to vault")
 	fmt.Printf("File successfully written to vault at %s\n", vaultPath)
 }

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/sikalabs/slu/internal/error_utils"
 )
 
 func UrlGetToStringE(url string) (string, error) {
@@ -26,12 +28,6 @@ func UrlGetToStringE(url string) (string, error) {
 
 func UrlGetToString(url string) string {
 	body, err := UrlGetToStringE(url)
-	handleError(err)
+	error_utils.HandleError(err, "Failed to get URL content")
 	return body
-}
-
-func handleError(err error) {
-	if err != nil {
-		panic(err)
-	}
 }

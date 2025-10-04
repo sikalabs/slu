@@ -2,7 +2,6 @@ package free_space
 
 import (
 	"fmt"
-	"log"
 
 	parentcmd "github.com/sikalabs/slu/cmd/ondrejsika"
 	"github.com/spf13/cobra"
@@ -28,10 +27,4 @@ func toGB(b uint64) float64 {
 func printFreeSpace() {
 	freeSpace := getFreeSpaceOrDie()
 	fmt.Printf("%.2f GB\n", toGB(freeSpace))
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatalln(err)
-	}
 }
