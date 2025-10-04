@@ -291,6 +291,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/vault"
 	_ "github.com/sikalabs/slu/cmd/vault/create_env_file"
 	_ "github.com/sikalabs/slu/cmd/vault/password_hash"
+	_ "github.com/sikalabs/slu/cmd/vault/read_file"
 	_ "github.com/sikalabs/slu/cmd/version"
 	_ "github.com/sikalabs/slu/cmd/wait_for"
 	_ "github.com/sikalabs/slu/cmd/wait_for/docker"
