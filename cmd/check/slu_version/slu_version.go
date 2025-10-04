@@ -1,9 +1,8 @@
 package password_reset
 
 import (
-	"log"
-
 	parent_cmd "github.com/sikalabs/slu/cmd/check"
+	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/sikalabs/slu/utils/semver_utils"
 	"github.com/sikalabs/slu/version"
 
@@ -18,9 +17,7 @@ var Cmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		ok := semver_utils.CheckMinimumVersion(version.Version, FlagVersion)
-		if !ok {
-			log.Fatal("slu version (" + version.Version + ") must be higher or equal to " + FlagVersion)
-		}
+		error_utils.HandleNotOK(ok, "slu version ("+version.Version+") must be higher or equal to "+FlagVersion)
 	},
 }
 

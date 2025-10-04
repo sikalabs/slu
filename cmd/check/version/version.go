@@ -1,10 +1,10 @@
 package version
 
 import (
-	"log"
 	"strings"
 
 	parent_cmd "github.com/sikalabs/slu/cmd/check"
+	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/sikalabs/slu/utils/exec_utils"
 	"github.com/sikalabs/slu/utils/semver_utils"
 
@@ -20,14 +20,10 @@ var Cmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		currentVersionRaw, err := exec_utils.ExecStr(FlagBinary, "version")
-		if err != nil {
-			log.Fatal(err)
-		}
+		error_utils.HandleError(err, "Failed to get version")
 		currentVersion := strings.ReplaceAll(currentVersionRaw, "\n", "")
 		ok := semver_utils.CheckMinimumVersion(currentVersion, FlagVersion)
-		if !ok {
-			log.Fatal(FlagBinary + " version (" + currentVersion + ") must be higher or equal to " + FlagVersion)
-		}
+		error_utils.HandleNotOK(ok, FlagBinary+" version ("+currentVersion+") must be higher or equal to "+FlagVersion)
 	},
 }
 

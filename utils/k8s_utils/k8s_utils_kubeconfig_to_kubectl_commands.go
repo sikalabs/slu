@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/sikalabs/slu/internal/error_utils"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
@@ -18,19 +19,13 @@ func KubeconfigToKubectlCommandsOrDie(kubeconfigPath string) {
 
 	ctxName := config.CurrentContext
 	ctx, ok := config.Contexts[ctxName]
-	if !ok {
-		log.Fatalf("Context %q not found", ctxName)
-	}
+	error_utils.HandleNotOK(ok, fmt.Sprintf("Context %q not found", ctxName))
 
 	cluster, ok := config.Clusters[ctx.Cluster]
-	if !ok {
-		log.Fatalf("Cluster %q not found", ctx.Cluster)
-	}
+	error_utils.HandleNotOK(ok, fmt.Sprintf("Cluster %q not found", ctx.Cluster))
 
 	user, ok := config.AuthInfos[ctx.AuthInfo]
-	if !ok {
-		log.Fatalf("AuthInfo %q not found", ctx.AuthInfo)
-	}
+	error_utils.HandleNotOK(ok, fmt.Sprintf("AuthInfo %q not found", ctx.AuthInfo))
 
 	fmt.Println("# Commands to replicate kubeconfig setup (inline cert/key data, no files)")
 
