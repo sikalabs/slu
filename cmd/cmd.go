@@ -187,6 +187,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/postgres/drop"
 	_ "github.com/sikalabs/slu/cmd/postgres/list"
 	_ "github.com/sikalabs/slu/cmd/postgres/ping"
+	_ "github.com/sikalabs/slu/cmd/postgres/restore"
+	_ "github.com/sikalabs/slu/cmd/postgres/restore/from_azure_blob"
 	_ "github.com/sikalabs/slu/cmd/proxy"
 	_ "github.com/sikalabs/slu/cmd/proxy/smtp"
 	_ "github.com/sikalabs/slu/cmd/proxy/tcp"
