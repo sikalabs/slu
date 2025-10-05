@@ -17,6 +17,7 @@ cobra-docs
 *.local.yaml
 .slu.state.json
 .slu.secrets.json
+temp
 
 # Local scripts
 *.local.sh
