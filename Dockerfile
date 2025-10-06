@@ -5,5 +5,5 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build
 
-FROM debian:12-slim
+FROM debian:13-slim
 COPY --from=build /build/slu /usr/local/bin/slu
