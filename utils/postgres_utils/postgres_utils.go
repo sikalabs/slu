@@ -50,8 +50,7 @@ func RunPSQLFromReader(ctx context.Context, host string, port int, user, passwor
 		"-p", fmt.Sprint(port),
 		"-U", user,
 		"-d", db,
-		"-v", "ON_ERROR_STOP=1",
-		"-1", // one transaction
+		"-v", "ON_ERROR_STOP=0",
 	}
 
 	cmd := exec.CommandContext(ctx, "psql", args...)
