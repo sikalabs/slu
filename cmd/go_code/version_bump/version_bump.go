@@ -117,7 +117,7 @@ func init() {
 		"Create also git tag",
 	)
 	Cmd.Flags().BoolVar(
-		&CmdFlagNoCommit,
+		&CmdFlagGoGit,
 		"go-git",
 		false,
 		"Use go-git instead of git binary",
