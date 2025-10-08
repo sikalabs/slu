@@ -17,6 +17,9 @@ var Cmd = &cobra.Command{
 		exec_utils.ExecOut(
 			"git", "config", "--global", "user.email",
 			"ondrej@ondrejsika.com")
+		exec_utils.ExecOut(
+			"git", "config", "--global", "core.editor",
+			"vim")
 	},
 }
 
