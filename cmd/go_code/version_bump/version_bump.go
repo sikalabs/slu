@@ -1,8 +1,11 @@
 package version_bump
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"strconv"
+	"strings"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
@@ -16,6 +19,7 @@ var CmdFlagVersion string
 var CmdFlagNoCommit bool
 var CmdFlagTag bool
 var CmdFlagGoGit bool
+var CmdFlagAuto bool
 
 var Cmd = &cobra.Command{
 	Use:     "version-bump",
@@ -23,6 +27,26 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"vb"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		// Handle --auto flag
+		if CmdFlagAuto {
+			currentVersionBytes, err := os.ReadFile("version/version.go")
+			if err != nil {
+				log.Fatalln("Failed to read current version:", err)
+			}
+
+			currentVersionContent := string(currentVersionBytes)
+			// Parse current version from: var Version string = "vX.Y.Z-dev"
+			start := strings.Index(currentVersionContent, `"`)
+			end := strings.LastIndex(currentVersionContent, `"`)
+			if start == -1 || end == -1 || start == end {
+				log.Fatalln("Failed to parse current version from version/version.go")
+			}
+
+			currentVersion := currentVersionContent[start+1 : end]
+			CmdFlagVersion = calculateNextVersion(currentVersion)
+			fmt.Printf("Auto-bumping version: %s -> %s\n", currentVersion, CmdFlagVersion)
+		}
+
 		version_go_file := `package version
 
 var Version string = "` + CmdFlagVersion + `"
@@ -92,6 +116,29 @@ var Version string = "` + CmdFlagVersion + `"
 	},
 }
 
+func calculateNextVersion(currentVersion string) string {
+	// If version ends with -dev, remove it (e.g., v0.1.0-dev -> v0.1.0)
+	if strings.HasSuffix(currentVersion, "-dev") {
+		return strings.TrimSuffix(currentVersion, "-dev")
+	}
+
+	// Otherwise, bump minor version and add -dev (e.g., v0.1.0 -> v0.2.0-dev)
+	// Parse version: vX.Y.Z
+	version := strings.TrimPrefix(currentVersion, "v")
+	parts := strings.Split(version, ".")
+	if len(parts) != 3 {
+		log.Fatalln("Invalid version format:", currentVersion)
+	}
+
+	major := parts[0]
+	minor, err := strconv.Atoi(parts[1])
+	if err != nil {
+		log.Fatalln("Failed to parse minor version:", err)
+	}
+
+	return fmt.Sprintf("v%s.%d.0-dev", major, minor+1)
+}
+
 func init() {
 	go_code_cmd.Cmd.AddCommand(Cmd)
 	Cmd.Flags().StringVarP(
@@ -101,7 +148,13 @@ func init() {
 		"",
 		"New version",
 	)
-	Cmd.MarkFlagRequired("version")
+	Cmd.Flags().BoolVarP(
+		&CmdFlagAuto,
+		"auto",
+		"a",
+		false,
+		"Auto-calculate next version (v0.1.0-dev -> v0.1.0, v0.1.0 -> v0.2.0-dev)",
+	)
 	Cmd.Flags().BoolVarP(
 		&CmdFlagNoCommit,
 		"no-commit",
@@ -122,4 +175,6 @@ func init() {
 		false,
 		"Use go-git instead of git binary",
 	)
+	Cmd.MarkFlagsOneRequired("version", "auto")
+	Cmd.MarkFlagsMutuallyExclusive("version", "auto")
 }
