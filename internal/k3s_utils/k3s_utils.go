@@ -1,7 +1,6 @@
 package k3s_utils
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 )
@@ -16,7 +15,7 @@ func CheckIfKubectlIsLinkOfK3s() bool {
 	}
 
 	if info.Mode()&os.ModeSymlink != 0 {
-		target, err := os.Readlink(kubectl)
+		_, err := os.Readlink(kubectl)
 		if err != nil {
 			return false
 		}
@@ -31,7 +30,6 @@ func CheckIfKubectlIsLinkOfK3s() bool {
 			return false
 		}
 
-		fmt.Println("kubectl points to:", target)
 		if resolvedkubectl == resolvedk3s {
 			return true
 		}
