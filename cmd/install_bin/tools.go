@@ -1,6 +1,9 @@
 package install_bin
 
 import (
+	"os"
+
+	"github.com/sikalabs/slu/internal/k3s_utils"
 	"github.com/sikalabs/slu/utils/github_utils"
 	"github.com/sikalabs/slu/utils/http_utils"
 	"golang.org/x/text/cases"
@@ -54,6 +57,15 @@ var Tools = []Tool{
 			return http_utils.UrlGetToString("https://storage.googleapis.com/kubernetes-release/release/stable.txt")
 		},
 		UrlTemplate: "https://dl.k8s.io/release/{{.Version}}/bin/{{.Os}}/{{.Arch}}/kubectl",
+		RunBeforeInstall: func(name string, version string, os_ string, arch string, binDir string) error {
+			if binDir == "/usr/local/bin" && k3s_utils.CheckIfKubectlIsLinkOfK3s() {
+				err := os.Remove("/usr/local/bin/kubectl")
+				if err != nil {
+					return err
+				}
+			}
+			return nil
+		},
 	},
 	{
 		Name:           "minikube",
