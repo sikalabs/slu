@@ -3,6 +3,7 @@ package install_bin
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"runtime"
 	"strings"
 	"text/template"
@@ -13,13 +14,14 @@ import (
 )
 
 type Tool struct {
-	Name           string
-	Aliases        []string
-	SourcePath     string
-	GetVersionFunc func() string
-	GetOsFunc      func(string) string
-	GetArchFunc    func(string) string
-	UrlTemplate    string
+	Name             string
+	Aliases          []string
+	SourcePath       string
+	GetVersionFunc   func() string
+	GetOsFunc        func(string) string
+	GetArchFunc      func(string) string
+	RunBeforeInstall func(string, string, string, string, string) error // name, version, os, arch, binDir
+	UrlTemplate      string
 }
 
 var CmdFlagBinDir string
@@ -125,6 +127,7 @@ func buildCmd(
 	defaultOSFunc func() string,
 	defaultArchFunc func() string,
 	defaultBinDirFunc func() string,
+	runBeforeInstall func(string, string, string, string, string) error,
 ) *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:     name,
@@ -146,6 +149,7 @@ func buildCmd(
 				defaultOSFunc,
 				defaultArchFunc,
 				defaultBinDirFunc,
+				runBeforeInstall,
 			)
 		},
 	}
@@ -217,6 +221,7 @@ func init() {
 			func() string { return CmdFlagOS },
 			func() string { return CmdFlagArch },
 			func() string { return CmdFlagBinDir },
+			tool.RunBeforeInstall,
 		))
 	}
 }
@@ -265,6 +270,7 @@ func run(
 	defaultOSFunc func() string,
 	defaultArchFunc func() string,
 	defaultBinDirFunc func() string,
+	runBeforeInstall func(string, string, string, string, string) error,
 ) {
 	if sourceTemlate == "" {
 		sourceTemlate = name
@@ -294,6 +300,12 @@ func run(
 		defaultOSFunc,
 		defaultArchFunc,
 	)
+	if runBeforeInstall != nil {
+		err := runBeforeInstall(name, version, defaultOSFunc(), defaultArchFunc(), defaultBinDirFunc())
+		if err != nil {
+			log.Fatalln("Error in run before install:", err)
+		}
+	}
 	install_bin_utils.InstallBin(
 		url,
 		source,
