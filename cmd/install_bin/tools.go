@@ -440,8 +440,8 @@ var Tools = []Tool{
 	},
 	{
 		Name:           "master",
-		GetVersionFunc: func() string { return github_utils.GetLatestRelease("ondrejsika", "master") },
-		UrlTemplate:    "https://github.com/ondrejsika/master/releases/download/{{.Version}}/master_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabsx", "master") },
+		UrlTemplate:    "https://github.com/sikalabsx/master/releases/download/{{.Version}}/master_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
 		Name:           "k3d",
