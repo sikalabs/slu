@@ -2,13 +2,14 @@ package get_images_from_env_for_values_yaml
 
 import (
 	"bufio"
+	"context"
 	"fmt"
 	"os"
 	"strings"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/secretsmanager"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts/webwings"
 	"github.com/spf13/cobra"
 )
@@ -36,27 +37,27 @@ func init() {
 }
 
 func fill_aws_secrets() {
-	// Initialize AWS session
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String("eu-central-1"),
-	})
+	ctx := context.Background()
+
+	// Initialize AWS config
+	cfg, err := config.LoadDefaultConfig(ctx, config.WithRegion("eu-central-1"))
 	if err != nil {
 		panic(err)
 	}
-	smClient := secretsmanager.New(sess)
+	smClient := secretsmanager.NewFromConfig(cfg)
 
 	// List all secrets
 	input := &secretsmanager.ListSecretsInput{
-		MaxResults: aws.Int64(100),
+		MaxResults: aws.Int32(100),
 	}
-	result, err := smClient.ListSecrets(input)
+	result, err := smClient.ListSecrets(ctx, input)
 	if err != nil {
 		panic(err)
 	}
 
 	// Iterate over all secrets and check if they are empty
 	for _, secret := range result.SecretList {
-		secretValue, _ := smClient.GetSecretValue(&secretsmanager.GetSecretValueInput{
+		secretValue, _ := smClient.GetSecretValue(ctx, &secretsmanager.GetSecretValueInput{
 			SecretId: secret.Name,
 		})
 
@@ -66,7 +67,7 @@ func fill_aws_secrets() {
 			value, _ := reader.ReadString('\n')
 			value = strings.TrimSpace(value)
 
-			_, err := smClient.PutSecretValue(&secretsmanager.PutSecretValueInput{
+			_, err := smClient.PutSecretValue(ctx, &secretsmanager.PutSecretValueInput{
 				SecretId:     secret.Name,
 				SecretString: aws.String(value),
 			})

@@ -5,61 +5,61 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/subscriptions"
-	"github.com/Azure/azure-sdk-for-go/profiles/latest/resources/mgmt/resources"
-	"github.com/Azure/go-autorest/autorest/azure/auth"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions"
 	"github.com/olekukonko/tablewriter"
 	"github.com/sikalabs/slu/internal/error_utils"
 )
 
 func GetSubscriptionID() (string, error) {
-	authorizer, err := auth.NewAuthorizerFromCLI()
+	cred, err := azidentity.NewAzureCLICredential(nil)
 	if err != nil {
 		return "", err
 	}
 
-	subscriptionsClient := subscriptions.NewClient()
-	subscriptionsClient.Authorizer = authorizer
-
-	subList, err := subscriptionsClient.List(context.Background())
+	client, err := armsubscriptions.NewClient(cred, nil)
 	if err != nil {
 		return "", err
 	}
 
-	for _, sub := range subList.Values() {
-		if sub.State == subscriptions.Enabled {
-			return *sub.SubscriptionID, nil
+	pager := client.NewListPager(nil)
+	for pager.More() {
+		page, err := pager.NextPage(context.Background())
+		if err != nil {
+			return "", err
+		}
+		for _, sub := range page.Value {
+			if sub.State != nil && *sub.State == armsubscriptions.SubscriptionStateEnabled {
+				return *sub.SubscriptionID, nil
+			}
 		}
 	}
 
 	return "", fmt.Errorf("no enabled subscriptions found in tenant")
 }
 
-func GetAllResourcesFromCurrentSubscription() []resources.GenericResourceExpanded {
+func GetAllResourcesFromCurrentSubscription() []*armresources.GenericResourceExpanded {
 	// Use Azure CLI authentication
-	authorizer, err := auth.NewAuthorizerFromCLI()
-	error_utils.HandleError(err, "Failed to create Azure authorizer")
+	cred, err := azidentity.NewAzureCLICredential(nil)
+	error_utils.HandleError(err, "Failed to create Azure credential")
 
 	// Get the subscription ID
 	subscriptionID, err := GetSubscriptionID()
 	error_utils.HandleError(err, "Failed to get subscription ID")
 
 	// Create a new instance of the resources client
-	resourcesClient := resources.NewClient(subscriptionID)
-	resourcesClient.Authorizer = authorizer
+	client, err := armresources.NewClient(subscriptionID, cred, nil)
+	error_utils.HandleError(err, "Failed to create resources client")
 
 	// List resources
-	resourcesList, err := resourcesClient.ListComplete(context.Background(), "", "", nil)
-	error_utils.HandleError(err, "Failed to list resources")
+	res := []*armresources.GenericResourceExpanded{}
+	pager := client.NewListPager(nil)
 
-	// Print the resources
-	res := []resources.GenericResourceExpanded{}
-
-	for resourcesList.NotDone() {
-		r := resourcesList.Value()
-		res = append(res, r)
-		err = resourcesList.NextWithContext(context.Background())
-		error_utils.HandleError(err, "Failed to get next resource")
+	for pager.More() {
+		page, err := pager.NextPage(context.Background())
+		error_utils.HandleError(err, "Failed to list resources")
+		res = append(res, page.Value...)
 	}
 
 	return res

@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/subscriptions"
-	"github.com/Azure/go-autorest/autorest/azure/auth"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions"
 )
 
 var Cmd = &cobra.Command{
@@ -29,23 +29,26 @@ func init() {
 }
 
 func printSubscriptionInfo() {
-	// Use environment variables for authentication
-	authorizer, err := auth.NewAuthorizerFromCLI()
-	error_utils.HandleError(err, "Failed to create Azure authorizer")
+	// Use Azure CLI credential for authentication
+	cred, err := azidentity.NewAzureCLICredential(nil)
+	error_utils.HandleError(err, "Failed to create Azure credential")
 
 	// Create a client
-	subscriptionsClient := subscriptions.NewClient()
-	subscriptionsClient.Authorizer = authorizer
+	client, err := armsubscriptions.NewClient(cred, nil)
+	error_utils.HandleError(err, "Failed to create subscriptions client")
 
 	// Get the list of subscriptions
-	subList, err := subscriptionsClient.List(context.Background())
-	error_utils.HandleError(err, "Failed to list subscriptions")
+	pager := client.NewListPager(nil)
+	for pager.More() {
+		page, err := pager.NextPage(context.Background())
+		error_utils.HandleError(err, "Failed to list subscriptions")
 
-	for _, sub := range subList.Values() {
-		if sub.State == subscriptions.Enabled {
-			fmt.Printf("Subscription ID:   %s\n", *sub.SubscriptionID)
-			fmt.Printf("Subscription Name: %s\n", *sub.DisplayName)
-			return
+		for _, sub := range page.Value {
+			if sub.State != nil && *sub.State == armsubscriptions.SubscriptionStateEnabled {
+				fmt.Printf("Subscription ID:   %s\n", *sub.SubscriptionID)
+				fmt.Printf("Subscription Name: %s\n", *sub.DisplayName)
+				return
+			}
 		}
 	}
 

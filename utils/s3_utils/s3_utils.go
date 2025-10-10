@@ -1,23 +1,55 @@
 package s3_utils
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"log"
 	"os"
 	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	aws_aws "github.com/aws/aws-sdk-go/aws"
-	aws_credentials "github.com/aws/aws-sdk-go/aws/credentials"
-	aws_session "github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
-	aws_s3 "github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
-	aws_s3manager "github.com/aws/aws-sdk-go/service/s3/s3manager"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/credentials"
+	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/cheggaaa/pb/v3"
 	"github.com/sikalabs/slu/utils/vault_s3_utils"
 )
+
+func getAWSConfig(access_key, secret_key, region, endpoint string) (aws.Config, error) {
+	ctx := context.Background()
+
+	cfg, err := config.LoadDefaultConfig(ctx,
+		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(
+			access_key,
+			secret_key,
+			"",
+		)),
+	)
+	if err != nil {
+		return aws.Config{}, err
+	}
+
+	if region != "" {
+		cfg.Region = region
+	} else if endpoint != "" {
+		cfg.Region = "us-east-1"
+	}
+
+	return cfg, nil
+}
+
+func getS3Client(cfg aws.Config, endpoint string) *s3.Client {
+	if endpoint != "" {
+		return s3.NewFromConfig(cfg, func(o *s3.Options) {
+			o.BaseEndpoint = aws.String(endpoint)
+			o.UsePathStyle = true
+		})
+	}
+	return s3.NewFromConfig(cfg)
+}
 
 func DeleteBucketWithObjects(
 	access_key string,
@@ -26,55 +58,44 @@ func DeleteBucketWithObjects(
 	endpoint string,
 	bucket_name string,
 ) error {
-	awsConfig := aws_aws.Config{
-		Credentials: aws_credentials.NewStaticCredentials(
-			access_key,
-			secret_key,
-			"",
-		),
-	}
-	if region != "" {
-		awsConfig.Region = aws_aws.String(region)
-	}
-	if endpoint != "" {
-		awsConfig.Region = aws_aws.String(string("us-east-1"))
-		awsConfig.S3ForcePathStyle = aws_aws.Bool(true)
-		awsConfig.Endpoint = aws_aws.String(endpoint)
-	}
-	session, err := aws_session.NewSession(
-		&awsConfig,
-	)
+	cfg, err := getAWSConfig(access_key, secret_key, region, endpoint)
 	if err != nil {
 		return err
 	}
 
-	svc := aws_s3.New(session)
+	client := getS3Client(cfg, endpoint)
+	ctx := context.Background()
 
-	err = svc.ListObjectsPages(&aws_s3.ListObjectsInput{
-		Bucket:  aws_aws.String(bucket_name),
-		MaxKeys: aws_aws.Int64(1000),
-	}, func(p *s3.ListObjectsOutput, last bool) (shouldContinue bool) {
-		for _, obj := range p.Contents {
-			_, err = svc.DeleteObject(&aws_s3.DeleteObjectInput{
-				Bucket: aws_aws.String(bucket_name),
+	// List and delete all objects
+	paginator := s3.NewListObjectsV2Paginator(client, &s3.ListObjectsV2Input{
+		Bucket:  aws.String(bucket_name),
+		MaxKeys: aws.Int32(1000),
+	})
+
+	for paginator.HasMorePages() {
+		page, err := paginator.NextPage(ctx)
+		if err != nil {
+			log.Println(err)
+			return err
+		}
+
+		for _, obj := range page.Contents {
+			_, err = client.DeleteObject(ctx, &s3.DeleteObjectInput{
+				Bucket: aws.String(bucket_name),
 				Key:    obj.Key,
 			})
 			if err != nil {
 				log.Println(err)
 			}
 		}
-		return true
-	})
-	if err != nil {
-		log.Println(err)
-		return err
 	}
 
-	svc.DeleteBucket(&aws_s3.DeleteBucketInput{
-		Bucket: aws_aws.String(bucket_name),
+	// Delete the bucket
+	_, err = client.DeleteBucket(ctx, &s3.DeleteBucketInput{
+		Bucket: aws.String(bucket_name),
 	})
 
-	return nil
+	return err
 }
 
 func Upload(
@@ -108,28 +129,13 @@ func DownloadToFile(
 	key string,
 	localFilePath string,
 ) error {
-
-	awsConfig := aws_aws.Config{
-		Credentials: aws_credentials.NewStaticCredentials(
-			access_key,
-			secret_key,
-			"",
-		),
-	}
-	if region != "" {
-		awsConfig.Region = aws_aws.String(region)
-	}
-	if endpoint != "" {
-		awsConfig.Region = aws_aws.String(string("us-east-1"))
-		awsConfig.S3ForcePathStyle = aws_aws.Bool(true)
-		awsConfig.Endpoint = aws_aws.String(endpoint)
-	}
-	session, err := aws_session.NewSession(
-		&awsConfig,
-	)
+	cfg, err := getAWSConfig(access_key, secret_key, region, endpoint)
 	if err != nil {
 		return err
 	}
+
+	client := getS3Client(cfg, endpoint)
+	ctx := context.Background()
 
 	file, err := os.Create(localFilePath)
 	if err != nil {
@@ -137,8 +143,8 @@ func DownloadToFile(
 	}
 	defer file.Close()
 
-	downloader := s3manager.NewDownloader(session)
-	_, err = downloader.Download(file,
+	downloader := manager.NewDownloader(client)
+	_, err = downloader.Download(ctx, file,
 		&s3.GetObjectInput{
 			Bucket: aws.String(bucket_name),
 			Key:    aws.String(key),
@@ -160,44 +166,31 @@ func baseUpload(
 	partSizeMB int,
 	concurrency int,
 ) error {
-	awsConfig := aws_aws.Config{
-		Credentials: aws_credentials.NewStaticCredentials(
-			access_key,
-			secret_key,
-			"",
-		),
-	}
-	if region != "" {
-		awsConfig.Region = aws_aws.String(region)
-	}
-	if endpoint != "" {
-		awsConfig.Region = aws_aws.String(string("us-east-1"))
-		awsConfig.S3ForcePathStyle = aws_aws.Bool(true)
-		awsConfig.Endpoint = aws_aws.String(endpoint)
-	}
-	session, err := aws_session.NewSession(
-		&awsConfig,
-	)
+	cfg, err := getAWSConfig(access_key, secret_key, region, endpoint)
 	if err != nil {
 		return err
 	}
-	uploader := aws_s3manager.NewUploader(session, func(u *aws_s3manager.Uploader) {
+
+	client := getS3Client(cfg, endpoint)
+	ctx := context.Background()
+
+	uploader := manager.NewUploader(client, func(u *manager.Uploader) {
 		u.PartSize = int64(partSizeMB) * 1024 * 1024 // The minimum/default allowed part size is 5MB
 		u.Concurrency = concurrency                  // default is 5
 	})
 
-	size, _ := f.Seek(0, os.SEEK_END)
-	f.Seek(0, 0)
+	size, _ := f.Seek(0, io.SeekEnd)
+	f.Seek(0, io.SeekStart)
 
 	bar := pb.Full.Start64(size)
 
 	// create proxy reader
 	barReader := bar.NewProxyReader(f)
 
-	_, err = uploader.Upload(&aws_s3manager.UploadInput{
-		Bucket: aws_aws.String(bucket_name),
-		ACL:    aws_aws.String("private"),
-		Key:    aws_aws.String(key),
+	_, err = uploader.Upload(ctx, &s3.PutObjectInput{
+		Bucket: aws.String(bucket_name),
+		ACL:    types.ObjectCannedACLPrivate,
+		Key:    aws.String(key),
 		Body:   barReader,
 	})
 	if err != nil {
@@ -218,40 +211,27 @@ func GetObjectPresignUrl(
 	key string,
 	ttl time.Duration,
 ) (string, error) {
-	awsConfig := aws_aws.Config{
-		Credentials: aws_credentials.NewStaticCredentials(
-			access_key,
-			secret_key,
-			"",
-		),
-	}
-	if region != "" {
-		awsConfig.Region = aws_aws.String(region)
-	}
-	if endpoint != "" {
-		awsConfig.Region = aws_aws.String(string("us-east-1"))
-		awsConfig.S3ForcePathStyle = aws_aws.Bool(true)
-		awsConfig.Endpoint = aws_aws.String(endpoint)
-	}
-	session, err := aws_session.NewSession(
-		&awsConfig,
-	)
+	cfg, err := getAWSConfig(access_key, secret_key, region, endpoint)
 	if err != nil {
 		return "", err
 	}
-	svc := s3.New(session)
 
-	req, _ := svc.GetObjectRequest(&s3.GetObjectInput{
-		Bucket: aws_aws.String(bucket_name),
-		Key:    aws_aws.String(key),
+	client := getS3Client(cfg, endpoint)
+	ctx := context.Background()
+
+	presignClient := s3.NewPresignClient(client)
+	presignResult, err := presignClient.PresignGetObject(ctx, &s3.GetObjectInput{
+		Bucket: aws.String(bucket_name),
+		Key:    aws.String(key),
+	}, func(opts *s3.PresignOptions) {
+		opts.Expires = ttl
 	})
-	urlStr, err := req.Presign(ttl)
 
 	if err != nil {
 		return "", err
 	}
 
-	return urlStr, nil
+	return presignResult.URL, nil
 }
 
 func RemoveObjectsByAge(
@@ -262,38 +242,31 @@ func RemoveObjectsByAge(
 	bucket_name string,
 	age time.Duration,
 ) error {
-	awsConfig := aws_aws.Config{
-		Credentials: aws_credentials.NewStaticCredentials(
-			access_key,
-			secret_key,
-			"",
-		),
-	}
-	if region != "" {
-		awsConfig.Region = aws_aws.String(region)
-	}
-	if endpoint != "" {
-		awsConfig.Region = aws_aws.String(string("us-east-1"))
-		awsConfig.S3ForcePathStyle = aws_aws.Bool(true)
-		awsConfig.Endpoint = aws_aws.String(endpoint)
-	}
-	session, err := aws_session.NewSession(
-		&awsConfig,
-	)
+	cfg, err := getAWSConfig(access_key, secret_key, region, endpoint)
 	if err != nil {
 		return err
 	}
 
-	svc := aws_s3.New(session)
-	err = svc.ListObjectsPages(&aws_s3.ListObjectsInput{
-		Bucket:  aws_aws.String(bucket_name),
-		MaxKeys: aws_aws.Int64(1000),
-	}, func(p *s3.ListObjectsOutput, last bool) (shouldContinue bool) {
-		for _, obj := range p.Contents {
+	client := getS3Client(cfg, endpoint)
+	ctx := context.Background()
+
+	paginator := s3.NewListObjectsV2Paginator(client, &s3.ListObjectsV2Input{
+		Bucket:  aws.String(bucket_name),
+		MaxKeys: aws.Int32(1000),
+	})
+
+	for paginator.HasMorePages() {
+		page, err := paginator.NextPage(ctx)
+		if err != nil {
+			log.Println(err)
+			return err
+		}
+
+		for _, obj := range page.Contents {
 			if time.Since(*obj.LastModified) > age {
 				fmt.Println("removing", *obj.Key)
-				_, err = svc.DeleteObject(&aws_s3.DeleteObjectInput{
-					Bucket: aws_aws.String(bucket_name),
+				_, err = client.DeleteObject(ctx, &s3.DeleteObjectInput{
+					Bucket: aws.String(bucket_name),
 					Key:    obj.Key,
 				})
 				if err != nil {
@@ -303,11 +276,6 @@ func RemoveObjectsByAge(
 				fmt.Println("keeping", *obj.Key)
 			}
 		}
-		return true
-	})
-	if err != nil {
-		log.Println(err)
-		return err
 	}
 
 	return nil
