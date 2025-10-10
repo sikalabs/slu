@@ -194,6 +194,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/proxy/tcp"
 	_ "github.com/sikalabs/slu/cmd/rabbitmq"
 	_ "github.com/sikalabs/slu/cmd/rabbitmq/put_message"
+	_ "github.com/sikalabs/slu/cmd/rabbitmq/read_queue"
 	_ "github.com/sikalabs/slu/cmd/random"
 	_ "github.com/sikalabs/slu/cmd/random/human_readable_password"
 	_ "github.com/sikalabs/slu/cmd/random/int"
