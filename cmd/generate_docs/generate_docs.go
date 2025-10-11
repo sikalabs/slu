@@ -8,12 +8,16 @@ import (
 	"github.com/spf13/cobra/doc"
 )
 
+var (
+	flagOutputDir string
+)
+
 var Cmd = &cobra.Command{
 	Use:   "generate-docs",
 	Short: "Generate Markdown docs",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		path := "./cobra-docs/"
+		path := flagOutputDir
 		err := os.MkdirAll(path, os.ModePerm)
 		if err != nil {
 			panic(err)
@@ -26,5 +30,12 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
+	Cmd.Flags().StringVarP(
+		&flagOutputDir,
+		"output-dir",
+		"o",
+		"./cobra-docs/",
+		"Output directory for generated docs",
+	)
 	root.RootCmd.AddCommand(Cmd)
 }
