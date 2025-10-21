@@ -277,6 +277,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/telegram/send_message"
 	_ "github.com/sikalabs/slu/cmd/terraform"
 	_ "github.com/sikalabs/slu/cmd/terraform/create_setup_config"
+	_ "github.com/sikalabs/slu/cmd/terraform/setup"
 	_ "github.com/sikalabs/slu/cmd/time"
 	_ "github.com/sikalabs/slu/cmd/time/now"
 	_ "github.com/sikalabs/slu/cmd/time/parse"
