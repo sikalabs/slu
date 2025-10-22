@@ -42,7 +42,7 @@ var Cmd = &cobra.Command{
 		exec_utils.ExecOut("git", "add", ".")
 		exec_utils.ExecOut(
 			"git", "commit", "-n", "-m",
-			"[auto] feat: Add Charts ("+messageFilesString+")")
+			"[auto] feat: Add Charts ("+messageFilesString+")\n\nCo-authored-by: slu[bot] <slubot@sikalabs.com>")
 	},
 }
 
