@@ -10,6 +10,8 @@ import (
 
 var FlagInstallTools bool
 var FlagDry bool
+var FlagServers int
+var FlagAgents int
 
 var Cmd = &cobra.Command{
 	Use:     "create-k3d-cluster",
@@ -23,12 +25,12 @@ var Cmd = &cobra.Command{
 			sh("slu install-bin helm", FlagDry)
 			sh("slu install-bin k9s", FlagDry)
 		}
-		sh(`k3d cluster create default \
+		sh(fmt.Sprintf(`k3d cluster create default \
 --k3s-arg --disable=traefik@server:0 \
---servers 1 --agents 1 \
+--servers %d --agents %d \
 --port 80:80@loadbalancer \
 --port 443:443@loadbalancer \
---wait`, FlagDry)
+--wait`, FlagServers, FlagAgents), FlagDry)
 		sh("slu scripts kubernetes install-ingress", FlagDry)
 		sh("slu scripts kubernetes install-cert-manager", FlagDry)
 		sh("slu scripts kubernetes install-cluster-issuer", FlagDry)
@@ -49,6 +51,18 @@ func init() {
 		"i",
 		false,
 		"Install k3d, kubetl, helm, k9s",
+	)
+	Cmd.Flags().IntVar(
+		&FlagServers,
+		"servers",
+		1,
+		"Number of server nodes",
+	)
+	Cmd.Flags().IntVar(
+		&FlagAgents,
+		"agents",
+		0,
+		"Number of agent nodes",
 	)
 }
 
