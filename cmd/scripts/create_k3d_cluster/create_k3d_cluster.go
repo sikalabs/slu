@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagName string
 var FlagInstallTools bool
 var FlagDry bool
 var FlagServers int
@@ -26,12 +27,12 @@ var Cmd = &cobra.Command{
 			sh("slu install-bin helm", FlagDry)
 			sh("slu install-bin k9s", FlagDry)
 		}
-		sh(fmt.Sprintf(`k3d cluster create default \
+		sh(fmt.Sprintf(`k3d cluster create %s \
 --k3s-arg --disable=traefik@server:0 \
 --servers %d --agents %d \
 --port 80:80@loadbalancer \
 --port 443:443@loadbalancer \
---wait`, FlagServers, FlagAgents), FlagDry)
+--wait`, FlagName, FlagServers, FlagAgents), FlagDry)
 		if !FlagNoIngress {
 			sh("slu scripts kubernetes install-ingress", FlagDry)
 			sh("slu scripts kubernetes install-cert-manager", FlagDry)
@@ -47,6 +48,12 @@ func init() {
 		"dry",
 		false,
 		"Dry run",
+	)
+	Cmd.Flags().StringVar(
+		&FlagName,
+		"name",
+		"default",
+		"Cluster name",
 	)
 	Cmd.PersistentFlags().BoolVarP(
 		&FlagInstallTools,
