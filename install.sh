@@ -8,4 +8,4 @@ curl -fsSL https://github.com/sikalabs/${BIN}/releases/download/${VERSION}/${BIN
 tar -xzf ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz ${BIN} && \
 rm ${BIN}_${VERSION}_${OS}_${ARCH}.tar.gz && \
 mv ${BIN} /usr/local/bin/ && \
-install-slu install
+/usr/local/bin/install-slu install
