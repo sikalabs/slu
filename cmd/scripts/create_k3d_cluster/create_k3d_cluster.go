@@ -12,6 +12,7 @@ var FlagInstallTools bool
 var FlagDry bool
 var FlagServers int
 var FlagAgents int
+var FlagNoIngress bool
 
 var Cmd = &cobra.Command{
 	Use:     "create-k3d-cluster",
@@ -31,9 +32,11 @@ var Cmd = &cobra.Command{
 --port 80:80@loadbalancer \
 --port 443:443@loadbalancer \
 --wait`, FlagServers, FlagAgents), FlagDry)
-		sh("slu scripts kubernetes install-ingress", FlagDry)
-		sh("slu scripts kubernetes install-cert-manager", FlagDry)
-		sh("slu scripts kubernetes install-cluster-issuer", FlagDry)
+		if !FlagNoIngress {
+			sh("slu scripts kubernetes install-ingress", FlagDry)
+			sh("slu scripts kubernetes install-cert-manager", FlagDry)
+			sh("slu scripts kubernetes install-cluster-issuer", FlagDry)
+		}
 	},
 }
 
@@ -51,6 +54,12 @@ func init() {
 		"i",
 		false,
 		"Install k3d, kubetl, helm, k9s",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagNoIngress,
+		"no-ingress",
+		false,
+		"Do not install nginx-ingress, cert-manager and cluster-issuer",
 	)
 	Cmd.Flags().IntVar(
 		&FlagServers,
