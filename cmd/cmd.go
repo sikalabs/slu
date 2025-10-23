@@ -297,6 +297,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/up"
 	_ "github.com/sikalabs/slu/cmd/upload"
 	_ "github.com/sikalabs/slu/cmd/vault"
+	_ "github.com/sikalabs/slu/cmd/vault/copy_file_from_vault"
+	_ "github.com/sikalabs/slu/cmd/vault/copy_file_to_vault"
 	_ "github.com/sikalabs/slu/cmd/vault/create_env_file"
 	_ "github.com/sikalabs/slu/cmd/vault/password_hash"
 	_ "github.com/sikalabs/slu/cmd/vault/read_file"
