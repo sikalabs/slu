@@ -48,6 +48,15 @@ var Cmd = &cobra.Command{
 				error_utils.HandleError(fmt.Errorf("vault address is required"), "VaultAddr must be configured in terraform.json when FilesInVault is used")
 			}
 
+			// Login to Vault
+			fmt.Println("Logging in to Vault...")
+			if !FlagDryRun {
+				err = exec_utils.ExecOut("vault", "login",
+					"-address", config.VaultAddr,
+					"-method=oidc")
+				error_utils.HandleError(err, "Failed to login to Vault")
+			}
+
 			fmt.Println("Downloading files from Vault...")
 			for localPath, vaultPath := range config.FilesInVault {
 				fmt.Printf("  Downloading %s from %s\n", localPath, vaultPath)
