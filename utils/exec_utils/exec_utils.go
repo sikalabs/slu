@@ -17,6 +17,19 @@ func ExecShOut(script string) error {
 	return ExecOut("sh", "-c", script)
 }
 
+func ExecInOut(command string, args ...string) error {
+	cmd := exec.Command(command, args...)
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	return err
+}
+
+func ExecShInOut(script string) error {
+	return ExecInOut("sh", "-c", script)
+}
+
 func ExecNoOut(command string, args ...string) error {
 	cmd := exec.Command(command, args...)
 	err := cmd.Run()
