@@ -216,6 +216,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/atol/get_images_from_env_for_values_yaml"
 	_ "github.com/sikalabs/slu/cmd/scripts/counter"
 	_ "github.com/sikalabs/slu/cmd/scripts/create_k3d_cluster"
+	_ "github.com/sikalabs/slu/cmd/scripts/new_repo"
 	_ "github.com/sikalabs/slu/cmd/scripts/do_sl_training_otp"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker_remove_all"
 	_ "github.com/sikalabs/slu/cmd/scripts/download"
