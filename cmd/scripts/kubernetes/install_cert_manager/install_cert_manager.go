@@ -7,6 +7,7 @@ import (
 )
 
 var FlagDry bool
+var FlagInstallOnly bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-cert-manager",
@@ -14,7 +15,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"icm"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallCertManager(FlagDry)
+		k8s_scripts.InstallCertManager(FlagDry, FlagInstallOnly)
 	},
 }
 
@@ -25,5 +26,11 @@ func init() {
 		"dry",
 		false,
 		"Dry run",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagInstallOnly,
+		"install-only",
+		false,
+		"Use helm install instead of helm upgrade --install",
 	)
 }

@@ -1,7 +1,11 @@
 package k8s_scripts
 
-func InstallArgoCD(namespace string, dry bool) {
-	sh(`helm upgrade --install \
+func InstallArgoCD(namespace string, dry bool, installOnly bool) {
+	helmCommand := "helm upgrade --install"
+	if installOnly {
+		helmCommand = "helm install"
+	}
+	sh(helmCommand+` \
 	argocd argo-cd \
 	--repo https://argoproj.github.io/argo-helm \
 	--create-namespace \
@@ -9,9 +13,13 @@ func InstallArgoCD(namespace string, dry bool) {
 	--wait`, dry)
 }
 
-func InstallArgoCDDomain(namespace string, domain string, dry bool) {
+func InstallArgoCDDomain(namespace string, domain string, dry bool, installOnly bool) {
 	// https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
-	sh(`helm upgrade --install \
+	helmCommand := "helm upgrade --install"
+	if installOnly {
+		helmCommand = "helm install"
+	}
+	sh(helmCommand+` \
 	argocd argo-cd \
 	--repo https://argoproj.github.io/argo-helm \
 	--create-namespace \

@@ -8,6 +8,7 @@ import (
 
 var FlagDry bool
 var FlagUseProxyProtocol bool
+var FlagInstallOnly bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-ingress",
@@ -15,7 +16,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ii"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallIngress(FlagUseProxyProtocol, FlagDry)
+		k8s_scripts.InstallIngress(FlagUseProxyProtocol, FlagDry, FlagInstallOnly)
 	},
 }
 
@@ -32,5 +33,11 @@ func init() {
 		"use-proxy-protocol",
 		false,
 		"Use Proxy Protocol",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagInstallOnly,
+		"install-only",
+		false,
+		"Use helm install instead of helm upgrade --install",
 	)
 }

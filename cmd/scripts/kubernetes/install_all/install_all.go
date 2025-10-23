@@ -13,6 +13,7 @@ var FlagBaseDomain string
 var FlagUseProxyProtocol bool
 var FlagLetsEncryptEmail string
 var FlagNoArgoCD bool
+var FlagInstallOnly bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-all",
@@ -20,11 +21,11 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"iall"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallIngress(FlagUseProxyProtocol, FlagDry)
-		k8s_scripts.InstallCertManager(FlagDry)
+		k8s_scripts.InstallIngress(FlagUseProxyProtocol, FlagDry, FlagInstallOnly)
+		k8s_scripts.InstallCertManager(FlagDry, FlagInstallOnly)
 		k8s_scripts.InstallClusterIssuer(FlagLetsEncryptEmail, FlagDry)
 		if !FlagNoArgoCD {
-			k8s_scripts.InstallArgoCDDomain("argocd", "argocd."+FlagBaseDomain, FlagDry)
+			k8s_scripts.InstallArgoCDDomain("argocd", "argocd."+FlagBaseDomain, FlagDry, FlagInstallOnly)
 		}
 	},
 }
@@ -63,5 +64,11 @@ func init() {
 		"no-argocd",
 		false,
 		"Don't install ArgoCD",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagInstallOnly,
+		"install-only",
+		false,
+		"Use helm install instead of helm upgrade --install",
 	)
 }

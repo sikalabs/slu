@@ -9,6 +9,7 @@ import (
 var FlagDry bool
 var FlagNamespace string
 var FlagDomain string
+var FlagInstallOnly bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-maildev",
@@ -16,7 +17,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"imd"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallMaildevDomain(FlagNamespace, FlagDomain, FlagDry)
+		k8s_scripts.InstallMaildevDomain(FlagNamespace, FlagDomain, FlagDry, FlagInstallOnly)
 	},
 }
 
@@ -41,6 +42,12 @@ func init() {
 		"d",
 		"",
 		"Domain of Maildev instance",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagInstallOnly,
+		"install-only",
+		false,
+		"Use helm install instead of helm upgrade --install",
 	)
 	Cmd.MarkFlagRequired("domain")
 }

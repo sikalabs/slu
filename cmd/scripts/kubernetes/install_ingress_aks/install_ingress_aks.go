@@ -9,6 +9,7 @@ import (
 var FlagDry bool
 var FlagLoadBalancerIP string
 var FlagResourceGroupName string
+var FlagInstallOnly bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-ingress-aks",
@@ -16,7 +17,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"iiaks"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallIngressAKS(FlagLoadBalancerIP, FlagResourceGroupName, FlagDry)
+		k8s_scripts.InstallIngressAKS(FlagLoadBalancerIP, FlagResourceGroupName, FlagDry, FlagInstallOnly)
 	},
 }
 
@@ -42,6 +43,12 @@ func init() {
 		"r",
 		"",
 		"Resource Group Name",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagInstallOnly,
+		"install-only",
+		false,
+		"Use helm install instead of helm upgrade --install",
 	)
 	Cmd.MarkFlagRequired("resource-group-name")
 }

@@ -1,11 +1,15 @@
 package k8s_scripts
 
-func InstallIngress(useProxyProtocol bool, dry bool) {
+func InstallIngress(useProxyProtocol bool, dry bool, installOnly bool) {
 	useProxyProtocolStr := "false"
 	if useProxyProtocol {
 		useProxyProtocolStr = "true"
 	}
-	sh(`helm upgrade --install \
+	helmCommand := "helm upgrade --install"
+	if installOnly {
+		helmCommand = "helm install"
+	}
+	sh(helmCommand+` \
 	ingress-nginx ingress-nginx \
 	--repo https://kubernetes.github.io/ingress-nginx \
 	--create-namespace \
@@ -23,8 +27,13 @@ func InstallIngressAKS(
 	loadBalancerIP string,
 	resourceGroupName string,
 	dry bool,
+	installOnly bool,
 ) {
-	sh(`helm upgrade --install \
+	helmCommand := "helm upgrade --install"
+	if installOnly {
+		helmCommand = "helm install"
+	}
+	sh(helmCommand+` \
 	ingress-nginx ingress-nginx \
 	--repo https://kubernetes.github.io/ingress-nginx \
 	--create-namespace \

@@ -11,6 +11,7 @@ var FlagHost string
 var FlagNamespace string
 var FlagReplicas int
 var FlagText string
+var FlagInstallOnly bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-hello-world",
@@ -18,7 +19,7 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"ihw"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		k8s_scripts.InstallHelloWorld(FlagHost, FlagReplicas, FlagText, FlagNamespace, FlagDry)
+		k8s_scripts.InstallHelloWorld(FlagHost, FlagReplicas, FlagText, FlagNamespace, FlagDry, FlagInstallOnly)
 	},
 }
 
@@ -56,5 +57,11 @@ func init() {
 		"t",
 		"",
 		"Text to display",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagInstallOnly,
+		"install-only",
+		false,
+		"Use helm install instead of helm upgrade --install",
 	)
 }

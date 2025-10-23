@@ -9,6 +9,7 @@ import (
 var FlagDry bool
 var FlagNamespace string
 var FlagDomain string
+var FlagInstallOnly bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-argocd",
@@ -17,9 +18,9 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		if FlagDomain == "" {
-			k8s_scripts.InstallArgoCD(FlagNamespace, FlagDry)
+			k8s_scripts.InstallArgoCD(FlagNamespace, FlagDry, FlagInstallOnly)
 		} else {
-			k8s_scripts.InstallArgoCDDomain(FlagNamespace, FlagDomain, FlagDry)
+			k8s_scripts.InstallArgoCDDomain(FlagNamespace, FlagDomain, FlagDry, FlagInstallOnly)
 		}
 	},
 }
@@ -45,5 +46,11 @@ func init() {
 		"d",
 		"",
 		"Domain of ArgoCD instance",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagInstallOnly,
+		"install-only",
+		false,
+		"Use helm install instead of helm upgrade --install",
 	)
 }

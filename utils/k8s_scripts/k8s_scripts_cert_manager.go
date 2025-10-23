@@ -1,7 +1,11 @@
 package k8s_scripts
 
-func InstallCertManager(dry bool) {
-	sh(`helm upgrade --install \
+func InstallCertManager(dry bool, installOnly bool) {
+	helmCommand := "helm upgrade --install"
+	if installOnly {
+		helmCommand = "helm install"
+	}
+	sh(helmCommand+` \
 cert-manager cert-manager \
 --repo https://charts.jetstack.io \
 --create-namespace \
