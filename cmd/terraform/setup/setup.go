@@ -18,9 +18,11 @@ type TerraformConfig struct {
 	Meta struct {
 		SchemaVersion string `json:"SchemaVersion"`
 	} `json:"Meta"`
-	GitlabURL string `json:"GitlabURL"`
-	ProjectID string `json:"ProjectID"`
-	StateName string `json:"StateName"`
+	GitlabURL    string            `json:"GitlabURL"`
+	ProjectID    string            `json:"ProjectID"`
+	StateName    string            `json:"StateName"`
+	VaultAddr    string            `json:"VaultAddr,omitempty"`
+	FilesInVault map[string]string `json:"FilesInVault,omitempty"`
 }
 
 var FlagUsername string
@@ -39,6 +41,28 @@ var Cmd = &cobra.Command{
 		var config TerraformConfig
 		err = json.Unmarshal(data, &config)
 		error_utils.HandleError(err, "Failed to parse config file")
+
+		// Download files from Vault if FilesInVault is defined
+		if len(config.FilesInVault) > 0 {
+			if config.VaultAddr == "" {
+				error_utils.HandleError(fmt.Errorf("vault address is required"), "VaultAddr must be configured in terraform.json when FilesInVault is used")
+			}
+
+			fmt.Println("Downloading files from Vault...")
+			for localPath, vaultPath := range config.FilesInVault {
+				fmt.Printf("  Downloading %s from %s\n", localPath, vaultPath)
+
+				if !FlagDryRun {
+					err = exec_utils.ExecOut(
+						"slu", "vault", "copy-file-from-vault",
+						"--vault-address", config.VaultAddr,
+						"--secret-path", vaultPath,
+						"--file-path", localPath,
+					)
+					error_utils.HandleError(err, fmt.Sprintf("Failed to download file %s from vault", localPath))
+				}
+			}
+		}
 
 		// Get username and token from stdin or prompt if not provided
 		username := FlagUsername
