@@ -14,15 +14,20 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type CustomToolingConfig struct {
+	Get string `json:"Get"`
+}
+
 type TerraformConfig struct {
 	Meta struct {
 		SchemaVersion string `json:"SchemaVersion"`
 	} `json:"Meta"`
-	GitlabURL    string            `json:"GitlabURL"`
-	ProjectID    string            `json:"ProjectID"`
-	StateName    string            `json:"StateName"`
-	VaultAddr    string            `json:"VaultAddr,omitempty"`
-	FilesInVault map[string]string `json:"FilesInVault,omitempty"`
+	GitlabURL              string                         `json:"GitlabURL"`
+	ProjectID              string                         `json:"ProjectID"`
+	StateName              string                         `json:"StateName"`
+	VaultAddr              string                         `json:"VaultAddr,omitempty"`
+	FilesInVault           map[string]string              `json:"FilesInVault,omitempty"`
+	FilesWithCustomTooling map[string]CustomToolingConfig `json:"FilesWithCustomTooling,omitempty"`
 }
 
 var FlagUsername string
@@ -69,6 +74,24 @@ var Cmd = &cobra.Command{
 						"--file-path", localPath,
 					)
 					error_utils.HandleError(err, fmt.Sprintf("Failed to download file %s from vault", localPath))
+				}
+			}
+		}
+
+		// Execute custom tooling commands for files if FilesWithCustomTooling is defined
+		if len(config.FilesWithCustomTooling) > 0 {
+			fmt.Println("Executing custom tooling commands...")
+			for fileName, tooling := range config.FilesWithCustomTooling {
+				fmt.Printf("  Executing command for %s\n", fileName)
+				if tooling.Get == "" {
+					error_utils.HandleError(fmt.Errorf("get command is empty"), fmt.Sprintf("Get command is required for file %s", fileName))
+				}
+
+				if !FlagDryRun {
+					err = exec_utils.ExecShOut(tooling.Get)
+					error_utils.HandleError(err, fmt.Sprintf("Failed to execute custom tooling command for file %s", fileName))
+				} else {
+					fmt.Printf("    Command: %s\n", tooling.Get)
 				}
 			}
 		}
