@@ -162,7 +162,7 @@ var Cmd = &cobra.Command{
 		}
 
 		// Execute terraform init
-		err = exec_utils.ExecOut("terraform", cmdArgs...)
+		err = exec_utils.ExecInOut("terraform", cmdArgs...)
 		error_utils.HandleError(err, "Failed to execute terraform init")
 	},
 }
