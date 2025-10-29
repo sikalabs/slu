@@ -10,10 +10,18 @@ var Files = map[string]string{
 # Editor
 .vscode
 .idea
+*.swp
+*.swo
+*~
 
 # Generic
 *.log
 *.backup
+*.local.sh
+*.local.yml
+*.local.yaml
+*.local.json
+*.local.txt
 
 # Go
 {{.ProjectName}}
@@ -31,9 +39,9 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 end_of_line = lf
 max_line_length = off
-[*.go]
-indent_style = tab
 [Makefile]
+indent_style = tab
+[*.go]
 indent_style = tab
 `,
 	// go.mod
