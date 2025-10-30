@@ -235,10 +235,12 @@ dockers:
 `,
 	// Dockerfile.goreleaser
 	"Dockerfile.goreleaser": `FROM debian:13-slim
+LABEL org.opencontainers.image.source=https://{{.Package}}
 COPY {{.ProjectName}} /usr/local/bin/
 `,
 	// Dockerfile.goreleaser.arm64v8
 	"Dockerfile.goreleaser.arm64v8": `FROM arm64v8/debian:13-slim
+LABEL org.opencontainers.image.source=https://{{.Package}}
 COPY {{.ProjectName}} /usr/local/bin/
 `,
 }
