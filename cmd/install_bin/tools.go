@@ -199,7 +199,7 @@ var Tools = []Tool{
 	{
 		Name:           "k6",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("grafana", "k6") },
-		UrlTemplate:    "https://github.com/grafana/k6/releases/download/{{.Version}}/k6-{{.Version}}-{{.OsK6}}-{{.Arch}}.zip",
+		UrlTemplate:    `https://github.com/grafana/k6/releases/download/{{.Version}}/k6-{{.Version}}-{{.OsK6}}-{{.Arch}}.{{ if eq .Os "linux" }}tar.gz{{ else }}zip{{ end }}`,
 		SourcePath:     "k6-{{.Version}}-{{.OsK6}}-{{.Arch}}/k6",
 	},
 	{
