@@ -311,6 +311,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/version"
 	_ "github.com/sikalabs/slu/cmd/wait_for"
 	_ "github.com/sikalabs/slu/cmd/wait_for/docker"
+	_ "github.com/sikalabs/slu/cmd/wait_for/http200"
 	_ "github.com/sikalabs/slu/cmd/wait_for/k8s"
 	_ "github.com/sikalabs/slu/cmd/wait_for/k8s/job"
 	_ "github.com/sikalabs/slu/cmd/wait_for/k8s/pod"
