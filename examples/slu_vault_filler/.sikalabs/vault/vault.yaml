@@ -1,0 +1,17 @@
+Meta:
+  SchemaVersion: 1
+VaultAddr: http://127.0.0.1:8200
+RequiredSecrets:
+  - path: secret/slu_vault_filler_example/app1
+    data:
+      - name: username
+        value: admin
+      - name: password
+        passwordGenerator: {}
+  - path: secret/slu_vault_filler_example/app2
+    data:
+      - name: replicas
+      - name: FONT_COLOR
+        value: blue
+      - name: BACKGROUND_COLOR
+        value: lightblue
