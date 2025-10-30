@@ -17,6 +17,8 @@ end_of_line = lf
 max_line_length = off
 [Makefile]
 indent_style = tab
+[Makefile.*.mk]
+indent_style = tab
 `
 	if withGo {
 		content += `[*.go]
