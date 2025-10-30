@@ -43,7 +43,17 @@ func init() {
 var Cmd = &cobra.Command{
 	Use:   "filler",
 	Short: "Populate Vault with secrets from .sikalabs/vault.yaml configuration",
-	Args:  cobra.NoArgs,
+	Long: `Populate Vault with secrets from .sikalabs/vault.yaml configuration
+
+See the example at:
+
+https://github.com/sikalabs/slu/tree/master/examples/slu_vault_filler
+
+The example contains a sample .sikalabs/vault/vault.yaml configuration is here:
+
+https://github.com/sikalabs/slu/blob/master/examples/slu_vault_filler/.sikalabs/vault/vault.yaml
+`,
+	Args: cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		err := vaultFiller(FlagFile, FlagReplace)
 		if err != nil {
