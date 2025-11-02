@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -66,6 +67,32 @@ var Cmd = &cobra.Command{
 			error_utils.HandleError(fmt.Errorf("config file not found"), "Neither terraform.yaml nor terraform.json found in .sikalabs/terraform/")
 		}
 
+		// Try to get token from 1Password if not provided via flags
+		username := FlagUsername
+		token := FlagToken
+
+		if username == "" && token == "" {
+			// Extract domain from GitLab URL
+			parsedURL, err := url.Parse(config.GitlabURL)
+			if err == nil && parsedURL.Host != "" {
+				gitlabDomain := parsedURL.Host
+				itemName := fmt.Sprintf("GITLAB_TOKEN_TF_STATE_%s", gitlabDomain)
+
+				fmt.Printf("Checking 1Password for token: %s\n", itemName)
+
+				// Try to get token from 1Password
+				opToken, err := exec_utils.ExecStr("op", "item", "get", itemName, "--vault", "employee", "--fields", "password", "--reveal")
+				if err == nil && opToken != "" {
+					// Token found in 1Password - username is "token" for GitLab token auth
+					token = strings.TrimSpace(opToken)
+					username = "token"
+					fmt.Println("Using token from 1Password")
+				} else {
+					fmt.Println("Token not found in 1Password, will prompt for credentials")
+				}
+			}
+		}
+
 		// Download files from Vault if FilesInVault is defined
 		if len(config.FilesInVault) > 0 {
 			if config.VaultAddr == "" {
@@ -115,10 +142,7 @@ var Cmd = &cobra.Command{
 			}
 		}
 
-		// Get username and token from stdin or prompt if not provided
-		username := FlagUsername
-		token := FlagToken
-
+		// Get username and token from stdin or prompt if not already set from 1Password
 		// Check if stdin has data
 		fi, err := os.Stdin.Stat()
 		isPipe := err == nil && fi.Mode()&os.ModeNamedPipe != 0
