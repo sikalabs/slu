@@ -47,6 +47,11 @@ var Cmd = &cobra.Command{
 			fmt.Printf("Auto-bumping version: %s -> %s\n", currentVersion, CmdFlagVersion)
 		}
 
+		// Validate that --tag is not used with -dev versions
+		if CmdFlagTag && strings.HasSuffix(CmdFlagVersion, "-dev") {
+			log.Fatalln("Cannot use --tag flag with -dev version:", CmdFlagVersion)
+		}
+
 		version_go_file := `package version
 
 var Version string = "` + CmdFlagVersion + `"
