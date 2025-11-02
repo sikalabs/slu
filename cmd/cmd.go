@@ -284,6 +284,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/terraform"
 	_ "github.com/sikalabs/slu/cmd/terraform/create_setup_config"
 	_ "github.com/sikalabs/slu/cmd/terraform/save_files_to_vault"
+	_ "github.com/sikalabs/slu/cmd/terraform/save_gitlab_state_token_to_1password"
 	_ "github.com/sikalabs/slu/cmd/terraform/setup"
 	_ "github.com/sikalabs/slu/cmd/time"
 	_ "github.com/sikalabs/slu/cmd/time/now"
