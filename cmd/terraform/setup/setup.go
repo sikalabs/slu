@@ -12,22 +12,23 @@ import (
 	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/sikalabs/slu/utils/exec_utils"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v3"
 )
 
 type CustomToolingConfig struct {
-	Get string `json:"Get"`
+	Get string `json:"Get" yaml:"Get"`
 }
 
 type TerraformConfig struct {
 	Meta struct {
-		SchemaVersion string `json:"SchemaVersion"`
-	} `json:"Meta"`
-	GitlabURL              string                         `json:"GitlabURL"`
-	ProjectID              string                         `json:"ProjectID"`
-	StateName              string                         `json:"StateName"`
-	VaultAddr              string                         `json:"VaultAddr,omitempty"`
-	FilesInVault           map[string]string              `json:"FilesInVault,omitempty"`
-	FilesWithCustomTooling map[string]CustomToolingConfig `json:"FilesWithCustomTooling,omitempty"`
+		SchemaVersion string `json:"SchemaVersion" yaml:"SchemaVersion"`
+	} `json:"Meta" yaml:"Meta"`
+	GitlabURL              string                         `json:"GitlabURL" yaml:"GitlabURL"`
+	ProjectID              string                         `json:"ProjectID" yaml:"ProjectID"`
+	StateName              string                         `json:"StateName" yaml:"StateName"`
+	VaultAddr              string                         `json:"VaultAddr,omitempty" yaml:"VaultAddr,omitempty"`
+	FilesInVault           map[string]string              `json:"FilesInVault,omitempty" yaml:"FilesInVault,omitempty"`
+	FilesWithCustomTooling map[string]CustomToolingConfig `json:"FilesWithCustomTooling,omitempty" yaml:"FilesWithCustomTooling,omitempty"`
 }
 
 var FlagUsername string
@@ -38,19 +39,37 @@ var Cmd = &cobra.Command{
 	Use:   "setup [additional-terraform-args...]",
 	Short: "Initialize Terraform with GitLab backend using config file",
 	Run: func(c *cobra.Command, args []string) {
-		// Read config file
-		configPath := filepath.Join(".sikalabs", "terraform", "terraform.json")
-		data, err := os.ReadFile(configPath)
-		error_utils.HandleError(err, "Failed to read config file")
+		// Read config file - try YAML first, then JSON
+		configDir := filepath.Join(".sikalabs", "terraform")
+		yamlPath := filepath.Join(configDir, "terraform.yaml")
+		jsonPath := filepath.Join(configDir, "terraform.json")
 
+		var configPath string
+		var data []byte
+		var err error
 		var config TerraformConfig
-		err = json.Unmarshal(data, &config)
-		error_utils.HandleError(err, "Failed to parse config file")
+
+		// Check if YAML config exists
+		if _, err = os.Stat(yamlPath); err == nil {
+			configPath = yamlPath
+			data, err = os.ReadFile(configPath)
+			error_utils.HandleError(err, "Failed to read config file")
+			err = yaml.Unmarshal(data, &config)
+			error_utils.HandleError(err, "Failed to parse YAML config file")
+		} else if _, err = os.Stat(jsonPath); err == nil {
+			configPath = jsonPath
+			data, err = os.ReadFile(configPath)
+			error_utils.HandleError(err, "Failed to read config file")
+			err = json.Unmarshal(data, &config)
+			error_utils.HandleError(err, "Failed to parse JSON config file")
+		} else {
+			error_utils.HandleError(fmt.Errorf("config file not found"), "Neither terraform.yaml nor terraform.json found in .sikalabs/terraform/")
+		}
 
 		// Download files from Vault if FilesInVault is defined
 		if len(config.FilesInVault) > 0 {
 			if config.VaultAddr == "" {
-				error_utils.HandleError(fmt.Errorf("vault address is required"), "VaultAddr must be configured in terraform.json when FilesInVault is used")
+				error_utils.HandleError(fmt.Errorf("vault address is required"), "VaultAddr must be configured in terraform config when FilesInVault is used")
 			}
 
 			// Login to Vault
