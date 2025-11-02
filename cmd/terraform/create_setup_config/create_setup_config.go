@@ -8,16 +8,19 @@ import (
 	parentcmd "github.com/sikalabs/slu/cmd/terraform"
 	"github.com/sikalabs/slu/internal/error_utils"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v3"
 )
 
 type TerraformConfig struct {
 	Meta struct {
-		SchemaVersion string `json:"SchemaVersion"`
-	} `json:"Meta"`
-	GitlabURL  string `json:"GitlabURL"`
-	ProjectID  string `json:"ProjectID"`
-	StateName  string `json:"StateName"`
+		SchemaVersion string `json:"SchemaVersion" yaml:"SchemaVersion"`
+	} `json:"Meta" yaml:"Meta"`
+	GitlabURL  string `json:"GitlabURL" yaml:"GitlabURL"`
+	ProjectID  string `json:"ProjectID" yaml:"ProjectID"`
+	StateName  string `json:"StateName" yaml:"StateName"`
 }
+
+var FlagFormat string
 
 var Cmd = &cobra.Command{
 	Use:   "create-setup-config <gitlab-url> <project-id> <state-name>",
@@ -41,17 +44,34 @@ var Cmd = &cobra.Command{
 		err := os.MkdirAll(configDir, 0755)
 		error_utils.HandleError(err, "Failed to create directory")
 
-		// Marshal to JSON with indentation
-		jsonData, err := json.MarshalIndent(config, "", "  ")
-		error_utils.HandleError(err, "Failed to marshal JSON")
+		var data []byte
+		var fileName string
+
+		// Marshal based on format
+		if FlagFormat == "yaml" {
+			data, err = yaml.Marshal(config)
+			error_utils.HandleError(err, "Failed to marshal YAML")
+			fileName = "terraform.yaml"
+		} else {
+			data, err = json.MarshalIndent(config, "", "  ")
+			error_utils.HandleError(err, "Failed to marshal JSON")
+			fileName = "terraform.json"
+		}
 
 		// Write to file
-		configPath := filepath.Join(configDir, "terraform.json")
-		err = os.WriteFile(configPath, jsonData, 0644)
+		configPath := filepath.Join(configDir, fileName)
+		err = os.WriteFile(configPath, data, 0644)
 		error_utils.HandleError(err, "Failed to write config file")
 	},
 }
 
 func init() {
 	parentcmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().StringVarP(
+		&FlagFormat,
+		"format",
+		"f",
+		"yaml",
+		"Output format: json or yaml (default: yaml)",
+	)
 }
