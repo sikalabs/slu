@@ -1,5 +1,8 @@
 -include Makefile.local.mk
 
+build:
+	go build
+
 release:
 	goreleaser
 	rm -rf ./dist
