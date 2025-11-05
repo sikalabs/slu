@@ -21,6 +21,7 @@ temp
 
 # Local scripts
 *.local.sh
+Makefile.local.mk
 
 # Go
 /vendor
