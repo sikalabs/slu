@@ -1,3 +1,5 @@
+-include Makefile.local.mk
+
 release:
 	goreleaser
 	rm -rf ./dist
