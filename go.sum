@@ -1128,6 +1128,8 @@ github.com/shurcooL/go v0.0.0-20180423040247-9e1955d9fb6e/go.mod h1:TDJrrUr11Vxr
 github.com/shurcooL/go-goon v0.0.0-20170922171312-37c2f522c041/go.mod h1:N5mDOmsrJOB+vfqUK+7DmDyjhSLIIBnXo9lvZJj3MWQ=
 github.com/sikalabs/dogsay v0.1.0 h1:ZtRV1bzk0iXgnEPWS8/KSdqykfVWFFeTUZG9TBWVOXs=
 github.com/sikalabs/dogsay v0.1.0/go.mod h1:1IhR4v0qIYn925rFuu4TriYbDJxra8H1utFOlmqkhhw=
+github.com/sikalabs/sikalabs-crypt-go v0.0.0-20251105165509-07a7607e5e7b h1:WZFwWK+5zk57L7ya+WilDSVFDHR0oyDPKGkg4TyTZq8=
+github.com/sikalabs/sikalabs-crypt-go v0.0.0-20251105165509-07a7607e5e7b/go.mod h1:TrthX6be5utClxOieSRN8T3DOlFZ1oaK/9Ye2oCFaFg=
 github.com/sirupsen/logrus v1.0.5/go.mod h1:pMByvHTf9Beacp5x1UXfOR9xyW/9antXMhjMPG0dEzc=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
 github.com/sirupsen/logrus v1.7.0/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=

@@ -1,6 +1,6 @@
 module github.com/sikalabs/slu
 
-go 1.25.0
+go 1.25.3
 
 replace (
 	cloud.google.com/go => cloud.google.com/go v0.109.0
@@ -297,6 +297,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
+	github.com/sikalabs/sikalabs-crypt-go v0.0.0-20251105165509-07a7607e5e7b // indirect
 	github.com/skeema/knownhosts v1.3.1 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/stretchr/testify v1.11.1 // indirect
