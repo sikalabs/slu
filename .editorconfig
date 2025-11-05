@@ -11,3 +11,5 @@ max_line_length = off
 indent_style = tab
 [Makefile]
 indent_style = tab
+[Makefile.*.mk]
+indent_style = tab
