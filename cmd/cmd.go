@@ -224,6 +224,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/docker"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker/run_maildev"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker/run_redis"
+	_ "github.com/sikalabs/slu/cmd/scripts/docker/run_kafka"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker_remove_all"
 	_ "github.com/sikalabs/slu/cmd/scripts/download"
 	_ "github.com/sikalabs/slu/cmd/scripts/env_file_to_json"
