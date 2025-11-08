@@ -35,6 +35,7 @@ type TerraformConfig struct {
 var FlagUsername string
 var FlagToken string
 var FlagDryRun bool
+var FlagSkipFiles bool
 
 var Cmd = &cobra.Command{
 	Use:   "setup [additional-terraform-args...]",
@@ -94,7 +95,7 @@ var Cmd = &cobra.Command{
 		}
 
 		// Download files from Vault if FilesInVault is defined
-		if len(config.FilesInVault) > 0 {
+		if !FlagSkipFiles && len(config.FilesInVault) > 0 {
 			if config.VaultAddr == "" {
 				error_utils.HandleError(fmt.Errorf("vault address is required"), "VaultAddr must be configured in terraform config when FilesInVault is used")
 			}
@@ -125,7 +126,7 @@ var Cmd = &cobra.Command{
 		}
 
 		// Execute custom tooling commands for files if FilesWithCustomTooling is defined
-		if len(config.FilesWithCustomTooling) > 0 {
+		if !FlagSkipFiles && len(config.FilesWithCustomTooling) > 0 {
 			fmt.Println("Executing custom tooling commands...")
 			for fileName, tooling := range config.FilesWithCustomTooling {
 				fmt.Printf("  Executing command for %s\n", fileName)
@@ -254,5 +255,11 @@ func init() {
 		"dry-run",
 		false,
 		"Print the command without executing it",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagSkipFiles,
+		"skip-files",
+		false,
+		"Skip copying files from vault and skip custom tooling",
 	)
 }
