@@ -13,6 +13,7 @@ var GitignoreBase = `# Mac
 *~
 
 # Generic
+/temp
 *.log
 *.backup
 *.local.sh
