@@ -313,6 +313,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/vault/copy_file_to_vault"
 	_ "github.com/sikalabs/slu/cmd/vault/create_env_file"
 	_ "github.com/sikalabs/slu/cmd/vault/filler"
+	_ "github.com/sikalabs/slu/cmd/vault/move"
 	_ "github.com/sikalabs/slu/cmd/vault/password_hash"
 	_ "github.com/sikalabs/slu/cmd/vault/read_file"
 	_ "github.com/sikalabs/slu/cmd/vault/write_file"
