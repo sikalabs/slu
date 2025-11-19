@@ -49,6 +49,9 @@ var Cmd = &cobra.Command{
 		error_utils.HandleError(err, "Failed to create Loki client")
 		defer client.Stop()
 
+		petKinds := []string{"dog", "cat", "rat", "bat", "eel"}
+		petNames := []string{"Dela", "Nela", "Fred", "Debie", "Kuna"}
+
 		var i int = 0
 		if FlagJson {
 			var logger zerolog.Logger
@@ -79,51 +82,54 @@ var Cmd = &cobra.Command{
 
 				time.Sleep(time.Duration(FlagSleepTime) * time.Millisecond)
 
+				petKind := petKinds[rand.Intn(len(petKinds))]
+				petName := petNames[rand.Intn(len(petNames))]
+
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
-					logger.Error().Str("prefix", FlagLogPrefix).Int("i", i).Msg("ERROR An error is usually an exception that has been caught and not handled.")
+					logger.Error().Str("prefix", FlagLogPrefix).Int("i", i).Str("pet_kind", petKind).Str("pet_name", petName).Msg("ERROR An error is usually an exception that has been caught and not handled.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "error",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "An error is usually an exception that has been caught and not handled. "+fmt.Sprintf("i=%d", i))
+						}, time.Now(), fmt.Sprintf("An error is usually an exception that has been caught and not handled. i=%d pet_kind=%s pet_name=%s", i, petKind, petName))
 					}
 					i++
 					continue
 				}
 				if randomNumber > 70 && !FlagNoWarn {
-					logger.Warn().Str("prefix", FlagLogPrefix).Int("i", i).Msg("WARN A warning that should be ignored is usually at this level and should be actionable.")
+					logger.Warn().Str("prefix", FlagLogPrefix).Int("i", i).Str("pet_kind", petKind).Str("pet_name", petName).Msg("WARN A warning that should be ignored is usually at this level and should be actionable.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "warn",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable. "+fmt.Sprintf("i=%d", i))
+						}, time.Now(), fmt.Sprintf("WARN A warning that should be ignored is usually at this level and should be actionable. i=%d pet_kind=%s pet_name=%s", i, petKind, petName))
 					}
 					i++
 					continue
 				}
 				if randomNumber > 30 && !FlagNoInfo {
-					logger.Info().Str("prefix", FlagLogPrefix).Int("i", i).Msg("INFO This is less important than debug log and is often used to provide context in the current task.")
+					logger.Info().Str("prefix", FlagLogPrefix).Int("i", i).Str("pet_kind", petKind).Str("pet_name", petName).Msg("INFO This is less important than debug log and is often used to provide context in the current task.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "info",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task. "+fmt.Sprintf("i=%d", i))
+						}, time.Now(), fmt.Sprintf("INFO This is less important than debug log and is often used to provide context in the current task. i=%d pet_kind=%s pet_name=%s", i, petKind, petName))
 					}
 					i++
 					continue
 				}
 				if !FlagNoDebug {
-					logger.Debug().Str("prefix", FlagLogPrefix).Int("i", i).Msg("DEBUG This is a debug log that shows a log that can be ignored.")
+					logger.Debug().Str("prefix", FlagLogPrefix).Int("i", i).Str("pet_kind", petKind).Str("pet_name", petName).Msg("DEBUG This is a debug log that shows a log that can be ignored.")
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "debug",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored. "+fmt.Sprintf("i=%d", i))
+						}, time.Now(), fmt.Sprintf("DEBUG This is a debug log that shows a log that can be ignored. i=%d pet_kind=%s pet_name=%s", i, petKind, petName))
 					}
 					i++
 					continue
@@ -160,51 +166,54 @@ var Cmd = &cobra.Command{
 
 				time.Sleep(time.Duration(FlagSleepTime) * time.Millisecond)
 
+				petKind := petKinds[rand.Intn(len(petKinds))]
+				petName := petNames[rand.Intn(len(petNames))]
+
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
-					logger.Printf("ERROR An error is usually an exception that has been caught and not handled. (i=%d)\n", i)
+					logger.Printf("ERROR An error is usually an exception that has been caught and not handled. (i=%d) pet_kind=%s pet_name=%s\n", i, petKind, petName)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "error",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "An error is usually an exception that has been caught and not handled. "+fmt.Sprintf("i=%d", i))
+						}, time.Now(), fmt.Sprintf("An error is usually an exception that has been caught and not handled. i=%d pet_kind=%s pet_name=%s", i, petKind, petName))
 					}
 					i++
 					continue
 				}
 				if randomNumber > 70 && !FlagNoWarn {
-					logger.Printf("WARN A warning that should be ignored is usually at this level and should be actionable. (i=%d)\n", i)
+					logger.Printf("WARN A warning that should be ignored is usually at this level and should be actionable. (i=%d) pet_kind=%s pet_name=%s\n", i, petKind, petName)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "warn",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "WARN A warning that should be ignored is usually at this level and should be actionable. "+fmt.Sprintf("i=%d", i))
+						}, time.Now(), fmt.Sprintf("WARN A warning that should be ignored is usually at this level and should be actionable. i=%d pet_kind=%s pet_name=%s", i, petKind, petName))
 					}
 					i++
 					continue
 				}
 				if randomNumber > 30 && !FlagNoInfo {
-					logger.Printf("INFO This is less important than debug log and is often used to provide context in the current task (i=%d)\n", i)
+					logger.Printf("INFO This is less important than debug log and is often used to provide context in the current task (i=%d) pet_kind=%s pet_name=%s\n", i, petKind, petName)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "info",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "INFO This is less important than debug log and is often used to provide context in the current task. "+fmt.Sprintf("i=%d", i))
+						}, time.Now(), fmt.Sprintf("INFO This is less important than debug log and is often used to provide context in the current task. i=%d pet_kind=%s pet_name=%s", i, petKind, petName))
 					}
 					i++
 					continue
 				}
 				if !FlagNoDebug {
-					logger.Printf("DEBUG This is a debug log that shows a log that can be ignored. (i=%d)\n", i)
+					logger.Printf("DEBUG This is a debug log that shows a log that can be ignored. (i=%d) pet_kind=%s pet_name=%s\n", i, petKind, petName)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
 							"level":    "debug",
 							"instance": model.LabelValue(FlagLokiLabelInstance),
-						}, time.Now(), "DEBUG This is a debug log that shows a log that can be ignored. "+fmt.Sprintf("i=%d", i))
+						}, time.Now(), fmt.Sprintf("DEBUG This is a debug log that shows a log that can be ignored. i=%d pet_kind=%s pet_name=%s", i, petKind, petName))
 					}
 					i++
 					continue
