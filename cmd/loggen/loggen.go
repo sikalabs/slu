@@ -49,8 +49,14 @@ var Cmd = &cobra.Command{
 		error_utils.HandleError(err, "Failed to create Loki client")
 		defer client.Stop()
 
-		petKinds := []string{"dog", "cat", "rat", "bat", "eel"}
-		petNames := []string{"Dela", "Nela", "Fred", "Debie", "Kuna"}
+		petKinds := []string{
+			"dog", "dog", "dog", "dog", "dog",
+			"cat", "rat", "bat", "eel",
+		}
+		petNames := []string{
+			"Dela", "Dela", "Dela", "Dela", "Dela",
+			"Nela", "Fred", "Debie", "Kuna",
+		}
 
 		var i int = 0
 		if FlagJson {
