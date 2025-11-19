@@ -20,6 +20,7 @@ import (
 var FlagJson bool
 var FlagLogFile string
 var FlagLokiURL string
+var FlagLokiTenantID string
 var FlagLogPrefix string
 var FlagSleepTime int
 var FlagNoError bool
@@ -40,6 +41,7 @@ var Cmd = &cobra.Command{
 			URL: urlutil.URLValue{
 				URL: u,
 			},
+			TenantID:  FlagLokiTenantID,
 			BatchWait: 5 * time.Second,
 			BatchSize: 1024 * 1024,
 			Timeout:   2 * time.Second,
@@ -243,6 +245,12 @@ func init() {
 		"loki-url",
 		"",
 		"Log also to Loki, use full URL (e.g. http://127.0.0.1:3100/loki/api/v1/push)",
+	)
+	Cmd.Flags().StringVar(
+		&FlagLokiTenantID,
+		"loki-tenant-id",
+		"",
+		"Loki tenant ID (default: empty)",
 	)
 	Cmd.Flags().StringVarP(
 		&FlagLogPrefix,
