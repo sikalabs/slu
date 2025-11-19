@@ -233,6 +233,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/gitstats_docker"
 	_ "github.com/sikalabs/slu/cmd/scripts/infracost_here"
 	_ "github.com/sikalabs/slu/cmd/scripts/ins_oxs_cz"
+	_ "github.com/sikalabs/slu/cmd/scripts/install_k3s"
 	_ "github.com/sikalabs/slu/cmd/scripts/install_sli"
 	_ "github.com/sikalabs/slu/cmd/scripts/json_to_yaml"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
