@@ -160,7 +160,7 @@ var Cmd = &cobra.Command{
 			for {
 				if FlagLimit > 0 && i >= FlagLimit {
 					// Log the limit reached message
-					logger.Printf("INFO Reached limit, exiting. (i=%d)\n", i)
+					logger.Printf("INFO Reached limit, exiting. i=%d\n", i)
 					os.Exit(0)
 				}
 
@@ -171,7 +171,7 @@ var Cmd = &cobra.Command{
 
 				randomNumber := rand.Intn(100)
 				if randomNumber > 90 && !FlagNoError {
-					logger.Printf("ERROR An error is usually an exception that has been caught and not handled. (i=%d) pet_kind=%s pet_name=%s\n", i, petKind, petName)
+					logger.Printf("ERROR An error is usually an exception that has been caught and not handled. i=%d pet_kind=%s pet_name=%s\n", i, petKind, petName)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
@@ -183,7 +183,7 @@ var Cmd = &cobra.Command{
 					continue
 				}
 				if randomNumber > 70 && !FlagNoWarn {
-					logger.Printf("WARN A warning that should be ignored is usually at this level and should be actionable. (i=%d) pet_kind=%s pet_name=%s\n", i, petKind, petName)
+					logger.Printf("WARN A warning that should be ignored is usually at this level and should be actionable. i=%d pet_kind=%s pet_name=%s\n", i, petKind, petName)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
@@ -195,7 +195,7 @@ var Cmd = &cobra.Command{
 					continue
 				}
 				if randomNumber > 30 && !FlagNoInfo {
-					logger.Printf("INFO This is less important than debug log and is often used to provide context in the current task (i=%d) pet_kind=%s pet_name=%s\n", i, petKind, petName)
+					logger.Printf("INFO This is less important than debug log and is often used to provide context in the current task i=%d pet_kind=%s pet_name=%s\n", i, petKind, petName)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
@@ -207,7 +207,7 @@ var Cmd = &cobra.Command{
 					continue
 				}
 				if !FlagNoDebug {
-					logger.Printf("DEBUG This is a debug log that shows a log that can be ignored. (i=%d) pet_kind=%s pet_name=%s\n", i, petKind, petName)
+					logger.Printf("DEBUG This is a debug log that shows a log that can be ignored. i=%d pet_kind=%s pet_name=%s\n", i, petKind, petName)
 					if FlagLokiURL != "" {
 						client.Handle(model.LabelSet{
 							"prefix":   model.LabelValue(FlagLogPrefix),
