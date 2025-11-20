@@ -79,10 +79,13 @@ var Tools = []Tool{
 		UrlTemplate:    "https://get.helm.sh/helm-{{.Version}}-{{.Os}}-{{.Arch}}.tar.gz",
 	},
 	{
-		Name:           "docker",
-		SourcePath:     "docker/docker",
-		GetVersionFunc: func() string { return github_utils.GetLatestRelease("moby", "moby") },
-		UrlTemplate:    "https://download.docker.com/{{.OsDocker}}/static/stable/{{.ArchDocker}}/docker-{{.Version|removev}}.tgz",
+		Name:       "docker",
+		SourcePath: "docker/docker",
+		GetVersionFunc: func() string {
+			// the version is like docker-v29.0.2 (checkout slu gh latest-release moby/moby)
+			return github_utils.GetLatestRelease("moby", "moby")
+		},
+		UrlTemplate: "https://download.docker.com/{{.OsDocker}}/static/stable/{{.ArchDocker}}/{{.Version|removev}}.tgz",
 	},
 	{
 		Name:           "docker-compose",
