@@ -10,6 +10,7 @@ var FlagDry bool
 var FlagNamespace string
 var FlagDomain string
 var FlagInstallOnly bool
+var FlagPassword string
 
 var Cmd = &cobra.Command{
 	Use:     "run-redis",
@@ -17,17 +18,30 @@ var Cmd = &cobra.Command{
 	Aliases: []string{"rr"},
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		exec_utils.ExecOut(
-			"docker",
+		dockerArgs := []string{
 			"run",
 			"--name", "redis",
 			"-d",
 			"-p", "6379:6379",
-			"redis",
-		)
+		}
+
+		if FlagPassword != "" {
+			dockerArgs = append(dockerArgs, "redis", "redis-server", "--requirepass", FlagPassword)
+		} else {
+			dockerArgs = append(dockerArgs, "redis")
+		}
+
+		exec_utils.ExecOut("docker", dockerArgs...)
 	},
 }
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().StringVarP(
+		&FlagPassword,
+		"password",
+		"p",
+		"",
+		"Set Redis password (requirepass)",
+	)
 }
