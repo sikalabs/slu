@@ -171,14 +171,22 @@ func ReopenPSQLConnections(ctx context.Context, host string, port int, adminUser
 
 func PurgePSQLPublicSchemaObjects(ctx context.Context, host string, port int, user, password, db string) error {
 	// 1) Drop materialized views
+	// Skip extension-owned materialized views
 	dropMatViews := `
 DO $$
 DECLARE r record;
 BEGIN
   FOR r IN
-    SELECT schemaname, matviewname
-    FROM pg_matviews
-    WHERE schemaname = 'public'
+    SELECT c.oid, n.nspname AS schemaname, c.relname AS matviewname
+    FROM pg_class c
+    JOIN pg_namespace n ON n.oid = c.relnamespace
+    WHERE n.nspname = 'public'
+      AND c.relkind = 'm'
+      AND NOT EXISTS (
+        SELECT 1 FROM pg_depend d
+        WHERE d.objid = c.oid
+          AND d.deptype = 'e'
+      )
   LOOP
     EXECUTE format('DROP MATERIALIZED VIEW IF EXISTS %I.%I CASCADE', r.schemaname, r.matviewname);
   END LOOP;
@@ -188,14 +196,22 @@ END$$;`
 	}
 
 	// 2) Drop normal views
+	// Skip extension-owned views to preserve extensions like pg_stat_statements
 	dropViews := `
 DO $$
 DECLARE r record;
 BEGIN
   FOR r IN
-    SELECT schemaname, viewname
-    FROM pg_views
-    WHERE schemaname = 'public'
+    SELECT c.oid, n.nspname AS schemaname, c.relname AS viewname
+    FROM pg_class c
+    JOIN pg_namespace n ON n.oid = c.relnamespace
+    WHERE n.nspname = 'public'
+      AND c.relkind = 'v'
+      AND NOT EXISTS (
+        SELECT 1 FROM pg_depend d
+        WHERE d.objid = c.oid
+          AND d.deptype = 'e'
+      )
   LOOP
     EXECUTE format('DROP VIEW IF EXISTS %I.%I CASCADE', r.schemaname, r.viewname);
   END LOOP;
@@ -257,6 +273,7 @@ END$$;`
 	}
 
 	// 6) Drop routines (functions/procedures/aggregates) by identity signature
+	// Skip extension-owned functions to preserve extensions like pg_stat_statements, pg_trgm
 	dropRoutines := `
 DO $$
 DECLARE r record;
@@ -268,6 +285,11 @@ BEGIN
     FROM pg_proc p
     JOIN pg_namespace n ON n.oid = p.pronamespace
     WHERE n.nspname = 'public'
+      AND NOT EXISTS (
+        SELECT 1 FROM pg_depend d
+        WHERE d.objid = p.oid
+          AND d.deptype = 'e'
+      )
   LOOP
     IF r.prokind = 'p' THEN
       EXECUTE format('DROP PROCEDURE IF EXISTS %s(%s) CASCADE', r.oid::regproc, r.args);
@@ -283,28 +305,49 @@ END$$;`
 	}
 
 	// 7) Drop user-defined domains and types (enums/composites) in public
+	// Skip extension-owned types and row types of extension-owned views/tables
 	dropTypesAndDomains := `
 DO $$
 DECLARE r record;
 BEGIN
-  -- Domains
+  -- Domains (skip extension-owned)
   FOR r IN
-    SELECT n.nspname, t.typname
+    SELECT n.nspname, t.typname, t.oid
     FROM pg_type t
     JOIN pg_namespace n ON n.oid = t.typnamespace
     WHERE n.nspname = 'public' AND t.typtype = 'd'
+      AND NOT EXISTS (
+        SELECT 1 FROM pg_depend d
+        WHERE d.objid = t.oid
+          AND d.deptype = 'e'
+      )
   LOOP
     EXECUTE format('DROP DOMAIN IF EXISTS %I.%I CASCADE', r.nspname, r.typname);
   END LOOP;
 
-  -- Enums & composite types (exclude array pseudo types)
+  -- Enums & composite types (exclude array pseudo types, extension-owned, and row types of extension views)
   FOR r IN
-    SELECT n.nspname, t.typname
+    SELECT n.nspname, t.typname, t.oid
     FROM pg_type t
     JOIN pg_namespace n ON n.oid = t.typnamespace
     WHERE n.nspname = 'public'
       AND t.typtype IN ('e','c')
       AND t.typelem = 0
+      -- Skip types directly owned by extensions
+      AND NOT EXISTS (
+        SELECT 1 FROM pg_depend d
+        WHERE d.objid = t.oid
+          AND d.deptype = 'e'
+      )
+      -- Skip row types of extension-owned relations (views/tables)
+      AND NOT (
+        t.typrelid != 0
+        AND EXISTS (
+          SELECT 1 FROM pg_depend d
+          WHERE d.objid = t.typrelid
+            AND d.deptype = 'e'
+        )
+      )
   LOOP
     EXECUTE format('DROP TYPE IF EXISTS %I.%I CASCADE', r.nspname, r.typname);
   END LOOP;
