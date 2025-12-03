@@ -15,3 +15,6 @@ jobs:
         uses: goreleaser/goreleaser-action@v4
         with:
           args: build --snapshot --skip before
+        env:
+          GOOS: linux,darwin,windows
+          GOARCH: amd64,arm64
