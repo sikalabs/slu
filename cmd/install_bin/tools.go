@@ -486,6 +486,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("golang-migrate", "migrate") },
 		UrlTemplate:    "https://github.com/golang-migrate/migrate/releases/download/{{.Version}}/migrate.{{.Os}}-{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "dive",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("wagoodman", "dive") },
+		UrlTemplate:    "https://github.com/wagoodman/dive/releases/download/{{.Version}}/dive_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
