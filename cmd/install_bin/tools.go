@@ -491,6 +491,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("wagoodman", "dive") },
 		UrlTemplate:    "https://github.com/wagoodman/dive/releases/download/{{.Version}}/dive_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "docker-buildx",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("docker", "buildx") },
+		UrlTemplate:    "https://github.com/docker/buildx/releases/download/{{.Version}}/buildx-{{.Version}}.{{.Os}}-{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
