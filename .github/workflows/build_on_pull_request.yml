@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v5
+      - run: rm -rf /tmp/gobuild*
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
