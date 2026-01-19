@@ -54,7 +54,7 @@ require (
 	github.com/cloudflare/cloudflare-go v0.115.0
 	github.com/coreos/go-oidc v2.3.0+incompatible
 	github.com/denisenkom/go-mssqldb v0.12.3
-	github.com/digitalocean/godo v1.145.0
+	github.com/digitalocean/godo v1.172.0
 	github.com/docker/docker v28.0.4+incompatible
 	github.com/getsentry/sentry-go v0.35.1
 	github.com/go-git/go-git/v5 v5.16.3
