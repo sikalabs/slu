@@ -52,7 +52,7 @@ require (
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/cheggaaa/pb/v3 v3.1.7
 	github.com/cloudflare/cloudflare-go v0.115.0
-	github.com/coreos/go-oidc v2.3.0+incompatible
+	github.com/coreos/go-oidc v2.5.0+incompatible
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.172.0
 	github.com/docker/docker v28.0.4+incompatible
