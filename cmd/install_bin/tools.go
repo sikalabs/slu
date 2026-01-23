@@ -442,6 +442,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/ondrejsika/counter/releases/download/{{.Version}}/counter_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
+		Name:           "counter-frontend-go",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("ondrejsika", "counter-frontend-go") },
+		UrlTemplate:    "https://github.com/ondrejsika/counter-frontend-go/releases/download/{{.Version}}/counter-frontend-go_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
 		Name:           "master",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabsx", "master") },
 		UrlTemplate:    "https://github.com/sikalabsx/master/releases/download/{{.Version}}/master_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
