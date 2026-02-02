@@ -27,13 +27,13 @@ var Cmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		op_utils.CheckOpBinaryExistsOrDie()
 
-		nameRegex := regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
+		nameRegex := regexp.MustCompile(`^[a-zA-Z0-9_.\-]+$`)
 		if !nameRegex.MatchString(FlagVaultGroup) {
-			fmt.Fprintf(os.Stderr, "Error: --vault-group must contain only letters, numbers, _ or -\n")
+			fmt.Fprintf(os.Stderr, "Error: --vault-group must contain only letters, numbers, _, - or .\n")
 			os.Exit(1)
 		}
 		if !nameRegex.MatchString(FlagVaultName) {
-			fmt.Fprintf(os.Stderr, "Error: --vault-name must contain only letters, numbers, _ or -\n")
+			fmt.Fprintf(os.Stderr, "Error: --vault-name must contain only letters, numbers, _, - or .\n")
 			os.Exit(1)
 		}
 
