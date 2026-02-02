@@ -28,6 +28,15 @@ func CheckOpBinaryExists() error {
 func CheckOpBinaryExistsOrDie() {
 	err := CheckOpBinaryExists()
 	if err != nil {
+		log.Println("############################################################")
+		log.Println("#                                                          #")
+		log.Println("#             1Password CLI (op) not found!                #")
+		log.Println("#                                                          #")
+		log.Println("#  Checkout:                                               #")
+		log.Println("#                                                          #")
+		log.Println("#   https://developer.1password.com/docs/cli/get-started/  #")
+		log.Println("#                                                          #")
+		log.Println("############################################################")
 		log.Fatal(err)
 	}
 }
