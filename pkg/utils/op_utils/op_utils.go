@@ -1,6 +1,7 @@
 package op_utils
 
 import (
+	"fmt"
 	"log"
 	"os/exec"
 	"path/filepath"
@@ -14,6 +15,21 @@ type OPItem struct {
 	Vault struct {
 		ID string `json:"id"`
 	} `json:"vault"`
+}
+
+func CheckOpBinaryExists() error {
+	_, err := exec.LookPath("op")
+	if err != nil {
+		return fmt.Errorf("1Password CLI (op) not found in PATH")
+	}
+	return nil
+}
+
+func CheckOpBinaryExistsOrDie() {
+	err := CheckOpBinaryExists()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func GetFileFrom1PasswordOrDie(vault, name, outputPath string) {
