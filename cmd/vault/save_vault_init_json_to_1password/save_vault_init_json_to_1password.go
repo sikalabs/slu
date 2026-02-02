@@ -39,23 +39,28 @@ var Cmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "Error creating temp dir: %v\n", err)
 			os.Exit(1)
 		}
-		defer os.RemoveAll(tmpDir)
-
 		tmpFile := filepath.Join(tmpDir, fileName)
 		data, err := os.ReadFile(FlagFile)
 		if err != nil {
+			os.RemoveAll(tmpDir)
 			fmt.Fprintf(os.Stderr, "Error reading file: %v\n", err)
 			os.Exit(1)
 		}
 		err = os.WriteFile(tmpFile, data, 0600)
 		if err != nil {
+			os.RemoveAll(tmpDir)
 			fmt.Fprintf(os.Stderr, "Error writing temp file: %v\n", err)
 			os.Exit(1)
 		}
 
 		// Save to 1Password under the specified vault group
 		// This stores as op://<vault-group>/<name.json>/<name.json>
-		op_utils.SaveFileTo1PasswordOrDie(FlagVaultGroup, tmpFile)
+		err = op_utils.SaveFileTo1Password(FlagVaultGroup, tmpFile)
+		os.RemoveAll(tmpDir)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error saving to 1Password: %v\n", err)
+			os.Exit(1)
+		}
 	},
 }
 
