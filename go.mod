@@ -55,7 +55,7 @@ require (
 	github.com/coreos/go-oidc v2.5.0+incompatible
 	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.172.0
-	github.com/docker/docker v28.0.4+incompatible
+	github.com/docker/docker v28.5.2+incompatible
 	github.com/getsentry/sentry-go v0.35.1
 	github.com/go-git/go-git/v5 v5.16.3
 	github.com/go-sql-driver/mysql v1.9.3
@@ -162,6 +162,8 @@ require (
 	github.com/clipperhouse/stringish v0.1.1 // indirect
 	github.com/clipperhouse/uax29/v2 v2.3.0 // indirect
 	github.com/cloudflare/circl v1.6.1 // indirect
+	github.com/containerd/errdefs v1.0.0 // indirect
+	github.com/containerd/errdefs/pkg v0.3.0 // indirect
 	github.com/coreos/go-oidc/v3 v3.14.1 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.6 // indirect
 	github.com/creasty/defaults v1.8.0 // indirect
@@ -274,6 +276,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.1-0.20220423185008-bf980b35cac4 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/moby/spdystream v0.5.0 // indirect
+	github.com/moby/sys/atomicwriter v0.1.0 // indirect
 	github.com/moby/term v0.5.2 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.3-0.20250322232337-35a7c28c31ee // indirect
