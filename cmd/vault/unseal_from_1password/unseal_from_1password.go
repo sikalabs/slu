@@ -25,6 +25,8 @@ var Cmd = &cobra.Command{
 	Short: "Unseal Vault pods using keys from 1Password",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		op_utils.CheckOpBinaryExistsOrDie()
+
 		nameRegex := regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
 		if !nameRegex.MatchString(FlagVaultGroup) {
 			fmt.Fprintf(os.Stderr, "Error: --vault-group must contain only letters, numbers, _ or -\n")
