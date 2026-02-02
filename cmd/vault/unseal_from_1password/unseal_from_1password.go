@@ -44,13 +44,12 @@ var Cmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "Error creating temp dir: %v\n", err)
 			os.Exit(1)
 		}
-		defer os.RemoveAll(tmpDir)
-
 		tmpFile := filepath.Join(tmpDir, fileName)
 		op_utils.GetFileFrom1PasswordOrDie(FlagVaultGroup, fileName, tmpFile)
 
 		// Parse the vault init JSON
 		data, err := os.ReadFile(tmpFile)
+		os.RemoveAll(tmpDir)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error reading file: %v\n", err)
 			os.Exit(1)
