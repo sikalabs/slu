@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 
 	parentcmd "github.com/sikalabs/slu/cmd/vault"
 	"github.com/sikalabs/slu/pkg/utils/op_utils"
@@ -24,6 +25,16 @@ var Cmd = &cobra.Command{
 	Short: "Unseal Vault pods using keys from 1Password",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
+		nameRegex := regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
+		if !nameRegex.MatchString(FlagVaultGroup) {
+			fmt.Fprintf(os.Stderr, "Error: --vault-group must contain only letters, numbers, _ or -\n")
+			os.Exit(1)
+		}
+		if !nameRegex.MatchString(FlagVaultName) {
+			fmt.Fprintf(os.Stderr, "Error: --vault-name must contain only letters, numbers, _ or -\n")
+			os.Exit(1)
+		}
+
 		// Download vault init JSON from 1Password
 		fileName := FlagVaultName + ".json"
 		tmpDir, err := os.MkdirTemp("", "slu-vault-unseal-*")
