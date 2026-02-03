@@ -8,11 +8,18 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 )
 
 func diskUsage(currPath string, info os.FileInfo, depth int,
-	maxDepth int, threshold int64, humanReadable bool, silent bool) int64 {
+	maxDepth int, threshold int64, humanReadable bool, silent bool, ignorePaths []string) int64 {
 	var size int64
+
+	for _, ignorePath := range ignorePaths {
+		if strings.HasPrefix(currPath, ignorePath) {
+			return size
+		}
+	}
 
 	dir, err := os.Open(currPath)
 	if err != nil {
@@ -31,7 +38,7 @@ func diskUsage(currPath string, info os.FileInfo, depth int,
 
 	for _, file := range files {
 		if file.IsDir() {
-			size += diskUsage(fmt.Sprintf("%s/%s", currPath, file.Name()), file, depth+1, maxDepth, threshold, humanReadable, silent)
+			size += diskUsage(fmt.Sprintf("%s/%s", currPath, file.Name()), file, depth+1, maxDepth, threshold, humanReadable, silent, ignorePaths)
 		} else {
 			size += file.Size()
 		}
@@ -64,7 +71,7 @@ func prettyPrintSize(size int64, humanReadable bool) {
 	}
 }
 
-func RunDiskUsage(humanReadable bool, thresholdStr string, dir string, maxDepth int, silent bool) {
+func RunDiskUsage(humanReadable bool, thresholdStr string, dir string, maxDepth int, silent bool, ignorePaths []string) {
 	var threshold int64
 	l := len(thresholdStr)
 	if l > 0 {
@@ -93,7 +100,7 @@ func RunDiskUsage(humanReadable bool, thresholdStr string, dir string, maxDepth 
 		os.Exit(1)
 	}
 
-	diskUsage(dir, info, 0, maxDepth, threshold, humanReadable, silent)
+	diskUsage(dir, info, 0, maxDepth, threshold, humanReadable, silent, ignorePaths)
 }
 
 func usageAndExit(msg string) {

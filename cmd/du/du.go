@@ -26,7 +26,7 @@ var Cmd = &cobra.Command{
 		if len(args) == 1 {
 			dir = args[0]
 		}
-		du_utils.RunDiskUsage(!FlagNoHumanReadable, FlagThreshold, dir, FlagMaxDepth, false)
+		du_utils.RunDiskUsage(!FlagNoHumanReadable, FlagThreshold, dir, FlagMaxDepth, false, nil)
 	},
 }
 
