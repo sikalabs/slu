@@ -20,6 +20,7 @@ var FlagTerraformPluginDir bool
 var FlagBrewCache bool
 var FlagNoDockerPrune bool
 var FlagVirtualEnvs bool
+var FlagNotionCache bool
 
 var ListSh []string
 var ListRm []string
@@ -31,6 +32,10 @@ var Cmd = &cobra.Command{
 	Run: func(c *cobra.Command, args []string) {
 		// Prepare cleanup script
 		registerRm(".minikube/cache")
+		registerRm(".kube/cache")
+		registerRm(".cache/pupeteer")
+		registerRm("./Library/Caches/Cypress")
+		registerRm(".npm/_cacache")
 		if FlagYesYarnCache {
 			registerRm("./Library/Caches/Yarn/*")
 		}
@@ -51,6 +56,9 @@ var Cmd = &cobra.Command{
 		registerRm("./Library/Caches/lima/")
 		if FlagVirtualEnvs {
 			registerRm(".local/share/virtualenvs/*")
+		}
+		if FlagNotionCache {
+			registerRm("./Library/Application Support/Notion/Partitions/notion/Service Worker/CacheStorage")
 		}
 		if !FlagNoDockerPrune {
 			dockerUp, _ := docker_utils.Ping()
@@ -135,6 +143,12 @@ func init() {
 		false,
 		"Remove virtualenvs (rm -rf ~/.local/share/virtualenvs/)",
 	)
+	Cmd.Flags().BoolVar(
+		&FlagNotionCache,
+		"notion-cache",
+		false,
+		"Remove Notion cache (rm -rf ~/Library/Application Support/Notion/Partitions/notion/Service Worker/CacheStorage)",
+	)
 }
 
 func registerSh(s string) {
@@ -153,5 +167,5 @@ func sh(script string) {
 }
 
 func rm(path string) {
-	sh("rm -rf " + path)
+	sh("rm -rf '" + path + "'")
 }
