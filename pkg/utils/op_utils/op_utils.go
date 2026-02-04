@@ -112,7 +112,5 @@ func sh(cmd string) error {
 
 func shCapture(cmd string) (string, error) {
 	log.Printf("RUN: %s", cmd)
-	cmd2 := exec.Command("sh", "-c", cmd)
-	out, err := cmd2.CombinedOutput()
-	return string(out), err
+	return exec_utils.ExecStr(cmd)
 }
