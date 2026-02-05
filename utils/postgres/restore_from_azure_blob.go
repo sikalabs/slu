@@ -21,6 +21,7 @@ func RestoreFromAzureBlob(
 	accountKey string,
 	sourcePrefix string,
 	sourceSuffix string,
+	sslMode string,
 ) error {
 	ctx := context.Background()
 
@@ -55,25 +56,25 @@ func RestoreFromAzureBlob(
 	adminDB := "postgres"
 
 	fmt.Println("Restricting connections (allow only provided user)…")
-	if err := postgres_utils.RestrictPSQLConnections(ctx, host, port, user, password, adminDB, dbName, user); err != nil {
+	if err := postgres_utils.RestrictPSQLConnections(ctx, host, port, user, password, adminDB, dbName, user, sslMode); err != nil {
 		return fmt.Errorf("restrict connections: %w", err)
 	}
 	fmt.Println("Connections restricted and foreign sessions terminated.")
 
 	fmt.Println("Purging ALL objects in schema public (views, tables, sequences, routines, types)…")
-	if err := postgres_utils.PurgePSQLPublicSchemaObjects(ctx, host, port, user, password, dbName); err != nil {
+	if err := postgres_utils.PurgePSQLPublicSchemaObjects(ctx, host, port, user, password, dbName, sslMode); err != nil {
 		return fmt.Errorf("purge public schema: %w", err)
 	}
 	fmt.Println("public schema emptied (schema itself preserved).")
 
 	fmt.Println("Restoring database via psql (streaming gzip→sql→stdin)…")
-	if err := postgres_utils.RunPSQLFromReader(ctx, host, port, user, password, dbName, sqlReader); err != nil {
+	if err := postgres_utils.RunPSQLFromReader(ctx, host, port, user, password, dbName, sqlReader, sslMode); err != nil {
 		return fmt.Errorf("psql restore stream: %w", err)
 	}
 	fmt.Println("Restore completed successfully.")
 
 	fmt.Println("Re-enabling connections for PUBLIC…")
-	if err := postgres_utils.ReopenPSQLConnections(ctx, host, port, user, password, adminDB, dbName); err != nil {
+	if err := postgres_utils.ReopenPSQLConnections(ctx, host, port, user, password, adminDB, dbName, sslMode); err != nil {
 		return fmt.Errorf("reopen connections: %w", err)
 	}
 	fmt.Println("Connections re-enabled.")
