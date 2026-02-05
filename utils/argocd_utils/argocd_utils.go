@@ -2,6 +2,7 @@ package argocd_utils
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	argocdclient "github.com/argoproj/argo-cd/v3/pkg/apiclient"
@@ -17,6 +18,9 @@ import (
 	"github.com/sikalabs/slu/utils/k8s"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/tools/clientcmd"
 )
 
 func ArgoCDGetToken(
@@ -125,22 +129,71 @@ func ArgoCDGetInitialPassword(namespace string) string {
 }
 
 func ArgoCDGetDomain(namespace string) (string, error) {
-	var err error
-
 	clientset, _, err := k8s.KubernetesClient()
 	if err != nil {
 		return "", err
 	}
 
+	// Try argocd ingress first
 	ingressClient := clientset.NetworkingV1().Ingresses(namespace)
-
 	ingress, err := ingressClient.Get(context.TODO(), "argocd-server", metav1.GetOptions{})
+	if err == nil {
+		rule := ingress.Spec.Rules[0]
+		return rule.Host, nil
+	}
+
+	// If argocd namespace fails and we're using default namespace, try openshift-gitops route
+	if namespace == "argocd" {
+		domain, err := getOpenShiftGitOpsDomain()
+		if err == nil {
+			return domain, nil
+		}
+	}
+
+	return "", fmt.Errorf("could not find ArgoCD in namespace '%s' or OpenShift GitOps in namespace 'openshift-gitops'", namespace)
+}
+
+func getOpenShiftGitOpsDomain() (string, error) {
+	kubeConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		clientcmd.NewDefaultClientConfigLoadingRules(),
+		&clientcmd.ConfigOverrides{},
+	)
+	restconfig, err := kubeConfig.ClientConfig()
 	if err != nil {
 		return "", err
 	}
 
-	rule := ingress.Spec.Rules[0]
-	return rule.Host, nil
+	dynamicClient, err := dynamic.NewForConfig(restconfig)
+	if err != nil {
+		return "", err
+	}
+
+	routeGVR := schema.GroupVersionResource{
+		Group:    "route.openshift.io",
+		Version:  "v1",
+		Resource: "routes",
+	}
+
+	route, err := dynamicClient.Resource(routeGVR).Namespace("openshift-gitops").Get(
+		context.TODO(),
+		"openshift-gitops-server",
+		metav1.GetOptions{},
+	)
+	if err != nil {
+		return "", err
+	}
+
+	spec, ok := route.Object["spec"].(map[string]interface{})
+	if !ok {
+		return "", fmt.Errorf("invalid route spec")
+	}
+
+	host, ok := spec["host"].(string)
+	if !ok {
+		return "", fmt.Errorf("invalid route host")
+	}
+
+	return host, nil
 }
 
 func ArgoCDGetDomainOrDie(namespace string) string {
