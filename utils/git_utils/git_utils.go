@@ -17,7 +17,7 @@ import (
 func GetRepoUrl() string {
 	r, err := git.PlainOpen(".")
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	remotes, err := r.Remotes()
 	if len(remotes) > 0 && err == nil {
@@ -43,15 +43,15 @@ func GetNewAddedFiles(repoPath string) ([]string, error) {
 	var newFiles []string
 	r, err := git.PlainOpen(repoPath)
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	w, err := r.Worktree()
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	s, err := w.Status()
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	for name, f := range s {
 		if f.Staging == git.Added {
@@ -65,18 +65,18 @@ func GetLocalBranches() []string {
 	var branches []string
 	r, err := git.PlainOpen(".")
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	branchesIter, err := r.Branches()
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	err = branchesIter.ForEach(func(b *plumbing.Reference) error {
 		branches = append(branches, b.Name().Short())
 		return nil
 	})
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	return branches
 }
@@ -100,12 +100,12 @@ func DeleteAllDependabotBranches() {
 func GetCurrentBranch() string {
 	r, err := git.PlainOpen(".")
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	head, err := r.Head()
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	return head.Name().Short()
@@ -151,7 +151,7 @@ func TagNextCalver() {
 	}
 	tagsIter, err := r.Tags()
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	tags := []string{}
 	err = tagsIter.ForEach(func(b *plumbing.Reference) error {
@@ -159,7 +159,7 @@ func TagNextCalver() {
 		return nil
 	})
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	nextMicro := 0
@@ -214,7 +214,7 @@ func GetLastCalver() (string, error) {
 	}
 	tagsIter, err := r.Tags()
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	tags := []string{}
 	err = tagsIter.ForEach(func(b *plumbing.Reference) error {
@@ -222,7 +222,7 @@ func GetLastCalver() (string, error) {
 		return nil
 	})
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	maxY := 0
