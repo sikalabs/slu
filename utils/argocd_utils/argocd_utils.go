@@ -105,11 +105,23 @@ func ArgoCDGetInitialPassword(namespace string) string {
 
 	secretClient := clientset.CoreV1().Secrets(namespace)
 
+	// Try argocd secret first
 	secret, err := secretClient.Get(context.TODO(), "argocd-initial-admin-secret", metav1.GetOptions{})
-	if err != nil {
-		log.Fatal(err)
+	if err == nil {
+		return string(secret.Data["password"])
 	}
-	return string(secret.Data["password"])
+
+	// If argocd namespace fails and we're using default namespace, try openshift-gitops
+	if namespace == "argocd" {
+		secretClient = clientset.CoreV1().Secrets("openshift-gitops")
+		secret, err = secretClient.Get(context.TODO(), "openshift-gitops-cluster", metav1.GetOptions{})
+		if err == nil {
+			return string(secret.Data["admin.password"])
+		}
+	}
+
+	log.Fatalf("could not find initial password in namespace '%s' or 'openshift-gitops'", namespace)
+	return ""
 }
 
 func ArgoCDGetDomain(namespace string) (string, error) {
