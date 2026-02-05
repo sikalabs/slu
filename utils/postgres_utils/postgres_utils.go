@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func RunPSQL(ctx context.Context, host string, port int, user, password, db, sql string) error {
+func RunPSQL(ctx context.Context, host string, port int, user, password, db, sql, sslMode string) error {
 	args := []string{
 		"-h", host,
 		"-p", fmt.Sprint(port),
@@ -21,13 +21,13 @@ func RunPSQL(ctx context.Context, host string, port int, user, password, db, sql
 		"-c", sql,
 	}
 	cmd := exec.CommandContext(ctx, "psql", args...)
-	cmd.Env = append(os.Environ(), "PGPASSWORD="+password)
+	cmd.Env = append(os.Environ(), "PGPASSWORD="+password, "PGSSLMODE="+sslMode)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
 }
 
-func RunPSQLCapture(ctx context.Context, host string, port int, user, password, db, sql string, out *strings.Builder) error {
+func RunPSQLCapture(ctx context.Context, host string, port int, user, password, db, sql string, out *strings.Builder, sslMode string) error {
 	args := []string{
 		"-h", host,
 		"-p", fmt.Sprint(port),
@@ -38,13 +38,13 @@ func RunPSQLCapture(ctx context.Context, host string, port int, user, password, 
 		"-c", sql,
 	}
 	cmd := exec.CommandContext(ctx, "psql", args...)
-	cmd.Env = append(os.Environ(), "PGPASSWORD="+password)
+	cmd.Env = append(os.Environ(), "PGPASSWORD="+password, "PGSSLMODE="+sslMode)
 	cmd.Stdout = out
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
 }
 
-func RunPSQLFromReader(ctx context.Context, host string, port int, user, password, db string, r io.Reader) error {
+func RunPSQLFromReader(ctx context.Context, host string, port int, user, password, db string, r io.Reader, sslMode string) error {
 	args := []string{
 		"-h", host,
 		"-p", fmt.Sprint(port),
@@ -54,7 +54,7 @@ func RunPSQLFromReader(ctx context.Context, host string, port int, user, passwor
 	}
 
 	cmd := exec.CommandContext(ctx, "psql", args...)
-	cmd.Env = append(os.Environ(), "PGPASSWORD="+password)
+	cmd.Env = append(os.Environ(), "PGPASSWORD="+password, "PGSSLMODE="+sslMode)
 	cmd.Stdin = r
 
 	// Capture stdout + stderr
@@ -83,9 +83,9 @@ func RunPSQLFromReader(ctx context.Context, host string, port int, user, passwor
 	return fmt.Errorf("psql failed: %w", err)
 }
 
-func RestrictPSQLConnections(ctx context.Context, host string, port int, adminUser, adminPass, adminDB, targetDB, allowedUser string) error {
+func RestrictPSQLConnections(ctx context.Context, host string, port int, adminUser, adminPass, adminDB, targetDB, allowedUser, sslMode string) error {
 	if err := RunPSQL(ctx, host, port, adminUser, adminPass, adminDB,
-		fmt.Sprintf(`REVOKE CONNECT ON DATABASE %q FROM PUBLIC;`, targetDB)); err != nil {
+		fmt.Sprintf(`REVOKE CONNECT ON DATABASE %q FROM PUBLIC;`, targetDB), sslMode); err != nil {
 		return err
 	}
 
@@ -105,6 +105,7 @@ BEGIN
     SELECT grantee
     FROM acl
     WHERE privilege_type = 'CONNECT'
+      AND grantee <> 0
   LOOP
     grantee_name := pg_get_userbyid(grantee_oid);
     IF grantee_name IS NOT NULL AND grantee_name NOT IN (%s, 'postgres') THEN
@@ -118,12 +119,12 @@ END$$;`,
 		QuoteLiteral(targetDB),
 		QuoteLiteral(allowedUser),
 	)
-	if err := RunPSQL(ctx, host, port, adminUser, adminPass, adminDB, revokeExplicit); err != nil {
+	if err := RunPSQL(ctx, host, port, adminUser, adminPass, adminDB, revokeExplicit, sslMode); err != nil {
 		return err
 	}
 
 	if err := RunPSQL(ctx, host, port, adminUser, adminPass, adminDB,
-		fmt.Sprintf(`GRANT CONNECT ON DATABASE %q TO %q, postgres;`, targetDB, allowedUser)); err != nil {
+		fmt.Sprintf(`GRANT CONNECT ON DATABASE %q TO %q, postgres;`, targetDB, allowedUser), sslMode); err != nil {
 		return err
 	}
 
@@ -132,6 +133,7 @@ SELECT pg_terminate_backend(pid)
 FROM pg_stat_activity
 WHERE datname = %s
   AND usename <> %s
+  AND usename <> 'postgres'
   AND pid <> pg_backend_pid();`,
 		QuoteLiteral(targetDB),
 		QuoteLiteral(allowedUser),
@@ -142,17 +144,18 @@ SELECT COUNT(*)
 FROM pg_stat_activity
 WHERE datname = %s
   AND usename <> %s
+  AND usename <> 'postgres'
   AND pid <> pg_backend_pid();`,
 		QuoteLiteral(targetDB),
 		QuoteLiteral(allowedUser),
 	)
 
 	for i := 0; i < 25; i++ { // ~5s max
-		if err := RunPSQL(ctx, host, port, adminUser, adminPass, adminDB, killSQL); err != nil {
+		if err := RunPSQL(ctx, host, port, adminUser, adminPass, adminDB, killSQL, sslMode); err != nil {
 			return err
 		}
 		var out strings.Builder
-		if err := RunPSQLCapture(ctx, host, port, adminUser, adminPass, adminDB, checkSQL, &out); err != nil {
+		if err := RunPSQLCapture(ctx, host, port, adminUser, adminPass, adminDB, checkSQL, &out, sslMode); err != nil {
 			return err
 		}
 		if strings.TrimSpace(out.String()) == "0" {
@@ -164,12 +167,12 @@ WHERE datname = %s
 	return nil
 }
 
-func ReopenPSQLConnections(ctx context.Context, host string, port int, adminUser, adminPass, adminDB, targetDB string) error {
+func ReopenPSQLConnections(ctx context.Context, host string, port int, adminUser, adminPass, adminDB, targetDB, sslMode string) error {
 	sql := fmt.Sprintf(`GRANT CONNECT ON DATABASE "%s" TO PUBLIC;`, targetDB)
-	return RunPSQL(ctx, host, port, adminUser, adminPass, adminDB, sql)
+	return RunPSQL(ctx, host, port, adminUser, adminPass, adminDB, sql, sslMode)
 }
 
-func PurgePSQLPublicSchemaObjects(ctx context.Context, host string, port int, user, password, db string) error {
+func PurgePSQLPublicSchemaObjects(ctx context.Context, host string, port int, user, password, db, sslMode string) error {
 	// 1) Drop materialized views
 	// Skip extension-owned materialized views
 	dropMatViews := `
@@ -191,7 +194,7 @@ BEGIN
     EXECUTE format('DROP MATERIALIZED VIEW IF EXISTS %I.%I CASCADE', r.schemaname, r.matviewname);
   END LOOP;
 END$$;`
-	if err := RunPSQL(ctx, host, port, user, password, db, dropMatViews); err != nil {
+	if err := RunPSQL(ctx, host, port, user, password, db, dropMatViews, sslMode); err != nil {
 		return err
 	}
 
@@ -216,7 +219,7 @@ BEGIN
     EXECUTE format('DROP VIEW IF EXISTS %I.%I CASCADE', r.schemaname, r.viewname);
   END LOOP;
 END$$;`
-	if err := RunPSQL(ctx, host, port, user, password, db, dropViews); err != nil {
+	if err := RunPSQL(ctx, host, port, user, password, db, dropViews, sslMode); err != nil {
 		return err
 	}
 
@@ -234,7 +237,7 @@ BEGIN
     EXECUTE format('DROP FOREIGN TABLE IF EXISTS %I.%I CASCADE', r.schemaname, r.relname);
   END LOOP;
 END$$;`
-	if err := RunPSQL(ctx, host, port, user, password, db, dropForeignTables); err != nil {
+	if err := RunPSQL(ctx, host, port, user, password, db, dropForeignTables, sslMode); err != nil {
 		return err
 	}
 
@@ -251,7 +254,7 @@ BEGIN
     EXECUTE format('DROP TABLE IF EXISTS %I.%I CASCADE', r.schemaname, r.tablename);
   END LOOP;
 END$$;`
-	if err := RunPSQL(ctx, host, port, user, password, db, dropTables); err != nil {
+	if err := RunPSQL(ctx, host, port, user, password, db, dropTables, sslMode); err != nil {
 		return err
 	}
 
@@ -268,7 +271,7 @@ BEGIN
     EXECUTE format('DROP SEQUENCE IF EXISTS %I.%I CASCADE', r.sequence_schema, r.sequence_name);
   END LOOP;
 END$$;`
-	if err := RunPSQL(ctx, host, port, user, password, db, dropSequences); err != nil {
+	if err := RunPSQL(ctx, host, port, user, password, db, dropSequences, sslMode); err != nil {
 		return err
 	}
 
@@ -300,7 +303,7 @@ BEGIN
     END IF;
   END LOOP;
 END$$;`
-	if err := RunPSQL(ctx, host, port, user, password, db, dropRoutines); err != nil {
+	if err := RunPSQL(ctx, host, port, user, password, db, dropRoutines, sslMode); err != nil {
 		return err
 	}
 
@@ -352,7 +355,7 @@ BEGIN
     EXECUTE format('DROP TYPE IF EXISTS %I.%I CASCADE', r.nspname, r.typname);
   END LOOP;
 END$$;`
-	if err := RunPSQL(ctx, host, port, user, password, db, dropTypesAndDomains); err != nil {
+	if err := RunPSQL(ctx, host, port, user, password, db, dropTypesAndDomains, sslMode); err != nil {
 		return err
 	}
 
