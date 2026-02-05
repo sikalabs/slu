@@ -6,6 +6,7 @@ import (
 )
 
 var PostgresRestoreFlagName string
+var PostgresRestoreFlagSSLMode string
 
 var PostgresRestoreCmd = &cobra.Command{
 	Use:   "restore",
@@ -22,4 +23,11 @@ func init() {
 		"Name of database to restore",
 	)
 	PostgresRestoreCmd.MarkPersistentFlagRequired("name")
+	PostgresRestoreCmd.PersistentFlags().StringVarP(
+		&PostgresRestoreFlagSSLMode,
+		"ssl-mode",
+		"S",
+		"disable",
+		"SSL mode (disable, allow, prefer, require, verify-ca, verify-full)",
+	)
 }

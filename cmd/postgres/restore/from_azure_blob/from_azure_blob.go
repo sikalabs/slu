@@ -54,6 +54,7 @@ var Cmd = &cobra.Command{
 				CmdFlagAccountKey,
 				CmdFlagSourcePrefix,
 				CmdFlagSourceSuffix,
+				postgresrestorecmd.PostgresRestoreFlagSSLMode,
 			)
 
 			if err != nil {
