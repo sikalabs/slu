@@ -1,10 +1,6 @@
 package install_sli
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/sha256"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -14,6 +10,7 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/sikalabs/sikalabs-crypt-go/pkg/sikalabs_crypt"
 	parent_cmd "github.com/sikalabs/slu/cmd/scripts"
 	"github.com/sikalabs/slu/utils/tar_gz_utils"
 	"github.com/spf13/cobra"
@@ -53,10 +50,15 @@ func init() {
 
 func installSli(password, flagOs string) {
 	const (
-		encryptedToken = "eqLoHqyn0Sq9t+SRafoI/XJKA4ePdUn4DylKVfn2tQMvG06WxRyAN6Bdj90aCQ5VX4/E6t+jHOB1awwnfDX1SNISAeYk7bAL5+2whjL++kUxQMAHKELZt+hegcRYOGFQcpDLnfXrXlELu+Ox4CK1ttUXjAi9f+Xdew=="
+		encryptedToken = "UGRvP1IN2AODY9ArML9cly62m4RCrKWXB01+kOTDBOG68bXaQJvfgHTaNvqevT0qGDYR6b+kJsZemfbS2phT2c0Vc0M/BdbrTa44lh6hPTfz0PuQcVfVAgEk2O/uwaIHUTm5A7Z4p9JmD9aR4GQoWF+2SgzBMxkfpoDUR8Z0iszC6857lJ+2VYw="
 	)
 
-	assetId, err := getAssetID(FlagOS, decrypt(encryptedToken, password))
+	token, err := sikalabs_crypt.SikaLabsSymmetricDecryptV1(password, encryptedToken)
+	if err != nil {
+		log.Fatalf("Failed to decrypt token: %v", err)
+	}
+
+	assetId, err := getAssetID(FlagOS, token)
 	if err != nil {
 		log.Fatalf("Failed to get asset ID: %v", err)
 	}
@@ -66,48 +68,10 @@ func installSli(password, flagOs string) {
 		"sli",
 		map[string]string{
 			"Accept":        "application/octet-stream",
-			"Authorization": "Bearer " + decrypt(encryptedToken, password),
+			"Authorization": "Bearer " + token,
 		},
 		"./sli",
 	)
-}
-
-func decrypt(encryptedDataBase64, password string) string {
-	key := deriveKey(password)
-
-	encryptedData, err := base64.StdEncoding.DecodeString(encryptedDataBase64)
-	if err != nil {
-		log.Fatalf("Failed to decode encrypted data: %v", err)
-	}
-
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		log.Fatalf("Failed to create cipher: %v", err)
-	}
-
-	aesGCM, err := cipher.NewGCM(block)
-	if err != nil {
-		log.Fatalf("Failed to create GCM: %v", err)
-	}
-
-	nonceSize := aesGCM.NonceSize()
-	if len(encryptedData) < nonceSize {
-		log.Fatal("Ciphertext too short")
-	}
-
-	nonce, ciphertext := encryptedData[:nonceSize], encryptedData[nonceSize:]
-
-	plaintext, err := aesGCM.Open(nil, nonce, ciphertext, nil)
-	if err != nil {
-		log.Fatalf("Decryption failed: %v", err)
-	}
-
-	return string(plaintext)
-}
-
-func deriveKey(password string) []byte {
-	hash := sha256.Sum256([]byte(password))
-	return hash[:]
 }
 
 func getAssetID(os, token string) (string, error) {
