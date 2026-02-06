@@ -54,7 +54,7 @@ var Tools = []Tool{
 	{
 		Name: "kubectl",
 		GetVersionFunc: func() string {
-			return http_utils.UrlGetToString("https://storage.googleapis.com/kubernetes-release/release/stable.txt")
+			return http_utils.UrlGetToString("https://dl.k8s.io/release/stable.txt")
 		},
 		UrlTemplate: "https://dl.k8s.io/release/{{.Version}}/bin/{{.Os}}/{{.Arch}}/kubectl",
 		RunBeforeInstall: func(name string, version string, os_ string, arch string, binDir string) error {
