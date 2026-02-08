@@ -13,13 +13,14 @@ var FlagBotToken string
 var FlagChatID int64
 var FlagMessage string
 var FlagFile string
+var FlagAsPhoto bool
 
 var Cmd = &cobra.Command{
 	Use:   "send-file",
 	Short: "Send a file to a Telegram chat",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		err := telegram_utils.TelegramSendFile(FlagBotToken, FlagChatID, FlagFile, FlagMessage)
+		err := telegram_utils.TelegramSendFile(FlagBotToken, FlagChatID, FlagFile, FlagMessage, FlagAsPhoto)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -61,5 +62,11 @@ func init() {
 		"m",
 		"",
 		"Message to send with the file (optional)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagAsPhoto,
+		"as-photo",
+		false,
+		"Send the file as a photo instead of a document",
 	)
 }

@@ -90,7 +90,7 @@ func TelegramGetLastChatID(botToken string) (int64, error) {
 	return lastChatID, nil
 }
 
-func TelegramSendFile(botToken string, chatID int64, filePath string, message string) error {
+func TelegramSendFile(botToken string, chatID int64, filePath string, message string, asPhoto bool) error {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return fmt.Errorf("failed to open file: %v", err)
@@ -107,7 +107,11 @@ func TelegramSendFile(botToken string, chatID int64, filePath string, message st
 	_ = writer.WriteField("caption", message)
 
 	// Add the file
-	part, err := writer.CreateFormFile("document", filepath.Base(filePath))
+	fileField := "document"
+	if asPhoto {
+		fileField = "photo"
+	}
+	part, err := writer.CreateFormFile(fileField, filepath.Base(filePath))
 	if err != nil {
 		return fmt.Errorf("failed to create form file: %v", err)
 	}
@@ -124,7 +128,11 @@ func TelegramSendFile(botToken string, chatID int64, filePath string, message st
 
 	writer.Close()
 
-	url := fmt.Sprintf("https://api.telegram.org/bot%s/sendDocument", botToken)
+	apiMethod := "sendDocument"
+	if asPhoto {
+		apiMethod = "sendPhoto"
+	}
+	url := fmt.Sprintf("https://api.telegram.org/bot%s/%s", botToken, apiMethod)
 
 	req, err := http.NewRequest("POST", url, &requestBody)
 	if err != nil {
