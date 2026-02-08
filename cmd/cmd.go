@@ -286,6 +286,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/systemd/create_service"
 	_ "github.com/sikalabs/slu/cmd/telegram"
 	_ "github.com/sikalabs/slu/cmd/telegram/get_chat_id"
+	_ "github.com/sikalabs/slu/cmd/telegram/send_file"
 	_ "github.com/sikalabs/slu/cmd/telegram/send_message"
 	_ "github.com/sikalabs/slu/cmd/terraform"
 	_ "github.com/sikalabs/slu/cmd/terraform/create_setup_config"
