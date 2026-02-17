@@ -14,17 +14,20 @@ import (
 )
 
 func InstallBin(url, source, binDir, name string, exeSuffix bool) {
+	nameTmp := name + ".new"
 	if exeSuffix {
 		source = source + ".exe"
 		name = name + ".exe"
+		nameTmp = nameTmp + ".exe"
 	}
 	if strings.HasSuffix(url, "zip") {
 		zip_utils.WebZipToBin(
 			url,
 			source,
 			map[string]string{},
-			path.Join(binDir, name),
+			path.Join(binDir, nameTmp),
 		)
+		os.Rename(path.Join(binDir, nameTmp), path.Join(binDir, name))
 		return
 	}
 	if strings.HasSuffix(url, "tar.gz") || strings.HasSuffix(url, "tgz") {
@@ -32,8 +35,9 @@ func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 			url,
 			source,
 			map[string]string{},
-			path.Join(binDir, name),
+			path.Join(binDir, nameTmp),
 		)
+		os.Rename(path.Join(binDir, nameTmp), path.Join(binDir, name))
 		return
 	}
 	if strings.HasSuffix(url, "tar.bz2") || strings.HasSuffix(url, "tbz2") {
@@ -41,15 +45,17 @@ func InstallBin(url, source, binDir, name string, exeSuffix bool) {
 			url,
 			source,
 			map[string]string{},
-			path.Join(binDir, name),
+			path.Join(binDir, nameTmp),
 		)
+		os.Rename(path.Join(binDir, nameTmp), path.Join(binDir, name))
 		return
 	}
 	webToBin(
 		url,
 		map[string]string{},
-		path.Join(binDir, name),
+		path.Join(binDir, nameTmp),
 	)
+	os.Rename(path.Join(binDir, nameTmp), path.Join(binDir, name))
 }
 
 func webToBin(url string, headers map[string]string, outFileName string) {
