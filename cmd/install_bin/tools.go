@@ -467,6 +467,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/sikalabsx/master/releases/download/{{.Version}}/master_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
+		Name:           "master_mon",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabsx", "master") },
+		UrlTemplate:    "https://github.com/sikalabsx/master/releases/download/{{.Version}}/master_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
+	{
 		Name:           "k3d",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("k3d-io", "k3d") },
 		UrlTemplate:    "https://github.com/k3d-io/k3d/releases/download/{{.Version}}/k3d-{{.Os}}-{{.Arch}}",
