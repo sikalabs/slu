@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	parentcmd "github.com/sikalabs/slu/cmd/telegram"
+	"github.com/sikalabs/slu/pkg/utils/error_utils"
 	"github.com/sikalabs/slu/utils/telegram_utils"
 	"github.com/spf13/cobra"
 )
@@ -18,7 +19,8 @@ var Cmd = &cobra.Command{
 	Short: "Send a message to a Telegram chat",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		telegram_utils.TelegramSendMessageMarkdown(FlagBotToken, FlagChatID, FlagMessage)
+		err := telegram_utils.TelegramSendMessageMarkdown(FlagBotToken, FlagChatID, FlagMessage)
+		error_utils.HandleError(err)
 	},
 }
 
