@@ -132,6 +132,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/jwt"
 	_ "github.com/sikalabs/slu/cmd/jwt/parse"
 	_ "github.com/sikalabs/slu/cmd/jwt/validate"
+	_ "github.com/sikalabs/slu/cmd/kafka"
 	_ "github.com/sikalabs/slu/cmd/k8s"
 	_ "github.com/sikalabs/slu/cmd/k8s/create_oidc_user"
 	_ "github.com/sikalabs/slu/cmd/k8s/delete_ns"
