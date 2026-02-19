@@ -2,6 +2,7 @@ package send_message
 
 import (
 	"os"
+	"strconv"
 
 	parentcmd "github.com/sikalabs/slu/cmd/telegram"
 	"github.com/sikalabs/slu/utils/telegram_utils"
@@ -23,6 +24,10 @@ var Cmd = &cobra.Command{
 
 func init() {
 	botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
+	var chatID int64
+	if chatIDStr := os.Getenv("TELEGRAM_CHAT_ID"); chatIDStr != "" {
+		chatID, _ = strconv.ParseInt(chatIDStr, 10, 64)
+	}
 	parentcmd.Cmd.AddCommand(Cmd)
 	Cmd.Flags().StringVarP(
 		&FlagBotToken,
@@ -38,10 +43,12 @@ func init() {
 		&FlagChatID,
 		"chat-id",
 		"c",
-		0,
-		"Chat ID",
+		chatID,
+		"Chat ID, can be set via TELEGRAM_CHAT_ID env var",
 	)
-	Cmd.MarkFlagRequired("chat-id")
+	if chatID == 0 {
+		Cmd.MarkFlagRequired("chat-id")
+	}
 	Cmd.Flags().StringVarP(
 		&FlagMessage,
 		"message",
