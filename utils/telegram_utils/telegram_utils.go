@@ -26,7 +26,7 @@ func TelegramSendMessage(botToken string, chatID int64, message string) error {
 	}
 	defer resp.Body.Close()
 
-	return nil
+	return checkTelegramResponse(resp)
 }
 
 func TelegramSendMessageMarkdown(botToken string, chatID int64, message string) error {
@@ -45,7 +45,7 @@ func TelegramSendMessageMarkdown(botToken string, chatID int64, message string) 
 	}
 	defer resp.Body.Close()
 
-	return nil
+	return checkTelegramResponse(resp)
 }
 
 func TelegramGetLastChatID(botToken string) (int64, error) {
@@ -62,8 +62,9 @@ func TelegramGetLastChatID(botToken string) (int64, error) {
 	}
 
 	type Response struct {
-		Ok     bool     `json:"ok"`
-		Result []Update `json:"result"`
+		Ok          bool     `json:"ok"`
+		Description string   `json:"description"`
+		Result      []Update `json:"result"`
 	}
 
 	resp, err := http.Get("https://api.telegram.org/bot" + botToken + "/getUpdates")
@@ -80,6 +81,10 @@ func TelegramGetLastChatID(botToken string) (int64, error) {
 	var response Response
 	if err := json.Unmarshal(body, &response); err != nil {
 		return 0, fmt.Errorf("unmarshalling response failed: %v", err)
+	}
+
+	if !response.Ok {
+		return 0, fmt.Errorf("telegram API error: %s", response.Description)
 	}
 
 	if len(response.Result) == 0 {
@@ -145,6 +150,25 @@ func TelegramSendFile(botToken string, chatID int64, filePath string, message st
 		return fmt.Errorf("failed to send request: %v", err)
 	}
 	defer resp.Body.Close()
+
+	return checkTelegramResponse(resp)
+}
+
+func checkTelegramResponse(resp *http.Response) error {
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("reading response body failed: %v", err)
+	}
+	var result struct {
+		Ok          bool   `json:"ok"`
+		Description string `json:"description"`
+	}
+	if err := json.Unmarshal(body, &result); err != nil {
+		return fmt.Errorf("unmarshalling response failed: %v", err)
+	}
+	if !result.Ok {
+		return fmt.Errorf("telegram API error: %s", result.Description)
+	}
 
 	return nil
 }
