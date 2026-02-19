@@ -235,6 +235,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/ins_oxs_cz"
 	_ "github.com/sikalabs/slu/cmd/scripts/install_k3s"
 	_ "github.com/sikalabs/slu/cmd/scripts/install_sli"
+	_ "github.com/sikalabs/slu/cmd/scripts/simple_static_password"
 	_ "github.com/sikalabs/slu/cmd/scripts/json_to_yaml"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/connect_from_vault"
