@@ -506,6 +506,12 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("docker", "buildx") },
 		UrlTemplate:    "https://github.com/docker/buildx/releases/download/{{.Version}}/buildx-{{.Version}}.{{.Os}}-{{.Arch}}",
 	},
+	{
+		Name:           "govc",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("vmware", "govmomi") },
+		UrlTemplate:    "https://github.com/vmware/govmomi/releases/download/{{.Version}}/govc_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
+		GetArchFunc:    craneGetArch,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
