@@ -6,8 +6,9 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:   "kafka",
-	Short: "Kafka CLI Utils",
+	Use:     "kafka",
+	Aliases: []string{"kfk", "kk"},
+	Short:   "Kafka CLI Utils",
 }
 
 func init() {
