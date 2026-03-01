@@ -21,6 +21,7 @@ var GitignoreBase = `# Mac
 *.local.yaml
 *.local.json
 *.local.txt
+*.local.md
 Makefile.local.mk
 `
 
