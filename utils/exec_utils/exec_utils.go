@@ -60,3 +60,7 @@ func ExecStr(command string, args ...string) (string, error) {
 	}
 	return string(out), nil
 }
+
+func ExecShStr(script string) (string, error) {
+	return ExecStr("sh", "-c", script)
+}
