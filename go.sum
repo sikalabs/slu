@@ -1035,8 +1035,6 @@ github.com/olekukonko/ll v0.1.4-0.20260115111900-9e59c2286df0 h1:jrYnow5+hy3WRDC
 github.com/olekukonko/ll v0.1.4-0.20260115111900-9e59c2286df0/go.mod h1:b52bVQRRPObe+yyBl0TxNfhesL0nedD4Cht0/zx55Ew=
 github.com/olekukonko/tablewriter v1.1.3 h1:VSHhghXxrP0JHl+0NnKid7WoEmd9/urKRJLysb70nnA=
 github.com/olekukonko/tablewriter v1.1.3/go.mod h1:9VU0knjhmMkXjnMKrZ3+L2JhhtsQ/L38BbL3CRNE8tM=
-github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1 h1:lCvf9k+OGumpvIbMG5y20qZYQQhdnRvEAE4A1/vFsKo=
-github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1/go.mod h1:eYEc5khu5Jdv99uvgoItbm5LCPsXZ3n/9K0X2NTV94c=
 github.com/ondrejsika/go-dela v1.1.0 h1:OondBOZNvIlADT5Ufd7FagUJXhG5Kr87f3m8sza7lAo=
 github.com/ondrejsika/go-dela v1.1.0/go.mod h1:o+SjPdAROkZEGYPm/1LRqMymnYxPQ+6MsDosV44GT2Y=
 github.com/ondrejsika/go-iceland v0.2.0 h1:3TFF56ZA9UA4FsEG+0f/itNaYbP31Nwe2qVv0lID8cc=

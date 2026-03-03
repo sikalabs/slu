@@ -4,7 +4,6 @@ go 1.25.3
 
 replace (
 	cloud.google.com/go => cloud.google.com/go v0.109.0
-	github.com/denisenkom/go-mssqldb => github.com/ondrejsika/fork-go-mssqldb-32bit-for-slu v1.0.1
 	github.com/go-check/check => github.com/go-check/check v0.0.0-20180628173108-788fd7840127
 	k8s.io/api => k8s.io/api v0.34.0
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.34.0
@@ -53,7 +52,6 @@ require (
 	github.com/cheggaaa/pb/v3 v3.1.7
 	github.com/cloudflare/cloudflare-go v0.115.0
 	github.com/coreos/go-oidc v2.5.0+incompatible
-	github.com/denisenkom/go-mssqldb v0.12.3
 	github.com/digitalocean/godo v1.172.0
 	github.com/docker/docker v28.5.2+incompatible
 	github.com/getsentry/sentry-go v0.43.0
@@ -68,6 +66,7 @@ require (
 	github.com/k0sproject/rig v0.21.0
 	github.com/lib/pq v1.10.9
 	github.com/mhale/smtpd v0.8.3
+	github.com/microsoft/go-mssqldb v0.20.0
 	github.com/olekukonko/tablewriter v1.1.3
 	github.com/ondrejsika/go-dela v1.1.0
 	github.com/ondrejsika/go-iceland v0.2.0
@@ -271,7 +270,6 @@ require (
 	github.com/mattn/go-shellwords v1.0.12 // indirect
 	github.com/mattn/go-sqlite3 v1.14.22 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
-	github.com/microsoft/go-mssqldb v0.20.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.1-0.20220423185008-bf980b35cac4 // indirect

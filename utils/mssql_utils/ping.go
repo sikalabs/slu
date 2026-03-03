@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/denisenkom/go-mssqldb/azuread"
+	"github.com/microsoft/go-mssqldb/azuread"
 )
 
 func Ping(
