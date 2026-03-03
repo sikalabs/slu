@@ -112,5 +112,5 @@ func sh(cmd string) error {
 
 func shCapture(cmd string) (string, error) {
 	log.Printf("RUN: %s", cmd)
-	return exec_utils.ExecStr(cmd)
+	return exec_utils.ExecShStr(cmd)
 }
