@@ -31,6 +31,20 @@ For upgrade of **slu** just run
 install-slu install
 ```
 
+## Using Go
+
+Install latest release using `go install`
+
+```
+go install github.com/sikalabs/slu/cmd/slu@latest
+```
+
+Install version of master branch using `go install`
+
+```
+go install github.com/sikalabs/slu/cmd/slu@master
+```
+
 ### Windows (winget)
 
 Using winget, official Windows package manager
