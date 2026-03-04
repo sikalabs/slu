@@ -1,3 +1,5 @@
+[SikaLabs (sikalabs.com)](https://sikalabs.com) | [Ondrej Sika (sika.io)](https://sika.io)
+
 <p align="center">
   <h1 align="center">slu: SikaLabs Utils</h1>
   <p align="center">
