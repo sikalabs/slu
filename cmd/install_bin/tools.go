@@ -512,6 +512,11 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/vmware/govmomi/releases/download/{{.Version}}/govc_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
 		GetArchFunc:    craneGetArch,
 	},
+	{
+		Name:           "v7y",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabsx", "v7y") },
+		UrlTemplate:    "https://github.com/sikalabsx/v7y/releases/download/{{.Version}}/v7y_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
