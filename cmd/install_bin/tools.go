@@ -517,6 +517,13 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabsx", "v7y") },
 		UrlTemplate:    "https://github.com/sikalabsx/v7y/releases/download/{{.Version}}/v7y_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "gh",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("cli", "cli") },
+		UrlTemplate:    `https://github.com/cli/cli/releases/download/{{.Version}}/gh_{{.Version|removev}}_{{.Os}}_{{.Arch}}{{ if eq .Os "linux" }}.tar.gz{{ else }}.zip{{ end }}`,
+		SourcePath:     "gh_{{.Version|removev}}_{{.Os}}_{{.Arch}}/bin/gh",
+		GetOsFunc:      ghGetOsFunc,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
@@ -581,6 +588,13 @@ func hadolintGetArchFunc(arch string) string {
 func rcloneGetOsFunc(os string) string {
 	if os == "darwin" {
 		return "osx"
+	}
+	return os
+}
+
+func ghGetOsFunc(os string) string {
+	if os == "darwin" {
+		return "macOS"
 	}
 	return os
 }
