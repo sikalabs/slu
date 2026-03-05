@@ -524,6 +524,11 @@ var Tools = []Tool{
 		SourcePath:     "gh_{{.Version|removev}}_{{.Os}}_{{.Arch}}/bin/gh",
 		GetOsFunc:      ghGetOsFunc,
 	},
+	{
+		Name:           "sikalabs-kubernetes-oidc-login",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "sikalabs-kubernetes-oidc-login") },
+		UrlTemplate:    "https://github.com/sikalabs/sikalabs-kubernetes-oidc-login/releases/download/{{.Version}}/sikalabs-kubernetes-oidc-login_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
