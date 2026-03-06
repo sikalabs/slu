@@ -529,6 +529,13 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("sikalabs", "sikalabs-kubernetes-oidc-login") },
 		UrlTemplate:    "https://github.com/sikalabs/sikalabs-kubernetes-oidc-login/releases/download/{{.Version}}/sikalabs-kubernetes-oidc-login_{{.Version}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "komac",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("russellbanks", "Komac") },
+		UrlTemplate:    "https://github.com/russellbanks/Komac/releases/download/{{.Version}}/komac-{{.Version|removev}}-{{.Arch}}-{{.Os}}.tar.gz",
+		GetOsFunc:      komacGetOsFunc,
+		GetArchFunc:    butaneGetArchFunc,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
@@ -600,6 +607,19 @@ func rcloneGetOsFunc(os string) string {
 func ghGetOsFunc(os string) string {
 	if os == "darwin" {
 		return "macOS"
+	}
+	return os
+}
+
+func komacGetOsFunc(os string) string {
+	if os == "darwin" {
+		return "apple-darwin"
+	}
+	if os == "linux" {
+		return "unknown-linux-gnu"
+	}
+	if os == "windows" {
+		return "pc-windows-msvc"
 	}
 	return os
 }
