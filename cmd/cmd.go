@@ -186,6 +186,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/iceland"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/large_desktop_files"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/setup_git"
+	_ "github.com/sikalabs/slu/cmd/pause"
 	_ "github.com/sikalabs/slu/cmd/postgres"
 	_ "github.com/sikalabs/slu/cmd/postgres/counter"
 	_ "github.com/sikalabs/slu/cmd/postgres/create"

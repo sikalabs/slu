@@ -51,6 +51,7 @@ require (
 	github.com/shirou/gopsutil/v3 v3.24.5
 	github.com/showwin/speedtest-go v1.7.10
 	github.com/sikalabs/dogsay v0.1.0
+	github.com/sikalabs/pause v0.1.0
 	github.com/sikalabs/sikalabs-crypt-go v0.0.0-20251105165509-07a7607e5e7b
 	github.com/sirupsen/logrus v1.9.4
 	github.com/spf13/cobra v1.10.2
