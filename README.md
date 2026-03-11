@@ -53,6 +53,8 @@ Using winget, official Windows package manager
 winget install -e --id sikalabs.slu
 ```
 
+See on [winstall.app](https://winstall.app/apps/sikalabs.slu)
+
 ### Windows (scoop)
 
 Install unsing [scoop](https://scoop.sh/)
