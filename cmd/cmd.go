@@ -196,6 +196,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/postgres/restore"
 	_ "github.com/sikalabs/slu/cmd/postgres/restore/from_azure_blob"
 	_ "github.com/sikalabs/slu/cmd/proxy"
+	_ "github.com/sikalabs/slu/cmd/proxy/https"
 	_ "github.com/sikalabs/slu/cmd/proxy/smtp"
 	_ "github.com/sikalabs/slu/cmd/proxy/tcp"
 	_ "github.com/sikalabs/slu/cmd/rabbitmq"
