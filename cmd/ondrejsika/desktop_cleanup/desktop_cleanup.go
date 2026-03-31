@@ -53,6 +53,7 @@ var Cmd = &cobra.Command{
 		if FlagTerraformPluginDir {
 			registerRm(".terraform-plugin-cache/*")
 		}
+		registerRm("./Library/Caches/goimports")
 		registerRm("./Library/Caches/lima/")
 		if FlagVirtualEnvs {
 			registerRm(".local/share/virtualenvs/*")
