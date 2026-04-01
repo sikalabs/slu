@@ -80,6 +80,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/file_utils/download"
 	_ "github.com/sikalabs/slu/cmd/file_utils/from_base64"
 	_ "github.com/sikalabs/slu/cmd/file_utils/replace_string"
+	_ "github.com/sikalabs/slu/cmd/gb2mb"
 	_ "github.com/sikalabs/slu/cmd/generate_docs"
 	_ "github.com/sikalabs/slu/cmd/generate_files"
 	_ "github.com/sikalabs/slu/cmd/generate_files/tree"
