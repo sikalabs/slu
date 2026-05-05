@@ -7,6 +7,8 @@ import (
 	wait_for_k8s_cmd "github.com/sikalabs/slu/cmd/wait_for/k8s"
 	"github.com/sikalabs/slu/utils/k8s"
 	"github.com/sikalabs/slu/utils/wait_for_utils"
+	batchv1 "k8s.io/api/batch/v1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/spf13/cobra"
@@ -38,12 +40,16 @@ var Cmd = &cobra.Command{
 					return wait_for_utils.WaitForResponseWaiting(err.Error())
 				}
 
-				if job.Status.Failed == 1 {
-					return wait_for_utils.WaitForResponseFailed("Failed")
-				}
-
-				if job.Status.Succeeded == 1 {
-					return wait_for_utils.WaitForResponseSucceeded("Succeeded")
+				for _, cond := range job.Status.Conditions {
+					if cond.Status != corev1.ConditionTrue {
+						continue
+					}
+					switch cond.Type {
+					case batchv1.JobComplete:
+						return wait_for_utils.WaitForResponseSucceeded("Succeeded")
+					case batchv1.JobFailed:
+						return wait_for_utils.WaitForResponseFailed("Failed: " + cond.Reason)
+					}
 				}
 
 				return wait_for_utils.WaitForResponseWaiting("Running")
