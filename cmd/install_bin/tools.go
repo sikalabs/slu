@@ -536,6 +536,11 @@ var Tools = []Tool{
 		GetOsFunc:      komacGetOsFunc,
 		GetArchFunc:    butaneGetArchFunc,
 	},
+	{
+		Name:           "termshot",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("homeport", "termshot") },
+		UrlTemplate:    "https://github.com/homeport/termshot/releases/download/{{.Version}}/termshot_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
