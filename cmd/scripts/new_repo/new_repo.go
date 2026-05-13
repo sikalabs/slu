@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagNameOverride string
 var FlagWithGo bool
 var FlagWithPython bool
 var FlagTerraform bool
@@ -22,7 +23,11 @@ var Cmd = &cobra.Command{
 	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		// Step 1: Initialize git repository
-		err := exec_utils.ExecOut("slu", "git", "init")
+		gitInitArgs := []string{"git", "init"}
+		if FlagNameOverride != "" {
+			gitInitArgs = append(gitInitArgs, "--name-override", FlagNameOverride)
+		}
+		err := exec_utils.ExecOut("slu", gitInitArgs...)
 		error_utils.HandleError(err, "Error running slu git init")
 
 		// Step 2: Create .editorconfig
@@ -64,6 +69,13 @@ var Cmd = &cobra.Command{
 
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+
+	Cmd.Flags().StringVar(
+		&FlagNameOverride,
+		"name-override",
+		"",
+		"Override the name used in README and initial commit",
+	)
 
 	// Flags from editorconfig command
 	Cmd.Flags().BoolVar(
