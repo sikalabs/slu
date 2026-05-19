@@ -261,6 +261,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_maildev"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_metrics_server"
 	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/install_prometheus_operator_crd"
+	_ "github.com/sikalabs/slu/cmd/scripts/kubernetes/run_loggen"
 	_ "github.com/sikalabs/slu/cmd/scripts/latest_version_go"
 	_ "github.com/sikalabs/slu/cmd/scripts/new_repo"
 	_ "github.com/sikalabs/slu/cmd/scripts/nginx_log_generator"
