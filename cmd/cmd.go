@@ -327,6 +327,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/vault/read_file"
 	_ "github.com/sikalabs/slu/cmd/vault/save_vault_init_json_to_1password"
 	_ "github.com/sikalabs/slu/cmd/vault/unseal_from_1password"
+	_ "github.com/sikalabs/slu/cmd/vault/unseal_from_file"
 	_ "github.com/sikalabs/slu/cmd/vault/write_file"
 	_ "github.com/sikalabs/slu/cmd/version"
 	_ "github.com/sikalabs/slu/cmd/wait_for"
