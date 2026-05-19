@@ -189,6 +189,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/setup_git"
 	_ "github.com/sikalabs/slu/cmd/pause"
 	_ "github.com/sikalabs/slu/cmd/kargo"
+	_ "github.com/sikalabs/slu/cmd/kargo/get_install_params"
 	_ "github.com/sikalabs/slu/cmd/postgres"
 	_ "github.com/sikalabs/slu/cmd/postgres/counter"
 	_ "github.com/sikalabs/slu/cmd/postgres/create"
