@@ -15,6 +15,7 @@ import (
 var FlagImage string
 var FlagShell string
 var FlagNode string
+var FlagNamespace string
 var FlagDryRun bool
 var FlagDetached bool
 
@@ -37,6 +38,10 @@ var Cmd = &cobra.Command{
 				kubectlRunArgs,
 				"--overrides", `{"spec": {"nodeName": "`+FlagNode+`"}}`,
 			)
+		}
+
+		if FlagNamespace != "" {
+			kubectlRunArgs = append(kubectlRunArgs, "--namespace", FlagNamespace)
 		}
 
 		kubectlArgs := append([]string{"run"}, kubectlRunArgs...)
@@ -85,6 +90,13 @@ func init() {
 		"node",
 		"",
 		"Node to run on",
+	)
+	Cmd.Flags().StringVarP(
+		&FlagNamespace,
+		"namespace",
+		"n",
+		"",
+		"Kubernetes namespace",
 	)
 	Cmd.Flags().BoolVarP(
 		&FlagDetached,
