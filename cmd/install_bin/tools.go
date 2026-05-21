@@ -541,6 +541,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("homeport", "termshot") },
 		UrlTemplate:    "https://github.com/homeport/termshot/releases/download/{{.Version}}/termshot_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "kargo",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("akuity", "kargo") },
+		UrlTemplate:    "https://github.com/akuity/kargo/releases/download/{{.Version}}/kargo-{{.Os}}-{{.Arch}}",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
