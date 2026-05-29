@@ -546,6 +546,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("akuity", "kargo") },
 		UrlTemplate:    "https://github.com/akuity/kargo/releases/download/{{.Version}}/kargo-{{.Os}}-{{.Arch}}",
 	},
+	{
+		Name:           "flux",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("fluxcd", "flux2") },
+		UrlTemplate:    "https://github.com/fluxcd/flux2/releases/download/{{.Version}}/flux_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
