@@ -20,7 +20,7 @@ require (
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/cheggaaa/pb/v3 v3.1.7
-	github.com/cloudflare/cloudflare-go v0.115.0
+	github.com/cloudflare/cloudflare-go v0.117.0
 	github.com/coreos/go-oidc v2.5.0+incompatible
 	github.com/digitalocean/godo v1.172.0
 	github.com/docker/docker v28.5.2+incompatible
