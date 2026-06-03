@@ -34,7 +34,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/jpillora/go-tcp-proxy v1.0.2
 	github.com/k0sproject/rig v0.21.0
-	github.com/lib/pq v1.10.9
+	github.com/lib/pq v1.12.3
 	github.com/mhale/smtpd v0.8.3
 	github.com/microsoft/go-mssqldb v0.20.0
 	github.com/olekukonko/tablewriter v1.1.4
