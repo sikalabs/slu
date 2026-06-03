@@ -40,7 +40,7 @@ require (
 	github.com/olekukonko/tablewriter v1.1.4
 	github.com/ondrejsika/go-dela v1.1.0
 	github.com/ondrejsika/go-iceland v0.2.0
-	github.com/pires/go-proxyproto v0.8.1
+	github.com/pires/go-proxyproto v0.12.0
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
 	github.com/pquerna/otp v1.5.0
 	github.com/prometheus/client_golang v1.23.2
