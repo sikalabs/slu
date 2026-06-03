@@ -36,13 +36,13 @@ slu install-bin slu
 Install latest release using `go install`
 
 ```
-go install github.com/sikalabs/slu/cmd/slu@latest
+go install github.com/sikalabs/slu@latest
 ```
 
 Install version of master branch using `go install`
 
 ```
-go install github.com/sikalabs/slu/cmd/slu@master
+go install github.com/sikalabs/slu@master
 ```
 
 ### Windows (winget)
