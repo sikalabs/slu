@@ -46,7 +46,7 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/prometheus/common v0.66.1
 	github.com/qeesung/image2ascii v1.0.1
-	github.com/rabbitmq/amqp091-go v1.10.0
+	github.com/rabbitmq/amqp091-go v1.11.0
 	github.com/rs/zerolog v1.34.0
 	github.com/showwin/speedtest-go v1.7.10
 	github.com/sikalabs/dogsay v0.1.0
