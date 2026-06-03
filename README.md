@@ -28,7 +28,7 @@ curl -fsSL https://raw.githubusercontent.com/sikalabs/slu/master/install.sh | su
 For upgrade of **slu** just run
 
 ```bash
-install-slu install
+slu install-bin slu
 ```
 
 ## Using Go
