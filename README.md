@@ -17,9 +17,9 @@
 brew install sikalabs/tap/slu
 ```
 
-### Linux AMD64 (using install-slu, recommended)
+### Linux AMD64 (recommended)
 
-Install latest version of **slu**  using [install-slu](https://github.com/sikalabs/install-slu) tool. See [install.sh](./install.sh)
+Install latest version of **slu**. See [install.sh](./install.sh)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/sikalabs/slu/master/install.sh | sudo sh
