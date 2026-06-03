@@ -551,6 +551,12 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("fluxcd", "flux2") },
 		UrlTemplate:    "https://github.com/fluxcd/flux2/releases/download/{{.Version}}/flux_{{.Version|removev}}_{{.Os}}_{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "lazygit",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("jesseduffield", "lazygit") },
+		UrlTemplate:    "https://github.com/jesseduffield/lazygit/releases/download/{{.Version}}/lazygit_{{.Version|removev}}_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
+		GetArchFunc:    craneGetArch,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
