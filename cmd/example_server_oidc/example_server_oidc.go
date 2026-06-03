@@ -16,6 +16,7 @@ var FlagPort int
 var FlagIssuer string
 var FlagClientID string
 var FlagClientSecret string
+var FlagCallbackOrigin string
 
 func init() {
 	root.RootCmd.AddCommand(Cmd)
@@ -26,6 +27,7 @@ func init() {
 	Cmd.MarkFlagRequired("client-id")
 	Cmd.Flags().StringVar(&FlagClientSecret, "client-secret", "", "Client Secret")
 	Cmd.MarkFlagRequired("client-secret")
+	Cmd.Flags().StringVar(&FlagCallbackOrigin, "callback-origin", "http://127.0.0.1:8000", "Callback origin (e.g. https://example.com)")
 }
 
 var Cmd = &cobra.Command{
@@ -33,11 +35,14 @@ var Cmd = &cobra.Command{
 	Short: "Run example web server with OIDC",
 	Args:  cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
-		Server(FlagPort, FlagIssuer, FlagClientID, FlagClientSecret)
+		if !c.Flags().Changed("callback-origin") {
+			FlagCallbackOrigin = fmt.Sprintf("http://127.0.0.1:%d", FlagPort)
+		}
+		Server(FlagPort, FlagIssuer, FlagClientID, FlagClientSecret, FlagCallbackOrigin)
 	},
 }
 
-func Server(port int, issuer, clientID, clientSecret string) {
+func Server(port int, issuer, clientID, clientSecret, callbackOrigin string) {
 	ctx := context.Background()
 
 	provider, err := oidc.NewProvider(ctx, issuer)
@@ -49,7 +54,7 @@ func Server(port int, issuer, clientID, clientSecret string) {
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
 		Endpoint:     provider.Endpoint(),
-		RedirectURL:  fmt.Sprintf("http://127.0.0.1:%d/callback", port),
+		RedirectURL:  fmt.Sprintf("%s/callback", callbackOrigin),
 		Scopes:       []string{oidc.ScopeOpenID, "profile", "email"},
 	}
 
