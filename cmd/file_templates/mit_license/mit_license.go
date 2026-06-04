@@ -14,9 +14,10 @@ var FlagSikaLabs bool
 var FlagAll bool
 
 var Cmd = &cobra.Command{
-	Use:   "mit-license",
-	Short: "Create MIT LICENSE file",
-	Args:  cobra.NoArgs,
+	Use:     "mit-license",
+	Aliases: []string{"mit"},
+	Short:   "Create MIT LICENSE file",
+	Args:    cobra.NoArgs,
 	Run: func(c *cobra.Command, args []string) {
 		if FlagAll {
 			FlagOndrejSika = true
