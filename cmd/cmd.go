@@ -75,6 +75,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/file_templates/gitignore"
 	_ "github.com/sikalabs/slu/cmd/file_templates/go_cli_project"
 	_ "github.com/sikalabs/slu/cmd/file_templates/incident_response"
+	_ "github.com/sikalabs/slu/cmd/file_templates/mit_license"
 	_ "github.com/sikalabs/slu/cmd/file_templates/terraform_project"
 	_ "github.com/sikalabs/slu/cmd/file_utils"
 	_ "github.com/sikalabs/slu/cmd/file_utils/download"
