@@ -50,7 +50,7 @@ func init() {
 
 func installSli(password, flagOs string) {
 	const (
-		encryptedToken = "UGRvP1IN2AODY9ArML9cly62m4RCrKWXB01+kOTDBOG68bXaQJvfgHTaNvqevT0qGDYR6b+kJsZemfbS2phT2c0Vc0M/BdbrTa44lh6hPTfz0PuQcVfVAgEk2O/uwaIHUTm5A7Z4p9JmD9aR4GQoWF+2SgzBMxkfpoDUR8Z0iszC6857lJ+2VYw="
+		encryptedToken = "ROXZbjVSDiL5+zL9uz7W8xblXj7tedHGJQPqPQshn7M55k+hYz2YC22xqWrb7B9oMzAoZXGiQEMS6+ybEBabtx3ZQLzQZVPxLnJ1kGBDVBn5wHTQ/YzTc54lbw1X+vov1DsaCbfyOoBxgWFTCRWnly5LbP/GPKqXFsLe5cGcu4GrGFUPEKKZR2I="
 	)
 
 	token, err := sikalabs_crypt.SikaLabsSymmetricDecryptV1(password, encryptedToken)
