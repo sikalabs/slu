@@ -156,6 +156,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/kafka"
 	_ "github.com/sikalabs/slu/cmd/kafka/all"
 	_ "github.com/sikalabs/slu/cmd/kafka/bootstrap"
+	_ "github.com/sikalabs/slu/cmd/kafka/kaf_config"
 	_ "github.com/sikalabs/slu/cmd/kargo"
 	_ "github.com/sikalabs/slu/cmd/kargo/get_install_params"
 	_ "github.com/sikalabs/slu/cmd/kdev"
