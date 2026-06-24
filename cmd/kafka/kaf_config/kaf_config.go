@@ -20,6 +20,8 @@ var kafkaGVR = schema.GroupVersionResource{
 	Resource: "kafkas",
 }
 
+var flagListener string
+
 var Cmd = &cobra.Command{
 	Use:   "kaf-config <namespace/kafka-cluster>",
 	Short: "Configure kaf for a Kafka cluster using the first working listener",
@@ -66,6 +68,10 @@ var Cmd = &cobra.Command{
 			if !ok {
 				continue
 			}
+			listenerName, _ := listener["name"].(string)
+			if flagListener != "" && listenerName != flagListener {
+				continue
+			}
 			bootstrapServers, _ := listener["bootstrapServers"].(string)
 			if bootstrapServers == "" {
 				continue
@@ -93,5 +99,6 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
+	Cmd.Flags().StringVarP(&flagListener, "listener", "l", "", "Listener name (default: first working listener)")
 	kafka_cmd.Cmd.AddCommand(Cmd)
 }
