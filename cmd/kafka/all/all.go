@@ -15,7 +15,7 @@ import (
 
 var kafkaGVR = schema.GroupVersionResource{
 	Group:    "kafka.strimzi.io",
-	Version:  "v1beta2",
+	Version:  "v1",
 	Resource: "kafkas",
 }
 
