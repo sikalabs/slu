@@ -273,6 +273,8 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/latest_version_go"
 	_ "github.com/sikalabs/slu/cmd/scripts/new_repo"
 	_ "github.com/sikalabs/slu/cmd/scripts/nginx_log_generator"
+	_ "github.com/sikalabs/slu/cmd/scripts/open"
+	_ "github.com/sikalabs/slu/cmd/scripts/open/signpost"
 	_ "github.com/sikalabs/slu/cmd/scripts/podcast_rss_download"
 	_ "github.com/sikalabs/slu/cmd/scripts/proxy_protocol_server"
 	_ "github.com/sikalabs/slu/cmd/scripts/rename"
