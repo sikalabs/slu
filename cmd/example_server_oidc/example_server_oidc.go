@@ -8,6 +8,7 @@ import (
 
 	"github.com/coreos/go-oidc"
 	"github.com/sikalabs/slu/cmd/root"
+	"github.com/sikalabs/slu/utils/jwt_utils"
 	"github.com/spf13/cobra"
 	"golang.org/x/oauth2"
 )
@@ -89,6 +90,8 @@ func Server(port int, issuer, clientID, clientSecret, callbackOrigin string) {
 		_ = idToken // ID Token is now verified and can be used
 
 		fmt.Println(rawIDToken)
+
+		jwt_utils.ParseJWT(rawIDToken, false)
 
 		fmt.Fprintf(w, "Login successful! %s", rawIDToken)
 	})
