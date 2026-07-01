@@ -93,7 +93,7 @@ func Server(port int, issuer, clientID, clientSecret, callbackOrigin string) {
 
 		fmt.Println(jwt_utils.ParseJWT(rawIDToken, false))
 
-		fmt.Fprintf(w, "Login successful! %s", rawIDToken)
+		fmt.Fprintf(w, "Login successful!\n\n%s\n\n%s", rawIDToken, jwt_utils.ParseJWT(rawIDToken, false))
 	})
 
 	fmt.Printf("http://127.0.0.1:%d\n", port)
