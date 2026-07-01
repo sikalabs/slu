@@ -3,7 +3,6 @@ package jwt_utils
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"time"
 
@@ -11,7 +10,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func ParseJWT(jwtToken string, formatDates bool) {
+func ParseJWT(jwtToken string, formatDates bool) string {
 	// Parse JWT
 	token, _ := jwt.Parse(jwtToken, func(token *jwt.Token) (interface{}, error) { return nil, nil })
 
@@ -26,12 +25,12 @@ func ParseJWT(jwtToken string, formatDates bool) {
 		token.Signature,
 	}
 
-	// Print the result as a JSON array
+	// Marshal the result to JSON with indentation
 	outputJSON, err := json.MarshalIndent(result, "", "  ")
 	if err != nil {
 		log.Fatal("Error marshalling result to JSON: ", err)
 	}
-	fmt.Println(string(outputJSON))
+	return string(outputJSON)
 }
 
 func decodeJSON(data []byte, formatDates bool) interface{} {

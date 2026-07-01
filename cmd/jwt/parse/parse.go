@@ -1,6 +1,8 @@
 package password
 
 import (
+	"fmt"
+
 	parent_cmd "github.com/sikalabs/slu/cmd/jwt"
 	"github.com/sikalabs/slu/utils/jwt_utils"
 	"github.com/sikalabs/slu/utils/stdin_utils"
@@ -19,7 +21,7 @@ var Cmd = &cobra.Command{
 		if jwtToken == "-" {
 			jwtToken = stdin_utils.ReadFromPipeOrDie()
 		}
-		jwt_utils.ParseJWT(jwtToken, FlagFormateDates)
+		fmt.Println(jwt_utils.ParseJWT(jwtToken, FlagFormateDates))
 	},
 }
 

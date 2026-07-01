@@ -91,7 +91,7 @@ func Server(port int, issuer, clientID, clientSecret, callbackOrigin string) {
 
 		fmt.Println(rawIDToken)
 
-		jwt_utils.ParseJWT(rawIDToken, false)
+		fmt.Println(jwt_utils.ParseJWT(rawIDToken, false))
 
 		fmt.Fprintf(w, "Login successful! %s", rawIDToken)
 	})
