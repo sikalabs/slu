@@ -110,13 +110,13 @@ func init() {
 		&FlagYesGoBuildCache,
 		"go-build-cache",
 		false,
-		"Cleanup GO build cache (rm -rf  ~/Library/Caches/go-build/*)",
+		"Cleanup GO build cache (rm -rf ~/Library/Caches/go-build/*)",
 	)
 	Cmd.Flags().BoolVar(
 		&FlagYesGoPkgModCache,
 		"go-pkg-mod-cache",
 		false,
-		"Cleanup GO build cache (rm -rf  ~/go/pkg/mod/cache/*)",
+		"Cleanup GO build cache (rm -rf ~/go/pkg/mod/cache/*)",
 	)
 	Cmd.Flags().BoolVar(
 		&FlagYesGoCleanModCache,
@@ -128,13 +128,13 @@ func init() {
 		&FlagYesYarnCache,
 		"yarn-cache",
 		false,
-		"Cleanup Yarn cache (rm -rf  ~/Library/Caches/Yarn/*)",
+		"Cleanup Yarn cache (rm -rf ~/Library/Caches/Yarn/*)",
 	)
 	Cmd.Flags().BoolVar(
 		&FlagTerraformPluginDir,
 		"terraform-plugin-dir",
 		false,
-		"Remove Terraform providers Dir (rm -rf  ~/terraform-plugin-cache/*)",
+		"Remove Terraform providers Dir (rm -rf ~/terraform-plugin-cache/*)",
 	)
 	Cmd.Flags().BoolVar(
 		&FlagBrewCache,
