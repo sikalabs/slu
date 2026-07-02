@@ -15,6 +15,7 @@ import (
 var FlagDryRun bool
 var FlagYesGoBuildCache bool
 var FlagYesGoPkgModCache bool
+var FlagYesGoCleanModCache bool
 var FlagYesYarnCache bool
 var FlagTerraformPluginDir bool
 var FlagBrewCache bool
@@ -48,6 +49,9 @@ var Cmd = &cobra.Command{
 		}
 		if FlagYesGoPkgModCache {
 			registerRm("./go/pkg/mod/cache/*")
+		}
+		if FlagYesGoCleanModCache {
+			registerSh("go clean -modcache")
 		}
 		registerRm(".nvm/.cache/*")
 		if FlagTerraformPluginDir {
@@ -113,6 +117,12 @@ func init() {
 		"go-pkg-mod-cache",
 		false,
 		"Cleanup GO build cache (rm -rf  ~/go/pkg/mod/cache/*)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagYesGoCleanModCache,
+		"go-clean-modcache",
+		false,
+		"Cleanup GO module cache (go clean -modcache)",
 	)
 	Cmd.Flags().BoolVar(
 		&FlagYesYarnCache,
