@@ -557,6 +557,12 @@ var Tools = []Tool{
 		UrlTemplate:    "https://github.com/jesseduffield/lazygit/releases/download/{{.Version}}/lazygit_{{.Version|removev}}_{{.Os|capitalize}}_{{.Arch}}.tar.gz",
 		GetArchFunc:    craneGetArch,
 	},
+	{
+		Name:           "gojekyll",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("osteele", "gojekyll") },
+		UrlTemplate:    `https://github.com/osteele/gojekyll/releases/download/{{.Version}}/gojekyll_{{.Os|capitalize}}_{{.Arch}}.{{ if eq .Os "windows" }}zip{{ else }}tar.gz{{ end }}`,
+		GetArchFunc:    gojekyllGetArchFunc,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
@@ -630,6 +636,13 @@ func ghGetOsFunc(os string) string {
 		return "macOS"
 	}
 	return os
+}
+
+func gojekyllGetArchFunc(arch string) string {
+	if arch == "amd64" {
+		return "x86_64v1"
+	}
+	return arch
 }
 
 func komacGetOsFunc(os string) string {
