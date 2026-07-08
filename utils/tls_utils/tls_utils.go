@@ -62,7 +62,6 @@ func PrintCertificateFromFile(certFile, keyFile string) {
 func PrintCertificateFromBytes(cert, key []byte) {
 	tlsCert, err := tls.X509KeyPair(cert, key)
 	if err != nil {
-		fmt.Println(444)
 		log.Fatal(err)
 	}
 	certs, err := x509.ParseCertificates(tlsCert.Certificate[0])
