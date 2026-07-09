@@ -563,6 +563,11 @@ var Tools = []Tool{
 		UrlTemplate:    `https://github.com/osteele/gojekyll/releases/download/{{.Version}}/gojekyll_{{.Os|capitalize}}_{{.Arch}}.{{ if eq .Os "windows" }}zip{{ else }}tar.gz{{ end }}`,
 		GetArchFunc:    gojekyllGetArchFunc,
 	},
+	{
+		Name:           "kompose",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("kubernetes", "kompose") },
+		UrlTemplate:    `https://github.com/kubernetes/kompose/releases/download/{{.Version}}/kompose-{{.Os}}-{{.Arch}}{{ if eq .Os "windows" }}.exe{{ end }}`,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
