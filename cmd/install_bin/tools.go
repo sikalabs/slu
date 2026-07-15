@@ -568,6 +568,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("kubernetes", "kompose") },
 		UrlTemplate:    `https://github.com/kubernetes/kompose/releases/download/{{.Version}}/kompose-{{.Os}}-{{.Arch}}{{ if eq .Os "windows" }}.exe{{ end }}`,
 	},
+	{
+		Name:           "mongotui",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("kreulenk", "mongotui") },
+		UrlTemplate:    "https://github.com/kreulenk/mongotui/releases/download/{{.Version}}/mongotui-{{.Os}}-{{.Arch}}.tar.gz",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
