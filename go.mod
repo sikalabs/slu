@@ -19,7 +19,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.41.1
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/caarlos0/env/v6 v6.10.1
-	github.com/cheggaaa/pb/v3 v3.1.7
+	github.com/cheggaaa/pb/v3 v3.2.0
 	github.com/cloudflare/cloudflare-go v0.117.0
 	github.com/coreos/go-oidc v2.5.0+incompatible
 	github.com/digitalocean/godo v1.172.0
@@ -151,7 +151,7 @@ require (
 	github.com/evanphx/json-patch/v5 v5.9.11 // indirect
 	github.com/exponent-io/jsonpath v0.0.0-20210407135951-1de76d718b3f // indirect
 	github.com/fatih/camelcase v1.0.0 // indirect
-	github.com/fatih/color v1.18.0 // indirect
+	github.com/fatih/color v1.19.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fxamacker/cbor/v2 v2.9.0 // indirect
 	github.com/go-errors/errors v1.5.1 // indirect
@@ -232,9 +232,9 @@ require (
 	github.com/mailru/easyjson v0.9.0 // indirect
 	github.com/masterzen/simplexml v0.0.0-20190410153822-31eea3082786 // indirect
 	github.com/masterzen/winrm v0.0.0-20250927112105-5f8e6c707321 // indirect
-	github.com/mattn/go-colorable v0.1.14 // indirect
-	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mattn/go-runewidth v0.0.19 // indirect
+	github.com/mattn/go-colorable v0.1.15 // indirect
+	github.com/mattn/go-isatty v0.0.22 // indirect
+	github.com/mattn/go-runewidth v0.0.24 // indirect
 	github.com/mattn/go-shellwords v1.0.12 // indirect
 	github.com/mattn/go-sqlite3 v1.14.22 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
