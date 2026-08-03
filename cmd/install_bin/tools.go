@@ -573,6 +573,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("kreulenk", "mongotui") },
 		UrlTemplate:    "https://github.com/kreulenk/mongotui/releases/download/{{.Version}}/mongotui-{{.Os}}-{{.Arch}}.tar.gz",
 	},
+	{
+		Name:           "oras",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("oras-project", "oras") },
+		UrlTemplate:    `https://github.com/oras-project/oras/releases/download/{{.Version}}/oras_{{.Version|removev}}_{{.Os}}_{{.Arch}}.{{ if eq .Os "windows" }}zip{{ else }}tar.gz{{ end }}`,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
