@@ -16,6 +16,6 @@ jobs:
           - darwin
           - windows
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
       - run: GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build .
