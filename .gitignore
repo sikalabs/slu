@@ -10,6 +10,7 @@ dist/**
 /slu
 /slu.exe
 /slu-linux-amd64
+/slu-darwin-arm64
 cobra-docs
 
 # Config
