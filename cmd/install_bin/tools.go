@@ -578,6 +578,12 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("oras-project", "oras") },
 		UrlTemplate:    `https://github.com/oras-project/oras/releases/download/{{.Version}}/oras_{{.Version|removev}}_{{.Os}}_{{.Arch}}.{{ if eq .Os "windows" }}zip{{ else }}tar.gz{{ end }}`,
 	},
+	{
+		Name:           "goreman",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("mattn", "goreman") },
+		UrlTemplate:    `https://github.com/mattn/goreman/releases/download/{{.Version}}/goreman_{{.Version}}_{{.Os}}_{{.Arch}}.{{ if eq .Os "linux" }}tar.gz{{ else }}zip{{ end }}`,
+		SourcePath:     "goreman_{{.Version}}_{{.Os}}_{{.Arch}}/goreman",
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
