@@ -1,6 +1,7 @@
 package ip
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
@@ -18,6 +19,22 @@ var FlagNode string
 var FlagNamespace string
 var FlagDryRun bool
 var FlagDetached bool
+var FlagNoRoot bool
+
+type kdevSecurityContext struct {
+	RunAsUser    *int64 `json:"runAsUser,omitempty"`
+	RunAsGroup   *int64 `json:"runAsGroup,omitempty"`
+	RunAsNonRoot *bool  `json:"runAsNonRoot,omitempty"`
+}
+
+type kdevPodSpec struct {
+	NodeName        string               `json:"nodeName,omitempty"`
+	SecurityContext *kdevSecurityContext `json:"securityContext,omitempty"`
+}
+
+type kdevOverrides struct {
+	Spec kdevPodSpec `json:"spec"`
+}
 
 var Cmd = &cobra.Command{
 	Use:   "kdev",
@@ -33,10 +50,28 @@ var Cmd = &cobra.Command{
 			kubectlRunArgs = append(kubectlRunArgs, "--rm", "-ti")
 		}
 
-		if FlagNode != "" {
+		if FlagNode != "" || FlagNoRoot {
+			overrides := kdevOverrides{
+				Spec: kdevPodSpec{
+					NodeName: FlagNode,
+				},
+			}
+
+			if FlagNoRoot {
+				uid := int64(1000)
+				gid := int64(1000)
+				runAsNonRoot := true
+				overrides.Spec.SecurityContext = &kdevSecurityContext{
+					RunAsUser:    &uid,
+					RunAsGroup:   &gid,
+					RunAsNonRoot: &runAsNonRoot,
+				}
+			}
+
+			overridesJson, _ := json.Marshal(overrides)
 			kubectlRunArgs = append(
 				kubectlRunArgs,
-				"--overrides", `{"spec": {"nodeName": "`+FlagNode+`"}}`,
+				"--overrides", string(overridesJson),
 			)
 		}
 
@@ -110,5 +145,11 @@ func init() {
 		"dry-run",
 		false,
 		"print command instead of running it",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagNoRoot,
+		"no-root",
+		false,
+		"Run container as non-root user (uid/gid 1000)",
 	)
 }
