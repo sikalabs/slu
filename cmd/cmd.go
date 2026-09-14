@@ -130,6 +130,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/host"
 	_ "github.com/sikalabs/slu/cmd/install_any_bin"
 	_ "github.com/sikalabs/slu/cmd/install_bin"
+	_ "github.com/sikalabs/slu/cmd/install_sikalabs_bin"
 	_ "github.com/sikalabs/slu/cmd/ip"
 	_ "github.com/sikalabs/slu/cmd/ip_local"
 	_ "github.com/sikalabs/slu/cmd/jwt"
