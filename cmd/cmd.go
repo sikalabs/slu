@@ -52,6 +52,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/digitalocean/auth/list"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/auth/rm"
 	_ "github.com/sikalabs/slu/cmd/digitalocean/auth/use_context"
+	_ "github.com/sikalabs/slu/cmd/digitalocean/who_am_i"
 	_ "github.com/sikalabs/slu/cmd/docker"
 	_ "github.com/sikalabs/slu/cmd/docker/create_config"
 	_ "github.com/sikalabs/slu/cmd/docker/ping"
