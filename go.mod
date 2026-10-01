@@ -3,8 +3,8 @@ module github.com/sikalabs/slu
 go 1.26.0
 
 require (
-	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.23.0
-	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.14.0
+	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.23.1
+	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.14.1
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources v1.2.0
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions v1.3.0
 	github.com/Azure/azure-sdk-for-go/sdk/storage/azblob v1.8.0
@@ -36,7 +36,7 @@ require (
 	github.com/k0sproject/rig v0.21.11
 	github.com/lib/pq v1.12.3
 	github.com/mhale/smtpd v0.8.3
-	github.com/microsoft/go-mssqldb v1.11.0
+	github.com/microsoft/go-mssqldb v1.11.2
 	github.com/olekukonko/tablewriter v1.1.4
 	github.com/ondrejsika/go-dela v1.1.0
 	github.com/ondrejsika/go-iceland v0.2.0
@@ -84,7 +84,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/internal v1.12.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c // indirect
 	github.com/Azure/go-ntlmssp v0.1.1 // indirect
-	github.com/AzureAD/microsoft-authentication-library-for-go v1.7.2 // indirect
+	github.com/AzureAD/microsoft-authentication-library-for-go v1.8.0 // indirect
 	github.com/ChrisTrenkamp/goxpath v0.0.0-20210404020558-97928f7e12b6 // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
