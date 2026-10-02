@@ -584,6 +584,11 @@ var Tools = []Tool{
 		UrlTemplate:    `https://github.com/mattn/goreman/releases/download/{{.Version}}/goreman_{{.Version}}_{{.Os}}_{{.Arch}}.{{ if eq .Os "linux" }}tar.gz{{ else }}zip{{ end }}`,
 		SourcePath:     "goreman_{{.Version}}_{{.Os}}_{{.Arch}}/goreman",
 	},
+	{
+		Name:           "mailpit",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("axllent", "mailpit") },
+		UrlTemplate:    `https://github.com/axllent/mailpit/releases/download/{{.Version}}/mailpit-{{.Os}}-{{.Arch}}.{{ if eq .Os "windows" }}zip{{ else }}tar.gz{{ end }}`,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
