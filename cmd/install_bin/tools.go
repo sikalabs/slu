@@ -589,6 +589,11 @@ var Tools = []Tool{
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("axllent", "mailpit") },
 		UrlTemplate:    `https://github.com/axllent/mailpit/releases/download/{{.Version}}/mailpit-{{.Os}}-{{.Arch}}.{{ if eq .Os "windows" }}zip{{ else }}tar.gz{{ end }}`,
 	},
+	{
+		Name:           "herdr",
+		GetVersionFunc: func() string { return github_utils.GetLatestRelease("herdrdev", "herdr") },
+		UrlTemplate:    `https://github.com/herdrdev/herdr/releases/download/{{.Version}}/herdr-{{.OsK6}}-{{.ArchDocker}}{{ if eq .Os "windows" }}.zip{{ end }}`,
+	},
 }
 
 func hashicorpUrlTemplate(name string) string {
