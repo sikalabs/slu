@@ -31,6 +31,7 @@ func InstallBinForExternalGoUse(name string, version string, os string, arch str
 			func() string { return arch },
 			func() string { return binDir },
 			tool.RunBeforeInstall,
+			tool.DisableOs,
 		)
 	}
 }

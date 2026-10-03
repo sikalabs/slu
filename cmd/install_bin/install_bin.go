@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"runtime"
+	"slices"
 	"strings"
 	"text/template"
 
@@ -22,6 +23,7 @@ type Tool struct {
 	GetArchFunc      func(string) string
 	RunBeforeInstall func(string, string, string, string, string) error // name, version, os, arch, binDir
 	UrlTemplate      string
+	DisableOs        []string
 }
 
 var CmdFlagBinDir string
@@ -128,6 +130,7 @@ func buildCmd(
 	defaultArchFunc func() string,
 	defaultBinDirFunc func() string,
 	runBeforeInstall func(string, string, string, string, string) error,
+	disableOs []string,
 ) *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:     name,
@@ -150,6 +153,7 @@ func buildCmd(
 				defaultArchFunc,
 				defaultBinDirFunc,
 				runBeforeInstall,
+				disableOs,
 			)
 		},
 	}
@@ -222,6 +226,7 @@ func init() {
 			func() string { return CmdFlagArch },
 			func() string { return CmdFlagBinDir },
 			tool.RunBeforeInstall,
+			tool.DisableOs,
 		))
 	}
 }
@@ -271,7 +276,11 @@ func run(
 	defaultArchFunc func() string,
 	defaultBinDirFunc func() string,
 	runBeforeInstall func(string, string, string, string, string) error,
+	disableOs []string,
 ) {
+	if slices.Contains(disableOs, defaultOSFunc()) {
+		log.Fatalf("%s is not supported on %s\n", name, defaultOSFunc())
+	}
 	if sourceTemlate == "" {
 		sourceTemlate = name
 	}

@@ -593,6 +593,7 @@ var Tools = []Tool{
 		Name:           "herdr",
 		GetVersionFunc: func() string { return github_utils.GetLatestRelease("herdrdev", "herdr") },
 		UrlTemplate:    `https://github.com/herdrdev/herdr/releases/download/{{.Version}}/herdr-{{.OsK6}}-{{.ArchDocker}}{{ if eq .Os "windows" }}.zip{{ end }}`,
+		DisableOs:      []string{"windows"},
 	},
 }
 
