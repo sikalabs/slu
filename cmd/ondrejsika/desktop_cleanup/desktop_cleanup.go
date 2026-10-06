@@ -19,6 +19,7 @@ var FlagYesGoCleanModCache bool
 var FlagYesYarnCache bool
 var FlagTerraformPluginDir bool
 var FlagBrewCache bool
+var FlagBrewCleanup bool
 var FlagNoDockerPrune bool
 var FlagVirtualEnvs bool
 var FlagNotionCache bool
@@ -46,6 +47,9 @@ var Cmd = &cobra.Command{
 		}
 		if FlagBrewCache {
 			registerRm("./Library/Caches/Homebrew/*")
+		}
+		if FlagBrewCleanup {
+			registerSh("brew cleanup --prune=all")
 		}
 		if FlagYesGoPkgModCache {
 			registerRm("./go/pkg/mod/cache/*")
@@ -141,6 +145,12 @@ func init() {
 		"brew-cache",
 		false,
 		"Cleanup Brew cache (rm -rf ~/Library/Caches/Homebrew/*)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagBrewCleanup,
+		"brew-cleanup",
+		false,
+		"Cleanup Brew (brew cleanup --prune=all)",
 	)
 	Cmd.Flags().BoolVar(
 		&FlagNoDockerPrune,
