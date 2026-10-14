@@ -236,6 +236,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/backup"
 	_ "github.com/sikalabs/slu/cmd/scripts/counter"
 	_ "github.com/sikalabs/slu/cmd/scripts/create_k3d_cluster"
+	_ "github.com/sikalabs/slu/cmd/scripts/create_makefile"
 	_ "github.com/sikalabs/slu/cmd/scripts/do_sl_training_otp"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker"
 	_ "github.com/sikalabs/slu/cmd/scripts/docker/run_kafka"
