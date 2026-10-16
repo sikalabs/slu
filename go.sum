@@ -73,8 +73,8 @@ github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be/go.mod h1:ySMOLuW
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/aquasecurity/go-version v0.0.1 h1:4cNl516agK0TCn5F7mmYN+xVs1E3S45LkgZk3cbaW2E=
 github.com/aquasecurity/go-version v0.0.1/go.mod h1:s1UU6/v2hctXcOa3OLwfj5d9yoXHa3ahf+ipSwEvGT0=
-github.com/argoproj/argo-cd/v3 v3.3.10 h1:3QE36lhN/0ntjwl2TH13xL23w2J2AaXgC0Dxn0469h4=
-github.com/argoproj/argo-cd/v3 v3.3.10/go.mod h1:LdPjAnIFbx0khaB6vLsOKrGoSWeJ8kzOt//jF1ltCPg=
+github.com/argoproj/argo-cd/v3 v3.3.15 h1:I0OdhjsNnoG1qI5iatqtaTQUxWsSxPklo0z8yO2JRGA=
+github.com/argoproj/argo-cd/v3 v3.3.15/go.mod h1:EY6M6lLPcGMwIKYlVyLdb+fSPlxo6dlGIJ7WsxaZxrg=
 github.com/argoproj/gitops-engine v0.7.1-0.20250908182407-97ad5b59a627 h1:yntvA+uaFz62HRfWGGwlvs4ErdxoLQjCpDXufdEt2FI=
 github.com/argoproj/gitops-engine v0.7.1-0.20250908182407-97ad5b59a627/go.mod h1:yJ3t/GRn9Gx2LEyMrh9X0roL7zzVlk3nvuJt6G1o6jI=
 github.com/argoproj/pkg v0.13.7-0.20250305113207-cbc37dc61de5 h1:YBoLSjpoaJXaXAldVvBRKJuOPvIXz9UOv6S96gMJM/Q=
