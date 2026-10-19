@@ -77,16 +77,23 @@ func vaultInitUnseal(file, namespace, selector string, keyShares, keyThreshold i
 	if keyThreshold > keyShares {
 		log.Fatalf("Key threshold cannot be greater than key shares")
 	}
-	if _, err := os.Stat(file); err == nil {
-		log.Fatalf("File %s already exists, refusing to overwrite it", file)
-	}
 
 	podNames := getPods(namespace, selector)
 	if len(podNames) == 0 {
 		log.Fatalf("No Vault pods found in namespace %s (selector %s)", namespace, selector)
 	}
 
-	vaultKeys := vaultInit(podNames[0], file, namespace, keyShares, keyThreshold)
+	// Create the output file before vault init, so we never initialize Vault
+	// without a place to store the keys
+	f, err := os.OpenFile(file, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+	if err != nil {
+		if os.IsExist(err) {
+			log.Fatalf("File %s already exists, refusing to overwrite it", file)
+		}
+		log.Fatalf("Cannot create file %s: %v", file, err)
+	}
+
+	vaultKeys := vaultInit(podNames[0], f, namespace, keyShares, keyThreshold)
 	unsealKeys, threshold := extractVaultKeys(vaultKeys)
 
 	for _, podName := range podNames {
@@ -107,7 +114,7 @@ func getPods(namespace, selector string) []string {
 	return strings.Fields(string(output))
 }
 
-func vaultInit(pod, file, namespace string, keyShares, keyThreshold int) []byte {
+func vaultInit(pod string, f *os.File, namespace string, keyShares, keyThreshold int) []byte {
 	log.Printf("Executing vault init on pod %s in namespace %s\n", pod, namespace)
 	cmd := exec.Command(
 		"kubectl", "exec", pod, "-n", namespace, "--",
@@ -119,10 +126,15 @@ func vaultInit(pod, file, namespace string, keyShares, keyThreshold int) []byte 
 	cmd.Stderr = os.Stderr
 	output, err := cmd.Output()
 	if err != nil {
+		f.Close()
+		os.Remove(f.Name())
 		log.Fatalf("Error executing vault init command: %v\n", err)
 	}
 
-	err = os.WriteFile(file, output, 0600)
+	_, err = f.Write(output)
+	if err == nil {
+		err = f.Close()
+	}
 	if err != nil {
 		log.Printf("[WARNING] Error writing output to file: %v", err)
 		log.Printf("Output: %s\n", string(output))
