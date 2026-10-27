@@ -20,16 +20,37 @@ var FlagNamespace string
 var FlagDryRun bool
 var FlagDetached bool
 var FlagNoRoot bool
+var FlagRestricted bool
+
+type kdevSeccompProfile struct {
+	Type string `json:"type"`
+}
 
 type kdevSecurityContext struct {
-	RunAsUser    *int64 `json:"runAsUser,omitempty"`
-	RunAsGroup   *int64 `json:"runAsGroup,omitempty"`
-	RunAsNonRoot *bool  `json:"runAsNonRoot,omitempty"`
+	RunAsUser      *int64              `json:"runAsUser,omitempty"`
+	RunAsGroup     *int64              `json:"runAsGroup,omitempty"`
+	RunAsNonRoot   *bool               `json:"runAsNonRoot,omitempty"`
+	SeccompProfile *kdevSeccompProfile `json:"seccompProfile,omitempty"`
+}
+
+type kdevCapabilities struct {
+	Drop []string `json:"drop,omitempty"`
+}
+
+type kdevContainerSecurityContext struct {
+	AllowPrivilegeEscalation *bool             `json:"allowPrivilegeEscalation,omitempty"`
+	Capabilities             *kdevCapabilities `json:"capabilities,omitempty"`
+}
+
+type kdevContainer struct {
+	Name            string                        `json:"name"`
+	SecurityContext *kdevContainerSecurityContext `json:"securityContext,omitempty"`
 }
 
 type kdevPodSpec struct {
 	NodeName        string               `json:"nodeName,omitempty"`
 	SecurityContext *kdevSecurityContext `json:"securityContext,omitempty"`
+	Containers      []kdevContainer      `json:"containers,omitempty"`
 }
 
 type kdevOverrides struct {
@@ -41,8 +62,13 @@ var Cmd = &cobra.Command{
 	Short: "Run sikalabs/dev in Kubernetes",
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(c *cobra.Command, args []string) {
+		if FlagRestricted {
+			FlagNoRoot = true
+		}
+
+		podName := "dev-" + strconv.Itoa(time_utils.Unix())
 		kubectlRunArgs := []string{
-			"dev-" + strconv.Itoa(time_utils.Unix()),
+			podName,
 			"--image", FlagImage,
 		}
 
@@ -68,11 +94,33 @@ var Cmd = &cobra.Command{
 				}
 			}
 
+			if FlagRestricted {
+				allowPrivilegeEscalation := false
+				overrides.Spec.SecurityContext.SeccompProfile = &kdevSeccompProfile{
+					Type: "RuntimeDefault",
+				}
+				overrides.Spec.Containers = []kdevContainer{
+					{
+						Name: podName,
+						SecurityContext: &kdevContainerSecurityContext{
+							AllowPrivilegeEscalation: &allowPrivilegeEscalation,
+							Capabilities: &kdevCapabilities{
+								Drop: []string{"ALL"},
+							},
+						},
+					},
+				}
+			}
+
 			overridesJson, _ := json.Marshal(overrides)
 			kubectlRunArgs = append(
 				kubectlRunArgs,
 				"--overrides", string(overridesJson),
 			)
+			if FlagRestricted {
+				// merge containers by name instead of replacing the list
+				kubectlRunArgs = append(kubectlRunArgs, "--override-type", "strategic")
+			}
 		}
 
 		if FlagNamespace != "" {
@@ -151,5 +199,11 @@ func init() {
 		"no-root",
 		false,
 		"Run container as non-root user (uid/gid 1000)",
+	)
+	Cmd.Flags().BoolVar(
+		&FlagRestricted,
+		"restricted",
+		false,
+		"Run with securityContext compliant with PodSecurity \"restricted\" (implies --no-root)",
 	)
 }
