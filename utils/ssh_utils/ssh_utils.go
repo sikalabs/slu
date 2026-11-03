@@ -14,8 +14,8 @@ import (
 
 // https://stackoverflow.com/a/64178933/5281724
 
-func MakeSSHKeyPair() (string, string, error) {
-	privateKey, err := rsa.GenerateKey(rand.Reader, 1024)
+func MakeSSHKeyPair(bits int) (string, string, error) {
+	privateKey, err := rsa.GenerateKey(rand.Reader, bits)
 	if err != nil {
 		return "", "", err
 	}

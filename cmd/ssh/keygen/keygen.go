@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const DEFAULT_KEY_LENGTH = 2048
+const DEFAULT_KEY_LENGTH = 4096
 
 var FlagUseGo bool
 var FlagECDSA bool
@@ -26,7 +26,7 @@ var Cmd = &cobra.Command{
 		length := DEFAULT_KEY_LENGTH
 		if FlagUseGo {
 			// Go SSH key generation
-			pub, priv, err = ssh_utils.MakeSSHKeyPair()
+			pub, priv, err = ssh_utils.MakeSSHKeyPair(length)
 			if err != nil {
 				log.Fatalln(err)
 			}

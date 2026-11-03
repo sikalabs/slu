@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const DEFAULT_KEY_LENGTH = 2048
+const DEFAULT_KEY_LENGTH = 4096
 
 var FlagUseGo bool
 var FlagECDSA bool
