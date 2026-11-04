@@ -189,6 +189,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/mysql/ping"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/add_claude_md_from_sikalabs_slu"
+	_ "github.com/sikalabs/slu/cmd/ondrejsika/add_mit_license"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/caffeinate"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/clear_dns_cache_mac"
 	_ "github.com/sikalabs/slu/cmd/ondrejsika/dela"
