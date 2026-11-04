@@ -10,8 +10,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var FlagWithDash bool
+
 func init() {
 	parent_cmd.Cmd.AddCommand(Cmd)
+	Cmd.Flags().BoolVar(&FlagWithDash, "with-dash", false, "Print code as xxx-xxx")
 }
 
 var Cmd = &cobra.Command{
@@ -23,6 +26,10 @@ var Cmd = &cobra.Command{
 		if err != nil {
 			log.Fatal("Error generating OTP: ", err)
 		}
-		fmt.Printf("%s-%s\n", code[:3], code[3:])
+		if FlagWithDash {
+			fmt.Printf("%s-%s\n", code[:3], code[3:])
+		} else {
+			fmt.Println(code)
+		}
 	},
 }
