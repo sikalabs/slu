@@ -284,6 +284,7 @@ import (
 	_ "github.com/sikalabs/slu/cmd/scripts/nginx_log_generator"
 	_ "github.com/sikalabs/slu/cmd/scripts/open"
 	_ "github.com/sikalabs/slu/cmd/scripts/open/signpost"
+	_ "github.com/sikalabs/slu/cmd/scripts/otp"
 	_ "github.com/sikalabs/slu/cmd/scripts/podcast_rss_download"
 	_ "github.com/sikalabs/slu/cmd/scripts/proxy_protocol_server"
 	_ "github.com/sikalabs/slu/cmd/scripts/rename"
