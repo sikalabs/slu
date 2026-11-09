@@ -1,4 +1,4 @@
-FROM golang:1.25 AS build
+FROM golang:1.27 AS build
 WORKDIR /build
 COPY go.mod go.sum ./
 RUN \
@@ -8,7 +8,7 @@ COPY . .
 RUN \
   --mount=type=cache,target=/go/pkg/mod \
   --mount=type=cache,target=/root/.cache/go-build \
-  CGO_ENABLED=0 go build
+  CGO_ENABLED=0 go build -trimpath -ldflags="-s -w"
 
 FROM debian:13-slim
 COPY --from=build /build/slu /usr/local/bin/slu
