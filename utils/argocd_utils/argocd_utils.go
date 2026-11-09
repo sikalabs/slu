@@ -4,104 +4,81 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 
-	argocdclient "github.com/argoproj/argo-cd/v3/pkg/apiclient"
-	applicationpkg "github.com/argoproj/argo-cd/v3/pkg/apiclient/application"
-	argoappv1 "github.com/argoproj/argo-cd/v3/pkg/apis/application/v1alpha1"
-	"github.com/argoproj/argo-cd/v3/util/errors"
-	argoio "github.com/argoproj/argo-cd/v3/util/io"
-
-	sessionpkg "github.com/argoproj/argo-cd/v3/pkg/apiclient/session"
-	"github.com/argoproj/argo-cd/v3/util/io"
-
-	"github.com/sikalabs/slu/lib/vault_cfa_service_token"
 	"github.com/sikalabs/slu/utils/k8s"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-func ArgoCDGetToken(
-	ctx context.Context,
-	serverAddr string,
-	insecure bool,
-	username string,
-	password string,
-	cloudflareAccessTokenName string,
-) string {
-	headers := []string{}
-	grpcWeb := false
+const argoCDRefreshAnnotation = "argocd.argoproj.io/refresh"
 
-	if cloudflareAccessTokenName != "" {
-		clientID, clientSecret, err := vault_cfa_service_token.Get(cloudflareAccessTokenName)
-		if err != nil {
-			log.Fatal(err)
-		}
-		headers = cloudflareAccessHeaders(clientID, clientSecret)
-		grpcWeb = true
-	}
-
-	opts := argocdclient.ClientOptions{
-		ServerAddr: serverAddr,
-		Insecure:   insecure,
-		Headers:    headers,
-		GRPCWeb:    grpcWeb,
-	}
-
-	acdClient, err := argocdclient.NewClient(&opts)
-	errors.CheckError(err)
-	sessConn, sessionIf := acdClient.NewSessionClientOrDie()
-	defer io.Close(sessConn)
-
-	sessionRequest := sessionpkg.SessionCreateRequest{
-		Username: username,
-		Password: password,
-	}
-	createdSession, err := sessionIf.Create(ctx, &sessionRequest)
-	errors.CheckError(err)
-	return createdSession.Token
+var applicationGVR = schema.GroupVersionResource{
+	Group:    "argoproj.io",
+	Version:  "v1alpha1",
+	Resource: "applications",
 }
 
+// ArgoCDRefresh requests a refresh of an ArgoCD Application by setting the
+// argocd.argoproj.io/refresh annotation (refreshType is "normal" or "hard").
+// ArgoCD removes the annotation once the refresh is done; if wait > 0, it
+// waits up to that long for that to happen.
 func ArgoCDRefresh(
 	ctx context.Context,
-	serverAddr string,
-	insecure bool,
-	authToken string,
+	namespace string,
 	appName string,
-	cloudflareAccessTokenName string,
-) {
-	headers := []string{}
-	grpcWeb := false
-	if cloudflareAccessTokenName != "" {
-		clientID, clientSecret, err := vault_cfa_service_token.Get(cloudflareAccessTokenName)
+	refreshType string,
+	wait time.Duration,
+) error {
+	restconfig, err := kubeRestConfig()
+	if err != nil {
+		return err
+	}
+	dynamicClient, err := dynamic.NewForConfig(restconfig)
+	if err != nil {
+		return err
+	}
+	apps := dynamicClient.Resource(applicationGVR).Namespace(namespace)
+
+	patch := fmt.Sprintf(`{"metadata":{"annotations":{%q:%q}}}`, argoCDRefreshAnnotation, refreshType)
+	_, err = apps.Patch(ctx, appName, types.MergePatchType, []byte(patch), metav1.PatchOptions{})
+	if err != nil {
+		return err
+	}
+	if wait <= 0 {
+		return nil
+	}
+
+	ctx, cancel := context.WithTimeout(ctx, wait)
+	defer cancel()
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+	for {
+		app, err := apps.Get(ctx, appName, metav1.GetOptions{})
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
-		headers = cloudflareAccessHeaders(clientID, clientSecret)
-		grpcWeb = true
+		if _, ok := app.GetAnnotations()[argoCDRefreshAnnotation]; !ok {
+			return nil
+		}
+		select {
+		case <-ctx.Done():
+			return fmt.Errorf("timed out waiting for ArgoCD to refresh application '%s'", appName)
+		case <-ticker.C:
+		}
 	}
+}
 
-	opts := argocdclient.ClientOptions{
-		ServerAddr: serverAddr,
-		Insecure:   insecure,
-		AuthToken:  authToken,
-		Headers:    headers,
-		GRPCWeb:    grpcWeb,
-	}
-
-	acdClient, err := argocdclient.NewClient(&opts)
-	errors.CheckError(err)
-	conn, appIf := acdClient.NewApplicationClientOrDie()
-	defer argoio.Close(conn)
-
-	refreshType := string(argoappv1.RefreshTypeNormal)
-	_, err = appIf.Get(ctx, &applicationpkg.ApplicationQuery{
-		Name:    &appName,
-		Refresh: &refreshType,
-	})
-	errors.CheckError(err)
+func kubeRestConfig() (*rest.Config, error) {
+	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		clientcmd.NewDefaultClientConfigLoadingRules(),
+		&clientcmd.ConfigOverrides{},
+	).ClientConfig()
 }
 
 func ArgoCDGetInitialPassword(namespace string) string {
@@ -154,11 +131,7 @@ func ArgoCDGetDomain(namespace string) (string, error) {
 }
 
 func getOpenShiftGitOpsDomain() (string, error) {
-	kubeConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
-		clientcmd.NewDefaultClientConfigLoadingRules(),
-		&clientcmd.ConfigOverrides{},
-	)
-	restconfig, err := kubeConfig.ClientConfig()
+	restconfig, err := kubeRestConfig()
 	if err != nil {
 		return "", err
 	}
@@ -202,11 +175,4 @@ func ArgoCDGetDomainOrDie(namespace string) string {
 		log.Fatal(err)
 	}
 	return domain
-}
-
-func cloudflareAccessHeaders(clientID, clientSecret string) []string {
-	return []string{
-		"CF-Access-Client-Id:" + clientID,
-		"CF-Access-Client-Secret:" + clientSecret,
-	}
 }

@@ -1,84 +1,80 @@
 package refresh
 
 import (
+	"fmt"
+	"time"
+
 	argocd_cmd "github.com/sikalabs/slu/cmd/argocd"
 	"github.com/sikalabs/slu/utils/argocd_utils"
 
 	"github.com/spf13/cobra"
 )
 
-var FlagServerAddr string
-var FlagPassword string
-var FlagInsecure bool
-var FlagCFAccessServiceTokenName string
+var FlagNamespace string
+var FlagHard bool
+var FlagNoWait bool
+var FlagTimeout time.Duration
 
 var Cmd = &cobra.Command{
 	Use:     "refresh <app>",
-	Short:   "Refresh ArgoCD Application (get + refresh)",
+	Short:   "Refresh ArgoCD Application (using the refresh annotation)",
 	Aliases: []string{"r"},
 	Args:    cobra.ExactArgs(1),
 	Run: func(c *cobra.Command, args []string) {
 		appName := args[0]
 
-		// Lazy-load the ArgoCD domain if server flag is not provided
-		serverAddr := FlagServerAddr
-		if serverAddr == "" {
-			argoCDDomain, err := argocd_utils.ArgoCDGetDomain(FlagCFAccessServiceTokenName)
-			if err != nil {
-				cobra.CheckErr(err)
-			}
-			serverAddr = argoCDDomain
+		refreshType := "normal"
+		if FlagHard {
+			refreshType = "hard"
+		}
+		wait := FlagTimeout
+		if FlagNoWait {
+			wait = 0
 		}
 
-		password := FlagPassword
-		if password == "" {
-			password = argocd_utils.ArgoCDGetInitialPassword("argocd")
-		}
-		token := argocd_utils.ArgoCDGetToken(
-			c.Context(),
-			serverAddr,
-			FlagInsecure,
-			"admin",
-			password,
-			FlagCFAccessServiceTokenName,
-		)
-		argocd_utils.ArgoCDRefresh(
-			c.Context(),
-			serverAddr,
-			FlagInsecure,
-			token,
-			appName,
-			FlagCFAccessServiceTokenName,
-		)
+		err := argocd_utils.ArgoCDRefresh(c.Context(), FlagNamespace, appName, refreshType, wait)
+		cobra.CheckErr(err)
+		fmt.Printf("Application '%s' refreshed (%s)\n", appName, refreshType)
 	},
 }
 
 func init() {
 	argocd_cmd.Cmd.AddCommand(Cmd)
 	Cmd.Flags().StringVarP(
-		&FlagServerAddr,
-		"server",
-		"s",
-		"",
-		"ArgoCD server address (host:port)",
+		&FlagNamespace,
+		"namespace",
+		"n",
+		"argocd",
+		"Namespace of the ArgoCD Application",
 	)
 	Cmd.Flags().BoolVar(
-		&FlagInsecure,
-		"insecure",
+		&FlagHard,
+		"hard",
 		false,
-		"Insecure connection",
+		"Hard refresh (invalidate manifest cache)",
 	)
-	Cmd.Flags().StringVarP(
-		&FlagPassword,
-		"password",
-		"p",
-		"",
-		"ArgoCD server password",
+	Cmd.Flags().BoolVar(
+		&FlagNoWait,
+		"no-wait",
+		false,
+		"Do not wait for ArgoCD to finish the refresh",
 	)
-	Cmd.Flags().StringVar(
-		&FlagCFAccessServiceTokenName,
-		"service-token-name",
-		"",
-		"Cloudflare Access Service Token Name (in Vault)",
+	Cmd.Flags().DurationVar(
+		&FlagTimeout,
+		"timeout",
+		2*time.Minute,
+		"How long to wait for ArgoCD to finish the refresh",
 	)
+
+	// Deprecated flags from the API-based implementation, kept so existing
+	// scripts don't break. They are ignored.
+	var ignoredString string
+	var ignoredBool bool
+	Cmd.Flags().StringVarP(&ignoredString, "server", "s", "", "")
+	Cmd.Flags().BoolVar(&ignoredBool, "insecure", false, "")
+	Cmd.Flags().StringVarP(&ignoredString, "password", "p", "", "")
+	Cmd.Flags().StringVar(&ignoredString, "service-token-name", "", "")
+	for _, f := range []string{"server", "insecure", "password", "service-token-name"} {
+		Cmd.Flags().MarkDeprecated(f, "refresh now uses the Kubernetes API (refresh annotation), this flag is ignored")
+	}
 }
