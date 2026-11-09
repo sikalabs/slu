@@ -95,7 +95,7 @@ var Tools = []Tool{
 	{
 		Name:           "mcli",
 		GetVersionFunc: func() string { return "" },
-		UrlTemplate:    "https://dl.minio.io/client/mc/release/{{.Os}}-{{.Arch}}/mc",
+		UrlTemplate:    "https://github.com/pgsty/mc/releases/download/RELEASE.2026-11-09T00-00-00Z/mcli_20261109000000.0.0_{{.Os}}_{{.Arch}}.tar.gz",
 	},
 	{
 		Name:           "terraform",
