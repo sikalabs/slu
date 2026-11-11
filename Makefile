@@ -6,10 +6,10 @@ build:
 	go build
 
 build-linux-amd64:
-	GOOS=linux GOARCH=amd64 go build -o slu-linux-amd64
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o slu-linux-amd64 -trimpath -ldflags="-s -w"
 
 build-darwin-arm64:
-	GOOS=darwin GOARCH=arm64 go build -o slu-darwin-arm64
+	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o slu-darwin-arm64 -trimpath -ldflags="-s -w"
 
 build-and-scp:
 ifndef TO
