@@ -1,3 +1,5 @@
+default: build
+
 -include Makefile.local.mk
 
 build:
