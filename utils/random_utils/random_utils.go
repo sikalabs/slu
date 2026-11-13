@@ -1,8 +1,8 @@
 package random_utils
 
 import (
-	"math/rand"
-	"time"
+	"crypto/rand"
+	"math/big"
 )
 
 const (
@@ -12,11 +12,19 @@ const (
 	ALL    = LOWER + UPPER + DIGITS
 )
 
+// randomIntn returns a cryptographically secure random int in [0, n).
+func randomIntn(n int) int {
+	v, err := rand.Int(rand.Reader, big.NewInt(int64(n)))
+	if err != nil {
+		panic(err)
+	}
+	return int(v.Int64())
+}
+
 func RandomString(length int, chars string) string {
 	if chars == "" {
 		chars = LOWER + DIGITS
 	}
-	rand.Seed(time.Now().UnixNano())
 	ll := len(chars)
 	b := make([]byte, length)
 	rand.Read(b) // generates len(b) random bytes
@@ -27,11 +35,9 @@ func RandomString(length int, chars string) string {
 }
 
 func RandomInt(min int, max int) int {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(max+min) - min
+	return randomIntn(max+min) - min
 }
 
 func RandomBool() bool {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(2) == 0
+	return randomIntn(2) == 0
 }

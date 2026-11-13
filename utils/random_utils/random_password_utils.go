@@ -2,7 +2,6 @@ package random_utils
 
 import (
 	"fmt"
-	"math/rand"
 	"strings"
 	"unicode"
 )
@@ -23,7 +22,7 @@ func RandomPassword() (string, error) {
 func RandomHumanReadablePassword() string {
 	words := make([]string, 4)
 	for i := range words {
-		words[i] = capitalize(BIP39_WORDS[rand.Intn(len(BIP39_WORDS))]) + fmt.Sprintf("%02d", rand.Intn(100))
+		words[i] = capitalize(BIP39_WORDS[randomIntn(len(BIP39_WORDS))]) + fmt.Sprintf("%02d", randomIntn(100))
 	}
 
 	result := strings.Join(words, "_")
