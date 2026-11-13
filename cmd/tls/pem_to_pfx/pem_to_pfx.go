@@ -58,7 +58,7 @@ var Cmd = &cobra.Command{
 		}
 
 		// see if pfxBytes valid
-		_, _, _, err = pkcs12.DecodeChain(pfxBytes, pkcs12.DefaultPassword)
+		_, _, _, err = pkcs12.DecodeChain(pfxBytes, FlagPassword)
 		if err != nil {
 			log.Fatal(err)
 		}
