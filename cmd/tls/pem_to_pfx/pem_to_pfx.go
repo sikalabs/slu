@@ -63,10 +63,16 @@ var Cmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
+		// PFX contains the private key, make it readable only by the owner
+		// (also when overwriting an existing file)
+		err = os.Chmod(FlagOutput, 0600)
+		if err != nil && !os.IsNotExist(err) {
+			log.Fatal(err)
+		}
 		err = os.WriteFile(
 			FlagOutput,
 			pfxBytes,
-			os.ModePerm,
+			0600,
 		)
 		if err != nil {
 			log.Fatal(err)
