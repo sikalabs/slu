@@ -33,7 +33,7 @@ func RandomString(length int, chars string) string {
 }
 
 func RandomInt(min int, max int) int {
-	return randomIntn(max+min) - min
+	return min + randomIntn(max-min)
 }
 
 func RandomBool() bool {
