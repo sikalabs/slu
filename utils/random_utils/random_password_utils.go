@@ -40,7 +40,7 @@ func containsLowercase(s string) bool {
 
 func containsUpercase(s string) bool {
 	for _, r := range s {
-		if unicode.IsLower(r) {
+		if unicode.IsUpper(r) {
 			return true
 		}
 	}
