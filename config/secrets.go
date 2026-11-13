@@ -33,5 +33,5 @@ func ReadSecrets() SluSecrets {
 
 func WriteSecrets(s SluSecrets) {
 	configFile, _ := GetSluSecretFilePath()
-	json_utils.WriteJsonFile(configFile, s)
+	json_utils.WriteJsonFileWithMode(configFile, s, 0600)
 }
