@@ -16,6 +16,7 @@ func RandomPassword() (string, error) {
 		if i > 20 {
 			return "", fmt.Errorf("cannot generate password")
 		}
+		i++
 	}
 }
 
