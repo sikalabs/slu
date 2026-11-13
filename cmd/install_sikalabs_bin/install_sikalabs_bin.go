@@ -3,6 +3,7 @@ package install_sikalabs_bin
 import (
 	"fmt"
 	"runtime"
+	"time"
 
 	"github.com/sikalabs/slu/cmd/root"
 	"github.com/sikalabs/slu/utils/install_bin_utils"
@@ -12,6 +13,7 @@ import (
 var CmdFlagOS string
 var CmdFlagArch string
 var CmdFlagBinDir string
+var CmdFlagNoCache bool
 
 var Cmd = &cobra.Command{
 	Use:     "install-sikalabs-bin <name>",
@@ -26,6 +28,9 @@ var Cmd = &cobra.Command{
 			CmdFlagOS,
 			CmdFlagArch,
 		)
+		if CmdFlagNoCache {
+			url = fmt.Sprintf("%s?nocache=%d", url, time.Now().UnixNano())
+		}
 		install_bin_utils.InstallBin(
 			url,
 			name,
@@ -63,5 +68,11 @@ func init() {
 		"d",
 		defaultBinDir,
 		"Binary dir",
+	)
+	Cmd.Flags().BoolVar(
+		&CmdFlagNoCache,
+		"no-cache",
+		false,
+		"Bypass CDN cache by adding random query string to URL",
 	)
 }
