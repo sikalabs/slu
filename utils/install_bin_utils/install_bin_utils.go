@@ -78,7 +78,7 @@ func webToBin(url string, headers map[string]string, outFileName string) {
 		fmt.Sprintf("Failed to download %s: HTTP %s", url, resp.Status),
 	)
 
-	outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 0755)
+	outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0755)
 	error_utils.HandleError(err, "Failed to create output file")
 	defer outFile.Close()
 
