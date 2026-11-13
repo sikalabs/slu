@@ -22,6 +22,8 @@ func WebZipToBin(url, inZipFileName string, headers map[string]string, outFileNa
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
+	error_utils.HandleError(err, "Failed to execute HTTP request")
+	defer resp.Body.Close()
 
 	tmpInFile, err := os.CreateTemp("", "go-zip-example")
 	error_utils.HandleError(err, "Failed to create temp file")

@@ -23,6 +23,8 @@ func WebTarGzToBin(url, inTarGzFileName string, headers map[string]string, outFi
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
+	error_utils.HandleError(err, "Failed to execute HTTP request")
+	defer resp.Body.Close()
 
 	uncompressedStream, err := gzip.NewReader(resp.Body)
 	error_utils.HandleError(err, "Failed to create gzip reader")
