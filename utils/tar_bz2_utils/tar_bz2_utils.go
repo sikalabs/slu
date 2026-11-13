@@ -25,6 +25,10 @@ func WebTarBz2ToBin(url, inTarBz2FileName string, headers map[string]string, out
 	resp, err := client.Do(req)
 	error_utils.HandleError(err, "Failed to execute HTTP request")
 	defer resp.Body.Close()
+	error_utils.HandleNotOK(
+		resp.StatusCode == http.StatusOK,
+		fmt.Sprintf("Failed to download %s: HTTP %s", url, resp.Status),
+	)
 
 	uncompressedStream := bzip2.NewReader(resp.Body)
 	tarReader := tar.NewReader(uncompressedStream)

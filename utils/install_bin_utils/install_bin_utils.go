@@ -1,6 +1,7 @@
 package install_bin_utils
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -72,6 +73,10 @@ func webToBin(url string, headers map[string]string, outFileName string) {
 	resp, err := client.Do(req)
 	error_utils.HandleError(err, "Failed to execute HTTP request")
 	defer resp.Body.Close()
+	error_utils.HandleNotOK(
+		resp.StatusCode == http.StatusOK,
+		fmt.Sprintf("Failed to download %s: HTTP %s", url, resp.Status),
+	)
 
 	outFile, err := os.OpenFile(outFileName, os.O_CREATE|os.O_WRONLY, 0755)
 	error_utils.HandleError(err, "Failed to create output file")
